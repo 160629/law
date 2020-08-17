@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chinatower.product.legalms.modules.filecommon.mapper.filecommon.FileShareMapper">
+    <resultMap id="BaseResultMap" type="com.chinatower.product.legalms.modules.filecommon.vo.filecommon.FileShareVO">
+        <id column="file_share_id" property="fileShareId" jdbcType="VARCHAR" />
+        <result column="file_type" property="fileType" jdbcType="BIGINT" />
+        <result column="file_share_business_key" property="fileShareBusinessKey" jdbcType="VARCHAR" />
+        <result column="file_share_type" property="fileShareType" jdbcType="VARCHAR" />
+        <result column="file_share_status_upd_user_id" property="fileShareStatusUpdUserId" jdbcType="VARCHAR" />
+        <result column="file_order" property="fileOrder" jdbcType="BIGINT" />
+        <result column="file_share_status" property="fileShareStatus" jdbcType="VARCHAR" />
+        <result column="file_share_status_upd_time" property="fileShareStatusUpdTime" jdbcType="TIMESTAMP" />
+        <result column="file_remark" property="fileRemark" jdbcType="VARCHAR" />
+        <result column="file_id" property="fileId" jdbcType="VARCHAR" />
+
+        <result column="process_inst_id" property="processInstId" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <insert id="insertFileShare" parameterType="com.chinatower.product.legalms.modules.filecommon.vo.filecommon.FileShareVO">
+    insert into t_file_share (
+           file_share_id,file_type,file_share_business_key,file_share_type,file_share_status_upd_user_id,file_order,
+                file_share_status,file_share_status_upd_time,file_remark,file_id,process_inst_id)
+       values (
+            #{fileShareId},#{fileType},#{fileShareBusinessKey},#{fileShareType},#{fileShareStatusUpdUserId},#{fileOrder},
+                #{fileShareStatus},#{fileShareStatusUpdTime},#{fileRemark},#{fileId},#{processInstId})
+  </insert>
+
+    <delete id="delectFileShare">
+        delete from t_file_share where file_share_id=#{fileShareId}
+    </delete>
+
+    <delete id="delectShareArr">
+        delete from t_file_share where file_share_id IN
+        (<foreach collection="delIds" item="id" index = 'index' separator=",">
+        #{id}
+    </foreach>)
+    </delete>
+
+    <insert id="addshareVos">
+        insert into t_file_share
+        (file_share_id,file_type,file_share_business_key,file_share_type,file_share_status_upd_user_id,file_order,
+        file_share_status,file_share_status_upd_time,file_remark,file_id,process_inst_id) values
+        <foreach item="item" index="index" collection="shareVos" separator=",">
+            (#{item.fileShareId},
+            #{item.fileType},
+            #{item.fileShareBusinessKey},
+            #{item.fileShareType},
+            #{item.fileShareStatusUpdUserId},
+            #{item.fileOrder},
+            #{item.fileShareStatus},
+            #{item.fileShareStatusUpdTime},
+            #{item.fileRemark},
+            #{item.fileId},#{processInstId})
+        </foreach>
+    </insert>
+
+</mapper>

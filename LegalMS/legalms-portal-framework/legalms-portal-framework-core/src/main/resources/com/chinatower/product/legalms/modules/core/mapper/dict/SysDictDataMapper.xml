@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chinatower.product.legalms.mapper.dict.SysDictDataVOMapper">
+    <resultMap id="BaseResultMap" type="com.chinatower.product.legalms.vo.dict.SysDictDataVO">
+        <id column="dict_code" property="dictCode" jdbcType="VARCHAR" />
+        <result column="dict_sort" property="dictSort" jdbcType="VARCHAR" />
+        <result column="dict_cabel" property="dictCabel" jdbcType="VARCHAR" />
+        <result column="dict_value" property="dictValue" jdbcType="VARCHAR" />
+        <result column="dict_type" property="dictType" jdbcType="VARCHAR" />
+        <result column="css_class" property="cssClass" jdbcType="VARCHAR" />
+        <result column="is_default" property="isDefault" jdbcType="VARCHAR" />
+        <result column="status" property="status" jdbcType="VARCHAR" />
+        <result column="create_by" property="createBy" jdbcType="VARCHAR" />
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+        <result column="update_by" property="updateBy" jdbcType="VARCHAR" />
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+        <result column="remark" property="remark" jdbcType="VARCHAR" />
+        <result column="dict_parent_code" property="dictParentCode" jdbcType="VARCHAR" />
+    </resultMap>
+
+    <select id="selectdictById" resultMap="BaseResultMap" parameterType="Integer">
+        SELECT d.* from t_sys_dict_data d ,t_sys_dict_type t
+        where d.dict_type = t.dict_type
+        and t.dict_id = #{dictId}
+    </select>
+    <select id="selectdictByType" resultMap="BaseResultMap" parameterType="String">
+        SELECT d.* from t_sys_dict_data d
+        where
+        d.dict_type = #{dictType}
+        order by dict_sort asc
+    </select>
+
+    <select id="selectdictByTypeNotSort" resultType="String" parameterType="String">
+        SELECT d.dict_value from t_sys_dict_data d where d.dict_type = #{dictType}
+    </select>
+
+    <select id="selectSysDictData" resultMap="BaseResultMap">
+        select
+              dict_code,dict_sort,dict_cabel,dict_value,dict_type,css_class
+               is_default,status,create_by,create_time,update_by,update_time,remark
+         from t_sys_dict_data where status = '0' order by dict_sort
+    </select>
+    <insert id="addSysDictData">
+        insert into t_sys_dict_data
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="dictCode != null" > dict_code, </if>
+            <if test="dictSort != null" > dict_sort, </if>
+            <if test="dictCabel != null" > dict_cabel, </if>
+            <if test="dictValue != null" > dict_value, </if>
+            <if test="dictType != null" > dict_type, </if>
+            <if test="cssClass != null" > css_class, </if>
+            <if test="isDefault != null" > is_default, </if>
+            <if test="status != null" > status, </if>
+            <if test="createBy != null" > create_by, </if>
+            create_time,
+            <if test="updateBy != null" > update_by, </if>
+            <if test="updateTime != null" > update_time, </if>
+            <if test="remark != null" > remark, </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="dictCode != null" > #{dictCode,jdbcType=VARCHAR}, </if>
+            <if test="dictSort != null" > #{dictSort,jdbcType=VARCHAR}, </if>
+            <if test="dictCabel != null" > #{dictCabel,jdbcType=VARCHAR}, </if>
+            <if test="dictValue != null" > #{dictValue,jdbcType=VARCHAR}, </if>
+            <if test="dictType != null" > #{dictType,jdbcType=VARCHAR}, </if>
+            <if test="cssClass != null" > #{cssClass,jdbcType=VARCHAR}, </if>
+            <if test="isDefault != null" > #{isDefault,jdbcType=VARCHAR}, </if>
+            <if test="status != null" > #{status,jdbcType=VARCHAR}, </if>
+            <if test="createBy != null" > #{createBy,jdbcType=VARCHAR}, </if>
+            now(),
+            <if test="updateBy != null" > #{updateBy,jdbcType=VARCHAR}, </if>
+            <if test="updateTime != null" > #{updateTime,jdbcType=TIMESTAMP}, </if>
+            <if test="remark != null" > #{remark,jdbcType=VARCHAR}, </if>
+        </trim>
+    </insert>
+
+    <update id="updateSysDictData">
+        update t_sys_dict_data
+        <set>
+            <if test="dictSort != null">dict_sort = #{dictSort,jdbcType=VARCHAR},</if>
+            <if test="dictCabel != null">dict_cabel = #{dictCabel,jdbcType=VARCHAR},</if>
+            <if test="dictValue != null">dict_value = #{dictValue,jdbcType=VARCHAR},</if>
+            <if test="dictType != null">dict_type = #{dictType,jdbcType=VARCHAR},</if>
+            <if test="cssClass != null">css_class = #{cssClass,jdbcType=VARCHAR},</if>
+            <if test="isDefault != null">is_default = #{isDefault,jdbcType=VARCHAR},</if>
+            <if test="status != null">status = #{status,jdbcType=VARCHAR},</if>
+            <if test="createBy != null">create_by = #{createBy,jdbcType=VARCHAR},</if>
+            <if test="createTime != null">create_time = #{createTime,jdbcType=TIMESTAMP},</if>
+            <if test="updateBy != null">update_by = #{updateBy,jdbcType=VARCHAR},</if>
+            update_time = now(),
+            <if test="remark != null">remark = #{remark,jdbcType=VARCHAR},</if>
+        </set>
+        where dict_code = #{dictCode,jdbcType=VARCHAR}
+    </update>
+
+    <update id="deleteSysDictData">
+        DELETE t_sys_dict_data
+        FROM t_sys_dict_data
+        where 1=1
+        <if test="dictCode != null" > and dict_code = #{dictCode,jdbcType=VARCHAR} </if>
+        <if test="dictType != null" > and dict_type = #{dictType,jdbcType=VARCHAR} </if>
+    </update>
+</mapper>

@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper
+        namespace="com.chinatower.product.legalms.modules.flow.mapper.version.FlowVersionMapper">
+
+    <insert id="insertRecord" parameterType="com.chinatower.product.legalms.modules.flow.entity.version.FlowVersion">
+        insert into t_flow_activity_package
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="flowVersion.versionId != null">
+                version_id,
+            </if>
+            <if test="flowVersion.flowId != null and flowVersion.flowId != ''">
+                flow_id,
+            </if>
+            <if test="flowVersion.flowName != null and flowVersion.flowName != ''">
+                flow_name,
+            </if>
+            <if test="flowVersion.createAccountId != null">
+                create_account_id,
+            </if>
+            create_time,
+            is_now
+        </trim>
+        <trim prefix="values(" suffix=")" suffixOverrides=",">
+            <if test="flowVersion.versionId != null">
+                #{flowVersion.versionId},
+            </if>
+            <if test="flowVersion.flowId != null and flowVersion.flowId != ''">
+                #{flowVersion.flowId},
+            </if>
+            <if test="flowVersion.flowName != null and flowVersion.flowName != ''">
+                #{flowVersion.flowName},
+            </if>
+            <if test="flowVersion.createAccountId != null">
+                #{flowVersion.createAccountId},
+            </if>
+            NOW(),
+            1
+        </trim>
+    </insert>
+    <insert id="insertPowers" parameterType="com.chinatower.product.legalms.modules.flow.entity.common.FlowActivityPowerVO">
+        insert into t_flow_activity_power
+            (
+                flow_id,
+                flow_name,
+                act_id,
+                act_name,
+                permission_json,
+                role_ids,
+                org_ids,
+                version_id
+            )
+        values
+        <foreach collection="flowActivityPowerVOS" open="(" close=")" item="flowActivityPowerVO" separator=",">
+            (
+                #{flowActivityPowerVO.flowId},
+                #{flowActivityPowerVO.flowName},
+                #{flowActivityPowerVO.actId},
+                #{flowActivityPowerVO.actName},
+                #{flowActivityPowerVO.permissionJson},
+                #{flowActivityPowerVO.roleIds},
+                #{flowActivityPowerVO.orgIds},
+                #{flowActivityPowerVO.versionId}
+            )
+        </foreach>
+    </insert>
+    <insert id="insertConfigs" parameterType="com.chinatower.product.legalms.modules.flow.entity.common.FlowActivityConfigVO">
+        insert into t_flow_activity_config
+            (
+                flow_id,
+                begin_id,
+                begin_name,
+                end_id,
+                end_name,
+                line_name,
+                condition,
+                order,
+                hidden,
+                is_mut,
+                is_countersign,
+                important_level,
+                handover_level,
+                is_return,
+                version_id
+            )
+        values
+        <foreach collection="flowActivityConfigVOS" open="(" close=")" item="flowActivityConfigVO" separator=",">
+            (
+                #{flowActivityConfigVO.flowId},
+                #{flowActivityConfigVO.beginId},
+                #{flowActivityConfigVO.beginName},
+                #{flowActivityConfigVO.endId},
+                #{flowActivityConfigVO.endName},
+                #{flowActivityConfigVO.lineName},
+                #{flowActivityConfigVO.condition},
+                #{flowActivityConfigVO.order},
+                #{flowActivityConfigVO.hidden},
+                #{flowActivityConfigVO.isMut},
+                #{flowActivityConfigVO.isCountersign},
+                #{flowActivityConfigVO.importantLevel},
+                #{flowActivityConfigVO.handoverLevel},
+                #{flowActivityConfigVO.isReturn},
+                #{flowActivityConfigVO.versionId}
+            )
+        </foreach>
+    </insert>
+    <update id="updateRecord" parameterType="com.chinatower.product.legalms.modules.flow.entity.version.FlowVersion">
+        update t_flow_activity_package
+        <set>
+            <if test="flowVersion.versionId != null">
+                version_id = #{flowVersion.versionId},
+            </if>
+            <if test="flowVersion.flowId != null and flowVersion.flowId != ''">
+                flow_id = #{flowVersion.flowId},
+            </if>
+            <if test="flowVersion.flowName != null and flowVersion.flowName != ''">
+                flow_name = #{flowVersion.flowName},
+            </if>
+            <if test="flowVersion.createAccountId != null and flowVersion.createAccountId != ''">
+                create_account_id = #{flowVersion.createAccountId},
+            </if>
+            <if test="flowVersion.isNow != null and flowVersion.isNow != ''">
+                is_now = #{flowVersion.isNow},
+            </if>
+        </set>
+        where id = #{flowVersion.id}
+    </update>
+    <resultMap id="FLowVersionMap"
+               type="com.chinatower.product.legalms.modules.flow.entity.version.FlowVersion">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="version_id" jdbcType="INTEGER" property="versionId"/>
+        <result column="flow_id" jdbcType="VARCHAR" property="flowId"/>
+        <result column="flow_name" jdbcType="VARCHAR" property="flowName"/>
+        <result column="create_account_id" jdbcType="VARCHAR" property="createAccountId"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="is_now" jdbcType="VARCHAR" property="isNow"/>
+    </resultMap>
+    <select id="selectAllRecords" resultMap="FLowVersionMap">
+        select * from t_flow_activity_package
+        order by flow_id, version_id
+    </select>
+    <select id="selectRecordById"
+            parameterType="com.chinatower.product.legalms.modules.flow.entity.version.FlowVersion"
+            resultMap="FLowVersionMap">
+        select * from t_flow_activity_package
+        <where>
+            <if test="flowVersion.versionId != null">
+                and version_id = #{flowVersion.versionId},
+            </if>
+            <if test="flowVersion.flowId != null and flowVersion.flowId != ''">
+                and flow_id = #{flowVersion.flowId},
+            </if>
+            <if test="flowVersion.flowName != null and flowVersion.flowName != ''">
+                and flow_name = #{flowVersion.flowName},
+            </if>
+            <if test="flowVersion.createAccountId != null and flowVersion.createAccountId != ''">
+                and create_account_id = #{flowVersion.createAccountId},
+            </if>
+            <if test="flowVersion.isNow != null and flowVersion.isNow != ''">
+                and is_now = #{flowVersion.isNow},
+            </if>
+        </where>
+    </select>
+    <resultMap id="FLowActivityPowerMap" type="com.chinatower.product.legalms.modules.flow.entity.common.FlowActivityPowerVO">
+        <result column="flow_id"  property="flowId" jdbcType="VARCHAR" />
+        <result column="flow_name"  property="flowName" jdbcType="VARCHAR" />
+        <result column="act_id"  property="actId" jdbcType="VARCHAR" />
+        <result column="act_name"  property="actName" jdbcType="VARCHAR" />
+        <result column="permission_json" property="permissionJson" jdbcType="VARCHAR"/>
+        <result column="role_ids"  property="roleIds" jdbcType="VARCHAR" />
+        <result column="org_ids"  property="orgIds" jdbcType="VARCHAR" />
+        <result column="version_id"  property="versionId" jdbcType="INTEGER" />
+    </resultMap>
+    <select id="selectFromPowerByFlowId"
+            resultMap="FLowActivityPowerMap">
+        select * from t_flow_activity_power
+        where flow_id = #{flowId}
+    </select>
+    <resultMap id="FLowActivityConfigMap" type="com.chinatower.product.legalms.modules.flow.entity.common.FlowActivityConfigVO">
+        <id column="id" property="id" jdbcType="VARCHAR" />
+        <result column="flow_id"  property="flowId" jdbcType="VARCHAR" />
+        <result column="begin_id" property="beginId" jdbcType="VARCHAR" />
+        <result column="begin_name" property="beginName" jdbcType="VARCHAR" />
+        <result column="end_id" property="endId" jdbcType="BIGINT"/>
+        <result column="end_name" property="endName" jdbcType="VARCHAR"/>
+        <result column="condition" property="condition" jdbcType="VARCHAR"/>
+        <result column="order" property="order" jdbcType="BIGINT"/>
+        <result column="hidden" property="hidden" jdbcType="VARCHAR"/>
+        <result column="is_mut" property="isMut" jdbcType="VARCHAR"/>
+        <result column="is_countersign" property="isCountersign" jdbcType="VARCHAR"/>
+        <result column="important_level" property="importantLevel" jdbcType="VARCHAR"/>
+        <result column="handover_level" property="handoverLevel" jdbcType="VARCHAR"/>
+        <result column="line_name" property="lineName" jdbcType="VARCHAR"/>
+        <result column="is_return" property="isReturn" jdbcType="VARCHAR"/>
+        <result column="version_id" property="versionId" jdbcType="INTEGER"/>
+    </resultMap>
+    <select id="selectFromConfigByFlowId"
+            resultMap="FLowActivityConfigMap">
+        select * from t_flow_activity_config
+        where flow_id = #{flowId}
+    </select>
+    <select id="selectLatestVersion" resultMap="FLowVersionMap">
+        select * from t_flow_activity_package
+        where is_now = '1' and flow_id = #{flowId}
+    </select>
+</mapper>

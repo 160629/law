@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper
+        namespace="com.chinatower.product.legalms.modules.dispute.mapper.assist.TIssueAssistRelationMapper">
+    <insert id="insertRelation"
+            parameterType="com.chinatower.product.legalms.modules.dispute.entity.assist.TIssueAssistRelation">
+        insert into t_issue_assist_relation
+        <trim prefix="(" suffix=")" prefixOverrides=",">
+            <if test="tIssueAssistRelation.id != null and tIssueAssistRelation.id != ''">
+                id,
+            </if>
+            <if test="tIssueAssistRelation.assistId != null and tIssueAssistRelation.assistId != ''">
+                assist_id,
+            </if>
+            <if test="tIssueAssistRelation.assistParentId != null and tIssueAssistRelation.assistParentId != ''">
+                assist_parent_id,
+            </if>
+            <if test="tIssueAssistRelation.orgId != null and tIssueAssistRelation.orgId != ''">
+                org_id,
+            </if>
+            <if test="tIssueAssistRelation.flowId != null and tIssueAssistRelation.flowId != ''">
+                flow_id,
+            </if>
+            create_time,
+            modify_time
+        </trim>
+        <trim prefix=" Values(" suffix=")" prefixOverrides=",">
+            <if test="tIssueAssistRelation.id != null and tIssueAssistRelation.id != ''">
+                #{tIssueAssistRelation.id, jdbcType=VARCHAR},
+            </if>
+            <if test="tIssueAssistRelation.assistId != null and tIssueAssistRelation.assistId != ''">
+                #{tIssueAssistRelation.assistId, jdbcType=VARCHAR},
+            </if>
+            <if test="tIssueAssistRelation.assistParentId != null and tIssueAssistRelation.assistParentId != ''">
+                #{tIssueAssistRelation.assistParentId, jdbcType=VARCHAR},
+            </if>
+            <if test="tIssueAssistRelation.orgId != null and tIssueAssistRelation.orgId != ''">
+                #{tIssueAssistRelation.orgId, jdbcType=VARCHAR},
+            </if>
+            <if test="tIssueAssistRelation.flowId != null and tIssueAssistRelation.flowId != ''">
+                #{tIssueAssistRelation.flowId, jdbcType=VARCHAR},
+            </if>
+            NOW(),
+            NOW()
+        </trim>
+    </insert>
+    <delete id="deleteRelation">
+        delete from t_issue_assist_relation
+        where assist_id = #{tIssueAssistRelation.assistId, jdbcType=VARCHAR}
+        and assist_parent_id = #{tIssueAssistRelation.assistParentId, jdbcType=VARCHAR}
+    </delete>
+    <resultMap id="BaseMap" type="com.chinatower.product.legalms.modules.dispute.entity.assist.TIssueAssistRelation">
+        <id column="id" property="id" jdbcType="VARCHAR"/>
+        <result column="assist_id" property="assistId" jdbcType="VARCHAR"/>
+        <result column="assist_id" property="assistId" jdbcType="VARCHAR"/>
+        <result column="title" property="assistTitle" jdbcType="VARCHAR"/>
+        <result column="assist_parent_id" property="assistParentId" jdbcType="VARCHAR"/>
+        <result column="org_id" property="orgId" jdbcType="VARCHAR"/>
+        <result column="flow_id" property="flowId" jdbcType="VARCHAR"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="modify_time" property="modifyTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+    <select id="selectRelationByAssistPid" resultMap="BaseMap">
+        select
+        tiar.id,
+        tiar.assist_id,
+        tia.title,
+        tiar.assist_parent_id,
+        tiar.org_id,
+        tiar.flow_id,
+        tiar.create_time,
+        tiar.modify_time
+        from t_issue_assist_relation tiar left join t_issue_assist tia on tiar.assist_id = tia.id
+        where assist_parent_id = #{assistId, jdbcType=VARCHAR}
+    </select>
+</mapper>

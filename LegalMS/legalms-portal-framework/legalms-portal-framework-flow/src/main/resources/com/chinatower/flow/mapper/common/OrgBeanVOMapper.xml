@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chinatower.product.legalms.modules.flow.mapper.common.OrgBeanMapper">
+    <resultMap id="BaseResultMap" type="com.chinatower.product.legalms.modules.flow.entity.common.OrgBeanVO">
+        <id column="org_id" property="orgId" jdbcType="VARCHAR"/>
+        <result column="org_id" property="orgId" jdbcType="VARCHAR"/>
+        <result column="org_id_old" property="orgIdOld" jdbcType="VARCHAR"/>
+        <result column="org_name" property="orgName" jdbcType="VARCHAR"/>
+        <result column="org_vulgo" property="orgVulgo" jdbcType="VARCHAR"/>
+        <result column="org_code" property="orgCode" jdbcType="VARCHAR"/>
+        <result column="org_parent_id" property="orgParentId" jdbcType="VARCHAR"/>
+        <result column="org_parent_id_old" property="orgParentIdOld" jdbcType="VARCHAR"/>
+        <result column="org_tree_level" property="orgTreeLevel" jdbcType="DOUBLE"/>
+        <result column="org_type" property="orgType" jdbcType="VARCHAR"/>
+        <result column="org_unit_id" property="orgUnitId" jdbcType="VARCHAR"/>
+        <result column="org_dept_id" property="orgDeptId" jdbcType="VARCHAR"/>
+        <result column="org_dept_id_old" property="orgDeptIdOld" jdbcType="VARCHAR"/>
+        <result column="org_abbreviation_cn" property="orgAbbreviationCn" jdbcType="VARCHAR"/>
+        <result column="org_abbreviation_en" property="orgAbbreviationEn" jdbcType="VARCHAR"/>
+        <result column="org_station_cn" property="orgStationCn" jdbcType="VARCHAR"/>
+        <result column="org_station_en" property="orgStationEn" jdbcType="VARCHAR"/>
+        <result column="org_email" property="orgEmail" jdbcType="VARCHAR"/>
+        <result column="org_fax" property="orgFax" jdbcType="VARCHAR"/>
+        <result column="org_phone" property="orgPhone" jdbcType="VARCHAR"/>
+        <result column="org_order" property="orgOrder" jdbcType="INTEGER"/>
+        <result column="org_status" property="orgStatus" jdbcType="VARCHAR"/>
+        <result column="org_status_update_time" property="orgStatusUpdateTime" jdbcType="TIMESTAMP"/>
+        <result column="org_create_time" property="orgCreateTime" jdbcType="TIMESTAMP"/>
+        <result column="org_remarks" property="orgRemarks" jdbcType="VARCHAR"/>
+        <result column="enterp_type" property="enterpType" jdbcType="VARCHAR"/>
+        <result column="org_level" property="orgLevel" jdbcType="VARCHAR"/>
+        <result column="org_parent_code" property="orgParentCode" jdbcType="VARCHAR"/>
+        <result column="org_change" property="orgChange" jdbcType="VARCHAR"/>
+        <result column="org_path" property="orgPath" jdbcType="VARCHAR"/>
+        <result column="org_reserved_text1" property="orgReservedText1" jdbcType="VARCHAR"/>
+        <result column="mdm_org_code" property="mdmOrgCode" jdbcType="VARCHAR"/>
+        <result column="org_base_id" property="orgBaseId" jdbcType="INTEGER"/>
+        <result column="area_name" property="areaName" jdbcType="VARCHAR"/>
+        <result column="is_unit" property="isUnit" jdbcType="INTEGER"/>
+        <result column="company_code" property="companyCode" jdbcType="VARCHAR"/>
+    </resultMap>
+
+
+    <select id="selectOrgInfoByOrgCode" parameterType="string" resultMap="BaseResultMap">
+         SELECT * FROM t_pub_org WHERE org_code = #{orgCode}
+    </select>
+    <select id="selectOrgLevel" parameterType="string" resultMap="BaseResultMap">
+        SELECT org_name,org_level FROM t_pub_org WHERE org_code = #{orgCode}
+    </select>
+
+    <select id="selectOrgInfoByWhere" parameterType="string" resultMap="BaseResultMap">
+        SELECT * FROM t_pub_org WHERE org_parent_code = #{orgCode} and org_name like concat(#{param},'%')
+    </select>
+      <!--根据省份查询总部-->
+    <select id="selectHeadBycurrCode" parameterType="string" resultMap="BaseResultMap">
+      SELECT org_code,org_name FROM t_pub_org WHERE org_level ='01'
+      AND enterp_type = ( SELECT enterp_type FROM t_pub_org WHERE org_code = #{orgCode} )
+      AND org_code LIKE concat('%','00001')
+    </select>
+
+    <select id="selectProvincePathByCode" parameterType="string" resultMap="BaseResultMap">
+        select org_path from t_pub_org o where o.org_code = #{value}
+    </select>
+  <!--根据当前部门判断归属总 省 地 -->
+   <select id="selectOrgLevelByorgCode" resultMap="BaseResultMap">
+       SELECT org_name,org_level FROM t_pub_org WHERE org_code = (SELECT company_code FROM t_pub_org WHERE org_code =#{orgCode})
+       AND enterp_type = ( SELECT enterp_type FROM t_pub_org WHERE org_code = #{orgCode} )
+   </select>
+
+    <select id="selectOrgListByOrgCode" parameterType="string" resultMap="BaseResultMap">
+         select ORG_CODE,org_name from (
+              select t1.org_code,t1.org_name,
+              if(find_in_set(ORG_PARENT_CODE, @pids) > 0, @pids := concat(@pids, ',', org_code), 0) as ischild
+              from (
+                   select org_code,ORG_PARENT_CODE,org_name from t_pub_org t WHERE t.org_level !='04'  order by ORG_PARENT_CODE, org_code
+                  ) t1,
+                  (select @pids := #{value}) t2
+             ) t3 where ischild != 0
+    </select>
+
+
+</mapper>

@@ -1,0 +1,1181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper
+	namespace="com.chinatower.product.legalms.modules.dispute.mapper.legislation.LegislationMapper">
+
+	<resultMap id="LegislationMap"
+		type="com.chinatower.product.legalms.modules.dispute.entity.LegislationVO">
+		<id column="id" jdbcType="VARCHAR" property="id" />
+		<result column="state" jdbcType="VARCHAR" property="state" />
+		<result column="odd" jdbcType="VARCHAR" property="odd" />
+		<result column="creation_time" jdbcType="TIMESTAMP"
+			property="creationTime" />
+		<result column="conductor_id" jdbcType="VARCHAR"
+			property="conductorId" />
+		<result column="conductor_name" jdbcType="VARCHAR"
+			property="conductorName" />
+		<result column="title" jdbcType="VARCHAR" property="title" />
+		<result column="case_file" jdbcType="VARCHAR"
+			property="caseFile" />
+		<result column="our_executor" jdbcType="VARCHAR"
+			property="ourExecutor" />
+		<result column="counterparty_executor" jdbcType="VARCHAR"
+			property="counterpartyExecutor" />
+		<result column="execution_amount" jdbcType="DOUBLE"
+			property="executionAmount" />
+		<result column="execution_time_limit" jdbcType="TIMESTAMP"
+			property="executionTimeLimit" />
+		<result column="executive_arm" jdbcType="VARCHAR"
+			property="executiveArm" />
+		<result column="the_content" jdbcType="VARCHAR"
+			property="theContent" />
+		<result column="enforcement_basis" jdbcType="VARCHAR"
+			property="enforcementBasis" />
+		<result column="remark" jdbcType="VARCHAR" property="remark" />
+		<result column="case_title" jdbcType="VARCHAR"
+			property="caseTitle" />
+		<result column="executive_arm_id" jdbcType="VARCHAR"
+			property="executiveArmId" />
+		<result column="login_acct" jdbcType="VARCHAR"
+			property="loginAcct" />
+		<result column="login_name" jdbcType="VARCHAR"
+			property="loginName" />
+		<result column="org_name" jdbcType="VARCHAR" property="orgName" />
+		<result column="org_id" jdbcType="VARCHAR" property="orgId" />
+		<result column="dept_name" jdbcType="VARCHAR"
+			property="deptName" />
+		<result column="dept_id" jdbcType="VARCHAR" property="deptId" />
+		<result column="mobile" jdbcType="VARCHAR" property="mobile" />
+		<result column="update_date" jdbcType="TIMESTAMP"
+			property="updateDate" />
+		<result column="module_name" jdbcType="VARCHAR"
+			property="moduleName" />
+		<result column="feed_back" jdbcType="VARCHAR"
+			property="feedBack" />
+		<result column="execute_unit_name" jdbcType="VARCHAR"
+				property="executeUnitName" />
+		<result column="execute_unit_id" jdbcType="VARCHAR"
+				property="executeUnitId" />
+		<result column="unit_level" jdbcType="VARCHAR" property="unitLevel" />
+	</resultMap>
+	<!--日志表的映射 -->
+	<resultMap id="SubTFlowLog"
+		type="com.chinatower.product.legalms.modules.flow.vo.flow.SubTFlowLogVO">
+		<id column="flow_log_id_sub" jdbcType="VARCHAR" property="flowLogId" />
+		<result column="status_sub" jdbcType="VARCHAR" property="status" />
+		<result column="business_advice_sub" jdbcType="VARCHAR" property="businessAdvice" />
+		<result column="opinion_sub" jdbcType="VARCHAR" property="opinion" />
+		<result column="modify_time_sub" jdbcType="TIMESTAMP" property="modifyTime" />
+		<result column="activity_inst_id_sub" jdbcType="BIGINT" property="activityInstId" />
+		<result column="activity_def_id_sub" jdbcType="VARCHAR" property="activityDefId" />
+		<result column="activity_def_name_sub" jdbcType="VARCHAR" property="activityDefName" />
+		<result column="next_activity_def_id_sub" jdbcType="VARCHAR" property="nextActivityDefId" />
+		<result column="next_activity_def_name_sub" jdbcType="VARCHAR" property="nextActivityDefName" />
+		<result column="org_name_sub" jdbcType="VARCHAR" property="orgName" />
+		<result column="org_id_sub" jdbcType="VARCHAR" property="orgId" />
+		<result column="user_name_sub" jdbcType="VARCHAR" property="userName" />
+		<result column="user_id_sub" jdbcType="VARCHAR" property="userId" />
+		<result column="work_type_sub" jdbcType="VARCHAR" property="workType" />
+		<result column="flow_id_sub" jdbcType="BIGINT" property="flowId" />
+		<result column="flow_pid_sub" jdbcType="BIGINT" property="flowPid" />
+		<result column="receiver_company_id_sub" jdbcType="VARCHAR" property="receiverCompanyId" />
+		<result column="receiver_company_name_sub" jdbcType="VARCHAR" property="receiverCompanyName" />
+		<result column="receiver_org_id_sub" jdbcType="VARCHAR" property="receiverOrgId" />
+		<result column="receiver_org_name_sub" jdbcType="VARCHAR" property="receiverOrgName" />
+		<result column="receiver_id_sub" jdbcType="VARCHAR" property="receiverId" />
+		<result column="receiver_name_sub" jdbcType="VARCHAR" property="receiverName" />
+		<result column="approve_item_id_sub" jdbcType="VARCHAR" property="approveItemId" />
+		<result column="approve_item_type_sub" jdbcType="VARCHAR" property="approveItemType" />
+		<result column="toer_id_sub" jdbcType="VARCHAR" property="toerId" />
+		<result column="toer_name_sub" jdbcType="VARCHAR" property="toerName" />
+		<result column="option_type_sub" jdbcType="VARCHAR" property="optionType" />
+		<result column="dept_name_sub" jdbcType="VARCHAR" property="deptName" />
+		<result column="dept_id_sub" jdbcType="VARCHAR" property="deptId" />
+		<collection property="subTFlowLogVOList" ofType="com.chinatower.product.legalms.modules.flow.vo.flow.SubTFlowLogVO">
+			<id column="flow_log_id_sub_sub" jdbcType="VARCHAR" property="flowLogId" />
+			<result column="status_sub_sub" jdbcType="VARCHAR" property="status" />
+			<result column="business_advice_sub_sub" jdbcType="VARCHAR" property="businessAdvice" />
+			<result column="opinion_sub_sub" jdbcType="VARCHAR" property="opinion" />
+			<result column="modify_time_sub_sub" jdbcType="TIMESTAMP" property="modifyTime" />
+			<result column="activity_inst_id_sub_sub" jdbcType="BIGINT" property="activityInstId" />
+			<result column="activity_def_id_sub_sub" jdbcType="VARCHAR" property="activityDefId" />
+			<result column="activity_def_name_sub_sub" jdbcType="VARCHAR" property="activityDefName" />
+			<result column="next_activity_def_id_sub_sub" jdbcType="VARCHAR" property="nextActivityDefId" />
+			<result column="next_activity_def_name_sub_sub" jdbcType="VARCHAR" property="nextActivityDefName" />
+			<result column="org_name_sub_sub" jdbcType="VARCHAR" property="orgName" />
+			<result column="org_id_sub_sub" jdbcType="VARCHAR" property="orgId" />
+			<result column="user_name_sub_sub" jdbcType="VARCHAR" property="userName" />
+			<result column="user_id_sub_sub" jdbcType="VARCHAR" property="userId" />
+			<result column="work_type_sub_sub" jdbcType="VARCHAR" property="workType" />
+			<result column="flow_id_sub_sub" jdbcType="BIGINT" property="flowId" />
+			<result column="flow_pid_sub_sub" jdbcType="BIGINT" property="flowPid" />
+			<result column="receiver_company_id_sub_sub" jdbcType="VARCHAR" property="receiverCompanyId" />
+			<result column="receiver_company_name_sub_sub" jdbcType="VARCHAR" property="receiverCompanyName" />
+			<result column="receiver_org_id_sub_sub" jdbcType="VARCHAR" property="receiverOrgId" />
+			<result column="receiver_org_name_sub_sub" jdbcType="VARCHAR" property="receiverOrgName" />
+			<result column="receiver_id_sub_sub" jdbcType="VARCHAR" property="receiverId" />
+			<result column="receiver_name_sub_sub" jdbcType="VARCHAR" property="receiverName" />
+			<result column="approve_item_id_sub_sub" jdbcType="VARCHAR" property="approveItemId" />
+			<result column="approve_item_type_sub_sub" jdbcType="VARCHAR" property="approveItemType" />
+			<result column="toer_id_sub_sub" jdbcType="VARCHAR" property="toerId" />
+			<result column="toer_name_sub_sub" jdbcType="VARCHAR" property="toerName" />
+			<result column="option_type_sub_sub" jdbcType="VARCHAR" property="optionType" />
+			<result column="dept_name_sub_sub" jdbcType="VARCHAR" property="deptName" />
+			<result column="dept_id_sub_sub" jdbcType="VARCHAR" property="deptId" />
+		</collection>
+	</resultMap>
+	<resultMap id="relationshipMap"
+		type="com.chinatower.product.legalms.modules.flow.vo.common.RelationshipVO">
+		<id column="case_id" property="caseId" jdbcType="VARCHAR" />
+		<id column="business_id" property="businessId" jdbcType="VARCHAR" />
+		<result column="business_type" property="businessType"
+			jdbcType="VARCHAR" />
+		<result column="tittle" property="tittle" jdbcType="VARCHAR" />
+		<result column="code" property="code" jdbcType="VARCHAR" />
+		<result column="module_name" property="moduleName"
+			jdbcType="VARCHAR" />
+	</resultMap>
+	<insert id="addRelationship"
+		parameterType="com.chinatower.product.legalms.modules.flow.vo.common.RelationshipVO">
+		insert into t_case_relationship
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if
+				test="relationshipVO.caseId != null and relationshipVO.caseId != ''"> case_id, </if>
+			<if
+				test="relationshipVO.businessId != null and relationshipVO.businessId != ''"> business_id, </if>
+			<if
+				test="relationshipVO.businessType != null and relationshipVO.businessType != ''"> business_type, </if>
+			<if
+				test="relationshipVO.tittle != null and relationshipVO.tittle != ''">tittle, </if>
+			<if
+				test="relationshipVO.code != null and relationshipVO.code != ''">code, </if>
+			<if
+				test="relationshipVO.moduleName != null and relationshipVO.moduleName != ''">module_name </if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if
+				test="relationshipVO.caseId != null and relationshipVO.caseId != ''"> #{relationshipVO.caseId,jdbcType=VARCHAR}, </if>
+			<if
+				test="relationshipVO.businessId != null and relationshipVO.businessId != ''"> #{relationshipVO.businessId,jdbcType=VARCHAR}, </if>
+			<if
+				test="relationshipVO.businessType != null and relationshipVO.businessType != ''"> #{relationshipVO.businessType,jdbcType=VARCHAR}, </if>
+			<if
+				test="relationshipVO.tittle != null and relationshipVO.tittle != ''"> #{relationshipVO.tittle,jdbcType=VARCHAR}, </if>
+			<if
+				test="relationshipVO.code != null and relationshipVO.code != ''"> #{relationshipVO.code,jdbcType=VARCHAR}, </if>
+			<if
+				test="relationshipVO.moduleName != null and relationshipVO.moduleName != ''"> #{relationshipVO.moduleName,jdbcType=VARCHAR}, </if>
+		</trim>
+	</insert>
+	<!--关联表修改 -->
+	<update id="updateRelationship"
+		parameterType="com.chinatower.product.legalms.modules.flow.vo.common.RelationshipVO">
+		update t_case_relationship
+		set
+		case_id =
+		#{relationshipVO.caseId,jdbcType=VARCHAR},
+		business_id =
+		#{relationshipVO.businessId,jdbcType=VARCHAR},
+		business_type =
+		#{relationshipVO.businessType,jdbcType=VARCHAR},
+		tittle =
+		#{relationshipVO.tittle,jdbcType=VARCHAR},
+		code =
+		#{relationshipVO.code,jdbcType=VARCHAR},
+		module_name =
+		#{relationshipVO.moduleName,jdbcType=VARCHAR}
+		where business_id =
+		#{relationshipVO.businessId,jdbcType=VARCHAR}
+	</update>
+	<!--起草 -->
+	<insert id="addLegislationInfo"
+		parameterType="com.chinatower.product.legalms.modules.dispute.entity.LegislationVO">
+		insert into t_case_legislation (id,state, odd, creation_time, conductor_id,
+		conductor_name, title, case_file, our_executor,
+		counterparty_executor, execution_amount,
+		execution_time_limit, executive_arm, the_content, enforcement_basis,
+		remark,executive_arm_id,login_acct,login_name,org_name,org_id,dept_name,dept_id,mobile,module_name,feed_back,update_date,execute_unit_name,execute_unit_id,unit_level)
+		values (#{id,jdbcType=VARCHAR},#{state,jdbcType=VARCHAR},
+		#{odd,jdbcType=VARCHAR}, #{creationTime,jdbcType=TIMESTAMP},
+		#{conductorId,jdbcType=VARCHAR},
+		#{conductorName,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, #{caseFile,jdbcType=VARCHAR},
+		#{ourExecutor,jdbcType=VARCHAR},
+		#{counterpartyExecutor,jdbcType=VARCHAR},
+		#{executionAmount,jdbcType=DOUBLE},
+		#{executionTimeLimit,jdbcType=TIMESTAMP},
+		#{executiveArm,jdbcType=VARCHAR}, #{theContent,jdbcType=LONGVARCHAR},
+		#{enforcementBasis,jdbcType=VARCHAR},
+		#{remark,jdbcType=VARCHAR}, #{executiveArmId,jdbcType=VARCHAR},#{loginAcct,jdbcType=VARCHAR},
+		#{loginName,jdbcType=VARCHAR},
+		#{orgName,jdbcType=TIMESTAMP}, #{orgId,jdbcType=VARCHAR}, #{deptName,jdbcType=LONGVARCHAR},
+		#{deptId,jdbcType=VARCHAR},
+		#{mobile,jdbcType=VARCHAR},#{moduleName,jdbcType=VARCHAR},#{feedBack,jdbcType=VARCHAR},#{updateDate,jdbcType=DATE},#{executeUnitName,jdbcType=VARCHAR},#{executeUnitId,jdbcType=VARCHAR},#{unitLevel,jdbcType=VARCHAR})
+	</insert>
+	<insert id="insertSelective">
+		insert into t_case_legislation (id, state, odd, creation_time, conductor_id,
+		conductor_name, title, case_file, our_executor,
+		counterparty_executor, execution_amount,
+		execution_time_limit, executive_arm, the_content, enforcement_basis,
+		remark,executive_arm_id,login_acct,login_name,org_name,org_id,dept_name,dept_id,mobile,module_name,feed_back,update_date,execute_unit_name,execute_unit_id,unit_level)
+		values
+		(#{legislationVO.id,jdbcType=VARCHAR},#{legislationVO.state,jdbcType=VARCHAR},
+		#{legislationVO.odd,jdbcType=VARCHAR},
+		#{legislationVO.creationTime,jdbcType=TIMESTAMP},
+		#{legislationVO.conductorId,jdbcType=VARCHAR},
+		#{legislationVO.conductorName,jdbcType=VARCHAR},
+		#{legislationVO.title,jdbcType=VARCHAR},
+		#{legislationVO.caseFile,jdbcType=VARCHAR},
+		#{legislationVO.ourExecutor,jdbcType=VARCHAR},
+		#{legislationVO.counterpartyExecutor,jdbcType=VARCHAR},
+		#{legislationVO.executionAmount,jdbcType=DOUBLE},
+		#{legislationVO.executionTimeLimit,jdbcType=TIMESTAMP},
+		#{legislationVO.executiveArm,jdbcType=VARCHAR},
+		#{legislationVO.theContent,jdbcType=LONGVARCHAR},
+		#{legislationVO.enforcementBasis,jdbcType=VARCHAR},
+		#{legislationVO.remark,jdbcType=VARCHAR},
+		#{legislationVO.executiveArmId,jdbcType=VARCHAR},#{legislationVO.loginAcct,jdbcType=VARCHAR},
+		#{legislationVO.loginName,jdbcType=VARCHAR},
+		#{legislationVO.orgName,jdbcType=TIMESTAMP},
+		#{legislationVO.orgId,jdbcType=VARCHAR},
+		#{legislationVO.deptName,jdbcType=LONGVARCHAR},
+		#{legislationVO.deptId,jdbcType=VARCHAR},
+		#{legislationVO.mobile,jdbcType=VARCHAR},#{legislationVO.moduleName,jdbcType=VARCHAR},#{legislationVO.feedBack,jdbcType=VARCHAR},#{legislationVO.updateDate,jdbcType=DATE},#{legislationVO.executeUnitName,jdbcType=VARCHAR},#{legislationVO.executeUnitId,jdbcType=VARCHAR},#{legislationVO.unitLevel,jdbcType=VARCHAR})
+	</insert>
+	<!--暂存 -->
+	<insert id="insertSelectiveTemp"
+		parameterType="com.chinatower.product.legalms.modules.dispute.entity.LegislationVO">
+		insert into t_case_legislation
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null and id != ''">
+				`id`,
+			</if>
+			<if test="state != null and state != ''">
+				`state`,
+			</if>
+			<if test="odd != null and odd != ''">
+				odd,
+			</if>
+			<if test="creationTime != null">
+				creation_time,
+			</if>
+			<if test="conductorId != null and conductorId != ''">
+				conductor_id,
+			</if>
+			<if test="conductorName != null and conductorName != ''">
+				conductor_name,
+			</if>
+			<if test="title != null and title != ''">
+				title,
+			</if>
+			<if test="caseFile != null and caseFile != ''">
+				case_file,
+			</if>
+			<if test="ourExecutor != null and ourExecutor != ''">
+				our_executor,
+			</if>
+			<if
+				test="counterpartyExecutor != null and counterpartyExecutor != ''">
+				counterparty_executor,
+			</if>
+			<if test="executionAmount != null and executionAmount != ''">
+				execution_amount,
+			</if>
+			<if test="executionTimeLimit != null">
+				execution_time_limit,
+			</if>
+			<if test="executiveArm != null and executiveArm != ''">
+				executive_arm,
+			</if>
+			<if test="theContent != null and theContent != ''">
+				the_content,
+			</if>
+			<if test="enforcementBasis != null and enforcementBasis != ''">
+				enforcement_basis,
+			</if>
+			<if test="remark != null and remark != ''">
+				remark,
+			</if>
+			<if test="executiveArmId != null and executiveArmId != ''">
+				executive_arm_id,
+			</if>
+			<if test="loginAcct != null and loginAcct != ''">
+				login_acct,
+			</if>
+			<if test="loginName != null and loginName != ''">
+				login_name,
+			</if>
+			<if test="orgName != null and orgName != ''">
+				org_name,
+			</if>
+			<if test="orgId != null and orgId != ''">
+				org_id,
+			</if>
+			<if test="deptName != null and deptName != ''">
+				dept_name,
+			</if>
+			<if test="deptId != null and deptId != ''">
+				dept_id,
+			</if>
+			<if test="mobile != null and mobile != ''">
+				mobile,
+			</if>
+			<if test="moduleName != null and moduleName != ''">
+				module_name,
+			</if>
+			<if test="feedBack != null and feedBack != ''">
+				feed_back,
+			</if>
+			<if test="updateDate != null">
+				update_date,
+			</if>
+			<if test="executeUnitName != null and executeUnitName != ''">
+				execute_unit_name,
+			</if>
+			<if test="executeUnitId != null and executeUnitName != ''">
+				execute_unit_id,
+			</if>
+			<if test="unitLevel != null and unitLevel != ''">
+				unit_level
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null and id != ''">
+				#{id,jdbcType=VARCHAR},
+			</if>
+			<if test="state != null and state != ''">
+				#{state,jdbcType=VARCHAR},
+			</if>
+			<if test="odd != null and odd != ''">
+				#{odd,jdbcType=VARCHAR},
+			</if>
+			<if test="creationTime != null">
+				#{creationTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="conductorId != null and conductorId != ''">
+				#{conductorId,jdbcType=VARCHAR},
+			</if>
+			<if test="conductorName != null and conductorName != ''">
+				#{conductorName,jdbcType=VARCHAR},
+			</if>
+			<if test="title != null and title != ''">
+				#{title,jdbcType=VARCHAR},
+			</if>
+			<if test="caseFile != null and caseFile != ''">
+				#{caseFile,jdbcType=VARCHAR},
+			</if>
+			<if test="ourExecutor != null and ourExecutor != ''">
+				#{ourExecutor,jdbcType=VARCHAR},
+			</if>
+			<if
+				test="counterpartyExecutor != null and counterpartyExecutor != ''">
+				#{counterpartyExecutor,jdbcType=VARCHAR},
+			</if>
+			<if test="executionAmount != null and executionAmount != ''">
+				#{executionAmount,jdbcType=DOUBLE},
+			</if>
+			<if test="executionTimeLimit != null">
+				#{executionTimeLimit,jdbcType=TIMESTAMP},
+			</if>
+			<if test="executiveArm != null and executiveArm != ''">
+				#{executiveArm,jdbcType=VARCHAR},
+			</if>
+			<if test="theContent != null and theContent != ''">
+				#{theContent,jdbcType=VARCHAR},
+			</if>
+			<if test="enforcementBasis != null and enforcementBasis != ''">
+				#{enforcementBasis,jdbcType=VARCHAR},
+			</if>
+			<if test="remark != null and remark != ''">
+				#{remark,jdbcType=VARCHAR},
+			</if>
+			<if test="executiveArmId != null and executiveArmId != ''">
+				#{executiveArmId,jdbcType=VARCHAR},
+			</if>
+			<if test="loginAcct != null and loginAcct != ''">
+				#{loginAcct,jdbcType=VARCHAR},
+			</if>
+			<if test="loginName != null and loginName != ''">
+				#{loginName,jdbcType=VARCHAR},
+			</if>
+			<if test="orgName != null and orgName != ''">
+				#{orgName,jdbcType=VARCHAR},
+			</if>
+			<if test="orgId != null and orgId != ''">
+				#{orgId,jdbcType=VARCHAR},
+			</if>
+			<if test="deptName != null and deptName != ''">
+				#{deptName,jdbcType=VARCHAR},
+			</if>
+			<if test="deptId != null and deptId != ''">
+				#{deptId,jdbcType=VARCHAR},
+			</if>
+			<if test="mobile != null and mobile != ''">
+				#{mobile,jdbcType=VARCHAR},
+			</if>
+			<if test="moduleName != null and moduleName != ''">
+				#{moduleName,jdbcType=VARCHAR},
+			</if>
+			<if test="feedBack != null and feedBack != ''">
+				#{feedBack,jdbcType=VARCHAR},
+			</if>
+			<if test="updateDate != null">
+				#{updateDate,jdbcType=DATE},
+			</if>
+			<if test="executeUnitName != null and executeUnitName != ''">
+				execute_unit_name,
+			</if>
+			<if test="executeUnitId != null and executeUnitId != ''">
+				execute_unit_id,
+			</if>
+			<if test="unitLevel != null and unitLevel != ''">
+				unit_level
+			</if>
+		</trim>
+	</insert>
+	<!--删除 -->
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from
+		t_case_legislation
+		where id = #{id,jdbcType=VARCHAR}
+	</delete>
+	<!--流程主表映射 -->
+	<resultMap id="TFlowLog"
+		type="com.chinatower.product.legalms.modules.flow.vo.flow.TFlowLogVO">
+		<id column="flow_log_id" jdbcType="VARCHAR" property="flowLogId" />
+		<result column="status" jdbcType="VARCHAR" property="status" />
+		<result column="business_advice" jdbcType="VARCHAR"
+			property="businessAdvice" />
+		<result column="opinion" jdbcType="VARCHAR" property="opinion" />
+		<result column="modify_time" jdbcType="TIMESTAMP"
+			property="modifyTime" />
+		<result column="activity_inst_id" jdbcType="BIGINT"
+			property="activityInstId" />
+		<result column="activity_def_id" jdbcType="VARCHAR"
+			property="activityDefId" />
+		<result column="activity_def_name" jdbcType="VARCHAR"
+			property="activityDefName" />
+		<result column="next_activity_def_id" jdbcType="VARCHAR"
+			property="nextActivityDefId" />
+		<result column="next_activity_def_name" jdbcType="VARCHAR"
+			property="nextActivityDefName" />
+		<result column="org_name" jdbcType="VARCHAR" property="orgName" />
+		<result column="org_id" jdbcType="VARCHAR" property="orgId" />
+		<result column="user_name" jdbcType="VARCHAR"
+			property="userName" />
+		<result column="user_id" jdbcType="VARCHAR" property="userId" />
+		<result column="work_type" jdbcType="VARCHAR"
+			property="workType" />
+		<result column="flow_id" jdbcType="BIGINT" property="flowId" />
+		<result column="flow_pid" jdbcType="BIGINT" property="flowPid" />
+		<result column="receiver_company_id" jdbcType="VARCHAR"
+			property="receiverCompanyId" />
+		<result column="receiver_company_name" jdbcType="VARCHAR"
+			property="receiverCompanyName" />
+		<result column="receiver_org_id" jdbcType="VARCHAR"
+			property="receiverOrgId" />
+		<result column="receiver_org_name" jdbcType="VARCHAR"
+			property="receiverOrgName" />
+		<result column="receiver_id" jdbcType="VARCHAR"
+			property="receiverId" />
+		<result column="receiver_name" jdbcType="VARCHAR"
+			property="receiverName" />
+		<result column="approve_item_id" jdbcType="VARCHAR"
+			property="approveItemId" />
+		<result column="approve_item_type" jdbcType="VARCHAR"
+			property="approveItemType" />
+		<result column="dept_name" jdbcType="VARCHAR"
+			property="deptName" />
+		<result column="dept_id" jdbcType="VARCHAR" property="deptId" />
+	</resultMap>
+	<!--查询单号 -->
+	<select id="selectLegislationCode" resultType="String"
+		parameterType="String">
+		select odd
+		from t_case_legislation
+		where id = #{id}
+	</select>
+	<!--修改 -->
+	<update id="updateLegislation"
+		parameterType="com.chinatower.product.legalms.modules.dispute.entity.LegislationVO">
+		update t_case_legislation
+		set
+		id = #{id, jdbcType=VARCHAR},
+		state = #{state, jdbcType=VARCHAR},
+		odd = #{odd, jdbcType=VARCHAR},
+		creation_time = NOW(),
+		conductor_id = #{conductorId, jdbcType=VARCHAR},
+		conductor_name = #{conductorName, jdbcType=VARCHAR},
+		title = #{title, jdbcType=VARCHAR},
+		case_file = #{caseFile, jdbcType=VARCHAR},
+		our_executor = #{ourExecutor, jdbcType=VARCHAR},
+		counterparty_executor = #{counterpartyExecutor, jdbcType=VARCHAR},
+		execution_amount = #{executionAmount, jdbcType=DOUBLE},
+		execution_time_limit = #{executionTimeLimit, jdbcType=DATE},
+		executive_arm = #{executiveArm, jdbcType=VARCHAR},
+		the_content = #{theContent, jdbcType=VARCHAR},
+		enforcement_basis = #{enforcementBasis, jdbcType=VARCHAR},
+		remark = #{remark, jdbcType=VARCHAR},
+		executive_arm_id = #{executiveArmId, jdbcType=VARCHAR},
+		login_acct = #{loginAcct, jdbcType=VARCHAR},
+		login_name = #{loginName, jdbcType=DATE},
+		org_name = #{orgName, jdbcType=VARCHAR},
+		org_id = #{orgId, jdbcType=VARCHAR},
+		dept_name = #{deptName, jdbcType=VARCHAR},
+		dept_id = #{deptId, jdbcType=VARCHAR},
+		mobile = #{mobile, jdbcType=VARCHAR},
+		module_name = #{moduleName, jdbcType=VARCHAR},
+		feed_back = #{feedBack, jdbcType=VARCHAR},
+		update_date = #{updateDate, jdbcType=DATE},
+		execute_unit_name = #{executeUnitName, jdbcType=VARCHAR},
+		execute_unit_id = #{executeUnitId, jdbcType=VARCHAR},
+		unit_level = #{unitLevel, jdbcType=VARCHAR}
+		where id = #{id}
+	</update>
+	<!--详情查询 -->
+	<sql id="Base_Main_Column_List">
+		fm.flow_id, fm.flow_name, fm.flow_status,fm.create_user_id,
+		fm.create_user_name,
+		fm.approve_item_name,
+		fm.module_name,fm.version_id
+	</sql>
+	<select id="findOneLegislation" resultMap="LegislationParam" parameterType="String">
+		SELECT cl.*,
+		<include refid="Base_Main_Column_List" />
+		,
+		fl.*,
+		<include refid="Subs_Column_List" />,
+		<include refid="Subs_sub_Column_List" />
+		FROM t_case_legislation cl LEFT JOIN t_flow_main fm ON cl.`id`=fm.`approve_item_id` AND fm.`approve_item_type`='t_case_legislation'
+		LEFT JOIN t_flow_log fl ON fm.`approve_item_id`=fl.`approve_item_id` AND fm.`flow_id`=fl.`flow_id`
+		LEFT JOIN t_flow_log flo ON fl.`flow_id`=flo.`flow_pid` AND fl.`activity_inst_id`=flo.`act_pid`
+		LEFT JOIN t_flow_log flo2 ON flo2.`flow_pid` = flo.`flow_id` AND flo.`activity_inst_id`=flo2.`act_pid`
+		WHERE
+		cl.`id`= #{id}
+		ORDER BY fl.`modify_time`,flo.`modify_time`,flo2.`modify_time`
+	</select>
+	<sql id="Subs_sub_Column_List">
+		flo2.flow_log_id flow_log_id_sub_sub,
+		flo2.status status_sub_sub,
+		flo2.business_advice business_advice_sub_sub,
+		flo2.receiver_company_id receiver_company_id_sub_sub,
+		flo2.receiver_company_name receiver_company_name_sub_sub,
+		flo2.receiver_org_id receiver_org_id_sub_sub,
+		flo2.receiver_org_name receiver_org_name_sub_sub,
+		flo2.receiver_id receiver_id_sub_sub,
+		flo2.receiver_name receiver_name_sub_sub,
+		flo2.opinion opinion_sub_sub,
+		flo2.modify_time modify_time_sub_sub,
+		flo2.activity_inst_id activity_inst_id_sub_sub,
+		flo2.activity_def_id activity_def_id_sub_sub,
+		flo2.activity_def_name activity_def_name_sub_sub,
+		flo2.next_activity_def_id next_activity_def_id_sub_sub,
+		flo2.next_activity_def_name next_activity_def_name_sub_sub,
+		flo2.org_name org_name_sub_sub,
+		flo2.org_id org_id_sub_sub,
+		flo2.user_name user_name_sub_sub,
+		flo2.user_id user_id_sub_sub,
+		flo2.work_type work_type_sub_sub,
+		flo2.flow_id flow_id_sub_sub,
+		flo2.flow_pid flow_pid_sub_sub,
+		flo2.toer_id toer_id_sub_sub,
+		flo2.toer_name toer_name_sub_sub,
+		flo2.option_type option_type_sub_sub,
+		flo2.dept_name dept_name_sub_sub,
+		flo2.dept_id dept_id_sub_sub
+	</sql>
+	<sql id="Subs_Column_List">
+		flo.flow_log_id flow_log_id_sub,
+		flo.status status_sub,
+		flo.business_advice business_advice_sub,
+		flo.receiver_company_id receiver_company_id_sub,
+		flo.receiver_company_name receiver_company_name_sub,
+		flo.receiver_org_id receiver_org_id_sub,
+		flo.receiver_org_name receiver_org_name_sub,
+		flo.receiver_id receiver_id_sub,
+		flo.receiver_name receiver_name_sub,
+		flo.opinion opinion_sub,
+		flo.modify_time modify_time_sub,
+		flo.activity_inst_id activity_inst_id_sub,
+		flo.activity_def_id activity_def_id_sub,
+		flo.activity_def_name activity_def_name_sub,
+		flo.next_activity_def_id next_activity_def_id_sub,
+		flo.next_activity_def_name next_activity_def_name_sub,
+		flo.org_name org_name_sub,
+		flo.org_id org_id_sub,
+		flo.user_name user_name_sub,
+		flo.user_id user_id_sub,
+		flo.work_type work_type_sub,
+		flo.flow_id flow_id_sub,
+		flo.flow_pid flow_pid_sub,
+		flo.toer_id toer_id_sub,
+		flo.toer_name toer_name_sub,
+		flo.option_type option_type_sub,
+		flo.dept_name dept_name_sub,
+		flo.dept_id dept_id_sub
+	</sql>
+	<!--审批处理日志表查询历史审批记录 -->
+	<select id="selectCurrActivity" resultMap="TFlowLog"
+		parameterType="Long">
+		SELECT
+		lo.next_activity_def_id,lo.`next_activity_def_name`,lo.`flow_id` FROM
+		t_flow_log
+		lo
+		WHERE (lo.`flow_id`=#{flowId} OR lo.`flow_pid`=#{flowId})
+		AND lo.`next_activity_def_id` NOT IN
+		(SELECT * FROM
+		(SELECT
+		fo.activity_def_id FROM
+		t_flow_log fo
+		WHERE
+		fo.`modify_time`>lo.`modify_time`
+		and (
+		fo.`flow_id`=#{flowId} OR
+		fo.`flow_pid`=#{flowId})
+		ORDER BY fo.`modify_time` DESC LIMIT 1) temp)
+		ORDER BY lo.`modify_time` DESC LIMIT 1
+	</select>
+	<!--法律文书列表查询 -->
+	<select id="selectAll" parameterType="String"
+		resultMap="LegislationMap">
+		select
+		tcl.id,
+		tcl.title,
+		tcl.odd,
+		tcl.execution_amount,
+		tcm.case_title,
+		tcl.executive_arm,
+		tcl.creation_time,
+		tcl.state,
+		tcl.login_acct,
+		tcl.execute_unit_name
+		from
+		t_case_legislation tcl LEFT JOIN t_case_main tcm on
+		tcl.case_file=tcm.case_id
+		where
+		tcl.login_acct = #{loginAcct}
+		and tcl.state !='0'
+		<if test="param.title != null and param.title != ''">
+			and tcl.title like
+			concat('%',#{param.title,jdbcType=VARCHAR},'%')
+		</if>
+
+		<choose>
+			<when test="param.startDate != null and param.endDate != null">
+				and tcl.creation_time BETWEEN
+				#{param.startDate,jdbcType=TIMESTAMP}
+				and
+				#{param.endDate,jdbcType=TIMESTAMP}
+			</when>
+			<when test="param.startDate != null">
+				and tcl.creation_time <![CDATA[>]]>
+				#{param.startDate,jdbcType=TIMESTAMP}
+			</when>
+			<when test="param.endDate != null">
+				and tcl.creation_time <![CDATA[<]]>
+				#{param.endDate,jdbcType=TIMESTAMP}
+			</when>
+		</choose>
+
+		<if test="param.odd != null and param.odd != ''">
+			and tcl.odd like
+			concat('%',#{param.odd,jdbcType=VARCHAR},'%')
+		</if>
+
+		<if
+			test="param.minAmount != null and param.minAmount !='' and param.maxAmount != null and param.maxAmount !=''">
+			and tcl.execution_amount BETWEEN
+			#{param.minAmount,jdbcType=DOUBLE}
+			and
+			#{param.maxAmount,jdbcType=DOUBLE}
+		</if>
+		<if test="param.executiveArm != null and param.executiveArm !=''">
+			AND tcl.executive_arm like
+			concat('%',#{param.executiveArm,jdbcType=VARCHAR},'%')
+		</if>
+		<if test="param.caseTitle != null and param.caseTitle != ''">
+			AND tcm.case_title like
+			concat('%',#{param.caseTitle,jdbcType=VARCHAR},'%')
+		</if>
+		<if test="param.state != null and param.state != ''">
+			AND tcl.state = #{param.state,jdbcType=VARCHAR}
+		</if>
+		<if test="param.orgName != null and param.orgName != ''">
+			and tcl.org_name ={param.orgName}
+		</if>
+		<if test="param.orgCodeList!=null and param.orgCodeList.size() > 0 ">
+			and tcl.execute_unit_id in (
+			<foreach collection="param.orgCodeList" separator="," item="value">
+				#{value}
+			</foreach>
+			)
+		</if>
+		order by tcl.state,tcl.creation_time desc
+	</select>
+	<!--单号生成 -->
+	<select id="selectOdd" resultType="String"
+		parameterType="String">
+		select
+		nextval(#{zb,jdbcType=VARCHAR},'ZB',#{hngs,jdbcType=VARCHAR},0) LIMIT
+		1
+	</select>
+	<!--修改 -->
+	<update id="updateByPrimaryKey"
+		parameterType="com.chinatower.product.legalms.modules.dispute.entity.LegislationVO">
+		update t_case_legislation
+		set
+		state = #{state,jdbcType=VARCHAR},
+		conductor_id = #{conductorId,jdbcType=VARCHAR},
+		conductor_name = #{conductorName,jdbcType=VARCHAR},
+		title = #{title,jdbcType=VARCHAR},
+		case_file = #{caseFile,jdbcType=VARCHAR},
+		our_executor = #{ourExecutor,jdbcType=VARCHAR},
+		counterparty_executor = #{counterpartyExecutor,jdbcType=VARCHAR},
+		execution_amount = #{executionAmount,jdbcType=DOUBLE},
+		execution_time_limit = #{executionTimeLimit,jdbcType=DATE},
+		executive_arm = #{executiveArm,jdbcType=VARCHAR},
+		the_content = #{theContent,jdbcType=VARCHAR},
+		enforcement_basis = #{enforcementBasis,jdbcType=VARCHAR},
+		remark = #{remark,jdbcType=VARCHAR},
+		executive_arm_id = #{executiveArmId,jdbcType=VARCHAR},
+		update_date = #{updateDate,jdbcType=DATE},
+		feed_back= #{feedBack,jdbcType=VARCHAR},
+		execute_unit_name = #{executeUnitName,jdbcType=VARCHAR},
+		execute_unit_id = #{executeUnitId,jdbcType=VARCHAR},
+		unit_level = #{unitLevel,jdbcType=VARCHAR}
+		where id = #{id,jdbcType=VARCHAR}
+	</update>
+	<!--login_acct = (select login_acct from t_case_legislation where id = #{id,jdbcType=VARCHAR}), -->
+	<!--option_type_sub修改 -->
+	<update id="updateByPrimaryKeySelective"
+		parameterType="com.chinatower.product.legalms.modules.dispute.entity.LegislationVO">
+		update t_case_legislation
+		<set>
+			<if test="state != null and state != ''">
+				state = #{state,jdbcType=VARCHAR},
+			</if>
+			<if test="conductorId != null and conductorId != ''">
+				conductor_id = #{conductorId,jdbcType=VARCHAR},
+			</if>
+			<if test="conductorName != null and conductorName != ''">
+				conductor_name = #{conductorName,jdbcType=VARCHAR},
+			</if>
+			<if test="title != null and title != ''">
+				title = #{title,jdbcType=VARCHAR},
+			</if>
+			<if test="caseFile != null and caseFile != ''">
+				case_file = #{caseFile,jdbcType=VARCHAR},
+			</if>
+			<if test="ourExecutor != null and ourExecutor != ''">
+				our_executor = #{ourExecutor,jdbcType=VARCHAR},
+			</if>
+			<if
+				test="counterpartyExecutor != null and counterpartyExecutor != ''">
+				counterparty_executor =
+				#{counterpartyExecutor,jdbcType=VARCHAR},
+			</if>
+			<if test="executionAmount != null and executionAmount != ''">
+				execution_amount = #{executionAmount,jdbcType=DOUBLE},
+			</if>
+			<if test="executionTimeLimit != null">
+				execution_time_limit =
+				#{executionTimeLimit,jdbcType=DATE},
+			</if>
+			<if test="executiveArm != null">
+				executive_arm = #{executiveArm,jdbcType=VARCHAR},
+			</if>
+			<if test="theContent != null and theContent != ''">
+				the_content = #{theContent,jdbcType=VARCHAR},
+			</if>
+			<if test="enforcementBasis != null and enforcementBasis != ''">
+				enforcement_basis = #{enforcementBasis,jdbcType=VARCHAR},
+			</if>
+			<if test="remark != null and remark != ''">
+				remark = #{remark,jdbcType=VARCHAR},
+			</if>
+			<if test="executiveArmId != null">
+				executive_arm_id = #{executiveArmId,jdbcType=VARCHAR},
+			</if>
+			<if test="updateDate != null">
+				update_date=#{updateDate,jdbcType=DATE},
+			</if>
+<!--			<if test="feedBack != null and feedBack != ''">-->
+<!--				feed_back= #{feedBack,jdbcType=VARCHAR},-->
+<!--			</if>-->
+			<if test="executeUnitName != null and executeUnitName != ''">
+				execute_unit_name= #{executeUnitName,jdbcType=VARCHAR},
+			</if>
+			<if test="executeUnitId != null and executeUnitId != ''">
+				execute_unit_id = #{executeUnitId,jdbcType=VARCHAR},
+			</if>
+			<if test="unitLevel != null and unitLevel != ''">
+				unit_level = #{unitLevel,jdbcType=VARCHAR},
+			</if>
+			<if test="id != null and id != ''">
+				id = #{id,jdbcType=VARCHAR}
+			</if>
+		</set>
+		where id = #{id,jdbcType=VARCHAR}
+	</update>
+	<!--逻辑删除 -->
+	<update id="deleteLegislation">
+		update t_case_legislation set state='0'
+		where id in
+		<foreach item="item" index="index" collection="list" open="("
+			separator="," close=")">#{item}
+		</foreach>
+		and state='10'
+	</update>
+	<!--详情映射 -->
+	<resultMap id="LegislationParam"
+		type="com.chinatower.product.legalms.modules.dispute.vo.legislation.LegislationParam">
+		<id column="id" jdbcType="VARCHAR" property="id" />
+		<result column="state" jdbcType="VARCHAR" property="state" />
+		<result column="odd" jdbcType="VARCHAR" property="odd" />
+		<result column="creation_time" jdbcType="TIMESTAMP"
+			property="creationTime" />
+		<result column="title" jdbcType="VARCHAR" property="title" />
+		<result column="case_file" jdbcType="VARCHAR"
+			property="caseFile" />
+		<result column="our_executor" jdbcType="VARCHAR"
+			property="ourExecutor" />
+		<result column="counterparty_executor" jdbcType="VARCHAR"
+			property="counterpartyExecutor" />
+		<result column="execution_amount" jdbcType="DOUBLE"
+			property="executionAmount" />
+		<result column="execution_time_limit" jdbcType="TIMESTAMP"
+			property="executionTimeLimit" />
+		<result column="executive_arm" jdbcType="VARCHAR"
+			property="executiveArm" />
+		<result column="the_content" jdbcType="VARCHAR"
+			property="theContent" />
+		<result column="enforcement_basis" jdbcType="VARCHAR"
+			property="enforcementBasis" />
+		<result column="remark" jdbcType="VARCHAR" property="remark" />
+		<result column="executive_arm_id" jdbcType="VARCHAR"
+			property="executiveArmId" />
+		<result column="login_acct" jdbcType="VARCHAR"
+			property="loginAcct" />
+		<result column="login_name" jdbcType="VARCHAR"
+			property="loginName" />
+		<result column="org_name" jdbcType="VARCHAR" property="orgName" />
+		<result column="org_id" jdbcType="VARCHAR" property="orgId" />
+		<result column="dept_name" jdbcType="VARCHAR"
+			property="deptName" />
+		<result column="dept_id" jdbcType="VARCHAR" property="deptId" />
+		<result column="mobile" jdbcType="VARCHAR" property="mobile" />
+		<result column="update_date" jdbcType="TIMESTAMP"
+			property="updateDate" />
+		<result column="module_name" jdbcType="VARCHAR"
+											  property="moduleName" />
+		<result column="feed_back" jdbcType="VARCHAR"
+				property="feedBack" />
+		<result column="execute_unit_name" jdbcType="VARCHAR"
+				property="executeUnitName" />
+		<result column="execute_unit_id" jdbcType="VARCHAR"
+				property="executeUnitId" />
+		<result column="unit_level" jdbcType="VARCHAR"
+				property="unitLevel" />
+		<collection property="mian"
+			ofType="com.chinatower.product.legalms.modules.flow.vo.flow.TFlowMainVO">
+			<id column="flow_id" jdbcType="BIGINT" property="flowId" />
+			<result column="flow_name" jdbcType="VARCHAR"
+				property="flowName" />
+			<result column="flow_status" jdbcType="VARCHAR"
+				property="flowStatus" />
+			<result column="create_time" jdbcType="TIMESTAMP"
+				property="createTime" />
+			<result column="create_user_id" jdbcType="VARCHAR"
+				property="createUserId" />
+			<result column="create_user_name" jdbcType="VARCHAR"
+				property="createUserName" />
+			<result column="approve_item_id" jdbcType="VARCHAR"
+				property="approveItemId" />
+			<result column="approve_item_name" jdbcType="VARCHAR"
+				property="approveItemName" />
+			<result column="approve_item_type" jdbcType="VARCHAR"
+				property="approveItemType" />
+			<result column="module_name" jdbcType="VARCHAR"
+				property="moduleName" />
+			<result column="version_id" jdbcType="VARCHAR"
+                property="versionId" />	
+				
+			<collection property="logs"
+				ofType="com.chinatower.product.legalms.modules.flow.vo.flow.TFlowLogVO">
+				<id column="flow_log_id" jdbcType="VARCHAR" property="flowLogId" />
+				<result column="status" jdbcType="VARCHAR" property="status" />
+				<result column="business_advice" jdbcType="VARCHAR"
+					property="businessAdvice" />
+				<result column="opinion" jdbcType="VARCHAR"
+					property="opinion" />
+				<result column="modify_time" jdbcType="TIMESTAMP"
+					property="modifyTime" />
+				<result column="activity_inst_id" jdbcType="BIGINT"
+					property="activityInstId" />
+				<result column="activity_def_id" jdbcType="VARCHAR"
+					property="activityDefId" />
+				<result column="activity_def_name" jdbcType="VARCHAR"
+					property="activityDefName" />
+				<result column="next_activity_def_id" jdbcType="VARCHAR"
+					property="nextActivityDefId" />
+				<result column="next_activity_def_name" jdbcType="VARCHAR"
+					property="nextActivityDefName" />
+				<result column="org_name" jdbcType="VARCHAR"
+					property="orgName" />
+				<result column="org_id" jdbcType="VARCHAR" property="orgId" />
+				<result column="user_name" jdbcType="VARCHAR"
+					property="userName" />
+				<result column="user_id" jdbcType="VARCHAR" property="userId" />
+				<result column="work_type" jdbcType="VARCHAR"
+					property="workType" />
+				<result column="flow_id" jdbcType="BIGINT" property="flowId" />
+				<result column="flow_pid" jdbcType="BIGINT"
+					property="flowPid" />
+				<result column="receiver_company_id" jdbcType="VARCHAR"
+					property="receiverCompanyId" />
+				<result column="receiver_company_name" jdbcType="VARCHAR"
+					property="receiverCompanyName" />
+				<result column="receiver_org_id" jdbcType="VARCHAR"
+					property="receiverOrgId" />
+				<result column="receiver_org_name" jdbcType="VARCHAR"
+					property="receiverOrgName" />
+				<result column="receiver_id" jdbcType="VARCHAR"
+					property="receiverId" />
+				<result column="receiver_name" jdbcType="VARCHAR"
+					property="receiverName" />
+				<result column="approve_item_id" jdbcType="VARCHAR"
+					property="approveItemId" />
+				<result column="approve_item_type" jdbcType="VARCHAR"
+					property="approveItemType" />
+				<result column="toer_id" jdbcType="VARCHAR" property="toerId" />
+				<result column="toer_name" jdbcType="VARCHAR"
+					property="toerName" />
+				<result column="option_type" jdbcType="VARCHAR"
+					property="optionType" />
+				<result column="dept_name" jdbcType="VARCHAR"
+					property="deptName" />
+				<result column="dept_id" jdbcType="VARCHAR" property="deptId" />
+				<collection property="subLogs"
+					ofType="com.chinatower.product.legalms.modules.flow.vo.flow.SubTFlowLogVO"
+					resultMap="SubTFlowLog">
+				</collection>
+			</collection>
+		</collection>
+	</resultMap>
+	<!--法律文书列表查询 -->
+	<select id="selectAlles" parameterType="String"
+		resultMap="LegislationMap">
+		select
+		tcl.id,
+		tcl.title,
+		tcl.odd,
+		tcl.execution_amount,
+		tcm.case_title,
+		tcl.executive_arm,
+		tcl.creation_time,
+		tcl.state,
+		tcl.login_acct,
+		tcl.execute_unit_name
+		from
+		t_case_legislation tcl LEFT JOIN t_case_main tcm on
+		tcl.case_file=tcm.case_id
+		where
+		tcl.login_acct = #{loginAcct}
+		and
+		tcl.executive_arm_id =#{param.deptId}
+		and tcl.state !='0'
+		<if test="param.title != null and param.title != ''">
+			and tcl.title like
+			concat('%',#{param.title,jdbcType=VARCHAR},'%')
+		</if>
+
+		<if test="param.startDate != null and param.endDate != null">
+			and tcl.creation_time BETWEEN
+			#{param.startDate,jdbcType=TIMESTAMP}
+			and
+			#{param.endDate,jdbcType=TIMESTAMP}
+		</if>
+
+		<if test="param.odd != null and param.odd != ''">
+			and tcl.odd like
+			concat('%',#{param.odd,jdbcType=VARCHAR},'%')
+		</if>
+
+		<if
+			test="param.minAmount != null and param.minAmount !='' and param.maxAmount != null and param.maxAmount !=''">
+			and tcl.execution_amount BETWEEN
+			#{param.minAmount,jdbcType=DOUBLE}
+			and
+			#{param.maxAmount,jdbcType=DOUBLE}
+		</if>
+		<if test="param.executiveArm != null and param.executiveArm !=''">
+			AND tcl.executive_arm =
+			#{param.executiveArm,jdbcType=VARCHAR}
+		</if>
+		<if test="param.caseTitle != null and param.caseTitle != ''">
+			AND tcm.case_title like
+			concat('%',#{param.caseTitle,jdbcType=VARCHAR},'%')
+		</if>
+		<if test="param.state != null and param.state != ''">
+			AND tcl.state = #{param.state,jdbcType=VARCHAR}
+		</if>
+		<if test="param.orgName != null and param.orgName != ''">
+		and tcl.org_name ={param.orgName}
+		</if>
+		<if test="param.executeUnitName != null and param.executeUnitName != ''">
+			and tcl.execute_unit_name ={param.executeUnitName}
+		</if>
+		<if test="orgCodeList!=null and orgCodeList.size() > 0 ">
+			and tcl.execute_unit_id in (
+			<foreach collection="orgCodeList" separator="," item="value">
+				#{value}
+			</foreach>
+			)
+		</if>
+		order by tcl.state,tcl.creation_time desc
+	</select>
+	<select id="selectByPrimaryKey" parameterType="java.lang.String"
+		resultMap="LegislationMap">
+		select *
+		from t_case_legislation
+		where id = #{id}
+	</select>
+	<select id="selectWholeData" resultMap="LegislationMap">
+		SELECT
+		*
+		FROM
+		(
+		(
+		SELECT
+		tcl.id,
+		tcl.title,
+		tcl.odd,
+		tcl.execution_amount,
+		tcm.case_title,
+		tcl.executive_arm,
+		tcl.creation_time,
+		tcl.state,
+		tcl.org_name,
+		tcl.module_name,
+		tcl.execute_unit_name,
+		tpo.org_path,
+		tcl.execute_unit_id
+		FROM
+		t_pub_org tpo
+		RIGHT JOIN t_case_legislation tcl ON tpo.org_code = tcl.org_id
+		LEFT JOIN t_case_main tcm ON tcl.case_file = tcm.case_id
+		<where>
+			<if test="param.creatorUnitId != null and param.creatorUnitId != ''">
+				and tpo.org_path like #{param.creatorUnitId}
+			</if>
+		</where>
+		)
+		<if test="param.preOrgId != null and param.preOrgId.size() > 0 and param.execUnitId != null and param.execUnitId != ''">
+			UNION
+			(
+			SELECT
+			tcl.id,
+			tcl.title,
+			tcl.odd,
+			tcl.execution_amount,
+			tcm.case_title,
+			tcl.executive_arm,
+			tcl.creation_time,
+			tcl.state,
+			tcl.org_name,
+			tcl.module_name,
+			tcl.execute_unit_name,
+			tpo.org_path,
+			tcl.execute_unit_id
+			FROM
+			t_pub_org tpo
+			RIGHT JOIN t_case_legislation tcl ON tpo.org_code = tcl.org_id
+			LEFT JOIN t_case_main tcm ON tcl.case_file = tcm.case_id
+			<where>
+				and tcl.org_id in
+				<foreach collection="param.preOrgId" open="(" close=")" separator="," item="value">
+					#{value}
+				</foreach>
+				and  tcl.execute_unit_id in (select org_code from t_pub_org where org_path like #{param.execUnitId}))
+			</where>
+		</if>
+		) t3
+		<where>
+			t3.state in ('20', '30')
+			<if test="param.startDate != null">
+				and t3.creation_time  <![CDATA[>]]>
+				#{param.startDate,jdbcType=TIMESTAMP}
+			</if>
+			<if test="param.endDate != null">
+				and t3.creation_time  <![CDATA[<]]>
+				#{param.endDate,jdbcType=TIMESTAMP}
+			</if>
+			<if test="param.executiveArm != null and param.executiveArm != ''">
+				and t3.executive_arm like '%${param.executiveArm}%'
+			</if>
+			<if test="param.title != null and param.title != ''">
+				and t3.title like '%${param.title}%'
+			</if>
+			<if test="param.caseTitle != null and param.caseTitle != ''">
+				AND t3.case_title like
+				concat('%',#{param.caseTitle,jdbcType=VARCHAR},'%')
+			</if>
+			<if test="param.odd != null and param.odd != ''">
+				and t3.odd like '%${param.odd}%'
+			</if>
+			<if test="param.minAmount != null and param.minAmount !=''">
+				and t3.execution_amount <![CDATA[ >= ]]>#{param.minAmount,jdbcType=DOUBLE}
+			</if>
+			<if test="param.maxAmount != null and param.maxAmount !=''">
+				and t3.execution_amount <![CDATA[ <= ]]> #{param.maxAmount,jdbcType=DOUBLE}
+			</if>
+			<if test="param.deptId != null and param.deptId != ''">
+				and t3.executive_arm_id = #{param.deptId}
+			</if>
+			<if test="param.userId != null and param.userId != ''">
+				and t3.id in (
+				select distinct tfl.approve_item_id
+				from
+				t_flow_log tfl
+				where tfl.user_id = #{param.userId}
+				and
+				tfl.approve_item_type = 't_case_legislation'
+				)
+			</if>
+			<if test="param.state != null and param.state != ''">
+				AND t3.state = #{param.state,jdbcType=VARCHAR}
+			</if>
+			<if test="param.orgPath != null and param.orgPath != ''">
+				and t3.org_path like #{param.orgPath}
+			</if>
+			<if test="param.unitIdPath != null and param.unitIdPath != ''">
+				and t3.execute_unit_id in (select org_code from t_pub_org where org_path like #{param.unitIdPath})
+			</if>
+		</where>
+		ORDER BY
+		t3.state,
+		t3.creation_time DESC
+	</select>
+	<select id="getExcelDate" resultType="HashMap">
+    	select
+	tcl.title,
+	tcl.odd,
+	tcm.case_title,
+	tcl.executive_arm,
+	tcl.execution_amount,
+	tcl.creation_time,
+	tcl.state
+	from
+	t_case_legislation tcl LEFT JOIN t_case_main tcm on
+	tcl.case_file=tcm.case_id
+	where
+	tcl.login_acct = #{loginAcct}
+	</select>
+	<select id="dictMaps" resultType="HashMap">
+		SELECT
+		dd.`dict_value`,dd.`dict_cabel` FROM t_sys_dict_data dd WHERE
+		dd.`dict_type`= #{dictType}
+	</select>
+	<select id="getHeadOrgCode" resultType="java.lang.String">
+		SELECT org_code FROM t_pub_org WHERE org_level ='01' AND enterp_type = #{enterpType} AND org_code LIKE '%00001'
+	</select>
+</mapper>

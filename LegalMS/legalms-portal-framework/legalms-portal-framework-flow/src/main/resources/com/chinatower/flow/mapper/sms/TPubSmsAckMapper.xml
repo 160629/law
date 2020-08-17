@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chinatower.product.legalms.modules.flow.mapper.sms.TPubSmsAckMapper">
+  <resultMap id="BaseResultMap" type="com.chinatower.product.legalms.modules.flow.entity.sms.TPubSmsAck">
+    <id column="phone" jdbcType="VARCHAR" property="phone" />
+    <result column="send_id" jdbcType="VARCHAR" property="sendId" />
+    <result column="ack_status" jdbcType="VARCHAR" property="ackStatus" />
+    <result column="receive_time" jdbcType="VARCHAR" property="receiveTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    phone, send_id, ack_status, receive_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_pub_sms_ack
+    where phone = #{phone,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from t_pub_sms_ack
+    where phone = #{phone,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.chinatower.product.legalms.modules.flow.entity.sms.TPubSmsAck">
+    insert into t_pub_sms_ack (phone, send_id, ack_status, 
+      receive_time)
+    values (#{phone,jdbcType=VARCHAR}, #{sendId,jdbcType=VARCHAR}, #{ackStatus,jdbcType=VARCHAR}, 
+      #{receiveTime,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.chinatower.product.legalms.modules.flow.entity.sms.TPubSmsAck">
+    insert into t_pub_sms_ack
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="phone != null">
+        phone,
+      </if>
+      <if test="sendId != null">
+        send_id,
+      </if>
+      <if test="ackStatus != null">
+        ack_status,
+      </if>
+      <if test="receiveTime != null">
+        receive_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="phone != null">
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="sendId != null">
+        #{sendId,jdbcType=VARCHAR},
+      </if>
+      <if test="ackStatus != null">
+        #{ackStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="receiveTime != null">
+        #{receiveTime,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.chinatower.product.legalms.modules.flow.entity.sms.TPubSmsAck">
+    update t_pub_sms_ack
+    <set>
+      <if test="sendId != null">
+        send_id = #{sendId,jdbcType=VARCHAR},
+      </if>
+      <if test="ackStatus != null">
+        ack_status = #{ackStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="receiveTime != null">
+        receive_time = #{receiveTime,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where phone = #{phone,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.chinatower.product.legalms.modules.flow.entity.sms.TPubSmsAck">
+    update t_pub_sms_ack
+    set send_id = #{sendId,jdbcType=VARCHAR},
+      ack_status = #{ackStatus,jdbcType=VARCHAR},
+      receive_time = #{receiveTime,jdbcType=VARCHAR}
+    where phone = #{phone,jdbcType=VARCHAR}
+  </update>
+</mapper>

@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.chinatower.product.legalms.modules.cases.mapper.RulingExecutiveMapper" >
+    <resultMap id="secondInsMap" type="com.chinatower.product.legalms.modules.cases.entity.RulingExecutiveVO">
+        <id column="ruling_id" property="rulingId" jdbcType="VARCHAR" />
+        <result column="case_id" property="caseId" jdbcType="VARCHAR" />
+        <result column="document_order" property="documentOrder" jdbcType="VARCHAR" />
+        <result column="our_ruling_body" property="ourRulingBody" jdbcType="VARCHAR" />
+        <result column="other_ruling_body" property="otherRulingBody" jdbcType="VARCHAR" />
+        <result column="perform_content" property="performContent" jdbcType="VARCHAR" />
+        <result column="ruling_role" property="rulingRole" jdbcType="VARCHAR" />
+        <result column="executive_way" property="executiveWay" jdbcType="VARCHAR" />
+        <result column="end_time" property="endTime" jdbcType="TIMESTAMP" />
+        <result column="ruling_money" property="rulingMoney" jdbcType="DECIMAL" />
+        <result column="executive_money" property="executiveMoney" jdbcType="DECIMAL" />
+        <result column="help_loss_money" property="helpLossMoney" jdbcType="DECIMAL" />
+        <result column="loss_money" property="lossMoney" jdbcType="DECIMAL" />
+        <result column="lawyer_money" property="lawyerMoney" jdbcType="DECIMAL" />
+        <result column="lawsuit_money" property="lawsuitMoney" jdbcType="DECIMAL" />
+        <result column="status" property="status" jdbcType="VARCHAR" />
+    </resultMap>
+    <insert id="addRulingExecutive" parameterType="com.chinatower.product.legalms.modules.cases.entity.RulingExecutiveVO">
+        insert into t_case_ruling_executive
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="rulingId != null and rulingId != ''" > ruling_id, </if>
+            <if test="caseId != null and caseId != ''" > case_id, </if>
+            <if test="documentOrder != null and documentOrder != ''" > document_order, </if>
+            <if test="ourRulingBody != null and ourRulingBody != ''" > our_ruling_body, </if>
+            <if test="otherRulingBody != null and otherRulingBody != ''" > other_ruling_body, </if>
+            <if test="performContent != null and performContent != ''" > perform_content, </if>
+            <if test="rulingRole != null and rulingRole != ''" > ruling_role, </if>
+            <if test="executiveWay != null and executiveWay != ''" > executive_way, </if>
+            <if test="endTime != null" > end_time, </if>
+            <if test="rulingMoney != null and rulingMoney != ''" > ruling_money, </if>
+            <if test="executiveMoney != null and executiveMoney != ''" > executive_money, </if>
+            <if test="helpLossMoney != null and helpLossMoney != ''" > help_loss_money, </if>
+            <if test="lossMoney != null and lossMoney != ''" > loss_money, </if>
+            <if test="lawyerMoney != null and lawyerMoney != ''" > lawyer_money, </if>
+            <if test="lawsuitMoney != null and lawsuitMoney != ''" > lawsuit_money, </if>
+            status,
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="rulingId != null and rulingId != ''" > #{rulingId,jdbcType=VARCHAR}, </if>
+            <if test="caseId != null and caseId != ''" > #{caseId,jdbcType=VARCHAR}, </if>
+            <if test="documentOrder != null and documentOrder != ''" > #{documentOrder,jdbcType=VARCHAR}, </if>
+            <if test="ourRulingBody != null and ourRulingBody != ''" > #{ourRulingBody,jdbcType=VARCHAR}, </if>
+            <if test="otherRulingBody  != null and otherRulingBody  != ''" > #{otherRulingBody,jdbcType=VARCHAR}, </if>
+            <if test="performContent != null and performContent != ''" > #{performContent,jdbcType=VARCHAR}, </if>
+            <if test="rulingRole != null and rulingRole != ''" > #{rulingRole,jdbcType=VARCHAR}, </if>
+            <if test="executiveWay != null and executiveWay != ''" > #{executiveWay,jdbcType=VARCHAR}, </if>
+            <if test="endTime != null" > #{endTime,jdbcType=TIMESTAMP}, </if>
+            <if test="rulingMoney != null and rulingMoney != ''" > #{rulingMoney,jdbcType=DECIMAL}, </if>
+            <if test="executiveMoney != null and executiveMoney != ''" > #{executiveMoney,jdbcType=DECIMAL}, </if>
+            <if test="helpLossMoney != null and helpLossMoney != ''" > #{helpLossMoney,jdbcType=DECIMAL}, </if>
+            <if test="lossMoney != null and lossMoney != ''" > #{lossMoney,jdbcType=DECIMAL}, </if>
+            <if test="lawyerMoney != null and lawyerMoney != ''" > #{lawyerMoney,jdbcType=DECIMAL}, </if>
+            <if test="lawsuitMoney != null and lawsuitMoney != ''" > #{lawsuitMoney,jdbcType=DECIMAL}, </if>
+           '0',
+        </trim>
+    </insert>
+
+    <select id="selectRulingExecutiveById" resultMap="secondInsMap">
+        select
+         ruling_id,case_id,document_order,our_ruling_body,other_ruling_body,perform_content,ruling_role
+         ,executive_way,end_time,ruling_money,executive_money,help_loss_money,loss_money,lawyer_money
+         ,lawsuit_money,status
+        from t_case_ruling_executive where case_id=#{caseId} and status = '0'
+    </select>
+
+
+    <update id="updateRulingExecutive">
+        update t_case_ruling_executive
+        <set>
+            <if test="caseId != null and caseId != ''" > case_id = #{caseId,jdbcType=VARCHAR}, </if>
+            <if test="documentOrder!=null">document_order = #{documentOrder,jdbcType=VARCHAR},</if>
+            <if test="ourRulingBody!=null">our_ruling_body = #{ourRulingBody,jdbcType=VARCHAR},</if>
+            <if test="otherRulingBody!=null ">other_ruling_body = #{otherRulingBody,jdbcType=VARCHAR},</if>
+            <if test="performContent!=null">perform_content  = #{performContent,jdbcType=VARCHAR},</if>
+            <if test="rulingRole!=null">ruling_role = #{rulingRole,jdbcType=VARCHAR},</if>
+            <if test="executiveWay!=null">executive_way = #{executiveWay,jdbcType=VARCHAR},</if>
+            end_time = #{endTime,jdbcType=TIMESTAMP},
+            <if test="rulingMoney!=null">ruling_money = #{rulingMoney,jdbcType=DECIMAL},</if>
+            <if test="executiveMoney!=null">executive_money = #{executiveMoney,jdbcType=DECIMAL},</if>
+            <if test="helpLossMoney!=null">help_loss_money = #{helpLossMoney,jdbcType=DECIMAL},</if>
+            <if test="lossMoney!=null">loss_money = #{lossMoney,jdbcType=DECIMAL},</if>
+            <if test="lawyerMoney!=null">lawyer_money = #{lawyerMoney,jdbcType=DECIMAL},</if>
+            <if test="lawsuitMoney!=null ">lawsuit_money = #{lawsuitMoney,jdbcType=DECIMAL},</if>
+            <if test="status!=null">status = #{status,jdbcType=VARCHAR},</if>
+        </set>
+        where case_id = #{caseId,jdbcType=VARCHAR}
+    </update>
+
+    <select id="selectAllRulingExecutiveByCount" resultType="Integer">
+     select
+      count(1)
+     from  t_case_ruling_executive where case_id=#{caseId} and status = '0'
+   </select>
+</mapper>

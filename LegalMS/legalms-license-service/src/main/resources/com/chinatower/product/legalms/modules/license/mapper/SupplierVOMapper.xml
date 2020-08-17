@@ -1,0 +1,1462 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chinatower.product.legalms.modules.license.mapper.SupplierMapper">
+    <resultMap id="BaseResultMap" type="com.chinatower.product.legalms.modules.license.entity.supplier.SupplierBaseVO">
+        <result column="sup_base_id_ba" jdbcType="VARCHAR" property="supBaseId"/>
+        <result column="credit_rating" jdbcType="VARCHAR" property="creditRating"/>
+        <result column="supplier_accounts_type" jdbcType="VARCHAR" property="supplierAccountsType"/>
+        <result column="supplier_product_type" jdbcType="VARCHAR" property="supplierProductType"/>
+        <result column="reserved_text_1_ba" jdbcType="VARCHAR" property="reservedText1"/>
+        <result column="reserved_text_2_ba" jdbcType="VARCHAR" property="reservedText2"/>
+        <result column="reserved_text_3_ba" jdbcType="VARCHAR" property="reservedText3"/>
+        <result column="reserved_text_4_ba" jdbcType="VARCHAR" property="reservedText4"/>
+        <result column="reserved_text_5_ba" jdbcType="VARCHAR" property="reservedText5"/>
+        <result column="supplier_parent_name" jdbcType="VARCHAR" property="supplierParentName"/>
+        <result column="supplier_parent_code" jdbcType="VARCHAR" property="supplierParentCode"/>
+        <result column="supplier_code" jdbcType="VARCHAR" property="supplierCode"/>
+        <result column="supplier_name" jdbcType="VARCHAR" property="supplierName"/>
+        <result column="supplier_telephone" jdbcType="VARCHAR" property="supplierTelephone"/>
+        <result column="supplier_email" jdbcType="VARCHAR" property="supplierEmail"/>
+        <result column="supplier_category" jdbcType="VARCHAR" property="supplierCategory"/>
+        <result column="supplier_status" jdbcType="VARCHAR" property="supplierStatus"/>
+        <result column="associative_relationship" jdbcType="VARCHAR" property="associativeRelationship"/>
+        <result column="associative_unit" jdbcType="VARCHAR" property="associativeUnit"/>
+        <result column="document_type" jdbcType="VARCHAR" property="documentType"/>
+        <result column="document_coding" jdbcType="VARCHAR" property="documentCoding"/>
+        <result column="residence" jdbcType="VARCHAR" property="residence"/>
+        <result column="legal_representative" jdbcType="VARCHAR" property="legalRepresentative"/>
+        <result column="registered_capital" jdbcType="VARCHAR" property="registeredCapital"/>
+        <result column="registered_currency" jdbcType="VARCHAR" property="registeredCurrency"/>
+        <result column="establishment_date" jdbcType="VARCHAR" property="establishmentDate"/>
+        <result column="time_limit_business" jdbcType="VARCHAR" property="timeLimitBusiness"/>
+        <result column="scope_operation" jdbcType="VARCHAR" property="scopeOperation"/>
+        <result column="registered_country" jdbcType="VARCHAR" property="registeredCountry"/>
+        <result column="registered_prov" jdbcType="VARCHAR" property="registeredProv"/>
+        <result column="registered_city" jdbcType="VARCHAR" property="registeredCity"/>
+        <result column="pay_taxes_type" jdbcType="VARCHAR" property="payTaxesType"/>
+        <result column="application_unit" jdbcType="VARCHAR" property="applicationUnit"/>
+        <result column="applicant_name" jdbcType="VARCHAR" property="applicantName"/>
+        <result column="applicant_int" jdbcType="VARCHAR" property="applicantInt"/>
+        <result column="reserved_text_6_ba" jdbcType="VARCHAR" property="reservedText6"/>
+        <result column="reserved_text_7_ba" jdbcType="VARCHAR" property="reservedText7"/>
+        <result column="reserved_text_10_ba" jdbcType="VARCHAR" property="reservedText10"/>
+        <result column="reserved_text_8_ba" jdbcType="VARCHAR" property="reservedText8"/>
+        <result column="reserved_text_9_ba" jdbcType="VARCHAR" property="reservedText9"/>
+        <result column="supplier_remarks" jdbcType="VARCHAR" property="supplierRemarks"/>
+        <result column="last_update_date_ba" jdbcType="VARCHAR" property="lastUpdateDate"/>
+        <result column="last_updated_by_ba" jdbcType="VARCHAR" property="lastUpdatedBy"/>
+        <result column="creation_date_ba" jdbcType="VARCHAR" property="creationDate"/>
+        <result column="created_by_ba" jdbcType="VARCHAR" property="createdBy"/>
+        <result column="last_update_login_ba" jdbcType="INTEGER" property="lastUpdateLogin"/>
+        <result column="org_id_ba" jdbcType="VARCHAR" property="orgId"/>
+        <result column="audit_status_ba" jdbcType="VARCHAR" property="auditStatus"/>
+        <result column="company_id_ba" jdbcType="INTEGER" property="companyId"/>
+        <result column="version_m" jdbcType="VARCHAR" property="versionM"/>
+        <result column="supplier_rank" jdbcType="VARCHAR" property="supplierRank"/>
+        <!--供应商联系人信息表-->
+        <collection property="supplierContactInfo"
+                    ofType="com.chinatower.product.legalms.modules.license.entity.supplier.response.SupplierContact">
+            <result column="sup_base_id_co" jdbcType="VARCHAR" property="supBaseId"/>
+            <result column="contact_responsible_prov" jdbcType="VARCHAR" property="contactResponsibleProv"/>
+            <result column="contact_name" jdbcType="VARCHAR" property="contactName"/>
+            <result column="contact_tel" jdbcType="VARCHAR" property="contactTel"/>
+            <result column="contact_position" jdbcType="VARCHAR" property="contactPosition"/>
+            <result column="contact_email" jdbcType="VARCHAR" property="contactEmail"/>
+            <result column="if_default" jdbcType="VARCHAR" property="ifDefault"/>
+            <result column="reserved_text_1_co" jdbcType="VARCHAR" property="reservedText1"/>
+            <result column="reserved_text_2_co" jdbcType="VARCHAR" property="reservedText2"/>
+            <result column="reserved_text_3_co" jdbcType="VARCHAR" property="reservedText3"/>
+            <result column="reserved_text_4_co" jdbcType="VARCHAR" property="reservedText4"/>
+            <result column="reserved_text_5_co" jdbcType="VARCHAR" property="reservedText5"/>
+            <result column="sup_contact_id" jdbcType="INTEGER" property="supContactId"/>
+            <result column="contact_child_id" jdbcType="VARCHAR" property="contactChildId"/>
+            <result column="pms_delete_flag" jdbcType="INTEGER" property="pmsDeleteFlag"/>
+            <result column="last_update_date_co" jdbcType="TIMESTAMP" property="lastUpdateDate"/>
+            <result column="last_updated_by_co" jdbcType="VARCHAR" property="lastUpdatedBy"/>
+            <result column="creation_date_co" jdbcType="TIMESTAMP" property="creationDate"/>
+            <result column="created_by" jdbcType="VARCHAR" property="createdBy"/>
+            <result column="last_update_login_co" jdbcType="INTEGER" property="lastUpdateLogin"/>
+            <result column="org_id_co" jdbcType="VARCHAR" property="orgId"/>
+            <result column="audit_status_co" jdbcType="VARCHAR" property="auditStatus"/>
+            <result column="company_id_co" jdbcType="INTEGER" property="companyId"/>
+        </collection>
+        <!--供应商证书信息表-->
+        <collection property="supplierCertificateInfo"
+                    ofType="com.chinatower.product.legalms.modules.license.entity.supplier.response.SupplierCertificate">
+            <result column="sup_base_id_ce" jdbcType="VARCHAR" property="supBaseId"/>
+            <result column="certificate_type" jdbcType="VARCHAR" property="certificateType"/>
+            <result column="reserved_text_1_ce" jdbcType="VARCHAR" property="reservedText1"/>
+            <result column="reserved_text_2_ce" jdbcType="VARCHAR" property="reservedText2"/>
+            <result column="reserved_text_3_ce" jdbcType="VARCHAR" property="reservedText3"/>
+            <result column="reserved_text_4_ce" jdbcType="VARCHAR" property="reservedText4"/>
+            <result column="reserved_text_5_ce" jdbcType="VARCHAR" property="reservedText5"/>
+            <result column="sup_certificate_id" jdbcType="INTEGER" property="supCertificateId"/>
+            <result column="certificate_child_id" jdbcType="VARCHAR" property="certificateChildId"/>
+            <result column="certificate_name" jdbcType="VARCHAR" property="certificateName"/>
+            <result column="certificate_code" jdbcType="VARCHAR" property="certificateCode"/>
+            <result column="time_limit" jdbcType="TIMESTAMP" property="timeLimit"/>
+            <result column="pms_delete_flag" jdbcType="INTEGER" property="pmsDeleteFlag"/>
+            <result column="last_update_date_ce" jdbcType="TIMESTAMP" property="lastUpdateDate"/>
+            <result column="last_updated_by_ce" jdbcType="VARCHAR" property="lastUpdatedBy"/>
+            <result column="creation_date_ce" jdbcType="TIMESTAMP" property="creationDate"/>
+            <result column="created_by_ce" jdbcType="VARCHAR" property="createdBy"/>
+            <result column="last_update_login_ce" jdbcType="INTEGER" property="lastUpdateLogin"/>
+            <result column="org_id_ce" jdbcType="VARCHAR" property="orgId"/>
+            <result column="audit_status_ce" jdbcType="VARCHAR" property="auditStatus"/>
+            <result column="company_id_ce" jdbcType="INTEGER" property="companyId"/>
+        </collection>
+        <!--供应商银行信息表-->
+        <collection property="supplierBankInfo"
+                    ofType="com.chinatower.product.legalms.modules.license.entity.supplier.response.SupplierBank">
+            <result column="sup_base_id_bk" jdbcType="VARCHAR" property="supBaseId"/>
+            <result column="reserved_text_1_bk" jdbcType="VARCHAR" property="reservedText1"/>
+            <result column="reserved_text_2_bk" jdbcType="VARCHAR" property="reservedText2"/>
+            <result column="reserved_text_3_bk" jdbcType="VARCHAR" property="reservedText3"/>
+            <result column="reserved_text_4_bk" jdbcType="VARCHAR" property="reservedText4"/>
+            <result column="reserved_text_5_bk" jdbcType="VARCHAR" property="reservedText5"/>
+            <result column="sup_bank_id" jdbcType="INTEGER" property="supBankId"/>
+            <result column="bank_child_id" jdbcType="VARCHAR" property="bankChildId"/>
+            <result column="head_office_bank" jdbcType="VARCHAR" property="headOfficeBank"/>
+            <result column="branch_bank" jdbcType="VARCHAR" property="branchBank"/>
+            <result column="bank_chain" jdbcType="VARCHAR" property="bankChain"/>
+            <result column="account_name" jdbcType="VARCHAR" property="accountName"/>
+            <result column="account" jdbcType="VARCHAR" property="account"/>
+            <result column="account_type" jdbcType="VARCHAR" property="accountType"/>
+            <result column="account_status" jdbcType="VARCHAR" property="accountStatus"/>
+            <result column="pms_delete_flag" jdbcType="INTEGER" property="pmsDeleteFlag"/>
+            <result column="last_update_date_bk" jdbcType="TIMESTAMP" property="lastUpdateDate"/>
+            <result column="last_updated_by_bk" jdbcType="VARCHAR" property="lastUpdatedBy"/>
+            <result column="creation_date_bk" jdbcType="TIMESTAMP" property="creationDate"/>
+            <result column="created_by_bk" jdbcType="VARCHAR" property="createdBy"/>
+            <result column="last_update_login_bk" jdbcType="INTEGER" property="lastUpdateLogin"/>
+            <result column="org_id_bk" jdbcType="VARCHAR" property="orgId"/>
+            <result column="audit_status_bk" jdbcType="VARCHAR" property="auditStatus"/>
+            <result column="company_id_bk" jdbcType="INTEGER" property="companyId"/>
+        </collection>
+    </resultMap>
+
+    <resultMap id="BaseMap" type="com.chinatower.product.legalms.modules.license.entity.supplier.response.SupplierBase">
+    <result column="sup_base_id_ba" jdbcType="VARCHAR" property="supBaseId"/>
+    <result column="credit_rating" jdbcType="VARCHAR" property="creditRating"/>
+    <result column="supplier_accounts_type" jdbcType="VARCHAR" property="supplierAccountsType"/>
+    <result column="supplier_product_type" jdbcType="VARCHAR" property="supplierProductType"/>
+    <result column="reserved_text_1_ba" jdbcType="VARCHAR" property="reservedText1"/>
+    <result column="reserved_text_2_ba" jdbcType="VARCHAR" property="reservedText2"/>
+    <result column="reserved_text_3_ba" jdbcType="VARCHAR" property="reservedText3"/>
+    <result column="reserved_text_4_ba" jdbcType="VARCHAR" property="reservedText4"/>
+    <result column="reserved_text_5_ba" jdbcType="VARCHAR" property="reservedText5"/>
+    <result column="supplier_parent_name" jdbcType="VARCHAR" property="supplierParentName"/>
+    <result column="supplier_parent_code" jdbcType="VARCHAR" property="supplierParentCode"/>
+    <result column="supplier_code" jdbcType="VARCHAR" property="supplierCode"/>
+    <result column="supplier_name" jdbcType="VARCHAR" property="supplierName"/>
+    <result column="supplier_telephone" jdbcType="VARCHAR" property="supplierTelephone"/>
+    <result column="supplier_email" jdbcType="VARCHAR" property="supplierEmail"/>
+    <result column="supplier_category" jdbcType="VARCHAR" property="supplierCategory"/>
+    <result column="supplier_status" jdbcType="VARCHAR" property="supplierStatus"/>
+    <result column="associative_relationship" jdbcType="VARCHAR" property="associativeRelationship"/>
+    <result column="associative_unit" jdbcType="VARCHAR" property="associativeUnit"/>
+    <result column="document_type" jdbcType="VARCHAR" property="documentType"/>
+    <result column="document_coding" jdbcType="VARCHAR" property="documentCoding"/>
+    <result column="residence" jdbcType="VARCHAR" property="residence"/>
+    <result column="legal_representative" jdbcType="VARCHAR" property="legalRepresentative"/>
+    <result column="registered_capital" jdbcType="VARCHAR" property="registeredCapital"/>
+    <result column="registered_currency" jdbcType="VARCHAR" property="registeredCurrency"/>
+    <result column="establishment_date" jdbcType="VARCHAR" property="establishmentDate"/>
+    <result column="time_limit_business" jdbcType="VARCHAR" property="timeLimitBusiness"/>
+    <result column="scope_operation" jdbcType="VARCHAR" property="scopeOperation"/>
+    <result column="registered_country" jdbcType="VARCHAR" property="registeredCountry"/>
+    <result column="registered_prov" jdbcType="VARCHAR" property="registeredProv"/>
+    <result column="registered_city" jdbcType="VARCHAR" property="registeredCity"/>
+    <result column="pay_taxes_type" jdbcType="VARCHAR" property="payTaxesType"/>
+    <result column="application_unit" jdbcType="VARCHAR" property="applicationUnit"/>
+    <result column="applicant_name" jdbcType="VARCHAR" property="applicantName"/>
+    <result column="applicant_int" jdbcType="VARCHAR" property="applicantInt"/>
+    <result column="reserved_text_6_ba" jdbcType="VARCHAR" property="reservedText6"/>
+    <result column="reserved_text_7_ba" jdbcType="VARCHAR" property="reservedText7"/>
+    <result column="reserved_text_10_ba" jdbcType="VARCHAR" property="reservedText10"/>
+    <result column="reserved_text_8_ba" jdbcType="VARCHAR" property="reservedText8"/>
+    <result column="reserved_text_9_ba" jdbcType="VARCHAR" property="reservedText9"/>
+    <result column="supplier_remarks" jdbcType="VARCHAR" property="supplierRemarks"/>
+    <result column="last_update_date_ba" jdbcType="VARCHAR" property="lastUpdateDate"/>
+    <result column="last_updated_by_ba" jdbcType="VARCHAR" property="lastUpdatedBy"/>
+    <result column="creation_date_ba" jdbcType="VARCHAR" property="creationDate"/>
+    <result column="created_by_ba" jdbcType="VARCHAR" property="createdBy"/>
+    <result column="last_update_login_ba" jdbcType="INTEGER" property="lastUpdateLogin"/>
+    <result column="org_id_ba" jdbcType="VARCHAR" property="orgId"/>
+    <result column="audit_status_ba" jdbcType="VARCHAR" property="auditStatus"/>
+    <result column="company_id_ba" jdbcType="INTEGER" property="companyId"/>
+    <result column="version_m" jdbcType="VARCHAR" property="versionM"/>
+    <result column="supplier_rank" jdbcType="VARCHAR" property="supplierRank"/>
+    </resultMap>
+
+
+    <sql id="Base_Column_List">
+    ba.sup_base_id sup_base_id_ba,
+    ba.credit_rating,
+    ba.supplier_accounts_type,
+    ba.supplier_product_type,
+    ba.reserved_text_1 reserved_text_1_ba,
+    ba.reserved_text_2 reserved_text_1_ba,
+    ba.reserved_text_3 reserved_text_1_ba,
+    ba.reserved_text_4 reserved_text_1_ba,
+    ba.reserved_text_5 reserved_text_1_ba,
+    ba.supplier_parent_name,
+    ba.supplier_parent_code,
+    ba.supplier_code,
+    ba.supplier_name,
+    ba.supplier_telephone,
+    ba.supplier_email,
+    ba.supplier_category,
+    ba.supplier_status,
+    ba.associative_relationship,
+    ba.associative_unit,
+    ba.document_type,
+    ba.document_coding,
+    ba.residence,
+    ba.legal_representative,
+    ba.registered_capital,
+    ba.registered_currency,
+    ba.establishment_date,
+    ba.time_limit_business,
+    ba.scope_operation,
+    ba.registered_country,
+    ba.registered_prov,
+    ba.registered_city,
+    ba.pay_taxes_type,
+    ba.application_unit,
+    ba.applicant_name,
+    ba.applicant_int,
+    ba.reserved_text_6 reserved_text_6_ba,
+    ba.reserved_text_7 reserved_text_7_ba,
+    ba.reserved_text_10 reserved_text_10_ba,
+    ba.reserved_text_8 reserved_text_8_ba,
+    ba.reserved_text_9 reserved_text_9_ba,
+    ba.supplier_remarks,
+    ba.last_update_date last_update_date_ba,
+    ba.last_updated_by last_updated_by_ba,
+    ba.creation_date creation_date_ba,
+    ba.created_by created_by_ba,
+    ba.last_update_login last_update_login_ba,
+    ba.org_id org_id_ba,
+    ba.audit_status audit_status_ba,
+    ba.company_id company_id_ba,
+    ba.version_m,
+    ba.supplier_rank
+  </sql>
+
+    <sql id="Bank_List">
+    bk.sup_base_id sup_base_id_bk,
+    bk.reserved_text_1 reserved_text_1_bk,
+    bk.reserved_text_2 reserved_text_2_bk,
+    bk.reserved_text_3 reserved_text_3_bk,
+    bk.reserved_text_4 reserved_text_4_bk,
+    bk.reserved_text_5 reserved_text_5_bk,
+    bk.sup_bank_id, bk.bank_child_id, bk.head_office_bank, bk.branch_bank, bk.bank_chain,
+    bk.account_name, bk.account, bk.account_type, bk.account_status, bk.pms_delete_flag,
+    bk.last_update_date last_update_date_bk,
+    bk.last_updated_by last_updated_by_bk,
+    bk.creation_date creation_date_bk,
+    bk.created_by created_by_bk,
+    bk.last_update_login last_update_login_bk,
+    bk.org_id org_id_bk,
+    bk.audit_status audit_status_bk,
+    bk.company_id company_id_bk
+  </sql>
+
+    <sql id="Certificate_List">
+    ce.sup_base_id sup_base_id_ce,
+    ce.certificate_type,
+    ce.reserved_text_1 reserved_text_1_ce,
+    ce.reserved_text_2 reserved_text_2_ce,
+    ce.reserved_text_3 reserved_text_3_ce,
+    ce.reserved_text_4 reserved_text_4_ce,
+    ce.reserved_text_5 reserved_text_5_ce,
+    ce.sup_certificate_id, ce.certificate_child_id, ce.certificate_name,
+    ce.certificate_code, ce.time_limit, ce.pms_delete_flag,
+    ce.last_update_date last_update_date_ce,
+    ce.last_updated_by last_updated_by_ce,
+    ce.creation_date creation_date_ce,
+    ce.created_by created_by_ce,
+    ce.last_update_login last_update_login_ce,
+    ce.org_id org_id_ce,
+    ce.audit_status audit_status_ce,
+    ce.company_id company_id_ce
+  </sql>
+
+    <sql id="Contact_List">
+    co.sup_base_id sup_base_id_co,
+    co.contact_responsible_prov, co.contact_name, co.contact_tel, co.contact_position,
+    co.contact_email, co.if_default,
+    co.reserved_text_1 reserved_text_1_co,
+    co.reserved_text_2 reserved_text_2_co,
+    co.reserved_text_3 reserved_text_3_co,
+    co.reserved_text_4 reserved_text_4_co,
+    co.reserved_text_5 reserved_text_5_co,
+    co.sup_contact_id, co.contact_child_id, co.pms_delete_flag,
+    co.last_update_date last_update_date_co,
+    co.last_updated_by last_updated_by_co,
+    co.creation_date creation_date_co,
+    co.created_by created_by_co,
+    co.last_update_login last_update_login_co,
+    co.org_id org_id_co,
+    co.audit_status audit_status_co,
+    co.company_id company_id_co
+  </sql>
+    <select id="selectSupplierInfoByCode" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select * from t_pub_sup_base
+        where supplier_code = #{supplierCode,jdbcType=VARCHAR}
+    </select>
+
+    <select id="selectSupplierInfoList" parameterType="com.chinatower.product.legalms.modules.license.entity.supplier.response.SupplierBase" resultMap="BaseMap">
+        select supplier_name,supplier_code,supplier_status from t_pub_sup_base
+        where 1=1
+        <if test="supplierName !=null and supplierName !='' ">
+            and supplier_name like concat('%',#{supplierName},'%')
+        </if>
+    </select>
+
+    <select id="selectAllSupplierInfo"
+            parameterType="com.chinatower.product.legalms.modules.license.entity.supplier.response.SupplierBase"
+            resultMap="BaseResultMap">
+       select
+        <include refid="Base_Column_List"></include>,
+        <include refid="Bank_List"></include>,
+        <include refid="Certificate_List"></include>,
+        <include refid="Contact_List"></include>
+        from t_pub_sup_base ba
+        left join t_pub_sup_contact co on ba.sup_base_id = co.sup_base_id
+        left join t_pub_sup_certificate ce on ba.sup_base_id = ce.sup_base_id
+        left join t_pub_sup_bank bk on ba.sup_base_id = bk.sup_base_id
+        where 1=1
+        <if test="supplierCode !=null">
+          and ba.supplier_code =#{supplierCode}
+        </if>
+    </select>
+
+
+    <!--供应商主表-->
+    <insert id="insertSupplierBaseInfo"
+            parameterType="com.chinatower.product.legalms.modules.license.entity.supplier.SupplierBaseVO">
+        insert into t_pub_sup_base
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="supBaseId != null">
+                sup_base_id,
+            </if>
+            <if test="creditRating != null">
+                credit_rating,
+            </if>
+            <if test="supplierAccountsType != null">
+                supplier_accounts_type,
+            </if>
+            <if test="supplierProductType != null">
+                supplier_product_type,
+            </if>
+            <if test="reservedText1 != null">
+                reserved_text_1,
+            </if>
+            <if test="reservedText2 != null">
+                reserved_text_2,
+            </if>
+            <if test="reservedText3 != null">
+                reserved_text_3,
+            </if>
+            <if test="reservedText4 != null">
+                reserved_text_4,
+            </if>
+            <if test="reservedText5 != null">
+                reserved_text_5,
+            </if>
+            <if test="supplierParentName != null">
+                supplier_parent_name,
+            </if>
+            <if test="supplierParentCode != null">
+                supplier_parent_code,
+            </if>
+            <if test="supplierCode != null">
+                supplier_code,
+            </if>
+            <if test="supplierName != null">
+                supplier_name,
+            </if>
+            <if test="supplierTelephone != null">
+                supplier_telephone,
+            </if>
+            <if test="supplierEmail != null">
+                supplier_email,
+            </if>
+            <if test="supplierCategory != null">
+                supplier_category,
+            </if>
+            <if test="supplierStatus != null">
+                supplier_status,
+            </if>
+            <if test="associativeRelationship != null">
+                associative_relationship,
+            </if>
+            <if test="associativeUnit != null">
+                associative_unit,
+            </if>
+            <if test="documentType != null">
+                document_type,
+            </if>
+            <if test="documentCoding != null">
+                document_coding,
+            </if>
+            <if test="residence != null">
+                residence,
+            </if>
+            <if test="legalRepresentative != null">
+                legal_representative,
+            </if>
+            <if test="registeredCapital != null">
+                registered_capital,
+            </if>
+            <if test="registeredCurrency != null">
+                registered_currency,
+            </if>
+            <if test="establishmentDate != null">
+                establishment_date,
+            </if>
+            <if test="timeLimitBusiness != null">
+                time_limit_business,
+            </if>
+            <if test="scopeOperation != null">
+                scope_operation,
+            </if>
+            <if test="registeredCountry != null">
+                registered_country,
+            </if>
+            <if test="registeredProv != null">
+                registered_prov,
+            </if>
+            <if test="registeredCity != null">
+                registered_city,
+            </if>
+            <if test="payTaxesType != null">
+                pay_taxes_type,
+            </if>
+            <if test="applicationUnit != null">
+                application_unit,
+            </if>
+            <if test="applicantName != null">
+                applicant_name,
+            </if>
+            <if test="applicantInt != null">
+                applicant_int,
+            </if>
+            <if test="reservedText6 != null">
+                reserved_text_6,
+            </if>
+            <if test="reservedText7 != null">
+                reserved_text_7,
+            </if>
+            <if test="reservedText10 != null">
+                reserved_text_10,
+            </if>
+            <if test="reservedText8 != null">
+                reserved_text_8,
+            </if>
+            <if test="reservedText9 != null">
+                reserved_text_9,
+            </if>
+            <if test="supplierRemarks != null">
+                supplier_remarks,
+            </if>
+            <if test="lastUpdateDate != null">
+                last_update_date,
+            </if>
+            <if test="lastUpdatedBy != null">
+                last_updated_by,
+            </if>
+            <if test="creationDate != null">
+                creation_date,
+            </if>
+            <if test="createdBy != null">
+                created_by,
+            </if>
+            <if test="lastUpdateLogin != null">
+                last_update_login,
+            </if>
+            <if test="orgId != null">
+                org_id,
+            </if>
+            <if test="auditStatus != null">
+                audit_status,
+            </if>
+            <if test="companyId != null">
+                company_id,
+            </if>
+            <if test="versionM != null">
+                version_m,
+            </if>
+            <if test="supplierRank != null">
+                supplier_rank,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="supBaseId != null">
+                #{supBaseId,jdbcType=VARCHAR},
+            </if>
+            <if test="creditRating != null">
+                #{creditRating,jdbcType=VARCHAR},
+            </if>
+            <if test="supplierAccountsType != null">
+                #{supplierAccountsType,jdbcType=VARCHAR},
+            </if>
+            <if test="supplierProductType != null">
+                #{supplierProductType,jdbcType=VARCHAR},
+            </if>
+            <if test="reservedText1 != null">
+                #{reservedText1,jdbcType=VARCHAR},
+            </if>
+            <if test="reservedText2 != null">
+                #{reservedText2,jdbcType=VARCHAR},
+            </if>
+            <if test="reservedText3 != null">
+                #{reservedText3,jdbcType=VARCHAR},
+            </if>
+            <if test="reservedText4 != null">
+                #{reservedText4,jdbcType=VARCHAR},
+            </if>
+            <if test="reservedText5 != null">
+                #{reservedText5,jdbcType=VARCHAR},
+            </if>
+            <if test="supplierParentName != null">
+                #{supplierParentName,jdbcType=VARCHAR},
+            </if>
+            <if test="supplierParentCode != null">
+                #{supplierParentCode,jdbcType=VARCHAR},
+            </if>
+            <if test="supplierCode != null">
+                #{supplierCode,jdbcType=VARCHAR},
+            </if>
+            <if test="supplierName != null">
+                #{supplierName,jdbcType=VARCHAR},
+            </if>
+            <if test="supplierTelephone != null">
+                #{supplierTelephone,jdbcType=VARCHAR},
+            </if>
+            <if test="supplierEmail != null">
+                #{supplierEmail,jdbcType=VARCHAR},
+            </if>
+            <if test="supplierCategory != null">
+                #{supplierCategory,jdbcType=VARCHAR},
+            </if>
+            <if test="supplierStatus != null">
+                #{supplierStatus,jdbcType=VARCHAR},
+            </if>
+            <if test="associativeRelationship != null">
+                #{associativeRelationship,jdbcType=VARCHAR},
+            </if>
+            <if test="associativeUnit != null">
+                #{associativeUnit,jdbcType=VARCHAR},
+            </if>
+            <if test="documentType != null">
+                #{documentType,jdbcType=VARCHAR},
+            </if>
+            <if test="documentCoding != null">
+                #{documentCoding,jdbcType=VARCHAR},
+            </if>
+            <if test="residence != null">
+                #{residence,jdbcType=VARCHAR},
+            </if>
+            <if test="legalRepresentative != null">
+                #{legalRepresentative,jdbcType=VARCHAR},
+            </if>
+            <if test="registeredCapital != null">
+                #{registeredCapital,jdbcType=VARCHAR},
+            </if>
+            <if test="registeredCurrency != null">
+                #{registeredCurrency,jdbcType=VARCHAR},
+            </if>
+            <if test="establishmentDate != null">
+                #{establishmentDate,jdbcType=VARCHAR},
+            </if>
+            <if test="timeLimitBusiness != null">
+                #{timeLimitBusiness,jdbcType=VARCHAR},
+            </if>
+            <if test="scopeOperation != null">
+                #{scopeOperation,jdbcType=VARCHAR},
+            </if>
+            <if test="registeredCountry != null">
+                #{registeredCountry,jdbcType=VARCHAR},
+            </if>
+            <if test="registeredProv != null">
+                #{registeredProv,jdbcType=VARCHAR},
+            </if>
+            <if test="registeredCity != null">
+                #{registeredCity,jdbcType=VARCHAR},
+            </if>
+            <if test="payTaxesType != null">
+                #{payTaxesType,jdbcType=VARCHAR},
+            </if>
+            <if test="applicationUnit != null">
+                #{applicationUnit,jdbcType=VARCHAR},
+            </if>
+            <if test="applicantName != null">
+                #{applicantName,jdbcType=VARCHAR},
+            </if>
+            <if test="applicantInt != null">
+                #{applicantInt,jdbcType=VARCHAR},
+            </if>
+            <if test="reservedText6 != null">
+                #{reservedText6,jdbcType=VARCHAR},
+            </if>
+            <if test="reservedText7 != null">
+                #{reservedText7,jdbcType=VARCHAR},
+            </if>
+            <if test="reservedText10 != null">
+                #{reservedText10,jdbcType=VARCHAR},
+            </if>
+            <if test="reservedText8 != null">
+                #{reservedText8,jdbcType=VARCHAR},
+            </if>
+            <if test="reservedText9 != null">
+                #{reservedText9,jdbcType=VARCHAR},
+            </if>
+            <if test="supplierRemarks != null">
+                #{supplierRemarks,jdbcType=VARCHAR},
+            </if>
+            <if test="lastUpdateDate != null">
+                #{lastUpdateDate,jdbcType=VARCHAR},
+            </if>
+            <if test="lastUpdatedBy != null">
+                #{lastUpdatedBy,jdbcType=VARCHAR},
+            </if>
+            <if test="creationDate != null">
+                #{creationDate,jdbcType=VARCHAR},
+            </if>
+            <if test="createdBy != null">
+                #{createdBy,jdbcType=VARCHAR},
+            </if>
+            <if test="lastUpdateLogin != null">
+                #{lastUpdateLogin,jdbcType=INTEGER},
+            </if>
+            <if test="orgId != null">
+                #{orgId,jdbcType=VARCHAR},
+            </if>
+            <if test="auditStatus != null">
+                #{auditStatus,jdbcType=VARCHAR},
+            </if>
+            <if test="companyId != null">
+                #{companyId,jdbcType=INTEGER},
+            </if>
+            <if test="versionM != null">
+                #{versionM,jdbcType=VARCHAR},
+            </if>
+            <if test="supplierRank != null">
+                #{supplierRank,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateSupplierBaseInfo"
+            parameterType="com.chinatower.product.legalms.modules.license.entity.supplier.SupplierBaseVO">
+        update t_pub_sup_base
+        <set>
+            <if test="creditRating != null">
+                credit_rating = #{creditRating,jdbcType=VARCHAR},
+            </if>
+            <if test="supplierAccountsType != null">
+                supplier_accounts_type = #{supplierAccountsType,jdbcType=VARCHAR},
+            </if>
+            <if test="supplierProductType != null">
+                supplier_product_type = #{supplierProductType,jdbcType=VARCHAR},
+            </if>
+            <if test="reservedText1 != null">
+                reserved_text_1 = #{reservedText1,jdbcType=VARCHAR},
+            </if>
+            <if test="reservedText2 != null">
+                reserved_text_2 = #{reservedText2,jdbcType=VARCHAR},
+            </if>
+            <if test="reservedText3 != null">
+                reserved_text_3 = #{reservedText3,jdbcType=VARCHAR},
+            </if>
+            <if test="reservedText4 != null">
+                reserved_text_4 = #{reservedText4,jdbcType=VARCHAR},
+            </if>
+            <if test="reservedText5 != null">
+                reserved_text_5 = #{reservedText5,jdbcType=VARCHAR},
+            </if>
+            <if test="supplierParentName != null">
+                supplier_parent_name = #{supplierParentName,jdbcType=VARCHAR},
+            </if>
+            <if test="supplierParentCode != null">
+                supplier_parent_code = #{supplierParentCode,jdbcType=VARCHAR},
+            </if>
+            <if test="supplierCode != null">
+                supplier_code = #{supplierCode,jdbcType=VARCHAR},
+            </if>
+            <if test="supplierName != null">
+                supplier_name = #{supplierName,jdbcType=VARCHAR},
+            </if>
+            <if test="supplierTelephone != null">
+                supplier_telephone = #{supplierTelephone,jdbcType=VARCHAR},
+            </if>
+            <if test="supplierEmail != null">
+                supplier_email = #{supplierEmail,jdbcType=VARCHAR},
+            </if>
+            <if test="supplierCategory != null">
+                supplier_category = #{supplierCategory,jdbcType=VARCHAR},
+            </if>
+            <if test="supplierStatus != null">
+                supplier_status = #{supplierStatus,jdbcType=VARCHAR},
+            </if>
+            <if test="associativeRelationship != null">
+                associative_relationship = #{associativeRelationship,jdbcType=VARCHAR},
+            </if>
+            <if test="associativeUnit != null">
+                associative_unit = #{associativeUnit,jdbcType=VARCHAR},
+            </if>
+            <if test="documentType != null">
+                document_type = #{documentType,jdbcType=VARCHAR},
+            </if>
+            <if test="documentCoding != null">
+                document_coding = #{documentCoding,jdbcType=VARCHAR},
+            </if>
+            <if test="residence != null">
+                residence = #{residence,jdbcType=VARCHAR},
+            </if>
+            <if test="legalRepresentative != null">
+                legal_representative = #{legalRepresentative,jdbcType=VARCHAR},
+            </if>
+            <if test="registeredCapital != null">
+                registered_capital = #{registeredCapital,jdbcType=VARCHAR},
+            </if>
+            <if test="registeredCurrency != null">
+                registered_currency = #{registeredCurrency,jdbcType=VARCHAR},
+            </if>
+            <if test="establishmentDate != null">
+                establishment_date = #{establishmentDate,jdbcType=VARCHAR},
+            </if>
+            <if test="timeLimitBusiness != null">
+                time_limit_business = #{timeLimitBusiness,jdbcType=VARCHAR},
+            </if>
+            <if test="scopeOperation != null">
+                scope_operation = #{scopeOperation,jdbcType=VARCHAR},
+            </if>
+            <if test="registeredCountry != null">
+                registered_country = #{registeredCountry,jdbcType=VARCHAR},
+            </if>
+            <if test="registeredProv != null">
+                registered_prov = #{registeredProv,jdbcType=VARCHAR},
+            </if>
+            <if test="registeredCity != null">
+                registered_city = #{registeredCity,jdbcType=VARCHAR},
+            </if>
+            <if test="payTaxesType != null">
+                pay_taxes_type = #{payTaxesType,jdbcType=VARCHAR},
+            </if>
+            <if test="applicationUnit != null">
+                application_unit = #{applicationUnit,jdbcType=VARCHAR},
+            </if>
+            <if test="applicantName != null">
+                applicant_name = #{applicantName,jdbcType=VARCHAR},
+            </if>
+            <if test="applicantInt != null">
+                applicant_int = #{applicantInt,jdbcType=VARCHAR},
+            </if>
+            <if test="reservedText6 != null">
+                reserved_text_6 = #{reservedText6,jdbcType=VARCHAR},
+            </if>
+            <if test="reservedText7 != null">
+                reserved_text_7 = #{reservedText7,jdbcType=VARCHAR},
+            </if>
+            <if test="reservedText10 != null">
+                reserved_text_10 = #{reservedText10,jdbcType=VARCHAR},
+            </if>
+            <if test="reservedText8 != null">
+                reserved_text_8 = #{reservedText8,jdbcType=VARCHAR},
+            </if>
+            <if test="reservedText9 != null">
+                reserved_text_9 = #{reservedText9,jdbcType=VARCHAR},
+            </if>
+            <if test="supplierRemarks != null">
+                supplier_remarks = #{supplierRemarks,jdbcType=VARCHAR},
+            </if>
+            <if test="lastUpdateDate != null">
+                last_update_date = #{lastUpdateDate,jdbcType=VARCHAR},
+            </if>
+            <if test="lastUpdatedBy != null">
+                last_updated_by = #{lastUpdatedBy,jdbcType=VARCHAR},
+            </if>
+            <if test="creationDate != null">
+                creation_date = #{creationDate,jdbcType=VARCHAR},
+            </if>
+            <if test="createdBy != null">
+                created_by = #{createdBy,jdbcType=VARCHAR},
+            </if>
+            <if test="lastUpdateLogin != null">
+                last_update_login = #{lastUpdateLogin,jdbcType=INTEGER},
+            </if>
+            <if test="orgId != null">
+                org_id = #{orgId,jdbcType=VARCHAR},
+            </if>
+            <if test="auditStatus != null">
+                audit_status = #{auditStatus,jdbcType=VARCHAR},
+            </if>
+            <if test="companyId != null">
+                company_id = #{companyId,jdbcType=INTEGER},
+            </if>
+            <if test="versionM != null">
+                version_m = #{versionM,jdbcType=VARCHAR},
+            </if>
+            <if test="supplierRank != null">
+                supplier_rank = #{supplierRank,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where supplier_code = #{supplierCode,jdbcType=VARCHAR}
+    </update>
+
+    <!--供应商联系人信息表-->
+    <insert id="insertContactInfo"
+            parameterType="com.chinatower.product.legalms.modules.license.entity.supplier.SupplierContactVO">
+        insert into t_pub_sup_contact
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="supBaseId != null">
+                sup_base_id,
+            </if>
+            <if test="contactResponsibleProv != null">
+                contact_responsible_prov,
+            </if>
+            <if test="contactName != null">
+                contact_name,
+            </if>
+            <if test="contactTel != null">
+                contact_tel,
+            </if>
+            <if test="contactPosition != null">
+                contact_position,
+            </if>
+            <if test="contactEmail != null">
+                contact_email,
+            </if>
+            <if test="ifDefault != null">
+                if_default,
+            </if>
+            <if test="reservedText1 != null">
+                reserved_text_1,
+            </if>
+            <if test="reservedText2 != null">
+                reserved_text_2,
+            </if>
+            <if test="reservedText3 != null">
+                reserved_text_3,
+            </if>
+            <if test="reservedText4 != null">
+                reserved_text_4,
+            </if>
+            <if test="reservedText5 != null">
+                reserved_text_5,
+            </if>
+            <if test="supContactId != null">
+                sup_contact_id,
+            </if>
+            <if test="contactChildId != null">
+                contact_child_id,
+            </if>
+            <if test="pmsDeleteFlag != null">
+                pms_delete_flag,
+            </if>
+            <if test="lastUpdateDate != null">
+                last_update_date,
+            </if>
+            <if test="lastUpdatedBy != null">
+                last_updated_by,
+            </if>
+            <if test="creationDate != null">
+                creation_date,
+            </if>
+            <if test="createdBy != null">
+                created_by,
+            </if>
+            <if test="lastUpdateLogin != null">
+                last_update_login,
+            </if>
+            <if test="orgId != null">
+                org_id,
+            </if>
+            <if test="auditStatus != null">
+                audit_status,
+            </if>
+            <if test="companyId != null">
+                company_id,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="supBaseId != null">
+                #{supBaseId,jdbcType=VARCHAR},
+            </if>
+            <if test="contactResponsibleProv != null">
+                #{contactResponsibleProv,jdbcType=VARCHAR},
+            </if>
+            <if test="contactName != null">
+                #{contactName,jdbcType=VARCHAR},
+            </if>
+            <if test="contactTel != null">
+                #{contactTel,jdbcType=VARCHAR},
+            </if>
+            <if test="contactPosition != null">
+                #{contactPosition,jdbcType=VARCHAR},
+            </if>
+            <if test="contactEmail != null">
+                #{contactEmail,jdbcType=VARCHAR},
+            </if>
+            <if test="ifDefault != null">
+                #{ifDefault,jdbcType=VARCHAR},
+            </if>
+            <if test="reservedText1 != null">
+                #{reservedText1,jdbcType=VARCHAR},
+            </if>
+            <if test="reservedText2 != null">
+                #{reservedText2,jdbcType=VARCHAR},
+            </if>
+            <if test="reservedText3 != null">
+                #{reservedText3,jdbcType=VARCHAR},
+            </if>
+            <if test="reservedText4 != null">
+                #{reservedText4,jdbcType=VARCHAR},
+            </if>
+            <if test="reservedText5 != null">
+                #{reservedText5,jdbcType=VARCHAR},
+            </if>
+            <if test="supContactId != null">
+                #{supContactId,jdbcType=INTEGER},
+            </if>
+            <if test="contactChildId != null">
+                #{contactChildId,jdbcType=VARCHAR},
+            </if>
+            <if test="pmsDeleteFlag != null">
+                #{pmsDeleteFlag,jdbcType=INTEGER},
+            </if>
+            <if test="lastUpdateDate != null">
+                #{lastUpdateDate,jdbcType=VARCHAR},
+            </if>
+            <if test="lastUpdatedBy != null">
+                #{lastUpdatedBy,jdbcType=VARCHAR},
+            </if>
+            <if test="creationDate != null">
+                #{creationDate,jdbcType=VARCHAR},
+            </if>
+            <if test="createdBy != null">
+                #{createdBy,jdbcType=VARCHAR},
+            </if>
+            <if test="lastUpdateLogin != null">
+                #{lastUpdateLogin,jdbcType=INTEGER},
+            </if>
+            <if test="orgId != null">
+                #{orgId,jdbcType=VARCHAR},
+            </if>
+            <if test="auditStatus != null">
+                #{auditStatus,jdbcType=VARCHAR},
+            </if>
+            <if test="companyId != null">
+                #{companyId,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateContactInfo"
+            parameterType="com.chinatower.product.legalms.modules.license.entity.supplier.SupplierContactVO">
+        update t_pub_sup_contact
+        <set>
+            <if test="contactResponsibleProv != null">
+                contact_responsible_prov = #{contactResponsibleProv,jdbcType=VARCHAR},
+            </if>
+            <if test="contactName != null">
+                contact_name = #{contactName,jdbcType=VARCHAR},
+            </if>
+            <if test="contactTel != null">
+                contact_tel = #{contactTel,jdbcType=VARCHAR},
+            </if>
+            <if test="contactPosition != null">
+                contact_position = #{contactPosition,jdbcType=VARCHAR},
+            </if>
+            <if test="contactEmail != null">
+                contact_email = #{contactEmail,jdbcType=VARCHAR},
+            </if>
+            <if test="ifDefault != null">
+                if_default = #{ifDefault,jdbcType=VARCHAR},
+            </if>
+            <if test="reservedText1 != null">
+                reserved_text_1 = #{reservedText1,jdbcType=VARCHAR},
+            </if>
+            <if test="reservedText2 != null">
+                reserved_text_2 = #{reservedText2,jdbcType=VARCHAR},
+            </if>
+            <if test="reservedText3 != null">
+                reserved_text_3 = #{reservedText3,jdbcType=VARCHAR},
+            </if>
+            <if test="reservedText4 != null">
+                reserved_text_4 = #{reservedText4,jdbcType=VARCHAR},
+            </if>
+            <if test="reservedText5 != null">
+                reserved_text_5 = #{reservedText5,jdbcType=VARCHAR},
+            </if>
+            <if test="supContactId != null">
+                sup_contact_id = #{supContactId,jdbcType=INTEGER},
+            </if>
+            <if test="contactChildId != null">
+                contact_child_id = #{contactChildId,jdbcType=VARCHAR},
+            </if>
+            <if test="pmsDeleteFlag != null">
+                pms_delete_flag = #{pmsDeleteFlag,jdbcType=INTEGER},
+            </if>
+            <if test="lastUpdateDate != null">
+                last_update_date = #{lastUpdateDate,jdbcType=VARCHAR},
+            </if>
+            <if test="lastUpdatedBy != null">
+                last_updated_by = #{lastUpdatedBy,jdbcType=VARCHAR},
+            </if>
+            <if test="creationDate != null">
+                creation_date = #{creationDate,jdbcType=VARCHAR},
+            </if>
+            <if test="createdBy != null">
+                created_by = #{createdBy,jdbcType=VARCHAR},
+            </if>
+            <if test="lastUpdateLogin != null">
+                last_update_login = #{lastUpdateLogin,jdbcType=INTEGER},
+            </if>
+            <if test="orgId != null">
+                org_id = #{orgId,jdbcType=VARCHAR},
+            </if>
+            <if test="auditStatus != null">
+                audit_status = #{auditStatus,jdbcType=VARCHAR},
+            </if>
+            <if test="companyId != null">
+                company_id = #{companyId,jdbcType=INTEGER},
+            </if>
+        </set>
+        where sup_base_id = #{supBaseId,jdbcType=VARCHAR} and contact_child_id =#{contactChildId,jdbcType=VARCHAR}
+    </update>
+    <!--供应商证书信息表-->
+    <insert id="insertCertificateInfo"
+            parameterType="com.chinatower.product.legalms.modules.license.entity.supplier.SupplierCertificateVO">
+        insert into t_pub_sup_certificate
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="supBaseId != null">
+                sup_base_id,
+            </if>
+            <if test="certificateType != null">
+                certificate_type,
+            </if>
+            <if test="reservedText1 != null">
+                reserved_text_1,
+            </if>
+            <if test="reservedText2 != null">
+                reserved_text_2,
+            </if>
+            <if test="reservedText3 != null">
+                reserved_text_3,
+            </if>
+            <if test="reservedText4 != null">
+                reserved_text_4,
+            </if>
+            <if test="reservedText5 != null">
+                reserved_text_5,
+            </if>
+            <if test="supCertificateId != null">
+                sup_certificate_id,
+            </if>
+            <if test="certificateChildId != null">
+                certificate_child_id,
+            </if>
+            <if test="certificateName != null">
+                certificate_name,
+            </if>
+            <if test="certificateCode != null">
+                certificate_code,
+            </if>
+            <if test="timeLimit != null">
+                time_limit,
+            </if>
+            <if test="pmsDeleteFlag != null">
+                pms_delete_flag,
+            </if>
+            <if test="lastUpdateDate != null">
+                last_update_date,
+            </if>
+            <if test="lastUpdatedBy != null">
+                last_updated_by,
+            </if>
+            <if test="creationDate != null">
+                creation_date,
+            </if>
+            <if test="createdBy != null">
+                created_by,
+            </if>
+            <if test="lastUpdateLogin != null">
+                last_update_login,
+            </if>
+            <if test="orgId != null">
+                org_id,
+            </if>
+            <if test="auditStatus != null">
+                audit_status,
+            </if>
+            <if test="companyId != null">
+                company_id,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="supBaseId != null">
+                #{supBaseId,jdbcType=VARCHAR},
+            </if>
+            <if test="certificateType != null">
+                #{certificateType,jdbcType=VARCHAR},
+            </if>
+            <if test="reservedText1 != null">
+                #{reservedText1,jdbcType=VARCHAR},
+            </if>
+            <if test="reservedText2 != null">
+                #{reservedText2,jdbcType=VARCHAR},
+            </if>
+            <if test="reservedText3 != null">
+                #{reservedText3,jdbcType=VARCHAR},
+            </if>
+            <if test="reservedText4 != null">
+                #{reservedText4,jdbcType=VARCHAR},
+            </if>
+            <if test="reservedText5 != null">
+                #{reservedText5,jdbcType=VARCHAR},
+            </if>
+            <if test="supCertificateId != null">
+                #{supCertificateId,jdbcType=INTEGER},
+            </if>
+            <if test="certificateChildId != null">
+                #{certificateChildId,jdbcType=VARCHAR},
+            </if>
+            <if test="certificateName != null">
+                #{certificateName,jdbcType=VARCHAR},
+            </if>
+            <if test="certificateCode != null">
+                #{certificateCode,jdbcType=VARCHAR},
+            </if>
+            <if test="timeLimit != null">
+                #{timeLimit,jdbcType=VARCHAR},
+            </if>
+            <if test="pmsDeleteFlag != null">
+                #{pmsDeleteFlag,jdbcType=INTEGER},
+            </if>
+            <if test="lastUpdateDate != null">
+                #{lastUpdateDate,jdbcType=VARCHAR},
+            </if>
+            <if test="lastUpdatedBy != null">
+                #{lastUpdatedBy,jdbcType=VARCHAR},
+            </if>
+            <if test="creationDate != null">
+                #{creationDate,jdbcType=VARCHAR},
+            </if>
+            <if test="createdBy != null">
+                #{createdBy,jdbcType=VARCHAR},
+            </if>
+            <if test="lastUpdateLogin != null">
+                #{lastUpdateLogin,jdbcType=INTEGER},
+            </if>
+            <if test="orgId != null">
+                #{orgId,jdbcType=VARCHAR},
+            </if>
+            <if test="auditStatus != null">
+                #{auditStatus,jdbcType=VARCHAR},
+            </if>
+            <if test="companyId != null">
+                #{companyId,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateCertificateInfo"
+            parameterType="com.chinatower.product.legalms.modules.license.entity.supplier.SupplierCertificateVO">
+        update t_pub_sup_certificate
+        <set>
+            <if test="certificateType != null">
+                certificate_type = #{certificateType,jdbcType=VARCHAR},
+            </if>
+            <if test="reservedText1 != null">
+                reserved_text_1 = #{reservedText1,jdbcType=VARCHAR},
+            </if>
+            <if test="reservedText2 != null">
+                reserved_text_2 = #{reservedText2,jdbcType=VARCHAR},
+            </if>
+            <if test="reservedText3 != null">
+                reserved_text_3 = #{reservedText3,jdbcType=VARCHAR},
+            </if>
+            <if test="reservedText4 != null">
+                reserved_text_4 = #{reservedText4,jdbcType=VARCHAR},
+            </if>
+            <if test="reservedText5 != null">
+                reserved_text_5 = #{reservedText5,jdbcType=VARCHAR},
+            </if>
+            <if test="supCertificateId != null">
+                sup_certificate_id = #{supCertificateId,jdbcType=INTEGER},
+            </if>
+            <if test="certificateChildId != null">
+                certificate_child_id = #{certificateChildId,jdbcType=VARCHAR},
+            </if>
+            <if test="certificateName != null">
+                certificate_name = #{certificateName,jdbcType=VARCHAR},
+            </if>
+            <if test="certificateCode != null">
+                certificate_code = #{certificateCode,jdbcType=VARCHAR},
+            </if>
+            <if test="timeLimit != null">
+                time_limit = #{timeLimit,jdbcType=VARCHAR},
+            </if>
+            <if test="pmsDeleteFlag != null">
+                pms_delete_flag = #{pmsDeleteFlag,jdbcType=INTEGER},
+            </if>
+            <if test="lastUpdateDate != null">
+                last_update_date = #{lastUpdateDate,jdbcType=VARCHAR},
+            </if>
+            <if test="lastUpdatedBy != null">
+                last_updated_by = #{lastUpdatedBy,jdbcType=VARCHAR},
+            </if>
+            <if test="creationDate != null">
+                creation_date = #{creationDate,jdbcType=VARCHAR},
+            </if>
+            <if test="createdBy != null">
+                created_by = #{createdBy,jdbcType=VARCHAR},
+            </if>
+            <if test="lastUpdateLogin != null">
+                last_update_login = #{lastUpdateLogin,jdbcType=INTEGER},
+            </if>
+            <if test="orgId != null">
+                org_id = #{orgId,jdbcType=VARCHAR},
+            </if>
+            <if test="auditStatus != null">
+                audit_status = #{auditStatus,jdbcType=VARCHAR},
+            </if>
+            <if test="companyId != null">
+                company_id = #{companyId,jdbcType=INTEGER},
+            </if>
+        </set>
+        where sup_base_id = #{supBaseId,jdbcType=VARCHAR} and certificate_child_id
+        =#{certificateChildId,jdbcType=VARCHAR}
+    </update>
+    <!--供应商银行信息表-->
+    <insert id="insertBankInfo"
+            parameterType="com.chinatower.product.legalms.modules.license.entity.supplier.SupplierBankVO">
+        insert into t_pub_sup_bank
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="supBaseId != null">
+                sup_base_id,
+            </if>
+            <if test="reservedText1 != null">
+                reserved_text_1,
+            </if>
+            <if test="reservedText2 != null">
+                reserved_text_2,
+            </if>
+            <if test="reservedText3 != null">
+                reserved_text_3,
+            </if>
+            <if test="reservedText4 != null">
+                reserved_text_4,
+            </if>
+            <if test="reservedText5 != null">
+                reserved_text_5,
+            </if>
+            <if test="supBankId != null">
+                sup_bank_id,
+            </if>
+            <if test="bankChildId != null">
+                bank_child_id,
+            </if>
+            <if test="headOfficeBank != null">
+                head_office_bank,
+            </if>
+            <if test="branchBank != null">
+                branch_bank,
+            </if>
+            <if test="bankChain != null">
+                bank_chain,
+            </if>
+            <if test="accountName != null">
+                account_name,
+            </if>
+            <if test="account != null">
+                account,
+            </if>
+            <if test="accountType != null">
+                account_type,
+            </if>
+            <if test="accountStatus != null">
+                account_status,
+            </if>
+            <if test="pmsDeleteFlag != null">
+                pms_delete_flag,
+            </if>
+            <if test="lastUpdateDate != null">
+                last_update_date,
+            </if>
+            <if test="lastUpdatedBy != null">
+                last_updated_by,
+            </if>
+            <if test="creationDate != null">
+                creation_date,
+            </if>
+            <if test="createdBy != null">
+                created_by,
+            </if>
+            <if test="lastUpdateLogin != null">
+                last_update_login,
+            </if>
+            <if test="orgId != null">
+                org_id,
+            </if>
+            <if test="auditStatus != null">
+                audit_status,
+            </if>
+            <if test="companyId != null">
+                company_id,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="supBaseId != null">
+                #{supBaseId,jdbcType=VARCHAR},
+            </if>
+            <if test="reservedText1 != null">
+                #{reservedText1,jdbcType=VARCHAR},
+            </if>
+            <if test="reservedText2 != null">
+                #{reservedText2,jdbcType=VARCHAR},
+            </if>
+            <if test="reservedText3 != null">
+                #{reservedText3,jdbcType=VARCHAR},
+            </if>
+            <if test="reservedText4 != null">
+                #{reservedText4,jdbcType=VARCHAR},
+            </if>
+            <if test="reservedText5 != null">
+                #{reservedText5,jdbcType=VARCHAR},
+            </if>
+            <if test="supBankId != null">
+                #{supBankId,jdbcType=INTEGER},
+            </if>
+            <if test="bankChildId != null">
+                #{bankChildId,jdbcType=VARCHAR},
+            </if>
+            <if test="headOfficeBank != null">
+                #{headOfficeBank,jdbcType=VARCHAR},
+            </if>
+            <if test="branchBank != null">
+                #{branchBank,jdbcType=VARCHAR},
+            </if>
+            <if test="bankChain != null">
+                #{bankChain,jdbcType=VARCHAR},
+            </if>
+            <if test="accountName != null">
+                #{accountName,jdbcType=VARCHAR},
+            </if>
+            <if test="account != null">
+                #{account,jdbcType=VARCHAR},
+            </if>
+            <if test="accountType != null">
+                #{accountType,jdbcType=VARCHAR},
+            </if>
+            <if test="accountStatus != null">
+                #{accountStatus,jdbcType=VARCHAR},
+            </if>
+            <if test="pmsDeleteFlag != null">
+                #{pmsDeleteFlag,jdbcType=INTEGER},
+            </if>
+            <if test="lastUpdateDate != null">
+                #{lastUpdateDate,jdbcType=VARCHAR},
+            </if>
+            <if test="lastUpdatedBy != null">
+                #{lastUpdatedBy,jdbcType=VARCHAR},
+            </if>
+            <if test="creationDate != null">
+                #{creationDate,jdbcType=VARCHAR},
+            </if>
+            <if test="createdBy != null">
+                #{createdBy,jdbcType=VARCHAR},
+            </if>
+            <if test="lastUpdateLogin != null">
+                #{lastUpdateLogin,jdbcType=INTEGER},
+            </if>
+            <if test="orgId != null">
+                #{orgId,jdbcType=VARCHAR},
+            </if>
+            <if test="auditStatus != null">
+                #{auditStatus,jdbcType=VARCHAR},
+            </if>
+            <if test="companyId != null">
+                #{companyId,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateBankInfo"
+            parameterType="com.chinatower.product.legalms.modules.license.entity.supplier.SupplierBankVO">
+        update t_pub_sup_bank
+        <set>
+            <if test="reservedText1 != null">
+                reserved_text_1 = #{reservedText1,jdbcType=VARCHAR},
+            </if>
+            <if test="reservedText2 != null">
+                reserved_text_2 = #{reservedText2,jdbcType=VARCHAR},
+            </if>
+            <if test="reservedText3 != null">
+                reserved_text_3 = #{reservedText3,jdbcType=VARCHAR},
+            </if>
+            <if test="reservedText4 != null">
+                reserved_text_4 = #{reservedText4,jdbcType=VARCHAR},
+            </if>
+            <if test="reservedText5 != null">
+                reserved_text_5 = #{reservedText5,jdbcType=VARCHAR},
+            </if>
+            <if test="supBankId != null">
+                sup_bank_id = #{supBankId,jdbcType=INTEGER},
+            </if>
+            <if test="bankChildId != null">
+                bank_child_id = #{bankChildId,jdbcType=VARCHAR},
+            </if>
+            <if test="headOfficeBank != null">
+                head_office_bank = #{headOfficeBank,jdbcType=VARCHAR},
+            </if>
+            <if test="branchBank != null">
+                branch_bank = #{branchBank,jdbcType=VARCHAR},
+            </if>
+            <if test="bankChain != null">
+                bank_chain = #{bankChain,jdbcType=VARCHAR},
+            </if>
+            <if test="accountName != null">
+                account_name = #{accountName,jdbcType=VARCHAR},
+            </if>
+            <if test="account != null">
+                account = #{account,jdbcType=VARCHAR},
+            </if>
+            <if test="accountType != null">
+                account_type = #{accountType,jdbcType=VARCHAR},
+            </if>
+            <if test="accountStatus != null">
+                account_status = #{accountStatus,jdbcType=VARCHAR},
+            </if>
+            <if test="pmsDeleteFlag != null">
+                pms_delete_flag = #{pmsDeleteFlag,jdbcType=INTEGER},
+            </if>
+            <if test="lastUpdateDate != null">
+                last_update_date = #{lastUpdateDate,jdbcType=VARCHAR},
+            </if>
+            <if test="lastUpdatedBy != null">
+                last_updated_by = #{lastUpdatedBy,jdbcType=VARCHAR},
+            </if>
+            <if test="creationDate != null">
+                creation_date = #{creationDate,jdbcType=VARCHAR},
+            </if>
+            <if test="createdBy != null">
+                created_by = #{createdBy,jdbcType=VARCHAR},
+            </if>
+            <if test="lastUpdateLogin != null">
+                last_update_login = #{lastUpdateLogin,jdbcType=INTEGER},
+            </if>
+            <if test="orgId != null">
+                org_id = #{orgId,jdbcType=VARCHAR},
+            </if>
+            <if test="auditStatus != null">
+                audit_status = #{auditStatus,jdbcType=VARCHAR},
+            </if>
+            <if test="companyId != null">
+                company_id = #{companyId,jdbcType=INTEGER},
+            </if>
+        </set>
+        where sup_base_id = #{supBaseId,jdbcType=VARCHAR} and bank_child_id =#{bankChildId,jdbcType=VARCHAR}
+    </update>
+</mapper>

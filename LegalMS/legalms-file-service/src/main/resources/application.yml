@@ -1,0 +1,10 @@
+spring:
+  profiles:
+    active: local
+  servlet:
+    multipart:
+      max-request-size: 50Mb
+      max-file-size: 50Mb
+server:
+  tomcat:
+    max-http-post-size: -1

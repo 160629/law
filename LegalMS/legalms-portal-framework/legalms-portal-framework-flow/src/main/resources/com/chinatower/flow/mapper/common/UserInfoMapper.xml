@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper
+	namespace="com.chinatower.product.legalms.modules.flow.mapper.common.UserInfoMapper">
+	<resultMap id="ResultMap"
+		type="com.chinatower.product.legalms.modules.flow.entity.common.AccountLogic">
+		<id column="account_id" jdbcType="VARCHAR" property="accountId" />
+		<result column="account_status" jdbcType="VARCHAR"
+			property="accountStatus" />
+		<result column="account_type" jdbcType="VARCHAR"
+			property="accountType" />
+		<result column="account_name" jdbcType="VARCHAR"
+			property="accountName" />
+		<result column="account_app_id" jdbcType="VARCHAR"
+			property="accountAppId" />
+		<result column="account_cur_user_id" jdbcType="VARCHAR"
+			property="accountCurUserId" />
+		<result column="account_cur_user_name" jdbcType="VARCHAR"
+			property="accountCurUserName" />
+		<result column="account_pre_user_id" jdbcType="VARCHAR"
+			property="accountPreUserId" />
+		<result column="account_pre_user_name" jdbcType="VARCHAR"
+			property="accountPreUserName" />
+		<result column="account_org_id" jdbcType="VARCHAR"
+			property="accountOrgId" />
+		<result column="account_org_id_old" jdbcType="VARCHAR"
+			property="accountOrgIdOld" />
+		<result column="account_unit_id" jdbcType="VARCHAR"
+			property="accountUnitId" />
+		<result column="account_dept_id" jdbcType="VARCHAR"
+			property="accountDeptId" />
+		<result column="account_dept_id_old" jdbcType="VARCHAR"
+			property="accountDeptIdOld" />
+		<result column="account_order" jdbcType="VARCHAR"
+			property="accountOrder" />
+		<result column="account_status_update_time"
+			jdbcType="TIMESTAMP" property="accountStatusUpdateTime" />
+		<result column="account_create_time" jdbcType="TIMESTAMP"
+			property="accountCreateTime" />
+		<result column="account_remark" jdbcType="VARCHAR"
+			property="accountRemark" />
+		<result column="account_duty_id" jdbcType="DOUBLE"
+			property="accountDutyId" />
+		<result column="site_type" jdbcType="VARCHAR"
+			property="siteType" />
+		<result column="org_name" jdbcType="VARCHAR"
+			property="deptName" />
+		<result column="mobile" jdbcType="VARCHAR" property="mobile" />
+        <result column="company_name" jdbcType="VARCHAR" property="companyName" />
+	</resultMap>
+	<select id="selectUserByRoleCode" resultMap="ResultMap">
+		SELECT distinct tpu.account_id account_id,tpu.account_name account_name,
+		case when
+		tpu.account_phone_status = '1' then tpu.account_phone
+		when tpu.account_phone_status = '2' then tpu.account_phone  = null end mobile
+		FROM
+		t_pub_accroleimpower tpa, t_pub_org tpo,t_pub_account_tab tpu
+		WHERE tpu.account_org_id = tpo.org_code and tpu.account_id = tpa.permisson_key
+		and tpa.flag !='3' and tpu.account_status !='3'
+		<if test="roleList.size()>0 and roleList !=null">
+			and tpa.role_codes in (
+			<foreach collection="roleList" item="value" index='index'
+				separator=",">
+				#{value}
+			</foreach>
+			)
+		</if>
+		<if test="orgLevel == '01'.toString()">
+			and tpo.company_code = ( SELECT company_code FROM t_pub_org WHERE
+			org_level ='01' AND enterp_type = #{enterpType} AND org_code LIKE
+			'%00001' )
+		</if>
+		<if test="orgLevel == '02'.toString()">
+			and tpo.company_code = (
+			SELECT company_code FROM t_pub_org WHERE org_level ='02' AND enterp_type =
+			#{enterpType} AND org_code = #{orgCode})
+		</if>
+	</select>
+
+	<select id="selectCopyUserByRoleAndOrgCode"
+		resultMap="ResultMap">
+		SELECT distinct tpu.account_id account_id,tpu.account_name account_name,
+		case when
+		tpu.account_phone_status = '1' then tpu.account_phone
+		when tpu.account_phone_status = '2' then tpu.account_phone  = null end mobile
+	    FROM
+		t_pub_accroleimpower tpa, t_pub_org tpo,t_pub_account_tab tpu
+		WHERE tpu.account_org_id = tpo.org_code and tpu.account_id = tpa.permisson_key
+		and tpa.flag !='3' and tpu.account_status !='3'
+		<if test="orgList.size()>0 and orgList !=null">
+			AND tpo.org_code in
+			(
+			<foreach collection="orgList" item="value" index='index'
+				separator=",">
+				#{value}
+			</foreach>
+			)
+		</if>
+		<if test="roleList.size()>0 and roleList !=null">
+			and tpa.role_codes in (
+			<foreach collection="roleList" item="value" index='index'
+				separator=",">
+				#{value}
+			</foreach>
+			)
+		</if>
+	</select>
+	<sql id="userInfo">
+		b.account_name account_name,b.account_cur_user_id account_cur_user_id,
+		b.account_org_id account_org_id,b.account_id account_id,
+		b.account_unit_id account_unit_id,o.org_name org_name,o.company_name company_name,
+		case when
+		b.account_phone_status = '1' then b.account_phone
+		when b.account_phone_status = '2' then b.account_phone  = null end mobile
+	</sql>
+	<select id="selectUserInfo"  resultMap="ResultMap">
+		select
+		<include refid="userInfo" />
+		from t_pub_account_tab b ,t_pub_org o where
+		b.account_org_id = o.org_code and b.account_status !='3' and
+		b.account_id  in (
+		<foreach collection="accountIdList" item="value" index='index' separator=",">
+			#{value}
+		</foreach>
+		)
+	</select>
+
+	<select id="selectUserInfoByOrgAndUserCode" parameterType="java.lang.String" resultMap="ResultMap">
+		SELECT DISTINCT
+			tpu.account_id account_id,
+			tpu.account_name account_name,
+		CASE
+				WHEN tpu.account_phone_status = '1' THEN
+				tpu.account_phone
+				WHEN tpu.account_phone_status = '2' THEN
+				tpu.account_phone = NULL
+			END mobile
+		FROM
+			t_pub_accroleimpower tpa,
+			t_pub_account_tab tpu
+		WHERE
+			tpu.account_id = tpa.permisson_key
+			AND tpa.flag != '3'
+			AND tpu.account_status != '3'
+			AND tpu.account_org_id = ( SELECT account_org_id FROM t_pub_account_tab WHERE account_id = #{accountId} )
+			AND tpa.role_codes = #{role}
+	</select>
+</mapper>

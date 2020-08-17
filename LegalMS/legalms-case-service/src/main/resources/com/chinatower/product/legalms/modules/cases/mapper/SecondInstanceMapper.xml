@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.chinatower.product.legalms.modules.cases.mapper.SecondInstanceMapper" >
+    <resultMap id="secondInsMap" type="com.chinatower.product.legalms.modules.cases.entity.SecondInstanceVO">
+        <id column="ershen_id" property="ershenId" jdbcType="VARCHAR" />
+        <result column="case_id" property="caseId" jdbcType="VARCHAR" />
+        <result column="appellant" property="appellant" jdbcType="VARCHAR" />
+        <result column="appeal_request" property="appealRequest" jdbcType="VARCHAR" />
+        <result column="appellant_key_evidence" property="appellantKeyEvidence" jdbcType="VARCHAR" />
+        <result column="appellee" property="appellee" jdbcType="VARCHAR" />
+        <result column="appellee_plea_reply" property="appelleePleaReply" jdbcType="VARCHAR" />
+        <result column="appellee_key_evidence" property="appelleeKeyEvidence" jdbcType="VARCHAR" />
+        <result column="review_applyfor_institution" property="reviewApplyforInstitution" jdbcType="VARCHAR" />
+        <result column="depute_focus" property="deputeFocus" jdbcType="VARCHAR" />
+        <result column="reason_for_findings" property="reasonForFindings" jdbcType="VARCHAR" />
+        <result column="ruling_time" property="rulingTime" jdbcType="TIMESTAMP" />
+        <result column="case_finish_way" property="caseFinishWay" jdbcType="VARCHAR" />
+        <result column="of_arbitration" property="ofArbitration" jdbcType="VARCHAR" />
+        <result column="ruling_money" property="rulingMoney" jdbcType="DECIMAL" />
+        <result column="executive_money" property="executiveMoney" jdbcType="DECIMAL" />
+        <result column="help_loss_money" property="helpLossMoney" jdbcType="DECIMAL" />
+        <result column="executive_way" property="executiveWay" jdbcType="VARCHAR" />
+        <result column="loss_money" property="lossMoney" jdbcType="DECIMAL" />
+        <result column="award" property="award" jdbcType="VARCHAR" />
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+        <result column="creator_account_id" property="creatorAccountId" jdbcType="VARCHAR" />
+        <result column="creator_account_name" property="creatorAccountName" jdbcType="VARCHAR" />
+        <result column="last_update_time" property="lastUpdateTime" jdbcType="TIMESTAMP" />
+        <result column="status" property="status" jdbcType="VARCHAR" />
+        <result column="lawyer_money" property="lawyerMoney" jdbcType="DECIMAL" />
+        <result column="lawsuit_money" property="lawsuitMoney" jdbcType="DECIMAL" />
+        <result column="institution_case_code" property="institutionCaseCode" jdbcType="VARCHAR" />
+    </resultMap>
+    <insert id="addSecondInstance" parameterType="com.chinatower.product.legalms.modules.cases.entity.SecondInstanceVO">
+        insert into t_case_second_instance
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="ershenId != null" > ershen_id, </if>
+            <if test="caseId != null" > case_id, </if>
+            <if test="appellant != null" > appellant, </if>
+            <if test="appealRequest != null" > appeal_request, </if>
+            <if test="appellantKeyEvidence != null" > appellant_key_evidence, </if>
+            <if test="appellee != null" > appellee, </if>
+            <if test="appelleePleaReply != null" > appellee_plea_reply, </if>
+            <if test="appelleeKeyEvidence != null" > appellee_key_evidence, </if>
+            <if test="reviewApplyforInstitution != null" > review_applyfor_institution, </if>
+            <if test="deputeFocus != null" > depute_focus, </if>
+            <if test="reasonForFindings != null" > reason_for_findings, </if>
+            <if test="rulingTime != null" > ruling_time, </if>
+            <if test="caseFinishWay != null" > case_finish_way, </if>
+            <if test="ofArbitration != null" > of_arbitration, </if>
+            <if test="rulingMoney != null" > ruling_money, </if>
+            <if test="executiveMoney != null" > executive_money, </if>
+            <if test="helpLossMoney != null" > help_loss_money, </if>
+            <if test="executiveWay != null" > executive_way, </if>
+            <if test="lossMoney != null" > loss_money, </if>
+            <if test="award != null" > award, </if>
+            create_time,
+            <if test="creatorAccountId != null" > creator_account_id, </if>
+            <if test="creatorAccountName != null" > creator_account_name, </if>
+            last_update_time,
+            status,
+            <if test="lawyerMoney != null" > lawyer_money, </if>
+            <if test="lawsuitMoney != null" > lawsuit_money, </if>
+            <if test="institutionCaseCode != null" > institution_case_code, </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="ershenId != null" > #{ershenId,jdbcType=VARCHAR}, </if>
+            <if test="caseId != null" > #{caseId,jdbcType=VARCHAR}, </if>
+            <if test="appellant != null" > #{appellant,jdbcType=VARCHAR}, </if>
+            <if test="appealRequest != null" > #{appealRequest,jdbcType=VARCHAR}, </if>
+            <if test="appellantKeyEvidence  != null" > #{appellantKeyEvidence,jdbcType=VARCHAR}, </if>
+            <if test="appellee != null" > #{appellee,jdbcType=VARCHAR}, </if>
+            <if test="appelleePleaReply != null" > #{appelleePleaReply,jdbcType=VARCHAR}, </if>
+            <if test="appelleeKeyEvidence != null" > #{appelleeKeyEvidence,jdbcType=VARCHAR}, </if>
+            <if test="reviewApplyforInstitution != null" > #{reviewApplyforInstitution,jdbcType=VARCHAR}, </if>
+            <if test="deputeFocus != null" > #{deputeFocus,jdbcType=VARCHAR}, </if>
+            <if test="reasonForFindings != null" > #{reasonForFindings,jdbcType=VARCHAR}, </if>
+            <if test="rulingTime != null" > #{rulingTime,jdbcType=TIMESTAMP}, </if>
+            <if test="caseFinishWay != null" > #{caseFinishWay,jdbcType=VARCHAR}, </if>
+            <if test="ofArbitration != null" > #{ofArbitration,jdbcType=VARCHAR}, </if>
+            <if test="rulingMoney != null" > #{rulingMoney,jdbcType=DECIMAL}, </if>
+            <if test="executiveMoney != null" > #{executiveMoney,jdbcType=DECIMAL}, </if>
+            <if test="helpLossMoney != null" > #{helpLossMoney,jdbcType=DECIMAL}, </if>
+            <if test="executiveWay != null" > #{executiveWay,jdbcType=VARCHAR}, </if>
+            <if test="lossMoney != null" > #{lossMoney,jdbcType=DECIMAL}, </if>
+            <if test="award != null" > #{award,jdbcType=VARCHAR}, </if>
+            now(),
+            <if test="creatorAccountId != null" > #{creatorAccountId,jdbcType=VARCHAR}, </if>
+            <if test="creatorAccountName != null" > #{creatorAccountName,jdbcType=VARCHAR}, </if>
+            now(),
+            '0',
+            <if test="lawyerMoney != null" > #{lawyerMoney,jdbcType=DECIMAL}, </if>
+            <if test="lawsuitMoney != null" > #{lawsuitMoney,jdbcType=DECIMAL}, </if>
+            <if test="institutionCaseCode != null" > #{institutionCaseCode,jdbcType=VARCHAR}, </if>
+        </trim>
+    </insert>
+
+    <select id="selectSecondInstanceById" resultMap="secondInsMap">
+        select
+          ershen_id,case_id,appellant,appeal_request,appellant_key_evidence,appellee,appellee_plea_reply
+          ,appellee_key_evidence,review_applyfor_institution,depute_focus,reason_for_findings,ruling_time,case_finish_way
+          ,of_arbitration,ruling_money,executive_money,help_loss_money,executive_way,loss_money,award
+          ,create_time,creator_account_id,creator_account_name,last_update_time,status,lawyer_money,lawsuit_money,institution_case_code
+        from t_case_second_instance where case_id=#{caseId} and status = '0'
+    </select>
+
+    <update id="updateSecondInstance">
+        update t_case_second_instance
+        <set>
+            <if test="caseId != null" > case_id = #{caseId,jdbcType=VARCHAR}, </if>
+            <if test="appellant!=null">appellant = #{appellant,jdbcType=VARCHAR},</if>
+            <if test="appealRequest!=null">appeal_request = #{appealRequest,jdbcType=VARCHAR},</if>
+            <if test="appellantKeyEvidence!=null">appellant_key_evidence = #{appellantKeyEvidence,jdbcType=VARCHAR},</if>
+            <if test="appellee!=null">appellee = #{appellee,jdbcType=VARCHAR},</if>
+            <if test="appelleePleaReply!=null">appellee_plea_reply = #{appelleePleaReply,jdbcType=VARCHAR},</if>
+            <if test="appelleeKeyEvidence!=null">appellee_key_evidence = #{appelleeKeyEvidence,jdbcType=VARCHAR},</if>
+            <if test="reviewApplyforInstitution!=null">review_applyfor_institution = #{reviewApplyforInstitution,jdbcType=VARCHAR},</if>
+            <if test="deputeFocus!=null">depute_focus = #{deputeFocus,jdbcType=VARCHAR},</if>
+            <if test="reasonForFindings!=null">reason_for_findings = #{reasonForFindings,jdbcType=VARCHAR},</if>
+            ruling_time = #{rulingTime,jdbcType=TIMESTAMP},
+            <if test="caseFinishWay!=null">case_finish_way = #{caseFinishWay,jdbcType=VARCHAR},</if>
+            <if test="ofArbitration!=null">of_arbitration = #{ofArbitration,jdbcType=VARCHAR},</if>
+            <if test="rulingMoney!=null">ruling_money = #{rulingMoney,jdbcType=DECIMAL},</if>
+            <if test="executiveMoney!=null">executive_money = #{executiveMoney,jdbcType=DECIMAL},</if>
+            <if test="helpLossMoney!=null">help_loss_money = #{helpLossMoney,jdbcType=DECIMAL},</if>
+            <if test="executiveWay!=null">executive_way = #{executiveWay,jdbcType=VARCHAR},</if>
+            <if test="lossMoney!=null">loss_money = #{lossMoney,jdbcType=DECIMAL},</if>
+            <if test="award!=null">award = #{award,jdbcType=VARCHAR},</if>
+            <if test="createTime!=null">create_time = #{createTime,jdbcType=TIMESTAMP},</if>
+            <if test="creatorAccountId!=null">creator_account_id = #{creatorAccountId,jdbcType=VARCHAR},</if>
+            <if test="creatorAccountName!=null">creator_account_name = #{creatorAccountName,jdbcType=VARCHAR},</if>
+            last_update_time = now(),
+            <if test="status!=null">status = #{status,jdbcType=VARCHAR},</if>
+            <if test="lawyerMoney!=null">lawyer_money = #{lawyerMoney,jdbcType=DECIMAL},</if>
+            <if test="lawsuitMoney!=null">lawsuit_money = #{lawsuitMoney,jdbcType=DECIMAL},</if>
+            <if test="institutionCaseCode!=null">institution_case_code = #{lawsuitMoney,jdbcType=VARCHAR},</if>
+        </set>
+        where case_id = #{caseId,jdbcType=VARCHAR}
+    </update>
+
+    <select id="selectAllSecondInstanceByCount" resultType="Integer">
+     select
+      count(1)
+     from  t_case_second_instance where case_id=#{caseId} and status = '0'
+   </select>
+
+    <delete id="deleteSecondInstance">
+        delete from t_case_second_instance
+        where case_id = #{caseId,jdbcType=VARCHAR}
+    </delete>
+</mapper>

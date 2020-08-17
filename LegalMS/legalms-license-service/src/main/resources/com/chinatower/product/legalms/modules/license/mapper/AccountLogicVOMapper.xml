@@ -1,0 +1,424 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chinatower.product.legalms.modules.license.mapper.AccountLogicVOMapper">
+  <resultMap id="BaseResultMap" type="com.chinatower.product.legalms.modules.license.entity.AccountLogicVO">
+    <id column="account_id" jdbcType="VARCHAR" property="accountId" />
+    <result column="account_status" jdbcType="VARCHAR" property="accountStatus" />
+    <result column="account_type" jdbcType="VARCHAR" property="accountType" />
+    <result column="account_name" jdbcType="VARCHAR" property="accountName" />
+    <result column="account_app_id" jdbcType="VARCHAR" property="accountAppId" />
+    <result column="account_cur_user_id" jdbcType="VARCHAR" property="accountCurUserId" />
+    <result column="account_cur_user_name" jdbcType="VARCHAR" property="accountCurUserName" />
+    <result column="account_pre_user_id" jdbcType="VARCHAR" property="accountPreUserId" />
+    <result column="account_pre_user_name" jdbcType="VARCHAR" property="accountPreUserName" />
+    <result column="account_org_id" jdbcType="VARCHAR" property="accountOrgId" />
+    <result column="account_org_id_old" jdbcType="VARCHAR" property="accountOrgIdOld" />
+    <result column="account_unit_id" jdbcType="VARCHAR" property="accountUnitId" />
+    <result column="account_dept_id" jdbcType="VARCHAR" property="accountDeptId" />
+    <result column="account_dept_id_old" jdbcType="VARCHAR" property="accountDeptIdOld" />
+    <result column="account_order" jdbcType="VARCHAR" property="accountOrder" />
+    <result column="account_status_update_time" jdbcType="TIMESTAMP" property="accountStatusUpdateTime" />
+    <result column="account_create_time" jdbcType="TIMESTAMP" property="accountCreateTime" />
+    <result column="account_remark" jdbcType="VARCHAR" property="accountRemark" />
+    <result column="account_duty_id" jdbcType="DOUBLE" property="accountDutyId" />
+    <result column="site_type" jdbcType="VARCHAR" property="siteType" />
+    <result column="company_name" jdbcType="VARCHAR" property="companyName" />
+    <result column="account_phone" jdbcType="VARCHAR" property="accountPhone" />
+    <result column="org_name" jdbcType="VARCHAR" property="orgName" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapSms"
+             type="com.chinatower.product.legalms.modules.license.entity.SmsConfigurationVO">
+    <result column="account_phone_status" jdbcType="VARCHAR" property="accountPhoneStatus" />
+    <result column="org_path" property="orgPath" jdbcType="VARCHAR"/>
+  </resultMap>
+  <sql id="Base_Column_List">
+    tpat.account_id, tpat.account_status, tpat.account_type, tpat.account_name, tpat.account_app_id, tpat.account_cur_user_id,
+    tpat.account_cur_user_name, tpat.account_pre_user_id, tpat.account_pre_user_name, tpat.account_org_id,
+    tpat.account_org_id_old, tpat.account_unit_id, tpat.account_dept_id, tpat.account_dept_id_old, tpat.account_order,
+    tpat.account_status_update_time, tpat.account_create_time, tpat.account_remark, tpat.account_duty_id,
+    tpat.site_type,tpo.org_path,
+    case when
+    tpat.account_phone_status = '1' then account_phone
+    when tpat.account_phone_status = '2' then tpat.account_phone  = null end account_phone
+  </sql>
+
+  <sql id="sqlWhere">
+    <if test="accountId!=null and accountId!='' ">
+      and tpu.account_id like concat('%',#{accountId},'%')
+    </if>
+    <if test="accountCurUserName!=null and accountCurUserName!='' ">
+      and tpu.account_cur_user_name like concat('%',#{accountCurUserName},'%')
+    </if>
+    <if test="accountPhone!=null and accountPhone!='' ">
+      and tpu.account_phone like concat('%',#{accountPhone},'%')
+    </if>
+    <if test="orgCodeList!=null and orgCodeList.size() > 0 ">
+      and tpu.account_org_id in (
+      <foreach collection="orgCodeList" separator="," item="value">
+        #{value}
+      </foreach>
+      )
+    </if>
+  </sql>
+
+  <!--委托代办查人-->
+  <select id="selectCurrOrgTreeByOrgCode" parameterType="string" resultMap="ResultMapSms">
+    SELECT tpat.account_cur_user_name,tpat.account_org_id,tpat.account_id,tpat.account_status,tbo.org_path
+    FROM t_pub_org tbo ,t_pub_account_tab tpat
+    WHERE tbo.org_code = tpat.account_org_id
+    AND tpat.account_cur_user_name is not NULL AND tpat.account_status !='3'
+    AND  tbo.org_code = #{value}
+  </select>
+
+  <!--根据组织查询所属组织下的人员信息-->
+  <select id="selectUserInfoByOrgCode"  resultMap="BaseResultMap">
+    SELECT distinct tpat.account_cur_user_name account_cur_user_name,tpat.account_id
+    account_id,tpat.account_status account_status,tpat.account_type account_type,
+    case when
+    tpat.account_type = '0' then tpat.account_org_id
+    when tpat.account_type = '1' then tpat.account_org_id_old end account_org_id,
+    case when
+    tpat.account_type = '0' then tpat.account_remark =  null
+    when tpat.account_type = '1' then tpat.account_remark end account_remark
+    FROM
+    <if test="param=='0'.toString()">
+      t_pub_org tbo
+    </if>
+    <if test="param=='1'.toString()">
+      t_pub_org_provider tbo
+    </if>
+    <if test="roleCode!=null and roleCode !=''">
+      ,t_pub_accroleimpower tpac
+    </if>
+    ,t_pub_account_tab tpat
+    WHERE tpat.account_cur_user_name is not NULL AND tpat.account_status !='3'
+      <if test="accountName!=null and accountName !=''">
+      and tpat.account_cur_user_name like concat(#{accountName},'%')
+  </if>
+    <if test="param=='0'.toString()">
+      and tbo.org_code = tpat.account_org_id and tpat.account_type = '0'
+      AND tbo.org_path like concat((SELECT org_path FROM t_pub_org WHERE org_code = #{orgCode}),'%')
+    </if>
+    <if test="param=='1'.toString()">
+      and tbo.org_code = tpat.account_org_id_old and tpat.account_type = '1'
+      and (tbo.org_path like concat((SELECT org_path FROM t_pub_org_provider WHERE org_parent_code = #{orgCode} LIMIT 1),'%') or tbo.org_code = #{orgCode})
+    </if>
+    <if test="roleCode!=null and roleCode !=''">
+      and tpac.permisson_key = tpat.account_id and tpac.role_codes = #{roleCode} and flag !='3'
+    </if>
+  </select>
+  <select id="selectUserInfByAccountId" parameterType="java.lang.String" resultMap="ResultMapSms">
+    select
+    <include refid="Base_Column_List" />
+    from t_pub_account_tab tpat,t_pub_org tpo
+    where tpat.account_org_id = tpo.org_code and tpat.account_status != '3' and  tpat.account_id = #{accountId,jdbcType=VARCHAR}
+  </select>
+
+  <update id="updateUserInfoByAccountId" parameterType="com.chinatower.product.legalms.modules.license.entity.AccountLogicVO">
+    UPDATE t_pub_account_tab SET account_org_id = #{accountOrgId},account_remark = #{accountRemark},account_unit_id = #{accountUnitId}
+    WHERE account_status !='3' and account_id = #{accountId}
+  </update>
+
+  <select id="selectUserInfo" parameterType="com.chinatower.product.legalms.modules.license.entity.SmsConfigurationVO" resultMap="ResultMapSms">
+      SELECT
+      tpu.account_id,
+      tpu.account_cur_user_name,
+      tpu.account_phone,
+      CONCAT(tpo.org_name,'-',o.org_name) org_name,
+      tpu.account_phone_status
+      FROM
+      t_pub_account_tab tpu
+      JOIN t_pub_org o ON tpu.account_org_id = o.org_code
+      JOIN t_pub_org tpo on tpo.org_code  = o.org_parent_code
+      WHERE account_status !='3' and tpu.account_cur_user_name is not NULL
+      <include refid="sqlWhere"></include>
+      <if test="superRole==null">
+      and o.enterp_type = #{enterpType}
+      <if test="orgLevel=='01'.toString()||orgLevel=='02'.toString()">
+        and o.org_path LIKE CONCAT((SELECT org_path FROM t_pub_org WHERE
+        org_code = ( SELECT org_parent_code FROM t_pub_org WHERE org_code = ( SELECT company_code FROM t_pub_org
+        WHERE org_code = #{orgCode} ))),'%')
+      </if>
+      <if test="orgLevel=='03'.toString()">
+        and o.org_path LIKE CONCAT((SELECT org_path FROM t_pub_org WHERE
+        org_code =  ( SELECT company_code FROM t_pub_org
+        WHERE org_code = #{orgCode} )),'%')
+      </if>
+    </if>
+    ORDER BY o.enterp_type,tpu.account_unit_id,tpu.account_org_id
+  </select>
+
+  <select id="selectUserInfoByUserCode" parameterType="string" resultMap="BaseResultMap">
+       SELECT
+        o.company_name company_name,o.org_name org_name, a.account_id account_id
+    FROM
+        t_pub_account_tab a,
+        t_pub_org o
+    WHERE
+        a.account_cur_user_id = #{accountCurUserId,jdbcType=VARCHAR}
+    AND a.account_status != '3' and a.account_org_id = o.org_id
+  </select>
+
+
+  <sql id="userInfo">
+    tpat.account_name,tpat.account_cur_user_name,tpat.account_org_id,tpat.account_id,tpat.account_unit_id,tpo.org_path,tpo.org_level
+    case when
+    tpat.account_phone_status = '1' then account_phone
+    when tpat.account_phone_status = '2' then account_phone  = null end account_phone
+  </sql>
+  <select id="selectBySingleCode" resultMap="ResultMapSms">
+    select
+    <include refid="userInfo"/>
+    from t_pub_account_tab tpat,t_pub_org tpo
+    where tpat.account_status !='3' and  tpat.account_org_id in (
+    <foreach collection="list" separator="," item="orgCodes">
+      #{orgCodes}
+    </foreach>
+    )
+  </select>
+
+  <update id="updateUserInfo" parameterType="com.chinatower.product.legalms.modules.license.entity.SmsConfigurationVO" >
+    update t_pub_account_tab set account_phone_status = #{accountPhoneStatus}
+    where account_id in (
+    <foreach collection="accountIdList" separator="," item="value">
+      #{value}
+    </foreach>
+    )
+  </update>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from t_pub_account_tab
+    where account_id = #{accountId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.chinatower.product.legalms.modules.license.entity.AccountLogicVO">
+    insert into t_pub_account_tab (account_id, account_status, account_type,
+      account_name, account_app_id, account_cur_user_id,
+      account_cur_user_name, account_pre_user_id, account_pre_user_name,
+      account_org_id, account_org_id_old, account_unit_id,
+      account_dept_id, account_dept_id_old, account_order,
+      account_status_update_time, account_create_time,
+      account_remark, account_duty_id, site_type
+      )
+    values (#{accountId,jdbcType=VARCHAR}, #{accountStatus,jdbcType=VARCHAR}, #{accountType,jdbcType=VARCHAR},
+      #{accountName,jdbcType=VARCHAR}, #{accountAppId,jdbcType=VARCHAR}, #{accountCurUserId,jdbcType=VARCHAR},
+      #{accountCurUserName,jdbcType=VARCHAR}, #{accountPreUserId,jdbcType=VARCHAR}, #{accountPreUserName,jdbcType=VARCHAR},
+      #{accountOrgId,jdbcType=VARCHAR}, #{accountOrgIdOld,jdbcType=VARCHAR}, #{accountUnitId,jdbcType=VARCHAR},
+      #{accountDeptId,jdbcType=VARCHAR}, #{accountDeptIdOld,jdbcType=VARCHAR}, #{accountOrder,jdbcType=VARCHAR},
+      #{accountStatusUpdateTime,jdbcType=TIMESTAMP}, #{accountCreateTime,jdbcType=TIMESTAMP},
+      #{accountRemark,jdbcType=VARCHAR}, #{accountDutyId,jdbcType=DOUBLE}, #{siteType,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.chinatower.product.legalms.modules.license.entity.AccountLogicVO">
+    insert into t_pub_account_tab
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="accountId != null">
+        account_id,
+      </if>
+      <if test="accountStatus != null">
+        account_status,
+      </if>
+      <if test="accountType != null">
+        account_type,
+      </if>
+      <if test="accountName != null">
+        account_name,
+      </if>
+      <if test="accountAppId != null">
+        account_app_id,
+      </if>
+      <if test="accountCurUserId != null">
+        account_cur_user_id,
+      </if>
+      <if test="accountCurUserName != null">
+        account_cur_user_name,
+      </if>
+      <if test="accountPreUserId != null">
+        account_pre_user_id,
+      </if>
+      <if test="accountPreUserName != null">
+        account_pre_user_name,
+      </if>
+      <if test="accountOrgId != null">
+        account_org_id,
+      </if>
+      <if test="accountOrgIdOld != null">
+        account_org_id_old,
+      </if>
+      <if test="accountUnitId != null">
+        account_unit_id,
+      </if>
+      <if test="accountDeptId != null">
+        account_dept_id,
+      </if>
+      <if test="accountDeptIdOld != null">
+        account_dept_id_old,
+      </if>
+      <if test="accountOrder != null">
+        account_order,
+      </if>
+      <if test="accountStatusUpdateTime != null">
+        account_status_update_time,
+      </if>
+      <if test="accountCreateTime != null">
+        account_create_time,
+      </if>
+      <if test="accountRemark != null">
+        account_remark,
+      </if>
+      <if test="accountDutyId != null">
+        account_duty_id,
+      </if>
+      <if test="siteType != null">
+        site_type,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="accountId != null">
+        #{accountId,jdbcType=VARCHAR},
+      </if>
+      <if test="accountStatus != null">
+        #{accountStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="accountType != null">
+        #{accountType,jdbcType=VARCHAR},
+      </if>
+      <if test="accountName != null">
+        #{accountName,jdbcType=VARCHAR},
+      </if>
+      <if test="accountAppId != null">
+        #{accountAppId,jdbcType=VARCHAR},
+      </if>
+      <if test="accountCurUserId != null">
+        #{accountCurUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="accountCurUserName != null">
+        #{accountCurUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="accountPreUserId != null">
+        #{accountPreUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="accountPreUserName != null">
+        #{accountPreUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="accountOrgId != null">
+        #{accountOrgId,jdbcType=VARCHAR},
+      </if>
+      <if test="accountOrgIdOld != null">
+        #{accountOrgIdOld,jdbcType=VARCHAR},
+      </if>
+      <if test="accountUnitId != null">
+        #{accountUnitId,jdbcType=VARCHAR},
+      </if>
+      <if test="accountDeptId != null">
+        #{accountDeptId,jdbcType=VARCHAR},
+      </if>
+      <if test="accountDeptIdOld != null">
+        #{accountDeptIdOld,jdbcType=VARCHAR},
+      </if>
+      <if test="accountOrder != null">
+        #{accountOrder,jdbcType=VARCHAR},
+      </if>
+      <if test="accountStatusUpdateTime != null">
+        #{accountStatusUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="accountCreateTime != null">
+        #{accountCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="accountRemark != null">
+        #{accountRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="accountDutyId != null">
+        #{accountDutyId,jdbcType=DOUBLE},
+      </if>
+      <if test="siteType != null">
+        #{siteType,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.chinatower.product.legalms.modules.license.entity.AccountLogicVO">
+    update t_pub_account_tab
+    <set>
+      <if test="accountStatus != null">
+        account_status = #{accountStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="accountType != null">
+        account_type = #{accountType,jdbcType=VARCHAR},
+      </if>
+      <if test="accountName != null">
+        account_name = #{accountName,jdbcType=VARCHAR},
+      </if>
+      <if test="accountAppId != null">
+        account_app_id = #{accountAppId,jdbcType=VARCHAR},
+      </if>
+      <if test="accountCurUserId != null">
+        account_cur_user_id = #{accountCurUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="accountCurUserName != null">
+        account_cur_user_name = #{accountCurUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="accountPreUserId != null">
+        account_pre_user_id = #{accountPreUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="accountPreUserName != null">
+        account_pre_user_name = #{accountPreUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="accountOrgId != null">
+        account_org_id = #{accountOrgId,jdbcType=VARCHAR},
+      </if>
+      <if test="accountOrgIdOld != null">
+        account_org_id_old = #{accountOrgIdOld,jdbcType=VARCHAR},
+      </if>
+      <if test="accountUnitId != null">
+        account_unit_id = #{accountUnitId,jdbcType=VARCHAR},
+      </if>
+      <if test="accountDeptId != null">
+        account_dept_id = #{accountDeptId,jdbcType=VARCHAR},
+      </if>
+      <if test="accountDeptIdOld != null">
+        account_dept_id_old = #{accountDeptIdOld,jdbcType=VARCHAR},
+      </if>
+      <if test="accountOrder != null">
+        account_order = #{accountOrder,jdbcType=VARCHAR},
+      </if>
+      <if test="accountStatusUpdateTime != null">
+        account_status_update_time = #{accountStatusUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="accountCreateTime != null">
+        account_create_time = #{accountCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="accountRemark != null">
+        account_remark = #{accountRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="accountDutyId != null">
+        account_duty_id = #{accountDutyId,jdbcType=DOUBLE},
+      </if>
+      <if test="siteType != null">
+        site_type = #{siteType,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where account_id = #{accountId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.chinatower.product.legalms.modules.license.entity.AccountLogicVO">
+    update t_pub_account_tab
+    set account_status = #{accountStatus,jdbcType=VARCHAR},
+      account_type = #{accountType,jdbcType=VARCHAR},
+      account_name = #{accountName,jdbcType=VARCHAR},
+      account_app_id = #{accountAppId,jdbcType=VARCHAR},
+      account_cur_user_id = #{accountCurUserId,jdbcType=VARCHAR},
+      account_cur_user_name = #{accountCurUserName,jdbcType=VARCHAR},
+      account_pre_user_id = #{accountPreUserId,jdbcType=VARCHAR},
+      account_pre_user_name = #{accountPreUserName,jdbcType=VARCHAR},
+      account_org_id = #{accountOrgId,jdbcType=VARCHAR},
+      account_org_id_old = #{accountOrgIdOld,jdbcType=VARCHAR},
+      account_unit_id = #{accountUnitId,jdbcType=VARCHAR},
+      account_dept_id = #{accountDeptId,jdbcType=VARCHAR},
+      account_dept_id_old = #{accountDeptIdOld,jdbcType=VARCHAR},
+      account_order = #{accountOrder,jdbcType=VARCHAR},
+      account_status_update_time = #{accountStatusUpdateTime,jdbcType=TIMESTAMP},
+      account_create_time = #{accountCreateTime,jdbcType=TIMESTAMP},
+      account_remark = #{accountRemark,jdbcType=VARCHAR},
+      account_duty_id = #{accountDutyId,jdbcType=DOUBLE},
+      site_type = #{siteType,jdbcType=VARCHAR}
+    where account_id = #{accountId,jdbcType=VARCHAR}
+  </update>
+</mapper>

@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chinatower.product.legalms.modules.flow.mapper.common.FlowActivityPowerMapper">
+    <resultMap id="BaseResultMap" type="com.chinatower.product.legalms.modules.flow.entity.common.FlowActivityPowerVO">
+        <result column="flow_id"  property="flowId" jdbcType="VARCHAR" />
+        <result column="flow_name"  property="flowName" jdbcType="VARCHAR" />
+        <result column="act_id"  property="actId" jdbcType="VARCHAR" />
+        <result column="act_name"  property="actName" jdbcType="VARCHAR" />
+        <result column="permission_json" property="permissionJson" jdbcType="VARCHAR"/>
+        <result column="role_ids"  property="roleIds" jdbcType="VARCHAR" />
+        <result column="org_ids"  property="orgIds" jdbcType="VARCHAR" />
+
+        <result column="version_id"  property="versionId" jdbcType="VARCHAR" />
+    </resultMap>
+
+    <select id="selActivityPower" resultMap="BaseResultMap">
+        select
+        f.*
+        from t_flow_activity_power f
+        <where>
+            <if test="flowId!=null and flowId!=''">
+                and flow_id = #{flowId}
+            </if>
+            <if test="actId!=null and actId!=''">
+                and act_id = #{actId}
+            </if>
+
+            <if test="versionId!=null and versionId!=''">
+                and version_id = #{versionId}
+            </if>
+        </where>
+    </select>
+
+    <insert id="addFlowActivityPower">
+        insert into t_flow_activity_power
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="flowId != null and flowId != ''" > flow_id, </if>
+            <if test="flowName != null and flowName != ''" > flow_name, </if>
+            <if test="actId != null and actId != ''" > act_id, </if>
+            <if test="actName != null and actName != ''">act_name, </if>
+            <if test="permissionJson != null and permissionJson != ''">permission_json, </if>
+            <if test="roleIds != null and roleIds != ''">role_ids, </if>
+            <if test="orgIds != null and orgIds != ''">org_ids, </if>
+            <if test="versionId != null and versionId != ''">version_id, </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="flowId != null and flowId != ''" > #{flowId,jdbcType=VARCHAR}, </if>
+            <if test="flowName != null and flowName != ''" > #{flowName,jdbcType=VARCHAR}, </if>
+            <if test="actId != null and actId != ''" > #{actId,jdbcType=VARCHAR}, </if>
+            <if test="actName != null and actName != ''" > #{actName,jdbcType=VARCHAR}, </if>
+            <if test="permissionJson != null and permissionJson != ''" > #{permissionJson,jdbcType=VARCHAR}, </if>
+            <if test="roleIds != null and roleIds != ''" > #{roleIds,jdbcType=VARCHAR}, </if>
+            <if test="orgIds != null and orgIds != ''" > #{orgIds,jdbcType=VARCHAR}, </if>
+
+            <if test="versionId != null and versionId != ''">#{versionId,jdbcType=VARCHAR}, </if>
+        </trim>
+    </insert>
+
+    <update id="updateFlowActivityPower">
+        update t_flow_activity_power
+        <set>
+            <if test="newFlowActivityPowerVO.flowId != null and newFlowActivityPowerVO.flowId != ''" >
+                flow_id = #{newFlowActivityPowerVO.flowId,jdbcType=VARCHAR},
+            </if>
+            <if test="newFlowActivityPowerVO.flowName != null and newFlowActivityPowerVO.flowName != ''" >
+                flow_name = #{newFlowActivityPowerVO.flowName,jdbcType=VARCHAR},
+            </if>
+            <if test="newFlowActivityPowerVO.actId != null and  newFlowActivityPowerVO.actId != ''" >
+                act_id = #{newFlowActivityPowerVO.actId,jdbcType=VARCHAR},
+            </if>
+            <if test="newFlowActivityPowerVO.actName != null and newFlowActivityPowerVO.actName != ''" >
+                act_name = #{newFlowActivityPowerVO.actName,jdbcType=VARCHAR},
+            </if>
+            <if test="newFlowActivityPowerVO.permissionJson != null and newFlowActivityPowerVO.permissionJson != ''" >
+                permission_json = #{newFlowActivityPowerVO.permissionJson,jdbcType=VARCHAR},
+            </if>
+            <if test="newFlowActivityPowerVO.roleIds != null and newFlowActivityPowerVO.roleIds != ''" >
+                role_ids = #{newFlowActivityPowerVO.roleIds,jdbcType=VARCHAR},
+            </if>
+            <if test="newFlowActivityPowerVO.roleIds != null and newFlowActivityPowerVO.roleIds != ''" >
+                org_ids = #{newFlowActivityPowerVO.orgIds,jdbcType=VARCHAR},
+            </if>
+            <if test="newFlowActivityPowerVO.versionId != null and newFlowActivityPowerVO.versionId != ''" >
+                version_id = #{newFlowActivityPowerVO.versionId,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where flow_id = #{oldFlowActivityPowerVO.flowId,jdbcType=VARCHAR}
+        and act_id =#{oldFlowActivityPowerVO.actId,jdbcType=VARCHAR}
+        and version_id = #{oldFlowActivityPowerVO.versionId, jdbcType=VARCHAR}
+    </update>
+
+    <delete id="deleteFlowActivityPower">
+        delete from t_flow_activity_power
+        <where>
+            <if test="flowId !=null and flowId !=''">
+              and  flow_id = #{flowId,jdbcType=VARCHAR}
+            </if>
+            <if test="actId !=null and actId !=''">
+              and  act_id = #{actId,jdbcType=VARCHAR}
+            </if>
+            <if test="versionId !=null and versionId !=''">
+              and  version_id = #{versionId,jdbcType=VARCHAR}
+            </if>
+        </where>
+    </delete>
+
+    <select id="selFlowActivityPower" resultMap="BaseResultMap">
+        select
+        f.*
+        from t_flow_activity_power f
+        <where>
+            <if test="flowId!=null and flowId!=''">
+                and flow_id like '%${flowId}%'
+            </if>
+            <if test="actId!=null and actId!=''">
+                and act_id like '%${actId}%'
+            </if>
+            <if test="flowName!=null and flowName!=''">
+                and flow_name like '%${flowName}%'
+            </if>
+            <if test="actName!=null and actName!=''">
+                and act_name like '%${actName}%'
+            </if>
+            <if test="permissionJson!=null and permissionJson!=''">
+                and permission_json like '%${permissionJson}%'
+            </if>
+            <if test="roleIds!=null and roleIds!=''">
+                and role_ids like '%${roleIds}%'
+            </if>
+            <if test="orgIds!=null and orgIds!=''">
+                and org_ids like '%${orgIds}%'
+            </if>
+            <if test="versionId!=null and versionId!=''">
+                and version_id = #{versionId}
+            </if>
+        </where>
+    </select>
+    <select id="selFlowActivityPowerFlowId" resultMap="BaseResultMap">
+       select
+        distinct f.flow_id,f.flow_name
+        from t_flow_activity_power f
+    </select>
+</mapper>

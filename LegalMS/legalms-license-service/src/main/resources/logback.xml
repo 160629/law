@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration debug="false">
+    <!--定义日志文件的存储地址 勿在 LogBack 的配置中使用相对路径-->
+    <!-- /Data/logs/logs/${SYSTEM_CODE}/ 为系统日志的标准输出目录 -->
+    <!-- /Data/logs/trans/${SYSTEM_CODE}/ 为业务交易报文明细输出目录 -->
+    <!-- ${SYSTEM_CODE}为业务系统编码，各业务系统在使用前务必此处调整为本系统编码，编码以ESB系统编码为准，本样例中40.4004为项目管理系统 -->
+    <property name="SYSTEM_LOG" value="/app/logs/chinatower-license-service/system"/>
+    <property name="TRANS_LOG" value="/app/logs/chinatower-license-service/transaction"/>
+    <!-- 控制台输出 -->
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        　　　　　
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            　　　　　　　　　
+            <pattern>%d{yyyy-MM-dd HH:mm:ss} [%p][%c][%M][%L]-> %m%n</pattern>
+            　　　　　
+        </encoder>
+        　　　
+    </appender>
+    <!-- 按照每天生成日志文件 -->
+    <appender name="SYSTEM" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <!--日志文件输出的文件名-->
+            <FileNamePattern>${SYSTEM_LOG}-%d{yyyy-MM-dd}.%i.log</FileNamePattern>
+            <!--日志文件保留天数-->
+            <MaxHistory>90</MaxHistory>
+            <maxFileSize>100MB</maxFileSize>
+        </rollingPolicy>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符-->
+            <!-- <pattern>%d{yyyy-MM-dd HH:mm:ss} [%p][%c][%M][%L]-> %m%n</pattern> -->
+            <pattern>[%d{yyyyMMdd HH:mm:ss:SSS\} %-5p] %c{3\}.%M\(%L\)
+                [%X{X-B3-TraceId:-},%X{X-B3-SpanId:-},%X{X-Span-Export:-}] -%m%n
+            </pattern>
+
+        </encoder>
+        <!--日志文件最大的大小-->
+        <!-- <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+            <MaxFileSize>2048MB</MaxFileSize>
+        </triggeringPolicy> -->
+    </appender>
+    <appender name="TRANS" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <!--日志文件输出的文件名-->
+            <FileNamePattern>${TRANS_LOG}-%d{yyyy-MM-dd}.%i.log</FileNamePattern>
+            <!--日志文件保留天数-->
+            <MaxHistory>90</MaxHistory>
+            <maxFileSize>100MB</maxFileSize>
+        </rollingPolicy>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符-->
+            <pattern>[%d{yyyyMMdd HH:mm:ss:SSS\} %-5p] %c{3\}.%M\(%L\)
+                [%X{X-B3-TraceId:-},%X{X-B3-SpanId:-},%X{X-Span-Export:-}] -%m%n
+            </pattern>
+        </encoder>
+        <!--日志文件最大的大小-->
+        <!-- <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+            <MaxFileSize>2048MB</MaxFileSize>
+        </triggeringPolicy> -->
+    </appender>
+    <logger name="TransLog" additivity="false" level="INFO">
+        <appender-ref ref="TRANS"/>
+        <appender-ref ref="STDOUT"/>
+    </logger>
+
+    <logger name="com.chinatower.product" level="DEBUG"></logger>
+    <logger name="org.apache.kafka" level="OFF"></logger>
+    <!-- 日志输出级别 -->
+    <root level="INFO">
+        <appender-ref ref="STDOUT"/>
+        <appender-ref ref="SYSTEM"/>
+    </root>
+</configuration>

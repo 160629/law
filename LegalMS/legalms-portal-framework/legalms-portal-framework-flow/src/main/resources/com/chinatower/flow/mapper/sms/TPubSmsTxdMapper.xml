@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper
+	namespace="com.chinatower.product.legalms.modules.flow.mapper.sms.TPubSmsTxdMapper">
+	<resultMap id="BaseResultMap"
+		type="com.chinatower.product.legalms.modules.flow.entity.sms.TPubSmsTxd">
+		<id column="txd_id" jdbcType="BIGINT" property="txdId" />
+		<result column="mttime" jdbcType="VARCHAR" property="mttime" />
+		<result column="sign" jdbcType="VARCHAR" property="sign" />
+		<result column="txd_code" jdbcType="VARCHAR" property="txdCode" />
+		<result column="send_id" jdbcType="VARCHAR" property="sendId" />
+		<result column="login_acct" jdbcType="VARCHAR"
+			property="loginAcct" />
+		<result column="login_name" jdbcType="VARCHAR"
+			property="loginName" />
+		<result column="send_pid" jdbcType="VARCHAR" property="sendPid" />
+		<result column="retry" jdbcType="INTEGER" property="retry" />
+		<result column="business_type" jdbcType="VARCHAR"
+			property="businessType" />
+		<result column="business_id" jdbcType="VARCHAR"
+			property="businessId" />
+	</resultMap>
+	<resultMap extends="BaseResultMap" id="ResultMapWithBLOBs"
+		type="com.chinatower.product.legalms.modules.flow.entity.sms.TPubSmsTxd">
+		<result column="phones" jdbcType="LONGVARCHAR"
+			property="phones" />
+		<result column="content" jdbcType="LONGVARCHAR"
+			property="content" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		txd_id, mttime, sign, txd_code, send_id, login_acct,
+		login_name, send_pid,
+		retry,
+		business_type, business_id
+	</sql>
+	<sql id="Blob_Column_List">
+		phones, content
+	</sql>
+	<select id="selectByPrimaryKey" parameterType="java.lang.Long"
+		resultMap="ResultMapWithBLOBs">
+		select
+		<include refid="Base_Column_List" />
+		,
+		<include refid="Blob_Column_List" />
+		from t_pub_sms_txd
+		where txd_id = #{txdId,jdbcType=BIGINT}
+	</select>
+	<select id="selectBySendId" parameterType="java.lang.String"
+		resultMap="ResultMapWithBLOBs">
+		select
+		<include refid="Base_Column_List" />
+		,
+		<include refid="Blob_Column_List" />
+		from t_pub_sms_txd
+		where send_id = #{sendId,jdbcType=VARCHAR}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		delete from
+		t_pub_sms_txd
+		where txd_id = #{txdId,jdbcType=BIGINT}
+	</delete>
+	<insert id="insert"
+		parameterType="com.chinatower.product.legalms.modules.flow.entity.sms.TPubSmsTxd">
+		insert into t_pub_sms_txd (txd_id, mttime, sign,
+		txd_code, send_id, login_acct,
+		login_name, send_pid, retry,
+		business_type, business_id, phones,
+		content)
+		values
+		(#{txdId,jdbcType=BIGINT}, #{mttime,jdbcType=VARCHAR},
+		#{sign,jdbcType=VARCHAR},
+		#{txdCode,jdbcType=VARCHAR},
+		#{sendId,jdbcType=VARCHAR}, #{loginAcct,jdbcType=VARCHAR},
+		#{loginName,jdbcType=VARCHAR}, #{sendPid,jdbcType=VARCHAR},
+		#{retry,jdbcType=INTEGER},
+		#{businessType,jdbcType=VARCHAR},
+		#{businessId,jdbcType=VARCHAR}, #{phones,jdbcType=LONGVARCHAR},
+		#{content,jdbcType=LONGVARCHAR})
+	</insert>
+	<insert id="insertSelective"
+		parameterType="com.chinatower.product.legalms.modules.flow.entity.sms.TPubSmsTxd">
+		insert into t_pub_sms_txd
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="mttime != null">
+				mttime,
+			</if>
+			<if test="sign != null">
+				sign,
+			</if>
+			<if test="txdCode != null">
+				txd_code,
+			</if>
+			<if test="sendId != null">
+				send_id,
+			</if>
+			<if test="loginAcct != null">
+				login_acct,
+			</if>
+			<if test="loginName != null">
+				login_name,
+			</if>
+			<if test="sendPid != null">
+				send_pid,
+			</if>
+			<if test="retry != null">
+				retry,
+			</if>
+			<if test="businessType != null">
+				business_type,
+			</if>
+			<if test="businessId != null">
+				business_id,
+			</if>
+			<if test="phones != null">
+				phones,
+			</if>
+			<if test="content != null">
+				content,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="mttime != null">
+				#{mttime,jdbcType=VARCHAR},
+			</if>
+			<if test="sign != null">
+				#{sign,jdbcType=VARCHAR},
+			</if>
+			<if test="txdCode != null">
+				#{txdCode,jdbcType=VARCHAR},
+			</if>
+			<if test="sendId != null">
+				#{sendId,jdbcType=VARCHAR},
+			</if>
+			<if test="loginAcct != null">
+				#{loginAcct,jdbcType=VARCHAR},
+			</if>
+			<if test="loginName != null">
+				#{loginName,jdbcType=VARCHAR},
+			</if>
+			<if test="sendPid != null">
+				#{sendPid,jdbcType=VARCHAR},
+			</if>
+			<if test="retry != null">
+				#{retry,jdbcType=INTEGER},
+			</if>
+			<if test="businessType != null">
+				#{businessType,jdbcType=VARCHAR},
+			</if>
+			<if test="businessId != null">
+				#{businessId,jdbcType=VARCHAR},
+			</if>
+			<if test="phones != null">
+				#{phones,jdbcType=LONGVARCHAR},
+			</if>
+			<if test="content != null">
+				#{content,jdbcType=LONGVARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective"
+		parameterType="com.chinatower.product.legalms.modules.flow.entity.sms.TPubSmsTxd">
+		update t_pub_sms_txd
+		<set>
+			<if test="mttime != null">
+				mttime = #{mttime,jdbcType=VARCHAR},
+			</if>
+			<if test="sign != null">
+				sign = #{sign,jdbcType=VARCHAR},
+			</if>
+			<if test="txdCode != null">
+				txd_code = #{txdCode,jdbcType=VARCHAR},
+			</if>
+			<if test="sendId != null">
+				send_id = #{sendId,jdbcType=VARCHAR},
+			</if>
+			<if test="loginAcct != null">
+				login_acct = #{loginAcct,jdbcType=VARCHAR},
+			</if>
+			<if test="loginName != null">
+				login_name = #{loginName,jdbcType=VARCHAR},
+			</if>
+			<if test="sendPid != null">
+				send_pid = #{sendPid,jdbcType=VARCHAR},
+			</if>
+			<if test="retry != null">
+				retry = #{retry,jdbcType=INTEGER},
+			</if>
+			<if test="businessType != null">
+				business_type = #{businessType,jdbcType=VARCHAR},
+			</if>
+			<if test="businessId != null">
+				business_id = #{businessId,jdbcType=VARCHAR},
+			</if>
+			<if test="phones != null">
+				phones = #{phones,jdbcType=LONGVARCHAR},
+			</if>
+			<if test="content != null">
+				content = #{content,jdbcType=LONGVARCHAR},
+			</if>
+		</set>
+		where txd_id = #{txdId,jdbcType=BIGINT}
+	</update>
+	<update id="updateByPrimaryKeyWithBLOBs"
+		parameterType="com.chinatower.product.legalms.modules.flow.entity.sms.TPubSmsTxd">
+		update t_pub_sms_txd
+		set mttime =
+		#{mttime,jdbcType=VARCHAR},
+		sign = #{sign,jdbcType=VARCHAR},
+		txd_code =
+		#{txdCode,jdbcType=VARCHAR},
+		send_id = #{sendId,jdbcType=VARCHAR},
+		login_acct = #{loginAcct,jdbcType=VARCHAR},
+		login_name =
+		#{loginName,jdbcType=VARCHAR},
+		send_pid = #{sendPid,jdbcType=VARCHAR},
+		retry = #{retry,jdbcType=INTEGER},
+		business_type =
+		#{businessType,jdbcType=VARCHAR},
+		business_id =
+		#{businessId,jdbcType=VARCHAR},
+		phones =
+		#{phones,jdbcType=LONGVARCHAR},
+		content =
+		#{content,jdbcType=LONGVARCHAR}
+		where txd_id = #{txdId,jdbcType=BIGINT}
+	</update>
+	<update id="updateByPrimaryKey"
+		parameterType="com.chinatower.product.legalms.modules.flow.entity.sms.TPubSmsTxd">
+		update t_pub_sms_txd
+		set mttime =
+		#{mttime,jdbcType=VARCHAR},
+		sign = #{sign,jdbcType=VARCHAR},
+		txd_code =
+		#{txdCode,jdbcType=VARCHAR},
+		send_id = #{sendId,jdbcType=VARCHAR},
+		login_acct = #{loginAcct,jdbcType=VARCHAR},
+		login_name =
+		#{loginName,jdbcType=VARCHAR},
+		send_pid = #{sendPid,jdbcType=VARCHAR},
+		retry = #{retry,jdbcType=INTEGER},
+		business_type =
+		#{businessType,jdbcType=VARCHAR},
+		business_id =
+		#{businessId,jdbcType=VARCHAR}
+		where txd_id = #{txdId,jdbcType=BIGINT}
+	</update>
+
+	<select id="smsLogList"
+		parameterType="com.chinatower.product.legalms.modules.flow.vo.sms.SmsLogParam"
+		resultType="com.chinatower.product.legalms.modules.flow.vo.sms.SmsLogList">
+		SELECT st.`mttime`,
+		st.`content`,st.`txd_code` txdCode,st.`login_acct`
+		loginAcct,st.`login_name` loginName,
+		st.`business_type` businessType,
+		st.`business_id` businessTitle,sa.`phone`,sa.`ack_status`
+		ackStatus,sa.`send_id` sendId
+		FROM
+		t_pub_sms_txd st LEFT JOIN
+		t_pub_sms_ack sa ON
+		st.`send_id`=sa.`send_id`
+		WHERE st.`send_pid` IS
+		NULL
+		<if test="startDate != null and startDate != ''">
+			and st.mttime >= #{startDate}
+		</if>
+		<if test="endDate != null and endDate != ''">
+			and st.mttime <![CDATA[<=]]>
+			#{endDate}
+		</if>
+		<if test="loginName != null and loginName != ''">
+			and st.login_name = #{loginName}
+		</if>
+		<if test="status != null and status != ''">
+			<choose>
+				<when test="status == '是'.toString()">
+					and st.`txd_code`= '200' and sa.`ack_status`= '发送成功'
+				</when>
+				<when test="status == '否'.toString()">
+					and ( st.`txd_code`!= '200' or sa.`ack_status`!=
+					'发送成功')
+				</when>
+				<otherwise></otherwise>
+			</choose>
+		</if>
+		<if test="businessType != null and businessType != ''">
+			and st.business_type = #{businessType}
+		</if>
+	</select>
+
+	<select id="selectTypes" resultType="String">
+		SELECT tt.`business_type` FROM t_pub_sms_txd tt WHERE tt.`business_type` IS
+		NOT NULL GROUP BY tt.`business_type`
+	</select>
+</mapper>

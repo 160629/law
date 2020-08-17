@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chinatower.product.legalms.modules.flow.mapper.common.SysOurmainbodyMapper">
+
+    <resultMap id="BaseResultMap" type="com.chinatower.product.legalms.modules.flow.entity.common.SysOurmainbodyVO">
+        <id column="unit_id" jdbcType="BIGINT" property="unitId" />
+        <id column="body_id" jdbcType="BIGINT" property="bodyId" />
+        <result column="unit_code" jdbcType="VARCHAR" property="unitCode" />
+        <result column="body_code" jdbcType="VARCHAR" property="bodyCode" />
+        <result column="body_name" jdbcType="VARCHAR" property="bodyName" />
+        <result column="status" jdbcType="VARCHAR" property="status" />
+        <result column="remark" jdbcType="VARCHAR" property="remark" />
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+        <result column="last_modify_user" jdbcType="VARCHAR" property="lastModifyUser" />
+        <result column="enterp_type" jdbcType="VARCHAR" property="enterpType" />
+    </resultMap>
+
+    <select id="selectSysOurmainbodyAll" resultMap="BaseResultMap">
+        select
+               DISTINCT body_code,body_name,enterp_type,remark
+        from t_sys_ourmainbody
+        <where>
+            status = 'normal'
+            <if test="unitId !=null">
+                and unit_id=#{unitId}
+            </if>
+            <if test="unitCode !=null">
+                and unit_code=#{unitCode}
+            </if>
+            <if test="bodyId !=null">
+                and body_id=#{bodyId}
+            </if>
+            <if test="bodyCode !=null">
+                and body_code =#{bodyCode}
+            </if>
+            <if test="enterpType !=null">
+                and enterp_type =#{enterpType}
+            </if>
+            <if test="bodyName !=null">
+                and body_name like concat ('%',#{bodyName},'%')
+            </if>
+        </where>
+        ORDER BY enterp_type,remark,body_code ASC
+    </select>
+
+    <select id="selectSysOurmainbodyAndConfig" resultMap="BaseResultMap">
+        select  o.unit_id,o.unit_code,o.body_id,o.body_code,o.body_name,
+                o.status,o.remark,o.create_time,o.update_time,o.last_modify_user,o.enterp_type
+        from t_sys_ourmainbody o left join t_sys_bodyconfig b on o.body_code = b.body_code
+        where status = 'normal' and b.approve_item_id=#{approveItemId} and b.approve_item_type=#{approveItemType}
+    </select>
+</mapper>

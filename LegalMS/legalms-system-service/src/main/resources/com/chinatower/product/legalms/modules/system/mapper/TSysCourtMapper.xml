@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chinatower.product.legalms.modules.system.mapper.TSysCourtMapper">
+    <resultMap id="BaseResultMap" type="com.chinatower.product.legalms.modules.system.entity.TSysCourtVO">
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="pid" property="pid" jdbcType="VARCHAR" />
+    <result column="court_name" property="courtName" jdbcType="VARCHAR" />
+    <result column="court_old_name" property="courtOldName" jdbcType="VARCHAR" />
+    <result column="province" property="province" jdbcType="VARCHAR" />
+    <result column="province_code" property="provinceCode" jdbcType="VARCHAR" />
+    <result column="court_level" property="courtLevel" jdbcType="VARCHAR" />
+    <result column="city" property="city" jdbcType="VARCHAR" />
+    <result column="city_code" property="cityCode" jdbcType="VARCHAR" />
+    <result column="county" property="county" jdbcType="VARCHAR" />
+    <result column="county_code" property="countyCode" jdbcType="VARCHAR" />
+    <result column="field1" property="field1" jdbcType="VARCHAR" />
+    <result column="state" property="state" jdbcType="VARCHAR" />
+    </resultMap>
+    <resultMap id="BaseResultMap1" type="com.chinatower.product.legalms.modules.system.entity.TSysCourtVO">
+        <id column="id" property="id" jdbcType="VARCHAR" />
+        <result column="pid" property="pid" jdbcType="VARCHAR" />
+        <result column="court_name" property="courtName" jdbcType="VARCHAR" />
+        <result column="court_old_name" property="courtOldName" jdbcType="VARCHAR" />
+        <result column="province" property="province" jdbcType="VARCHAR" />
+        <result column="province_code" property="provinceCode" jdbcType="VARCHAR" />
+        <result column="court_level" property="courtLevel" jdbcType="VARCHAR" />
+        <result column="city" property="city" jdbcType="VARCHAR" />
+        <result column="city_code" property="cityCode" jdbcType="VARCHAR" />
+        <result column="county" property="county" jdbcType="VARCHAR" />
+        <result column="county_code" property="countyCode" jdbcType="VARCHAR" />
+        <result column="field1" property="field1" jdbcType="VARCHAR" />
+        <result column="pname" property="pname" jdbcType="VARCHAR" />
+        <result column="state" property="state" jdbcType="VARCHAR" />
+        <collection property="sysCourtVOList" ofType="com.chinatower.product.legalms.modules.system.entity.TSysCourtVO">
+            <id column="id_sub" property="id" jdbcType="VARCHAR" />
+            <result column="pid_sub" property="pid" jdbcType="VARCHAR" />
+            <result column="court_name_sub" property="courtName" jdbcType="VARCHAR" />
+            <result column="court_old_name_sub" property="courtOldName" jdbcType="VARCHAR" />
+            <result column="province_sub" property="province" jdbcType="VARCHAR" />
+            <result column="province_code_sub" property="provinceCode" jdbcType="VARCHAR" />
+            <result column="court_level_sub" property="courtLevel" jdbcType="VARCHAR" />
+            <result column="city_sub" property="city" jdbcType="VARCHAR" />
+            <result column="city_code_sub" property="cityCode" jdbcType="VARCHAR" />
+            <result column="county_sub" property="county" jdbcType="VARCHAR" />
+            <result column="county_code_sub" property="countyCode" jdbcType="VARCHAR" />
+            <result column="field1_sub" property="field1" jdbcType="VARCHAR" />
+            <result column="state_sub" property="state" jdbcType="VARCHAR" />
+        </collection>
+    </resultMap>
+    <select id="selectTSysCourt"  resultMap="BaseResultMap">
+        select s1.court_name as pname,s.* from t_sys_court s left join t_sys_court s1 on
+        s.pid = s1.id
+        <where>
+        s.state != '0'
+           <!-- (<if test="tSysCourtPage.idList!=null and tSysCourtPage.idList.size() > 0 ">
+                 s.id in (
+                <foreach collection="tSysCourtPage.idList" separator="," item="value">
+                    ${value}
+                </foreach>
+                )
+            </if>-->
+            <if test="tSysCourtPage.id != null and tSysCourtPage.id != ''">
+              and  s.id = #{tSysCourtPage.id}
+            </if>
+            <if test="tSysCourtPage.courtName != null and tSysCourtPage.courtName != ''">
+                and s.court_name like concat('%',#{tSysCourtPage.courtName},'%')
+            </if>
+            <if test="tSysCourtPage.courtLevel != null and tSysCourtPage.courtLevel != ''">
+                and s.court_level = #{tSysCourtPage.courtLevel}
+            </if>
+            <if test="tSysCourtPage.pname != null and tSysCourtPage.pname != ''">
+                and s1.court_name like concat('%',#{tSysCourtPage.pname},'%')
+            </if>
+        </where>
+        order by s.court_level
+    </select>
+    <select id="selectTSysCourtName" parameterType="String" resultMap="BaseResultMap">
+        select tsc.* from t_sys_court tsc
+        where
+        tsc.court_level != '4' and tsc.state != '0'
+            <if test="tSysCourtPage.courtName != null and tSysCourtPage.courtName != ''">
+                and  tsc.court_name like '%${tSysCourtPage.courtName}%'
+            </if>
+        order by tsc.court_level
+    </select>
+    <select id="selectTSysCourtOne" parameterType="String" resultMap="BaseResultMap">
+       select s1.court_name as pname,
+              s.*
+               from t_sys_court s left join t_sys_court s1 on s.pid = s1.id
+        where s.id = #{id} and s.state != '0'
+    </select>
+    <select id="selectTSysCourtList" parameterType="String" resultMap="BaseResultMap">
+       select *
+               from t_sys_court
+        where pid = #{id} and state != '0'
+    </select>
+    <insert id="addTSysCourt">
+        insert into t_sys_court (
+           id,
+          pid,
+          court_name,
+           court_old_name,
+         province,
+          province_code,
+           court_level,
+            city,
+            city_code,
+            county,
+        county_code,
+           field1,
+           state
+            ) VALUES (
+          #{id,jdbcType=VARCHAR},
+            #{pid,jdbcType=VARCHAR},
+           #{courtName,jdbcType=VARCHAR},
+             #{courtOldName,jdbcType=VARCHAR},
+           #{province,jdbcType=VARCHAR},
+             #{provinceCode,jdbcType=VARCHAR},
+           #{courtLevel,jdbcType=VARCHAR},
+            #{city,jdbcType=VARCHAR},
+            #{cityCode,jdbcType=VARCHAR},
+            #{county,jdbcType=VARCHAR},
+            #{countyCode,jdbcType=VARCHAR},
+            #{field1,jdbcType=VARCHAR},
+            #{state,jdbcType=VARCHAR}
+            )
+    </insert>
+    <update id="deleteTSysCourt">
+        update  t_sys_court set state = '0'
+         where   id = #{tSysCourtVO.id}
+    </update>
+    <update id="updateTSysCourt" >
+        UPDATE t_sys_court tsc
+         SET
+	        tsc.id = #{tSysCourtVO.id,jdbcType=VARCHAR} ,
+            tsc.pid  = #{tSysCourtVO.pid,jdbcType=VARCHAR} ,
+	        tsc.court_name = #{tSysCourtVO.courtName,jdbcType=VARCHAR} ,
+	        tsc.court_old_name = #{tSysCourtVO.courtOldName,jdbcType=VARCHAR} ,
+	        tsc.province = #{tSysCourtVO.province,jdbcType=VARCHAR} ,
+	        tsc.province_code = #{tSysCourtVO.provinceCode,jdbcType=VARCHAR},
+        	tsc.court_level = #{tSysCourtVO.courtLevel,jdbcType=VARCHAR} ,
+        	tsc.city = #{tSysCourtVO.city,jdbcType=VARCHAR} ,
+        	tsc.city_code = #{tSysCourtVO.cityCode,jdbcType=VARCHAR} ,
+        	tsc.county = #{tSysCourtVO.county,jdbcType=VARCHAR},
+        	tsc.county_code = #{tSysCourtVO.countyCode,jdbcType=VARCHAR} ,
+        	tsc.field1 = #{tSysCourtVO.field1,jdbcType=VARCHAR}
+        WHERE
+	        tsc.id = #{tSysCourtVO.id}
+	</update>
+    <!--<select id="selectTSysCourtTree" parameterType="String" resultMap="BaseResultMap">
+        select tsc.* from t_sys_court tsc
+    </select>
+    <select id="selectTSysCourtTree1" parameterType="String" resultMap="BaseResultMap">
+        select tsc.* from t_sys_court tsc where pid =  #{pid}
+    </select>-->
+    <select id="selectAlls" parameterType="String" resultMap="BaseResultMap">
+     SELECT t3.id FROM (
+              SELECT t1.id ,
+              IF(FIND_IN_SET(pid, @pids) > 0, @pids := CONCAT(@pids, ',', id ), 0) AS ischild
+              FROM (
+                   SELECT id ,pid FROM t_sys_court t ORDER BY pid, id
+                  ) t1,
+                  (SELECT @pids := #{value}) t2
+             ) t3 WHERE ischild != 0
+    </select>
+    <!--<select id="selectAll" resultMap="BaseResultMap1">
+        select
+        t2.id,
+        t2.pid,
+        t2.court_name,
+        t2.court_old_name,
+        t2.province,
+        t2.province_code,
+        t2.court_level,
+        t2.city,
+        t2.city_code,
+        t2.county,
+        t2.county_code,
+        t2.field1,
+        t3.id id_sub,
+        t3.pid pid_sub,
+        t3.court_name court_name_sub,
+        t3.court_old_name court_old_name_sub,
+        t3.province province_sub,
+        t3.province_code province_code_sub,
+        t3.court_level court_level_sub,
+        t3.city city_sub,
+        t3.city_code city_code_sub,
+        t3.county county_sub,
+        t3.county_code county_code_sub,
+        t3.field1 field1_sub
+        from
+        t_sys_court t2 left join t_sys_court t3 on t2.id = t3.pid
+        <where>
+        <if test="tSysCourtVO.pid != null and tSysCourtVO.pid != ''">
+                t3.pid = #{tSysCourtVO.pid}
+            </if>
+            <if test="tSysCourtVO.courtLevel != null and tSysCourtVO.courtLevel != ''">
+                and t2.court_level = #{tSysCourtVO.courtLevel}
+            </if>
+        </where>
+        order by t2.id
+    </select>-->
+    <select id="selectAll" resultMap="BaseResultMap1">
+        select
+        t2.id,
+        t2.pid,
+        t2.court_name,
+        t2.court_old_name,
+        t2.province,
+        t2.province_code,
+        t2.court_level,
+        t2.city,
+        t2.city_code,
+        t2.county,
+        t2.county_code,
+        t2.field1,
+        t2.state,
+        t3.id id_sub,
+        t3.pid pid_sub,
+        t3.court_name court_name_sub,
+        t3.court_old_name court_old_name_sub,
+        t3.province province_sub,
+        t3.province_code province_code_sub,
+        t3.court_level court_level_sub,
+        t3.city city_sub,
+        t3.city_code city_code_sub,
+        t3.county county_sub,
+        t3.county_code county_code_sub,
+        t3.field1 field1_sub,
+        t3.state state_sub
+        from
+        t_sys_court t2 left join t_sys_court t3 on t2.id=t3.pid
+        <where>
+            t2.state != '0'
+            <if test="tSysCourtVO.pid != null and tSysCourtVO.pid != ''">
+             and   t2.pid = #{tSysCourtVO.pid}
+            </if>
+        </where>
+    </select>
+    <select id="selectAll1" resultMap="BaseResultMap1">
+    select t2.id,
+        t2.pid,
+        t2.court_name,
+        t2.court_old_name,
+        t2.province,
+        t2.province_code,
+        t2.court_level,
+        t2.city,
+        t2.city_code,
+        t2.county,
+        t2.county_code,
+        t2.field1,
+        t2.state,
+        t3.id id_sub,
+        t3.pid pid_sub,
+        t3.court_name court_name_sub,
+        t3.court_old_name court_old_name_sub,
+        t3.province province_sub,
+        t3.province_code province_code_sub,
+        t3.court_level court_level_sub,
+        t3.city city_sub,
+        t3.city_code city_code_sub,
+        t3.county county_sub,
+        t3.county_code county_code_sub,
+        t3.field1 field1_sub,
+        t3.state state_sub
+        from t_sys_court t2 left join t_sys_court t3 on t2.id = t3.pid
+        <where>
+        <if test="tSysCourtVO.id != null and tSysCourtVO.id != ''">
+          t2.id = #{tSysCourtVO.id}
+        </if>
+        </where>
+    </select>
+</mapper>

@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper
+	namespace="com.chinatower.product.legalms.modules.flow.mapper.sms.TSysDictDataMapper">
+	<resultMap id="BaseResultMap"
+		type="com.chinatower.product.legalms.modules.flow.entity.sms.TSysDictData">
+		<id column="dict_code" jdbcType="VARCHAR" property="dictCode" />
+		<result column="dict_sort" jdbcType="INTEGER"
+			property="dictSort" />
+		<result column="dict_cabel" jdbcType="VARCHAR"
+			property="dictCabel" />
+		<result column="dict_value" jdbcType="VARCHAR"
+			property="dictValue" />
+		<result column="dict_type" jdbcType="VARCHAR"
+			property="dictType" />
+		<result column="css_class" jdbcType="VARCHAR"
+			property="cssClass" />
+		<result column="is_default" jdbcType="CHAR"
+			property="isDefault" />
+		<result column="status" jdbcType="CHAR" property="status" />
+		<result column="create_by" jdbcType="VARCHAR"
+			property="createBy" />
+		<result column="create_time" jdbcType="TIMESTAMP"
+			property="createTime" />
+		<result column="update_by" jdbcType="VARCHAR"
+			property="updateBy" />
+		<result column="update_time" jdbcType="TIMESTAMP"
+			property="updateTime" />
+		<result column="remark" jdbcType="VARCHAR" property="remark" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		dict_code, dict_sort, dict_cabel, dict_value, dict_type,
+		css_class, is_default,
+		status,
+		create_by, create_time, update_by,
+		update_time, remark
+	</sql>
+	<select id="selectByPrimaryKey" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from t_sys_dict_data
+		where dict_code = #{dictCode,jdbcType=VARCHAR}
+	</select>
+	<select id="selectByType" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from t_sys_dict_data
+		where dict_type = #{dictType,jdbcType=VARCHAR}
+		<if test="status !=null and status !='' ">
+			AND status = #{status}
+		</if>
+		<if test="dictValue !=null and dictValue !='' ">
+			AND #{dictValue} LIKE CONCAT(dict_value,'%')
+		</if>
+	</select>
+
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from
+		t_sys_dict_data
+		where dict_code = #{dictCode,jdbcType=VARCHAR}
+	</delete>
+	<insert id="insert"
+		parameterType="com.chinatower.product.legalms.modules.flow.entity.sms.TSysDictData">
+		insert into t_sys_dict_data (dict_code, dict_sort,
+		dict_cabel,
+		dict_value, dict_type, css_class,
+		is_default, status,
+		create_by,
+		create_time, update_by, update_time,
+		remark)
+		values
+		(#{dictCode,jdbcType=VARCHAR}, #{dictSort,jdbcType=INTEGER},
+		#{dictCabel,jdbcType=VARCHAR},
+		#{dictValue,jdbcType=VARCHAR},
+		#{dictType,jdbcType=VARCHAR}, #{cssClass,jdbcType=VARCHAR},
+		#{isDefault,jdbcType=CHAR}, #{status,jdbcType=CHAR},
+		#{createBy,jdbcType=VARCHAR},
+		#{createTime,jdbcType=TIMESTAMP},
+		#{updateBy,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP},
+		#{remark,jdbcType=VARCHAR})
+	</insert>
+	<insert id="insertSelective"
+		parameterType="com.chinatower.product.legalms.modules.flow.entity.sms.TSysDictData">
+		insert into t_sys_dict_data
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="dictCode != null">
+				dict_code,
+			</if>
+			<if test="dictSort != null">
+				dict_sort,
+			</if>
+			<if test="dictCabel != null">
+				dict_cabel,
+			</if>
+			<if test="dictValue != null">
+				dict_value,
+			</if>
+			<if test="dictType != null">
+				dict_type,
+			</if>
+			<if test="cssClass != null">
+				css_class,
+			</if>
+			<if test="isDefault != null">
+				is_default,
+			</if>
+			<if test="status != null">
+				status,
+			</if>
+			<if test="createBy != null">
+				create_by,
+			</if>
+			<if test="createTime != null">
+				create_time,
+			</if>
+			<if test="updateBy != null">
+				update_by,
+			</if>
+			<if test="updateTime != null">
+				update_time,
+			</if>
+			<if test="remark != null">
+				remark,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="dictCode != null">
+				#{dictCode,jdbcType=VARCHAR},
+			</if>
+			<if test="dictSort != null">
+				#{dictSort,jdbcType=INTEGER},
+			</if>
+			<if test="dictCabel != null">
+				#{dictCabel,jdbcType=VARCHAR},
+			</if>
+			<if test="dictValue != null">
+				#{dictValue,jdbcType=VARCHAR},
+			</if>
+			<if test="dictType != null">
+				#{dictType,jdbcType=VARCHAR},
+			</if>
+			<if test="cssClass != null">
+				#{cssClass,jdbcType=VARCHAR},
+			</if>
+			<if test="isDefault != null">
+				#{isDefault,jdbcType=CHAR},
+			</if>
+			<if test="status != null">
+				#{status,jdbcType=CHAR},
+			</if>
+			<if test="createBy != null">
+				#{createBy,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateBy != null">
+				#{updateBy,jdbcType=VARCHAR},
+			</if>
+			<if test="updateTime != null">
+				#{updateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="remark != null">
+				#{remark,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective"
+		parameterType="com.chinatower.product.legalms.modules.flow.entity.sms.TSysDictData">
+		update t_sys_dict_data
+		<set>
+			<if test="dictSort != null">
+				dict_sort = #{dictSort,jdbcType=INTEGER},
+			</if>
+			<if test="dictCabel != null">
+				dict_cabel = #{dictCabel,jdbcType=VARCHAR},
+			</if>
+			<if test="dictValue != null">
+				dict_value = #{dictValue,jdbcType=VARCHAR},
+			</if>
+			<if test="dictType != null">
+				dict_type = #{dictType,jdbcType=VARCHAR},
+			</if>
+			<if test="cssClass != null">
+				css_class = #{cssClass,jdbcType=VARCHAR},
+			</if>
+			<if test="isDefault != null">
+				is_default = #{isDefault,jdbcType=CHAR},
+			</if>
+			<if test="status != null">
+				status = #{status,jdbcType=CHAR},
+			</if>
+			<if test="createBy != null">
+				create_by = #{createBy,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				create_time = #{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateBy != null">
+				update_by = #{updateBy,jdbcType=VARCHAR},
+			</if>
+			<if test="updateTime != null">
+				update_time = #{updateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="remark != null">
+				remark = #{remark,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where dict_code = #{dictCode,jdbcType=VARCHAR}
+	</update>
+	<update id="updateByPrimaryKey"
+		parameterType="com.chinatower.product.legalms.modules.flow.entity.sms.TSysDictData">
+		update t_sys_dict_data
+		set dict_sort =
+		#{dictSort,jdbcType=INTEGER},
+		dict_cabel =
+		#{dictCabel,jdbcType=VARCHAR},
+		dict_value =
+		#{dictValue,jdbcType=VARCHAR},
+		dict_type =
+		#{dictType,jdbcType=VARCHAR},
+		css_class = #{cssClass,jdbcType=VARCHAR},
+		is_default = #{isDefault,jdbcType=CHAR},
+		status =
+		#{status,jdbcType=CHAR},
+		create_by = #{createBy,jdbcType=VARCHAR},
+		create_time = #{createTime,jdbcType=TIMESTAMP},
+		update_by =
+		#{updateBy,jdbcType=VARCHAR},
+		update_time =
+		#{updateTime,jdbcType=TIMESTAMP},
+		remark = #{remark,jdbcType=VARCHAR}
+		where dict_code = #{dictCode,jdbcType=VARCHAR}
+	</update>
+</mapper>

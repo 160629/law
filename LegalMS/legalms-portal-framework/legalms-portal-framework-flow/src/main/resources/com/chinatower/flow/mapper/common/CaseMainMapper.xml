@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chinatower.product.legalms.modules.flow.mapper.common.CaseMainMapper">
+    <resultMap id="CaseMainVO" type="com.chinatower.product.legalms.modules.flow.entity.common.CaseMainVO">
+        <id column="case_id" property="caseId" jdbcType="VARCHAR" />
+        <result column="case_code" property="caseCode" jdbcType="VARCHAR" />
+        <result column="case_title" property="caseTitle" jdbcType="VARCHAR" />
+        <result column="case_status" property="caseStatus" jdbcType="VARCHAR" />
+        <result column="drafter_unit" property="drafterUnit" jdbcType="VARCHAR" />
+        <result column="case_record_time" property="caseRecordTime" jdbcType="TIMESTAMP" />
+        <result column="institution_case_code" property="institutionCaseCode" jdbcType="VARCHAR" />
+        <result column="lawsuit_type" property="lawsuitType" jdbcType="VARCHAR" />
+        <result column="our_lawsuit_body" property="ourLawsuitBody" jdbcType="VARCHAR" />
+        <result column="our_lawsuit_body_name" property="ourLawsuitBodyName" jdbcType="VARCHAR" />
+        <result column="our_lawsuit_identity" property="ourLawsuitIdentity" jdbcType="VARCHAR" />
+        <result column="other_lawsuit_body" property="otherLawsuitBody" jdbcType="VARCHAR" />
+        <result column="case_the_third" property="caseTheThird" jdbcType="VARCHAR" />
+        <result column="case_depute_money" property="caseDeputeMoney" jdbcType="DECIMAL" />
+        <result column="case_special_line" property="caseSpecialLine" jdbcType="VARCHAR" />
+        <result column="related_body_attribution" property="relatedBodyAttribution" jdbcType="VARCHAR" />
+        <result column="case_review_grade" property="caseReviewGrade" jdbcType="VARCHAR" />
+        <result column="case_reason" property="caseReason" jdbcType="VARCHAR" />
+        <result column="depute_type" property="deputeType" jdbcType="VARCHAR" />
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+        <result column="last_update_time" property="lastUpdateTime" jdbcType="TIMESTAMP" />
+        <result column="case_is_finish" property="caseIsFinish" jdbcType="INTEGER" />
+        <result column="case_finish_time" property="caseFinishTime" jdbcType="TIMESTAMP" />
+        <result column="case_finish_way" property="caseFinishWay" jdbcType="VARCHAR" />
+        <result column="large_lawsuit_mark" property="largeLawsuitMark" jdbcType="VARCHAR" />
+        <result column="creator_account_id" property="creatorAccountId" jdbcType="VARCHAR" />
+        <result column="creator_account_name" property="creatorAccountName" jdbcType="VARCHAR" />
+        <result column="creator_cell" property="creatorCell" jdbcType="VARCHAR" />
+        <result column="case_truth" property="caseTruth" jdbcType="VARCHAR" />
+        <result column="plaintiff_lawsuit_request" property="plaintiffLawsuitRequest" jdbcType="VARCHAR" />
+        <result column="case_file" property="caseFile" jdbcType="VARCHAR" />
+        <result column="case_keyword" property="caseKeyword" jdbcType="VARCHAR" />
+        <result column="case_same_plaintiff" property="caseSamePlaintiff" jdbcType="VARCHAR" />
+        <result column="case_same_defendant" property="caseSameDefendant" jdbcType="VARCHAR" />
+        <result column="creator_dept_id" property="creatorDeptId" jdbcType="VARCHAR" />
+        <result column="creator_unit_id" property="creatorUnitId" jdbcType="VARCHAR" />
+        <result column="ruling_classes" property="rulingClasses" jdbcType="VARCHAR" />
+        <result column="case_explain" property="caseExplain" jdbcType="VARCHAR"/>
+    </resultMap>
+    <select id="selectCase" resultMap="CaseMainVO" parameterType="string">
+        select
+            case_code,
+            case_depute_money,
+            case_explain,
+            case_file,
+            case_finish_time,
+            case_finish_way,
+            case_id,
+            case_is_finish,
+            case_keyword,
+            case_reason,
+            case_record_time,
+            case_review_grade,
+            case_same_defendant,
+            case_same_plaintiff,
+            case_special_line,
+            case_status,
+            case_the_third,
+            case_title,
+            case_truth,
+            create_time,
+            creator_account_id,
+            creator_account_name,
+            creator_cell,
+            creator_dept_id,
+            creator_unit_id,
+            delete_status,
+            depute_type,
+            drafter_unit,
+            institution_case_code,
+            large_lawsuit_mark,
+            last_update_time,
+            lawsuit_type,
+            other_lawsuit_body,
+            our_lawsuit_body,
+            our_lawsuit_body_name,
+            our_lawsuit_identity,
+            plaintiff_lawsuit_request,
+            related_body_attribution,
+            ruling_classes
+        from t_case_main
+        where case_id in
+        (<foreach collection="caseIds" item="id" index = 'index' separator=",">
+            #{id}
+        </foreach>)
+    </select>
+    <select id="selectCaseOne" resultMap="CaseMainVO" parameterType="string">
+        select
+        case_code,
+        case_depute_money,
+        case_explain,
+        case_file,
+        case_finish_time,
+        case_finish_way,
+        case_id,
+        case_is_finish,
+        case_keyword,
+        case_reason,
+        case_record_time,
+        case_review_grade,
+        case_same_defendant,
+        case_same_plaintiff,
+        case_special_line,
+        case_status,
+        case_the_third,
+        case_title,
+        case_truth,
+        create_time,
+        creator_account_id,
+        creator_account_name,
+        creator_cell,
+        creator_dept_id,
+        creator_unit_id,
+        delete_status,
+        depute_type,
+        drafter_unit,
+        institution_case_code,
+        large_lawsuit_mark,
+        last_update_time,
+        lawsuit_type,
+        other_lawsuit_body,
+        our_lawsuit_body,
+        our_lawsuit_body_name,
+        our_lawsuit_identity,
+        plaintiff_lawsuit_request,
+        related_body_attribution,
+        ruling_classes
+        from t_case_main
+        where case_id =
+        #{jointlyCase}
+    </select>
+</mapper>

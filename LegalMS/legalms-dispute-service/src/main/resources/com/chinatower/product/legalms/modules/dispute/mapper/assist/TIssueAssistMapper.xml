@@ -1,0 +1,966 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper
+        namespace="com.chinatower.product.legalms.modules.dispute.mapper.assist.TIssueAssistMapper">
+    <sql id="baseFields">
+        id,
+        code,
+        title,
+        create_time,
+        login_acct,
+        login_name,
+        org_name,
+        org_id,
+        dept_name,
+        dept_id,
+        mobile,
+        state,
+        jointly_unit_name,
+        jointly_unit_id,
+        unit_level,
+        jointly_dept_name,
+        jointly_dept_id,
+        court_id,
+        court_name,
+        modify_time,
+        delete_status,
+        supplier_code,
+        supplier_name,
+        assist_id,
+        assist_title,
+        assist_type,
+        execute_content,
+        module_name
+    </sql>
+    <resultMap id="BaseMap" type="com.chinatower.product.legalms.modules.dispute.entity.assist.TIssueAssist">
+        <id column="id" javaType="String" jdbcType="VARCHAR" property="id"/>
+        <result column="code" javaType="String" jdbcType="VARCHAR" property="code"/>
+        <result column="title" javaType="String" jdbcType="VARCHAR" property="title"/>
+        <result column="create_time" javaType="Date" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="login_acct" javaType="String" jdbcType="VARCHAR" property="loginAcct"/>
+        <result column="login_name" javaType="String" jdbcType="VARCHAR" property="loginName"/>
+        <result column="org_name" javaType="String" jdbcType="VARCHAR" property="orgName"/>
+        <result column="org_id" javaType="String" jdbcType="VARCHAR" property="orgId"/>
+        <result column="dept_name" javaType="String" jdbcType="VARCHAR" property="deptName"/>
+        <result column="dept_id" javaType="String" jdbcType="VARCHAR" property="deptId"/>
+        <result column="mobile" javaType="String" jdbcType="VARCHAR" property="mobile"/>
+        <result column="state" javaType="String" jdbcType="VARCHAR" property="state"/>
+        <result column="jointly_unit_name" javaType="String" jdbcType="VARCHAR" property="jointlyUnitName"/>
+        <result column="jointly_unit_id" javaType="String" jdbcType="VARCHAR" property="jointlyUnitId"/>
+        <result column="unit_level" javaType="String" jdbcType="VARCHAR" property="unitLevel"/>
+        <result column="jointly_dept_name" javaType="String" jdbcType="VARCHAR" property="jointlyDeptName"/>
+        <result column="jointly_dept_id" javaType="String" jdbcType="VARCHAR" property="jointlyDeptId"/>
+        <result column="court_id" javaType="String" jdbcType="VARCHAR" property="courtId"/>
+        <result column="court_name" javaType="String" jdbcType="VARCHAR" property="courtName"/>
+        <result column="modify_time" javaType="Date" jdbcType="TIMESTAMP" property="modifyTime"/>
+        <result column="delete_status" javaType="Integer" jdbcType="INTEGER" property="deleteStatus"/>
+        <result column="supplier_code" javaType="String" jdbcType="VARCHAR" property="supplierCode"/>
+        <result column="supplier_name" javaType="String" jdbcType="VARCHAR" property="supplierName"/>
+        <result column="assist_id" javaType="String" jdbcType="VARCHAR" property="assistId"/>
+        <result column="assist_title" javaType="String" jdbcType="VARCHAR" property="assistTitle"/>
+        <result column="assist_type" javaType="String" jdbcType="VARCHAR" property="assistType"/>
+        <result column="execute_content" javaType="String" jdbcType="VARCHAR" property="executeContent"/>
+        <result column="module_name" javaType="String" jdbcType="VARCHAR" property="moduleName"/>
+        <result column="flow_id" javaType="String" jdbcType="VARCHAR" property="flowId"/>
+    </resultMap>
+    <insert id="insertSelective"
+            parameterType="com.chinatower.product.legalms.modules.dispute.entity.assist.TIssueAssist">
+        insert into t_issue_assist
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="model.id != null and model.id != ''">
+                id,
+            </if>
+            <if test="model.code != null and model.code != ''">
+                code,
+            </if>
+            <if test="model.title != null and model.title != ''">
+                title,
+            </if>
+            create_time,
+            <if test="model.loginAcct != null and model.loginAcct != ''">
+                login_acct,
+            </if>
+            <if test="model.loginName != null and model.loginName != ''">
+                login_name,
+            </if>
+            <if test="model.orgName != null and model.orgName != ''">
+                org_name,
+            </if>
+            <if test="model.orgId != null and model.orgId != ''">
+                org_id,
+            </if>
+            <if test="model.deptName != null and model.deptName != ''">
+                dept_name,
+            </if>
+            <if test="model.deptId != null and model.deptId != ''">
+                dept_id,
+            </if>
+            <if test="model.mobile != null and model.mobile != ''">
+                mobile,
+            </if>
+            <if test="model.state != null and model.state != ''">
+                state,
+            </if>
+            <if test="model.jointlyUnitName != null and model.jointlyUnitName != ''">
+                jointly_unit_name,
+            </if>
+            <if test="model.jointlyUnitId != null and model.jointlyUnitId != ''">
+                jointly_unit_id,
+            </if>
+            <if test="model.unitLevel != null and model.unitLevel != ''">
+                unit_level,
+            </if>
+            <if test="model.jointlyDeptName != null and model.jointlyDeptName != ''">
+                jointly_dept_name,
+            </if>
+            <if test="model.jointlyDeptId != null and model.jointlyDeptId != ''">
+                jointly_dept_id,
+            </if>
+            <if test="model.courtId != null and model.courtId != ''">
+                court_id,
+            </if>
+            <if test="model.courtName != null and model.courtName != ''">
+                court_name,
+            </if>
+            modify_time,
+            <if test="model.deleteStatus != null">
+                delete_status,
+            </if>
+            <if test="model.supplierCode != null and model.supplierCode != ''">
+                supplier_code,
+            </if>
+            <if test="model.supplierName != null and model.supplierName != ''">
+                supplier_name,
+            </if>
+            <if test="model.assistId != null">
+                assist_id,
+            </if>
+            <if test="model.assistTitle">
+                assist_title,
+            </if>
+            <if test="model.assistType != null and model.assistType != ''">
+                assist_type,
+            </if>
+            <if test="model.executeContent != null and model.executeContent != ''">
+                execute_content,
+            </if>
+            <if test="model.moduleName != null and model.moduleName != ''">
+                module_name,
+            </if>
+        </trim>
+        <trim prefix=" VALUES(" suffix=")" suffixOverrides=",">
+            <if test="model.id != null and model.id != ''">
+                #{model.id, jdbcType=VARCHAR},
+            </if>
+            <if test="model.code != null and model.code != ''">
+                #{model.code, jdbcType=VARCHAR},
+            </if>
+            <if test="model.title != null and model.title != ''">
+                #{model.title, jdbcType=VARCHAR},
+            </if>
+            NOW(),
+            <if test="model.loginAcct != null and model.loginAcct != ''">
+                #{model.loginAcct, jdbcType=VARCHAR},
+            </if>
+            <if test="model.loginName != null and model.loginName != ''">
+                #{model.loginName, jdbcType=VARCHAR},
+            </if>
+            <if test="model.orgName != null and model.orgName != ''">
+                #{model.orgName, jdbcType=VARCHAR},
+            </if>
+            <if test="model.orgId != null and model.orgId != ''">
+                #{model.orgId, jdbcType=VARCHAR},
+            </if>
+            <if test="model.deptName != null and model.deptName != ''">
+                #{model.deptName, jdbcType=VARCHAR},
+            </if>
+            <if test="model.deptId != null and model.deptId != ''">
+                #{model.deptId, jdbcType=VARCHAR},
+            </if>
+            <if test="model.mobile != null and model.mobile != ''">
+                #{model.mobile, jdbcType=VARCHAR},
+            </if>
+            <if test="model.state != null and model.state != ''">
+                #{model.state, jdbcType=VARCHAR},
+            </if>
+            <if test="model.jointlyUnitName != null and model.jointlyUnitName != ''">
+                #{model.jointlyUnitName, jdbcType=VARCHAR},
+            </if>
+            <if test="model.jointlyUnitId != null and model.jointlyUnitId != ''">
+                #{model.jointlyUnitId, jdbcType=VARCHAR},
+            </if>
+            <if test="model.unitLevel != null and model.unitLevel != ''">
+                #{model.unitLevel, jdbcType=VARCHAR},
+            </if>
+            <if test="model.jointlyDeptName != null and model.jointlyDeptName != ''">
+                #{model.jointlyDeptName, jdbcType=VARCHAR},
+            </if>
+            <if test="model.jointlyDeptId != null and model.jointlyDeptId != ''">
+                #{model.jointlyDeptId, jdbcType=VARCHAR},
+            </if>
+            <if test="model.courtId != null and model.courtId != ''">
+                #{model.courtId, jdbcType=VARCHAR},
+            </if>
+            <if test="model.courtName != null and model.courtName != ''">
+                #{model.courtName, jdbcType=VARCHAR},
+            </if>
+            NOW(),
+            <if test="model.deleteStatus != null">
+                #{model.deleteStatus, jdbcType=INTEGER},
+            </if>
+            <if test="model.supplierCode != null and model.supplierCode != ''">
+                #{model.supplierCode, jdbcType=VARCHAR},
+            </if>
+            <if test="model.supplierName != null and model.supplierName != ''">
+                #{model.supplierName, jdbcType=VARCHAR},
+            </if>
+            <if test="model.assistId != null">
+                #{model.assistId, jdbcType=VARCHAR},
+            </if>
+            <if test="model.assistTitle">
+                #{model.assistTitle, jdbcType=VARCHAR},
+            </if>
+            <if test="model.assistType != null and model.assistType != ''">
+                #{model.assistType, jdbcType=VARCHAR},
+            </if>
+            <if test="model.executeContent != null and model.executeContent != ''">
+                #{model.executeContent, jdbcType=VARCHAR},
+            </if>
+            <if test="model.moduleName != null and model.moduleName != ''">
+                #{model.moduleName, jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKey"
+            parameterType="com.chinatower.product.legalms.modules.dispute.entity.assist.TIssueAssist">
+        update t_issue_assist
+        <set>
+            <if test="model.title != null and model.title != ''">
+                title = #{model.title, jdbcType=VARCHAR},
+            </if>
+            <if test="model.loginAcct != null and model.loginAcct != ''">
+                login_acct = #{model.loginAcct, jdbcType=VARCHAR},
+            </if>
+            <if test="model.loginName != null and model.loginName != ''">
+                login_name = #{model.loginName, jdbcType=VARCHAR},
+            </if>
+            <if test="model.orgName != null and model.orgName != ''">
+                org_name = #{model.orgName, jdbcType=VARCHAR},
+            </if>
+            <if test="model.orgId != null and model.orgId != ''">
+                org_id = #{model.orgId, jdbcType=VARCHAR},
+            </if>
+            <if test="model.deptName != null and model.deptName != ''">
+                dept_name = #{model.deptName, jdbcType=VARCHAR},
+            </if>
+            <if test="model.deptId != null and model.deptId != ''">
+                dept_id = #{model.deptId, jdbcType=VARCHAR},
+            </if>
+            <if test="model.mobile != null and model.mobile != ''">
+                mobile = #{model.mobile, jdbcType=VARCHAR},
+            </if>
+            <if test="model.state != null and model.state != ''">
+                state = #{model.state, jdbcType=VARCHAR},
+            </if>
+            <if test="model.jointlyUnitName != null">
+                jointly_unit_name = #{model.jointlyUnitName, jdbcType=VARCHAR},
+            </if>
+            <if test="model.jointlyUnitId != null">
+                jointly_unit_id = #{model.jointlyUnitId, jdbcType=VARCHAR},
+            </if>
+            <if test="model.unitLevel != null">
+                unit_level = #{model.unitLevel, jdbcType=VARCHAR},
+            </if>
+            <if test="model.jointlyDeptName != null">
+                jointly_dept_name = #{model.jointlyDeptName, jdbcType=VARCHAR},
+            </if>
+            <if test="model.jointlyDeptId != null">
+                jointly_dept_id = #{model.jointlyDeptId, jdbcType=VARCHAR},
+            </if>
+            <if test="model.courtId != null">
+                court_id = #{model.courtId, jdbcType=VARCHAR},
+            </if>
+            <if test="model.courtName != null">
+                court_name = #{model.courtName, jdbcType=VARCHAR},
+            </if>
+            modify_time = NOW(),
+            <if test="model.deleteStatus != null">
+                delete_status = #{model.deleteStatus, jdbcType=VARCHAR},
+            </if>
+            <if test="model.supplierCode != null">
+                supplier_code = #{model.supplierCode, jdbcType=VARCHAR},
+            </if>
+            <if test="model.supplierName != null">
+                supplier_name = #{model.supplierName, jdbcType=VARCHAR},
+            </if>
+            <if test="model.assistId != null">
+                assist_id = #{model.assistId, jdbcType=VARCHAR},
+            </if>
+            <if test="model.assistTitle">
+                assist_title = #{model.assistTitle, jdbcType=VARCHAR},
+            </if>
+            <if test="model.assistType != null">
+                assist_type = #{model.assistType, jdbcType=VARCHAR},
+            </if>
+            <if test="model.executeContent != null">
+                execute_content = #{model.executeContent, jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = #{model.id, jdbcType=VARCHAR}
+    </update>
+    <delete id="deleteTIssueAssist">
+        update t_issue_assist
+        set delete_status = 1
+        where id in
+        <foreach collection="ids" open="(" close=")" item="id" separator=",">
+            #{id}
+        </foreach>
+    </delete>
+
+    <select id="selectCode" resultType="java.lang.String"
+            parameterType="String">
+        select nextval(#{unitName,jdbcType=VARCHAR},#{moduleCode,jdbcType=VARCHAR},#{orgCode,jdbcType=VARCHAR},0)
+        LIMIT 1
+    </select>
+
+    <select id="selectAll" resultMap="BaseMap">
+        select
+        <include refid="baseFields"/>
+        from t_issue_assist
+        <where>
+            delete_status = 0
+            and state != 0
+            and login_acct = #{info.loginAcct, jdbcType=VARCHAR}
+            <if test="param.title != null and param.title != ''">
+                and title like concat('%', #{param.title, jdbcType=VARCHAR}, '%')
+            </if>
+            <if test="param.jointlyUnitName != null and param.jointlyUnitName != ''">
+                and (jointly_unit_name ='${param.jointlyUnitName}'
+                or
+                jointly_unit_name like'${param.jointlyUnitName},%'
+                or
+                jointly_unit_name like'%,${param.jointlyUnitName},%'
+                or
+                jointly_unit_name like'%,${param.jointlyUnitName}')
+            </if>
+            <if test="param.assistType != null and param.assistType != ''">
+                and assist_type like concat('%', #{param.assistType, jdbcType=VARCHAR} '%')
+            </if>
+            <if test="param.courtName != null and param.courtName != ''">
+                and court_name like concat('%', #{param.courtName, jdbcType=VARCHAR}, '%')
+            </if>
+            <if test="param.code != null and param.code != ''">
+                and code like concat('%', #{param.code, jdbcType=VARCHAR}, '%')
+            </if>
+            <if test="param.jointlyDeptName != null and param.jointlyDeptName != ''">
+                and jointly_dept_name like concat('%', #{param.jointlyDeptName, jdbcType=VARCHAR}, '%')
+            </if>
+            <if test="param.startTime != null">
+                and create_time <![CDATA[>=]]> #{param.startTime, jdbcType=TIMESTAMP}
+            </if>
+            <if test="param.endTime != null">
+               and create_time <![CDATA[<=]]> #{param.endTime, jdbcType=TIMESTAMP}
+            </if>
+            <if test="param.supplierName != null and param.supplierName != ''">
+                and supplier_name like concat('%', #{param.supplierName, jdbcType=VARCHAR}, '%')
+            </if>
+        </where>
+        order by state, create_time desc
+    </select>
+    <select id="selectRelationshipList" resultMap="BaseMap">
+        select
+        <include refid="baseFields"/>
+        from t_issue_assist
+        <where>
+            org_id = #{info.orgId, jdbcType=VARCHAR}
+            and state in ('20', '30')
+            <if test="param.title != null and param.title != ''">
+                and title like concat('%', #{param.title, jdbcType=VARCHAR}, '%')
+            </if>
+            <if test="param.code != null and param.code != ''">
+                and code like concat('%', #{param.code, jdbcType=VARCHAR}, '%')
+            </if>
+            <if test="param.assistType != null and param.assistType != ''">
+                and assist_type like concat('%', #{param.assistType, jdbcType=VARCHAR}, '%')
+            </if>
+            <if test="param.state != null and param.state != ''">
+                and state = #{param.state, jdbcType=VARCHAR}
+            </if>
+            <if test="param.jointlyUnitName != null and param.jointlyUnitName != ''">
+                and jointly_unit_name like concat('%', #{param.jointlyUnitName, jdbcType=VARCHAR}, '%')
+            </if>
+            <if test="param.jointlyDeptName != null and param.jointlyDeptName != ''">
+                and jointly_dept_name like concat('%', #{param.jointlyDeptName, jdbcType=VARCHAR}, '%')
+            </if>
+            <if test="param.courtName != null and param.courtName != ''">
+                and court_name like concat('%', #{param.courtName, jdbcType=VARCHAR}, '%')
+            </if>
+            <if test="param.supplierName != null and param.supplierName != ''">
+                and supplier_name like concat('%', #{param.supplierName, jdbcType=VARCHAR}, '%')
+            </if>
+            <if test="relations != null and relations != ''">
+                and id not in
+                <foreach collection="relations" item="assistId" separator="," open="(" close=")">
+                    #{assistId}
+                </foreach>
+            </if>
+        </where>
+        order by create_time desc
+    </select>
+    <select id="selectByPrimaryKey" resultMap="BaseMap">
+        select
+        <include refid="baseFields"/>
+        from t_issue_assist
+        where id = #{id, jdbcType=VARCHAR}
+    </select>
+    <select id="selectFile" resultType="java.util.HashMap">
+        SELECT tf.`file_id`
+        ,tf.`file_http_url`,
+        CONCAT(tf.`file_name`,'.',tf.`file_extension`)
+        fileName,tf.`file_name`,tf.`file_extension`,
+        tf.`file_length`,ts.file_share_business_key,ts.file_share_type,ts.file_share_id
+        FROM t_file_main tf ,t_file_share ts
+        WHERE tf.`file_id`=ts.`file_id`
+        and
+        ts.`file_share_business_key`= #{id} and tf.file_status=0
+        ORDER BY tf.file_status_update_time desc
+    </select>
+    <resultMap id="SubTFlowLog"
+               type="com.chinatower.product.legalms.modules.flow.vo.flow.SubTFlowLogVO">
+        <id column="flow_log_id_sub" jdbcType="VARCHAR" property="flowLogId"/>
+        <result column="status_sub" jdbcType="VARCHAR" property="status"/>
+        <result column="business_advice_sub" jdbcType="VARCHAR" property="businessAdvice"/>
+        <result column="opinion_sub" jdbcType="VARCHAR" property="opinion"/>
+        <result column="modify_time_sub" jdbcType="TIMESTAMP" property="modifyTime"/>
+        <result column="activity_inst_id_sub" jdbcType="BIGINT" property="activityInstId"/>
+        <result column="activity_def_id_sub" jdbcType="VARCHAR" property="activityDefId"/>
+        <result column="activity_def_name_sub" jdbcType="VARCHAR" property="activityDefName"/>
+        <result column="next_activity_def_id_sub" jdbcType="VARCHAR" property="nextActivityDefId"/>
+        <result column="next_activity_def_name_sub" jdbcType="VARCHAR" property="nextActivityDefName"/>
+        <result column="org_name_sub" jdbcType="VARCHAR" property="orgName"/>
+        <result column="org_id_sub" jdbcType="VARCHAR" property="orgId"/>
+        <result column="user_name_sub" jdbcType="VARCHAR" property="userName"/>
+        <result column="user_id_sub" jdbcType="VARCHAR" property="userId"/>
+        <result column="work_type_sub" jdbcType="VARCHAR" property="workType"/>
+        <result column="flow_id_sub" jdbcType="BIGINT" property="flowId"/>
+        <result column="flow_pid_sub" jdbcType="BIGINT" property="flowPid"/>
+        <result column="receiver_company_id_sub" jdbcType="VARCHAR" property="receiverCompanyId"/>
+        <result column="receiver_company_name_sub" jdbcType="VARCHAR" property="receiverCompanyName"/>
+        <result column="receiver_org_id_sub" jdbcType="VARCHAR" property="receiverOrgId"/>
+        <result column="receiver_org_name_sub" jdbcType="VARCHAR" property="receiverOrgName"/>
+        <result column="receiver_id_sub" jdbcType="VARCHAR" property="receiverId"/>
+        <result column="receiver_name_sub" jdbcType="VARCHAR" property="receiverName"/>
+        <result column="approve_item_id_sub" jdbcType="VARCHAR" property="approveItemId"/>
+        <result column="approve_item_type_sub" jdbcType="VARCHAR" property="approveItemType"/>
+        <result column="toer_id_sub" jdbcType="VARCHAR" property="toerId"/>
+        <result column="toer_name_sub" jdbcType="VARCHAR" property="toerName"/>
+        <result column="option_type_sub" jdbcType="VARCHAR" property="optionType"/>
+        <result column="dept_name_sub" jdbcType="VARCHAR" property="deptName"/>
+        <result column="dept_id_sub" jdbcType="VARCHAR" property="deptId"/>
+        <collection property="subTFlowLogVOList"
+                    ofType="com.chinatower.product.legalms.modules.flow.vo.flow.SubTFlowLogVO">
+            <id column="flow_log_id_sub_sub" jdbcType="VARCHAR" property="flowLogId"/>
+            <result column="status_sub_sub" jdbcType="VARCHAR" property="status"/>
+            <result column="business_advice_sub_sub" jdbcType="VARCHAR" property="businessAdvice"/>
+            <result column="opinion_sub_sub" jdbcType="VARCHAR" property="opinion"/>
+            <result column="modify_time_sub_sub" jdbcType="TIMESTAMP" property="modifyTime"/>
+            <result column="activity_inst_id_sub_sub" jdbcType="BIGINT" property="activityInstId"/>
+            <result column="activity_def_id_sub_sub" jdbcType="VARCHAR" property="activityDefId"/>
+            <result column="activity_def_name_sub_sub" jdbcType="VARCHAR" property="activityDefName"/>
+            <result column="next_activity_def_id_sub_sub" jdbcType="VARCHAR" property="nextActivityDefId"/>
+            <result column="next_activity_def_name_sub_sub" jdbcType="VARCHAR" property="nextActivityDefName"/>
+            <result column="org_name_sub_sub" jdbcType="VARCHAR" property="orgName"/>
+            <result column="org_id_sub_sub" jdbcType="VARCHAR" property="orgId"/>
+            <result column="user_name_sub_sub" jdbcType="VARCHAR" property="userName"/>
+            <result column="user_id_sub_sub" jdbcType="VARCHAR" property="userId"/>
+            <result column="work_type_sub_sub" jdbcType="VARCHAR" property="workType"/>
+            <result column="flow_id_sub_sub" jdbcType="BIGINT" property="flowId"/>
+            <result column="flow_pid_sub_sub" jdbcType="BIGINT" property="flowPid"/>
+            <result column="receiver_company_id_sub_sub" jdbcType="VARCHAR" property="receiverCompanyId"/>
+            <result column="receiver_company_name_sub_sub" jdbcType="VARCHAR" property="receiverCompanyName"/>
+            <result column="receiver_org_id_sub_sub" jdbcType="VARCHAR" property="receiverOrgId"/>
+            <result column="receiver_org_name_sub_sub" jdbcType="VARCHAR" property="receiverOrgName"/>
+            <result column="receiver_id_sub_sub" jdbcType="VARCHAR" property="receiverId"/>
+            <result column="receiver_name_sub_sub" jdbcType="VARCHAR" property="receiverName"/>
+            <result column="approve_item_id_sub_sub" jdbcType="VARCHAR" property="approveItemId"/>
+            <result column="approve_item_type_sub_sub" jdbcType="VARCHAR" property="approveItemType"/>
+            <result column="toer_id_sub_sub" jdbcType="VARCHAR" property="toerId"/>
+            <result column="toer_name_sub_sub" jdbcType="VARCHAR" property="toerName"/>
+            <result column="option_type_sub_sub" jdbcType="VARCHAR" property="optionType"/>
+            <result column="dept_name_sub_sub" jdbcType="VARCHAR" property="deptName"/>
+            <result column="dept_id_sub_sub" jdbcType="VARCHAR" property="deptId"/>
+        </collection>
+    </resultMap>
+    <resultMap id="logMap" type="com.chinatower.product.legalms.modules.dispute.vo.assist.TIssueAssistVO">
+        <id column="id_tia" javaType="String" jdbcType="VARCHAR" property="id"/>
+        <result column="code_tia" javaType="String" jdbcType="VARCHAR" property="code"/>
+        <result column="title_tia" javaType="String" jdbcType="VARCHAR" property="title"/>
+        <result column="create_time_tia" javaType="Date" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="login_acct_tia" javaType="String" jdbcType="VARCHAR" property="loginAcct"/>
+        <result column="login_name_tia" javaType="String" jdbcType="VARCHAR" property="loginName"/>
+        <result column="org_name_tia" javaType="String" jdbcType="VARCHAR" property="orgName"/>
+        <result column="org_id_tia" javaType="String" jdbcType="VARCHAR" property="orgId"/>
+        <result column="dept_name_tia" javaType="String" jdbcType="VARCHAR" property="deptName"/>
+        <result column="dept_id_tia" javaType="String" jdbcType="VARCHAR" property="deptId"/>
+        <result column="mobile_tia" javaType="String" jdbcType="VARCHAR" property="mobile"/>
+        <result column="state_tia" javaType="String" jdbcType="VARCHAR" property="state"/>
+        <result column="jointly_unit_name_tia" javaType="String" jdbcType="VARCHAR" property="jointlyUnitName"/>
+        <result column="jointly_unit_id_tia" javaType="String" jdbcType="VARCHAR" property="jointlyUnitId"/>
+        <result column="unit_level_tia" javaType="String" jdbcType="VARCHAR" property="unitLevel"/>
+        <result column="jointly_dept_name_tia" javaType="String" jdbcType="VARCHAR" property="jointlyDeptName"/>
+        <result column="jointly_dept_id_tia" javaType="String" jdbcType="VARCHAR" property="jointlyDeptId"/>
+        <result column="court_id_tia" javaType="String" jdbcType="VARCHAR" property="courtId"/>
+        <result column="court_name_tia" javaType="String" jdbcType="VARCHAR" property="courtName"/>
+        <result column="modify_time_tia" javaType="Date" jdbcType="TIMESTAMP" property="modifyTime"/>
+        <result column="delete_status_tia" javaType="Integer" jdbcType="INTEGER" property="deleteStatus"/>
+        <result column="supplier_code_tia" javaType="String" jdbcType="VARCHAR" property="supplierCode"/>
+        <result column="supplier_name_tia" javaType="String" jdbcType="VARCHAR" property="supplierName"/>
+        <result column="assist_id_tia" javaType="String" jdbcType="VARCHAR" property="assistId"/>
+        <result column="assist_title_tia" javaType="String" jdbcType="VARCHAR" property="assistTitle"/>
+        <result column="assist_type_tia" javaType="String" jdbcType="VARCHAR" property="assistType"/>
+        <result column="execute_content_tia" javaType="String" jdbcType="VARCHAR" property="executeContent"/>
+        <result column="module_name_tia" javaType="String" jdbcType="VARCHAR" property="moduleName"/>
+        <collection property="mian"
+                    ofType="com.chinatower.product.legalms.modules.flow.vo.flow.TFlowMainVO">
+            <id column="flow_id" jdbcType="BIGINT" property="flowId"/>
+            <result column="flow_name" jdbcType="VARCHAR"
+                    property="flowName"/>
+            <result column="flow_status" jdbcType="VARCHAR"
+                    property="flowStatus"/>
+            <result column="create_time" jdbcType="TIMESTAMP"
+                    property="createTime"/>
+            <result column="create_user_id" jdbcType="VARCHAR"
+                    property="createUserId"/>
+            <result column="create_user_name" jdbcType="VARCHAR"
+                    property="createUserName"/>
+            <result column="approve_item_id" jdbcType="VARCHAR"
+                    property="approveItemId"/>
+            <result column="approve_item_name" jdbcType="VARCHAR"
+                    property="approveItemName"/>
+            <result column="approve_item_type" jdbcType="VARCHAR"
+                    property="approveItemType"/>
+            <result column="module_name" jdbcType="VARCHAR"
+                    property="moduleName"/>
+            <result column="version_id" jdbcType="VARCHAR"
+                    property="versionId"/>
+
+            <collection property="logs"
+                        ofType="com.chinatower.product.legalms.modules.flow.vo.flow.TFlowLogVO">
+                <id column="flow_log_id" jdbcType="VARCHAR" property="flowLogId"/>
+                <result column="status" jdbcType="VARCHAR" property="status"/>
+                <result column="business_advice" jdbcType="VARCHAR"
+                        property="businessAdvice"/>
+                <result column="opinion" jdbcType="VARCHAR"
+                        property="opinion"/>
+                <result column="modify_time" jdbcType="TIMESTAMP"
+                        property="modifyTime"/>
+                <result column="activity_inst_id" jdbcType="BIGINT"
+                        property="activityInstId"/>
+                <result column="activity_def_id" jdbcType="VARCHAR"
+                        property="activityDefId"/>
+                <result column="activity_def_name" jdbcType="VARCHAR"
+                        property="activityDefName"/>
+                <result column="next_activity_def_id" jdbcType="VARCHAR"
+                        property="nextActivityDefId"/>
+                <result column="next_activity_def_name" jdbcType="VARCHAR"
+                        property="nextActivityDefName"/>
+                <result column="org_name" jdbcType="VARCHAR"
+                        property="orgName"/>
+                <result column="org_id" jdbcType="VARCHAR" property="orgId"/>
+                <result column="user_name" jdbcType="VARCHAR"
+                        property="userName"/>
+                <result column="user_id" jdbcType="VARCHAR" property="userId"/>
+                <result column="work_type" jdbcType="VARCHAR"
+                        property="workType"/>
+                <result column="flow_id" jdbcType="BIGINT" property="flowId"/>
+                <result column="flow_pid" jdbcType="BIGINT"
+                        property="flowPid"/>
+                <result column="receiver_company_id" jdbcType="VARCHAR"
+                        property="receiverCompanyId"/>
+                <result column="receiver_company_name" jdbcType="VARCHAR"
+                        property="receiverCompanyName"/>
+                <result column="receiver_org_id" jdbcType="VARCHAR"
+                        property="receiverOrgId"/>
+                <result column="receiver_org_name" jdbcType="VARCHAR"
+                        property="receiverOrgName"/>
+                <result column="receiver_id" jdbcType="VARCHAR"
+                        property="receiverId"/>
+                <result column="receiver_name" jdbcType="VARCHAR"
+                        property="receiverName"/>
+                <result column="approve_item_id" jdbcType="VARCHAR"
+                        property="approveItemId"/>
+                <result column="approve_item_type" jdbcType="VARCHAR"
+                        property="approveItemType"/>
+                <result column="toer_id" jdbcType="VARCHAR" property="toerId"/>
+                <result column="toer_name" jdbcType="VARCHAR"
+                        property="toerName"/>
+                <result column="option_type" jdbcType="VARCHAR"
+                        property="optionType"/>
+                <result column="dept_name" jdbcType="VARCHAR"
+                        property="deptName"/>
+                <result column="dept_id" jdbcType="VARCHAR" property="deptId"/>
+                <collection property="subLogs"
+                            ofType="com.chinatower.product.legalms.modules.flow.vo.flow.SubTFlowLogVO"
+                            resultMap="SubTFlowLog">
+                </collection>
+            </collection>
+        </collection>
+    </resultMap>
+    <sql id="Subs_Column_List">
+        flo.flow_log_id flow_log_id_sub,
+        flo.status status_sub,
+        flo.business_advice business_advice_sub,
+        flo.receiver_company_id receiver_company_id_sub,
+        flo.receiver_company_name receiver_company_name_sub,
+        flo.receiver_org_id receiver_org_id_sub,
+        flo.receiver_org_name receiver_org_name_sub,
+        flo.receiver_id receiver_id_sub,
+        flo.receiver_name receiver_name_sub,
+        flo.opinion opinion_sub,
+        flo.modify_time modify_time_sub,
+        flo.activity_inst_id activity_inst_id_sub,
+        flo.activity_def_id activity_def_id_sub,
+        flo.activity_def_name activity_def_name_sub,
+        flo.next_activity_def_id next_activity_def_id_sub,
+        flo.next_activity_def_name next_activity_def_name_sub,
+        flo.org_name org_name_sub,
+        flo.org_id org_id_sub,
+        flo.user_name user_name_sub,
+        flo.user_id user_id_sub,
+        flo.work_type work_type_sub,
+        flo.flow_id flow_id_sub,
+        flo.flow_pid flow_pid_sub,
+        flo.toer_id toer_id_sub,
+        flo.toer_name toer_name_sub,
+        flo.option_type option_type_sub,
+        flo.dept_name dept_name_sub,
+        flo.dept_id dept_id_sub
+    </sql>
+    <sql id="Subs_sub_Column_List">
+        flo2.flow_log_id flow_log_id_sub_sub,
+        flo2.status status_sub_sub,
+        flo2.business_advice business_advice_sub_sub,
+        flo2.receiver_company_id receiver_company_id_sub_sub,
+        flo2.receiver_company_name receiver_company_name_sub_sub,
+        flo2.receiver_org_id receiver_org_id_sub_sub,
+        flo2.receiver_org_name receiver_org_name_sub_sub,
+        flo2.receiver_id receiver_id_sub_sub,
+        flo2.receiver_name receiver_name_sub_sub,
+        flo2.opinion opinion_sub_sub,
+        flo2.modify_time modify_time_sub_sub,
+        flo2.activity_inst_id activity_inst_id_sub_sub,
+        flo2.activity_def_id activity_def_id_sub_sub,
+        flo2.activity_def_name activity_def_name_sub_sub,
+        flo2.next_activity_def_id next_activity_def_id_sub_sub,
+        flo2.next_activity_def_name next_activity_def_name_sub_sub,
+        flo2.org_name org_name_sub_sub,
+        flo2.org_id org_id_sub_sub,
+        flo2.user_name user_name_sub_sub,
+        flo2.user_id user_id_sub_sub,
+        flo2.work_type work_type_sub_sub,
+        flo2.flow_id flow_id_sub_sub,
+        flo2.flow_pid flow_pid_sub_sub,
+        flo2.toer_id toer_id_sub_sub,
+        flo2.toer_name toer_name_sub_sub,
+        flo2.option_type option_type_sub_sub,
+        flo2.dept_name dept_name_sub_sub,
+        flo2.dept_id dept_id_sub_sub
+    </sql>
+    <sql id="detailFields">
+        tia.id id_tia,
+        tia.code code_tia,
+        tia.title title_tia,
+        tia.create_time create_time_tia,
+        tia.login_acct login_acct_tia,
+        tia.login_name login_name_tia,
+        tia.org_name org_name_tia,
+        tia.org_id org_id_tia,
+        tia.dept_name dept_name_tia,
+        tia.dept_id dept_id_tia,
+        tia.mobile mobile_tia,
+        tia.state state_tia,
+        tia.jointly_unit_name jointly_unit_name_tia,
+        tia.jointly_unit_id jointly_unit_id_tia,
+        tia.unit_level unit_level_tia,
+        tia.jointly_dept_name jointly_dept_name_tia,
+        tia.jointly_dept_id jointly_dept_id_tia,
+        tia.court_id court_id_tia,
+        tia.court_name court_name_tia,
+        tia.modify_time modify_time_tia,
+        tia.delete_status delete_status_tia,
+        tia.supplier_code supplier_code_tia,
+        tia.supplier_name supplier_name_tia,
+        tia.assist_id assist_id_tia,
+        tia.assist_title assist_title_tia,
+        tia.assist_type assist_type_tia,
+        tia.execute_content execute_content_tia,
+        tia.module_name module_name_tia,
+    </sql>
+    <select id="findOne" resultMap="logMap" parameterType="string">
+        SELECT <include refid="detailFields"/>
+        fm.*,fl.*,
+        <include refid="Subs_Column_List"/>,
+        <include refid="Subs_sub_Column_List"/>
+        FROM t_issue_assist tia LEFT JOIN t_flow_main fm ON tia.`id`=fm.`approve_item_id` AND
+        fm.`approve_item_type`='t_issue_assist'
+        LEFT JOIN t_flow_log fl ON fm.`approve_item_id`=fl.`approve_item_id` AND fm.`flow_id`=fl.`flow_id`
+        LEFT JOIN t_flow_log flo ON fl.`flow_id`=flo.`flow_pid` AND fl.`activity_inst_id`=flo.`act_pid`
+        LEFT JOIN t_flow_log flo2 ON flo2.`flow_pid` = flo.`flow_id` AND flo.`activity_inst_id`=flo2.`act_pid`
+        WHERE
+        tia.`id`= #{id}
+        ORDER BY fl.`modify_time`,flo.`modify_time`,flo2.`modify_time`
+    </select>
+    <select id="selectWholeData" resultMap="BaseMap">
+        select
+        t3.*
+        from(
+        <if test="param.preOrgId != null and param.preOrgId.size() > 0 and param.jointlyUnitId != null and param.jointlyUnitId != ''">
+            select
+            t1.*
+            from t_issue_assist t1 left join t_pub_org tpo on t1.jointly_unit_id = tpo.org_code
+            <where>
+                and t1.org_id in
+                <foreach collection="param.preOrgId" open="(" close=")" separator="," item="value">
+                    #{value}
+                </foreach>
+                and t1.jointly_unit_id like concat('%', #{param.jointlyUnitId}, '%')
+            </where>
+            UNION
+        </if>
+        select
+        t2.*
+        from t_issue_assist t2 left join t_pub_org tpo on t2.org_id = tpo.org_code
+        <where>
+            and tpo.org_path like #{param.orgId}
+        </where>
+        ) t3
+        <where>
+            delete_status = 0
+            and state in ('20', '30')
+
+            <if test="param.jointlyDeptId != null and param.jointlyDeptId != ''">
+                and t3.jointly_dept_id like concat('%', #{param.jointlyDeptId, jdbcType=VARCHAR}, '%')
+            </if>
+
+            <if test="param.title != null and param.title != ''">
+                and t3.title like concat('%', #{param.title, jdbcType=VARCHAR}, '%')
+            </if>
+            <if test="param.code != null and param.code != ''">
+                and t3.code like concat('%', #{param.code, jdbcType=VARCHAR}, '%')
+            </if>
+            <if test="param.createOrgId != null and param.createOrgId != ''">
+                and t3.org_id in (select org_id from t_pub_org where org_path like concat('%', #{param.createOrgId, jdbcType=VARCHAR}, '%'))
+            </if>
+
+            <if test="param.assistType != null and param.assistType != ''">
+                and t3.assist_type like concat('%', #{param.assistType, jdbcType=VARCHAR}, '%')
+            </if>
+            <if test="param.jointlyUnitName != null and param.jointlyUnitName != ''">
+                and t3.jointly_unit_name like concat('%',  #{param.jointlyUnitName, jdbcType=VARCHAR}, '%')
+            </if>
+            <if test="param.jointlyDeptName != null and param.jointlyDeptName != ''">
+                and t3.jointly_dept_name like concat('%', #{param.jointlyDeptName, jdbcType=VARCHAR}, '%')
+            </if>
+            <if test="param.courtName != null and param.courtName != ''">
+                and t3.court_name like concat('%', #{param.courtName, jdbcType=VARCHAR}, '%')
+            </if>
+            <if test="param.supplierName != null and param.supplierName != ''">
+                and t3.supplier_name like concat('%', #{param.supplierName, jdbcType=VARCHAR}, '%')
+            </if>
+            <if test="param.state != null and param.state != ''">
+                and t3.state = #{param.state, jdbcType=VARCHAR}
+            </if>
+            <if test="param.startTime != null">
+                and t3.create_time <![CDATA[>=]]> #{param.startTime, jdbcType=TIMESTAMP}
+            </if>
+            <if test="param.endTime != null">
+                and t3.create_time <![CDATA[<=]]> #{param.endTime, jdbcType=TIMESTAMP}
+            </if>
+        </where>
+        order by t3.state, t3.create_time desc
+    </select>
+    <select id="getHeadOrgCode" resultType="java.lang.String">
+        SELECT org_code FROM t_pub_org WHERE org_level ='01' AND enterp_type = #{enterpType} AND org_code LIKE '%00001'
+    </select>
+    <select id="selectByLogs" resultMap="BaseMap">
+        select
+        <include refid="baseFields"/>
+        from t_issue_assist t3
+        <where>
+
+            t3.id in(
+            select distinct approve_item_id from t_flow_log
+            where user_id = #{info.loginAcct, jdbcType=VARCHAR}
+            and approve_item_type = 't_issue_assist'
+            )
+            and t3.state in ('20', '30')
+            and t3.delete_status = 0
+            <if test="param.title != null and param.title != ''">
+                and t3.title like concat('%', #{param.title, jdbcType=VARCHAR}, '%')
+            </if>
+            <if test="param.code != null and param.code != ''">
+                and t3.code like concat('%', #{param.code, jdbcType=VARCHAR}, '%')
+            </if>
+            <if test="param.orgName != null and param.orgName != ''">
+                and t3.org_name like concat('%', #{param.orgName, jdbcType=VARCHAR}, '%')
+            </if>
+            <if test="param.assistType != null and param.assistType != ''">
+                and t3.assist_type = #{param.assistType, jdbcType=VARCHAR}
+            </if>
+            <if test="param.jointlyUnitName != null and param.jointlyUnitName != ''">
+                and t3.jointly_unit_name like concat('%',  #{param.jointlyUnitName, jdbcType=VARCHAR}, '%')
+            </if>
+            <if test="param.jointlyDeptName != null and param.jointlyDeptName != ''">
+                and t3.jointly_dept_name like concat('%', #{param.jointlyDeptName, jdbcType=VARCHAR}, '%')
+            </if>
+            <if test="param.courtName != null and param.courtName != ''">
+                and t3.court_name like concat('%', #{param.courtName, jdbcType=VARCHAR}, '%')
+            </if>
+            <if test="param.supplierName != null and param.supplierName != ''">
+                and t3.supplier_name like concat('%', #{param.supplierName, jdbcType=VARCHAR}, '%')
+            </if>
+            <if test="param.state != null and param.state != ''">
+                and t3.state = #{param.state, jdbcType=VARCHAR}
+            </if>
+            <if test="param.startTime != null and param.startTime != ''">
+                and t3.create_time <![CDATA[>=]]> #{param.startTime, jdbcType=VARCHAR}
+            </if>
+            <if test="param.endTime != null and param.endTime != ''">
+                and t3.create_time <![CDATA[<=]]> #{param.endTime, jdbcType=VARCHAR}
+            </if>
+        </where>
+
+    </select>
+    <select id="selectOrgLevelByOrgId" parameterType="java.lang.String" resultType="java.lang.String">
+        select org_level from t_pub_org where org_id = #{orgId, jdbcType=VARCHAR}
+    </select>
+    <select id="selectRelationshipListInCreate" resultMap="BaseMap">
+        select
+        tia.*, tfm.flow_id
+        from t_issue_assist tia, t_flow_main tfm
+        <where>
+            tfm.approve_item_id = tia.id
+            and tia.org_id != #{info.orgId, jdbcType=VARCHAR}
+            and tia.state = '20'
+            and tia.jointly_unit_name like concat('%', #{info.orgName, jdbcType=VARCHAR}, '%')
+            <if test="param.orgName != null and param.orgName != ''">
+                and tia.org_name like concat('%', #{param.orgName, jdbcType=VARCHAR}, '%')
+            </if>
+            <if test="param.title != null and param.title != ''">
+                and tia.title like concat('%', #{param.title, jdbcType=VARCHAR}, '%')
+            </if>
+            <if test="param.code != null and param.code != ''">
+                and tia.code like concat('%', #{param.code, jdbcType=VARCHAR}, '%')
+            </if>
+            <if test="param.assistType != null and param.assistType != ''">
+                and tia.assist_type like concat('%',  #{param.assistType, jdbcType=VARCHAR}, '%')
+            </if>
+            <if test="param.courtName != null and param.courtName != ''">
+                and tia.court_name like concat('%', #{param.courtName, jdbcType=VARCHAR}, '%')
+            </if>
+            <if test="param.supplierName != null and param.supplierName != ''">
+                and tia.supplier_name like concat('%', #{param.supplierName, jdbcType=VARCHAR}, '%')
+            </if>
+        </where>
+        order by tia.create_time desc
+    </select>
+    <select id="selectAssistIdAndTitleByAssistIds" resultType="java.util.Map">
+        select id, title from t_issue_assist
+        where id in
+        <foreach collection="ids" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+    </select>
+    <select id="selectFileByIds" resultType="java.util.Map">
+        SELECT tf.`file_id`
+        ,tf.`file_http_url`,
+        CONCAT(tf.`file_name`,'.',tf.`file_extension`)
+        fileName,tf.`file_name`,tf.`file_extension`,
+        tf.`file_length`,ts.file_share_business_key,ts.file_share_type,ts.file_share_id
+        FROM t_file_main tf ,t_file_share ts
+        WHERE tf.`file_id`=ts.`file_id`
+        and tf.file_status=0
+        and ts.`file_id` in
+        <foreach collection="fileIds" open="(" close=")" separator="," item="fileId">
+            #{fileId}
+        </foreach>
+        ORDER BY tf.file_status_update_time desc
+    </select>
+    <select id="selectBySubFlowId" resultMap="BaseMap">
+        select
+        tia.id,
+        tia.code,
+        tia.title,
+        tia.create_time,
+        tia.login_acct,
+        tia.login_name,
+        tia.org_name,
+        tia.org_id,
+        tia.dept_name,
+        tia.dept_id,
+        tia.mobile,
+        tia.state,
+        tia.jointly_unit_name,
+        tia.jointly_unit_id,
+        tia.unit_level,
+        tia.jointly_dept_name,
+        tia.jointly_dept_id,
+        tia.court_id,
+        tia.court_name,
+        tia.modify_time,
+        tia.delete_status,
+        tia.supplier_code,
+        tia.supplier_name,
+        tia.assist_id,
+        tia.assist_title,
+        tia.assist_type,
+        tia.execute_content,
+        tia.module_name
+        from t_issue_assist tia, t_flow_log tfl
+        where tia.id = tfl.approve_item_id
+        and tfl.flow_id = #{flowId, jdbcType=VARCHAR}
+    </select>
+    <select id="selectAllUnit" resultMap="BaseMap">
+        select
+        <include refid="baseFields"/>
+        from t_issue_assist t3
+        <where>
+            and t3.state in ('20', '30')
+            and t3.delete_status = 0
+            <if test="param.title != null and param.title != ''">
+                and t3.title like concat('%', #{param.title, jdbcType=VARCHAR}, '%')
+            </if>
+            <if test="param.code != null and param.code != ''">
+                and t3.code like concat('%', #{param.code, jdbcType=VARCHAR}, '%')
+            </if>
+            <if test="param.orgName != null and param.orgName != ''">
+                and t3.org_name like concat('%', #{param.orgName, jdbcType=VARCHAR}, '%')
+            </if>
+            <if test="param.assistType != null and param.assistType != ''">
+                and t3.assist_type = #{param.assistType, jdbcType=VARCHAR}
+            </if>
+            <if test="param.jointlyUnitName != null and param.jointlyUnitName != ''">
+                and t3.jointly_unit_name like concat('%',  #{param.jointlyUnitName, jdbcType=VARCHAR}, '%')
+            </if>
+            <if test="param.jointlyDeptName != null and param.jointlyDeptName != ''">
+                and t3.jointly_dept_name like concat('%', #{param.jointlyDeptName, jdbcType=VARCHAR}, '%')
+            </if>
+            <if test="param.courtName != null and param.courtName != ''">
+                and t3.court_name like concat('%', #{param.courtName, jdbcType=VARCHAR}, '%')
+            </if>
+            <if test="param.supplierName != null and param.supplierName != ''">
+                and t3.supplier_name like concat('%', #{param.supplierName, jdbcType=VARCHAR}, '%')
+            </if>
+            <if test="param.state != null and param.state != ''">
+                and t3.state = #{param.state, jdbcType=VARCHAR}
+            </if>
+            <if test="param.startTime != null and param.startTime != ''">
+                and t3.create_time <![CDATA[>=]]> #{param.startTime, jdbcType=VARCHAR}
+            </if>
+            <if test="param.endTime != null and param.endTime != ''">
+                and t3.create_time <![CDATA[<=]]> #{param.endTime, jdbcType=VARCHAR}
+            </if>
+        </where>
+
+    </select>
+</mapper>

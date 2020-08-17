@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chinatower.product.legalms.modules.license.mapper.OrgInfoBeanVOMappper">
+  <resultMap id="BaseResultMap" type="com.chinatower.product.legalms.modules.license.entity.OrgInfoBeanVO">
+  	<id column="org_code" property="orgCode" jdbcType="VARCHAR" />
+  	<result column="org_name" property="orgName" jdbcType="VARCHAR" />
+  	<result column="org_code" property="orgCode" jdbcType="VARCHAR" />
+  	<result column="org_status" property="orgStatus" jdbcType="VARCHAR" />
+  	<result column="org_remarks" property="orgRemarks" jdbcType="VARCHAR" />
+  	<result column="enterp_type" property="enterpType" jdbcType="VARCHAR" />
+  	<result column="org_level" property="orgLevel" jdbcType="VARCHAR" />
+  	<result column="org_parent_code" property="orgParentCode" jdbcType="VARCHAR" />
+  	<result column="org_change" property="orgChange" jdbcType="VARCHAR" />
+  	<result column="org_path" property="orgPath" jdbcType="VARCHAR" />
+  	<result column="created_by" property="createdBy" jdbcType="VARCHAR" />
+  	<result column="creation_date" property="creationDate" jdbcType="TIMESTAMP" />
+  	<result column="last_updated_by" property="lastUpdatedBy" jdbcType="VARCHAR" />
+  	<result column="last_update_date" property="lastUpdateDate" jdbcType="TIMESTAMP" />
+  	<result column="org_reserved_text1" property="orgReservedText1" jdbcType="VARCHAR" />
+  	<result column="org_relation" property="orgRelation" jdbcType="VARCHAR" />
+  	<result column="flag" property="flag" jdbcType="VARCHAR" />
+  	<result column="url" property="url" jdbcType="VARCHAR" />
+      <result column="mdm_org_code" property="mdmOrgCode" jdbcType="VARCHAR" />
+      <result column="org_base_id" property="orgBaseId" jdbcType="INTEGER" />
+  </resultMap>
+  
+   <select id="selectAllOrgInfoBean" resultType="Integer">
+     select
+      count(1)
+     from  t_pub_org_between where org_code=#{orgCode}
+   </select>
+
+   <insert id="addOrginfoBean">
+       insert into t_pub_org_between
+       <trim prefix="(" suffix=")" suffixOverrides="," >
+           <if test="orgName != null" > org_name, </if>
+           <if test="orgCode != null" > org_code, </if>
+           <if test="orgStatus != null" > org_status, </if>
+           <if test="orgRemarks != null" > org_remarks, </if>
+           <if test="enterpType != null" > enterp_type, </if>
+           <if test="orgLevel != null" > org_level, </if>
+           <if test="orgParentCode != null" > org_parent_code, </if>
+           <if test="orgChange != null" > org_change, </if>
+           <if test="orgPath != null" > org_path, </if>
+           <if test="createdBy != null" > created_by, </if>
+           <if test="creationDate != null" > creation_date, </if>
+           <if test="lastUpdatedBy != null" > last_updated_by, </if>
+           <if test="lastUpdateDate != null" > last_update_date, </if>
+           <if test="orgReservedText1 != null" > org_reserved_text1, </if>
+           <if test="orgRelation != null" > org_relation, </if>
+           <if test="flag != null" > flag, </if>
+           <if test="url != null" > url, </if>
+           <if test="mdmOrgCode != null" > mdm_org_code, </if>
+           <if test="orgBaseId != null" > org_base_id, </if>
+       </trim>
+       <trim prefix="values (" suffix=")" suffixOverrides="," >
+           <if test="orgName != null" > #{orgName,jdbcType=VARCHAR}, </if>
+           <if test="orgCode != null" > #{orgCode,jdbcType=VARCHAR}, </if>
+           <if test="orgStatus != null" > #{orgStatus,jdbcType=VARCHAR}, </if>
+           <if test="orgRemarks != null" > #{orgRemarks,jdbcType=VARCHAR}, </if>
+           <if test="enterpType != null" > #{enterpType,jdbcType=VARCHAR}, </if>
+           <if test="orgLevel != null" > #{orgLevel,jdbcType=VARCHAR}, </if>
+           <if test="orgParentCode != null" > #{orgParentCode,jdbcType=VARCHAR}, </if>
+           <if test="orgChange != null" > #{orgChange,jdbcType=VARCHAR}, </if>
+           <if test="orgPath != null" > #{orgPath,jdbcType=VARCHAR}, </if>
+           <if test="createdBy != null" > #{createdBy,jdbcType=VARCHAR}, </if>
+           <if test="creationDate != null" > #{creationDate,jdbcType=TIMESTAMP}, </if>
+           <if test="lastUpdatedBy != null" > #{lastUpdatedBy,jdbcType=VARCHAR}, </if>
+           <if test="lastUpdateDate != null" > #{lastUpdateDate,jdbcType=TIMESTAMP}, </if>
+           <if test="orgReservedText1 != null" > #{orgReservedText1,jdbcType=VARCHAR}, </if>
+           <if test="orgRelation != null" > #{orgRelation,jdbcType=VARCHAR}, </if>
+           <if test="flag != null" > #{flag,jdbcType=VARCHAR}, </if>
+           <if test="url != null" > #{url,jdbcType=VARCHAR}, </if>
+           <if test="mdmOrgCode != null" > #{mdmOrgCode,jdbcType=VARCHAR}, </if>
+           <if test="orgBaseId != null" > #{orgBaseId,jdbcType=INTEGER}, </if>
+       </trim>
+   </insert>
+
+   <update id="updateOrginfoBean">
+       update t_pub_org_between
+       <set>
+           <if test="orgName != null" > org_name = #{orgName,jdbcType=VARCHAR}, </if>
+           <if test="orgStatus != null" > org_status = #{orgStatus,jdbcType=VARCHAR}, </if>
+           <if test="orgRemarks != null" > org_remarks = #{orgRemarks,jdbcType=VARCHAR}, </if>
+           <if test="enterpType != null" > enterp_type = #{enterpType,jdbcType=VARCHAR}, </if>
+           <if test="orgLevel != null" > org_level = #{orgLevel,jdbcType=VARCHAR}, </if>
+           <if test="orgParentCode != null" > org_parent_code = #{orgParentCode,jdbcType=VARCHAR}, </if>
+           <if test="orgChange != null" > org_change = #{orgChange,jdbcType=VARCHAR}, </if>
+           <if test="orgPath != null" > org_path = #{orgPath,jdbcType=VARCHAR}, </if>
+           <if test="createdBy != null" > created_by = #{createdBy,jdbcType=VARCHAR}, </if>
+           <if test="creationDate != null" > creation_date = #{creationDate,jdbcType=TIMESTAMP}, </if>
+           <if test="lastUpdatedBy != null" > last_updated_by = #{lastUpdatedBy,jdbcType=VARCHAR}, </if>
+           <if test="lastUpdateDate != null" > last_update_date = #{lastUpdateDate,jdbcType=TIMESTAMP}, </if>
+           <if test="orgReservedText1 != null" > org_reserved_text1 = #{orgReservedText1,jdbcType=VARCHAR}, </if>
+           <if test="orgRelation != null" > org_relation = #{orgRelation,jdbcType=VARCHAR}, </if>
+           <if test="flag != null" > flag = #{flag,jdbcType=VARCHAR}, </if>
+           <if test="url != null" > url = #{url,jdbcType=VARCHAR}, </if>
+           <if test="mdmOrgCode != null" > mdm_org_code = #{mdmOrgCode,jdbcType=VARCHAR}, </if>
+           <if test="orgBaseId != null" > org_base_id  = #{orgBaseId,jdbcType=INTEGER}, </if>
+       </set>
+       where org_code = #{orgCode,jdbcType=VARCHAR}
+   </update>
+
+  <delete id="deleteOrginfoBean">
+    delete from t_pub_org_between where org_code=#{orgCode}
+  </delete>
+
+</mapper>

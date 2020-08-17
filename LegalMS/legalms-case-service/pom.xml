@@ -1,0 +1,59 @@
+<?xml version="1.0"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.chinatower.product</groupId>
+        <artifactId>legalms</artifactId>
+        <version>1.0</version>
+    </parent>
+    <groupId>com.chinatower.product</groupId>
+    <artifactId>legalms-case-service</artifactId>
+    <version>1.0</version>
+    <name>legalms-case-service</name>
+    <url>http://maven.apache.org</url>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.chinatower.product</groupId>
+            <artifactId>legalms-case-api</artifactId>
+            <version>1.0</version>
+        </dependency>
+        <!-- 缓存 -->
+        <!-- <dependency>
+            <groupId>com.chinatower.framework.cloud</groupId>
+            <artifactId>chinatower-cache-starter</artifactId>
+            <version>1.1</version>
+        </dependency> -->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>8.0.11</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.chinatower.product</groupId>
+            <artifactId>legalms-portal-framework-filecomon</artifactId>
+            <version>1.0</version>
+        </dependency>
+    </dependencies>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>2.1.7.RELEASE</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>

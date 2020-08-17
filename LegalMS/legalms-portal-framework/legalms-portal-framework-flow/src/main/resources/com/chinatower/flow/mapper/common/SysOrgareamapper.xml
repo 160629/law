@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chinatower.product.legalms.modules.flow.mapper.common.SysOrgareamapperMapper">
+
+    <resultMap id="BaseResultMap" type="com.chinatower.product.legalms.modules.flow.entity.common.SysOrgareamapperVO">
+        <id column="area_code" jdbcType="VARCHAR" property="areaCode" />
+        <result column="org_code" jdbcType="VARCHAR" property="orgCode" />
+        <result column="area_name" jdbcType="VARCHAR" property="areaName" />
+        <result column="area_en" jdbcType="VARCHAR" property="areaEn" />
+        <result column="area_cn" jdbcType="VARCHAR" property="areaCn" />
+        <result column="area_order" jdbcType="INTEGER" property="areaOrder" />
+        <result column="tmp1" jdbcType="VARCHAR" property="tmp1" />
+        <result column="tmp2" jdbcType="VARCHAR" property="tmp2" />
+        <result column="tmp3" jdbcType="VARCHAR" property="tmp3" />
+
+    </resultMap>
+
+    <select id="selectSysOrgareamapperByorgCode"  resultMap="BaseResultMap"  parameterType="String">
+        SELECT area_code,org_code,area_name,area_en,area_cn,area_order,tmp1,tmp2,tmp3
+        FROM t_sys_orgareamapper
+        WHERE org_code=#{orgCode}
+        <if test="areaCode!=null">
+            and area_code=#{areaCode}
+        </if>
+        <if test="areaName!=null">
+            and area_name like concat('%',#{areaName,jdbcType=VARCHAR},'%')
+        </if>
+    </select>
+
+</mapper>

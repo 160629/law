@@ -1,0 +1,528 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chinatower.product.legalms.modules.flow.mapper.flow.TFlowLogMapper">
+    <resultMap id="BaseResultMap" type="com.chinatower.product.legalms.modules.flow.entity.flow.TFlowLog">
+        <id column="flow_log_id" jdbcType="VARCHAR" property="flowLogId"/>
+        <result column="status" jdbcType="VARCHAR" property="status"/>
+        <result column="business_advice" jdbcType="VARCHAR" property="businessAdvice"/>
+        <result column="opinion" jdbcType="VARCHAR" property="opinion"/>
+        <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime"/>
+        <result column="activity_inst_id" jdbcType="BIGINT" property="activityInstId"/>
+        <result column="activity_def_id" jdbcType="VARCHAR" property="activityDefId"/>
+        <result column="activity_def_name" jdbcType="VARCHAR" property="activityDefName"/>
+        <result column="next_activity_def_id" jdbcType="VARCHAR" property="nextActivityDefId"/>
+        <result column="next_activity_def_name" jdbcType="VARCHAR" property="nextActivityDefName"/>
+        <result column="org_name" jdbcType="VARCHAR" property="orgName"/>
+        <result column="org_id" jdbcType="VARCHAR" property="orgId"/>
+        <result column="user_name" jdbcType="VARCHAR" property="userName"/>
+        <result column="user_id" jdbcType="VARCHAR" property="userId"/>
+        <result column="work_type" jdbcType="VARCHAR" property="workType"/>
+        <result column="flow_id" jdbcType="BIGINT" property="flowId"/>
+        <result column="flow_pid" jdbcType="BIGINT" property="flowPid"/>
+        <result column="receiver_company_id" jdbcType="VARCHAR" property="receiverCompanyId"/>
+        <result column="receiver_company_name" jdbcType="VARCHAR" property="receiverCompanyName"/>
+        <result column="receiver_org_id" jdbcType="VARCHAR" property="receiverOrgId"/>
+        <result column="receiver_org_name" jdbcType="VARCHAR" property="receiverOrgName"/>
+        <result column="receiver_id" jdbcType="VARCHAR" property="receiverId"/>
+        <result column="receiver_name" jdbcType="VARCHAR" property="receiverName"/>
+        <result column="approve_item_id" jdbcType="VARCHAR" property="approveItemId"/>
+        <result column="approve_item_type" jdbcType="VARCHAR" property="approveItemType"/>
+        <result column="flow_def_name" jdbcType="VARCHAR" property="flowDefName"/>
+        <result column="toer_id" jdbcType="VARCHAR" property="toerId"/>
+        <result column="toer_name" jdbcType="VARCHAR" property="toerName"/>
+        <result column="act_pid" jdbcType="BIGINT" property="actPid"/>
+        <result column="dept_name" jdbcType="VARCHAR" property="deptName"/>
+        <result column="dept_id" jdbcType="VARCHAR" property="deptId"/>
+        <result column="option_type" jdbcType="VARCHAR" property="optionType"/>
+        <result column="version_id" jdbcType="INTEGER" property="versionId"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        flow_log_id, status, business_advice, receiver_company_id, receiver_company_name, receiver_org_id,
+        receiver_org_name, receiver_id, receiver_name,
+        opinion, modify_time, activity_inst_id, activity_def_id, activity_def_name,
+        next_activity_def_id, next_activity_def_name, org_name, org_id, user_name, user_id,
+        work_type, flow_id, flow_pid,approve_item_id,approve_item_type,flow_def_name,toer_id,toer_name,act_pid,
+        dept_name,dept_id,option_type,version_id
+    </sql>
+    <select id="selectMainFlowLog" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from t_flow_log
+        where approve_item_id = #{approveItemId}
+        and approve_item_type = #{approveItemType}
+        and flow_pid = 0
+        order by modify_time desc
+    </select>
+    <select id="selectSubFlowLogs" resultType="String" parameterType="Long">
+        select distinct flow_log_id
+        from t_flow_log
+        where flow_pid = #{flowId}
+    </select>
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from t_flow_log
+        where flow_log_id = #{flowLogId,jdbcType=VARCHAR}
+        order by modify_time desc
+    </select>
+    <select id="selectAll" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from t_flow_log
+    </select>
+    <resultMap id="TBusinessEndMap" type="com.chinatower.product.legalms.modules.flow.entity.flow.TBusinessEnd">
+        <id column="id" property="id" jdbcType="VARCHAR"/>
+        <result column="business_title" property="businessTitle" jdbcType="VARCHAR"/>
+        <result column="business_code" property="bussinessCode" jdbcType="VARCHAR"/>
+        <result column="flow_status" property="flowStatus" jdbcType="VARCHAR"/>
+        <result column="update_time" property="updateTime" jdbcType="VARCHAR"/>
+        <result column="approve_item_id" property="approveItemId" jdbcType="VARCHAR"/>
+        <result column="approve_item_type" property="approveItemType" jdbcType="VARCHAR"/>
+        <result column="module_name" property="moduleName" jdbcType="VARCHAR"/>
+        <result column="flow_id" property="flowId" jdbcType="BIGINT"/>
+    </resultMap>
+    <select id="selectCompleteFlow" resultMap="TBusinessEndMap">
+        select
+        tbe.id,
+        tbe.business_title,
+        tbe.business_code,
+        tbe.flow_status,
+        tbe.update_time,
+        tbe.approve_item_id,
+        tbe.approve_item_type,
+        tbe.module_name,
+        tbe.flow_id
+        from t_business_end tbe left join t_flow_log tfl
+        on tfl.approve_item_id = tbe.approve_item_id and tfl.user_id = #{loginAcct}
+        <where>
+            <if test="tBusinessEnd.startTime != null">
+                and tbe.update_time <![CDATA[>=]]> #{tBusinessEnd.startTime}
+            </if>
+            <if test="tBusinessEnd.endTime != null">
+                and tbe.update_time <![CDATA[<=]]> #{tBusinessEnd.endTime}
+            </if>
+            <if test="tBusinessEnd.businessTitle != null">
+                and tbe.business_title like CONCAT('%', #{tBusinessEnd.businessTitle}, '%')
+            </if>
+            <if test="tBusinessEnd.bussinessCode != null">
+                and tbe.business_code = #{tBusinessEnd.bussinessCode}
+            </if>
+            <if test="tBusinessEnd.bussinessType != null">
+                and tbe.business_type = #{tBusinessEnd.bussinessType}
+            </if>
+        </where>
+    </select>
+    <select id="selectActivityByFlowInstIdAndActivityInstId"
+            resultMap="BaseResultMap">
+        select *
+        from t_flow_log
+        where flow_id = #{processInstID}
+        and activity_inst_id = #{activityInstId}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+        delete from t_flow_log
+        where flow_log_id = #{flowLogId,jdbcType=VARCHAR}
+    </delete>
+    <delete id="deleteByApproveItemId">
+        delete from t_flow_log
+        where approve_item_id = #{approveItemId} and approve_item_type = #{approveItemType}
+    </delete>
+    <insert id="insert" parameterType="com.chinatower.product.legalms.modules.flow.entity.flow.TFlowLog">
+        insert into t_flow_log (flow_log_id, status, opinion,
+        receiver_company_id, receiver_company_name, receiver_org_id,
+        receiver_org_name, receiver_id, receiver_name,
+        modify_time, activity_inst_id, activity_def_id,
+        activity_def_name, next_activity_def_id, next_activity_def_name,
+        org_name, org_id, user_name,
+        user_id, work_type, flow_id,approve_item_id,approve_item_type,
+        flow_pid,flow_def_name,toer_id,toer_name,act_pid,dept_name,dept_id,option_type,version_id)
+        values (#{flowLogId,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, #{opinion,jdbcType=VARCHAR},
+        #{receiverCompanyId,jdbcType=VARCHAR},#{receiverCompanyName,jdbcType=VARCHAR},#{receiverOrgId,jdbcType=VARCHAR},
+        #{receiverOrgName,jdbcType=VARCHAR},#{receiverId,jdbcType=VARCHAR},#{receiverName,jdbcType=VARCHAR},
+        #{modifyTime,jdbcType=TIMESTAMP}, #{activityInstId,jdbcType=BIGINT}, #{activityDefId,jdbcType=VARCHAR},
+        #{activityDefName,jdbcType=VARCHAR}, #{nextActivityDefId,jdbcType=VARCHAR},
+        #{nextActivityDefName,jdbcType=VARCHAR},
+        #{orgName,jdbcType=VARCHAR}, #{orgId,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR},
+        #{userId,jdbcType=VARCHAR}, #{workType,jdbcType=VARCHAR}, #{flowId,jdbcType=BIGINT},
+        #{approveItemId, jdbcType=VARCHAR},
+        #{approveItemType, jdbcType=VARCHAR},
+        #{flowPid,jdbcType=BIGINT},#{flowDefName,jdbcType=VARCHAR},
+        #{toerId,jdbcType=VARCHAR},#{toerName,jdbcType=VARCHAR},
+        #{actPid,jdbcType=BIGINT},#{deptName,jdbcType=VARCHAR},#{deptId,jdbcType=VARCHAR},#{optionType, jdbcType=VARCHAR},
+        #{versionId,jdbcType=INTEGER}
+        )
+    </insert>
+    <insert id="insertSelective" parameterType="com.chinatower.product.legalms.modules.flow.entity.flow.TFlowLog">
+        insert into t_flow_log
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="flowLogId != null">
+                flow_log_id,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+            <if test="businessAdvice != null">
+                business_advice,
+            </if>
+            <if test="opinion != null">
+                opinion,
+            </if>
+            <if test="modifyTime != null">
+                modify_time,
+            </if>
+            <if test="activityInstId != null">
+                activity_inst_id,
+            </if>
+
+            <if test="receiverCompanyId != null">
+                receiver_company_id,
+            </if>
+            <if test="receiverCompanyName != null">
+                receiver_company_name,
+            </if>
+            <if test="receiverOrgId != null">
+                receiver_org_id,
+            </if>
+            <if test="receiverOrgName != null">
+                receiver_org_name,
+            </if>
+            <if test="receiverId != null">
+                receiver_id,
+            </if>
+            <if test="receiverName != null">
+                receiver_name,
+            </if>
+
+            <if test="activityDefId != null">
+                activity_def_id,
+            </if>
+            <if test="activityDefName != null">
+                activity_def_name,
+            </if>
+            <if test="nextActivityDefId != null">
+                next_activity_def_id,
+            </if>
+            <if test="nextActivityDefName != null">
+                next_activity_def_name,
+            </if>
+            <if test="orgName != null">
+                org_name,
+            </if>
+            <if test="orgId != null">
+                org_id,
+            </if>
+            <if test="userName != null">
+                user_name,
+            </if>
+            <if test="userId != null">
+                user_id,
+            </if>
+            <if test="workType != null">
+                work_type,
+            </if>
+            <if test="flowId != null">
+                flow_id,
+            </if>
+            <if test="flowPid != null">
+                flow_pid,
+            </if>
+            <if test="approveItemId != null">
+                approve_item_id,
+            </if>
+            <if test="approveItemType != null">
+                approve_item_type,
+            </if>
+            <if test="flowDefName != null">
+                flow_def_name,
+            </if>
+            <if test="toerId != null">
+                toer_id,
+            </if>
+            <if test="toerName != null">
+                toer_name,
+            </if>
+
+            <if test="actPid != null">
+                act_pid,
+            </if>
+            <if test="optionType != null">
+                option_type,
+            </if>
+            <if test="deptName != null">
+                dept_name,
+            </if>
+            <if test="deptId != null">
+                dept_id,
+            </if>
+            <if test="versionId != null">
+                version_id,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="flowLogId != null">
+                #{flowLogId,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=VARCHAR},
+            </if>
+            <if test="businessAdvice != null">
+                #{businessAdvice,jdbcType=VARCHAR},
+            </if>
+            <if test="opinion != null">
+                #{opinion,jdbcType=VARCHAR},
+            </if>
+            <if test="modifyTime != null">
+                #{modifyTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="activityInstId != null">
+                #{activityInstId,jdbcType=BIGINT},
+            </if>
+
+            <if test="receiverCompanyId != null">
+                #{receiverCompanyId,jdbcType=VARCHAR},
+            </if>
+            <if test="receiverCompanyName != null">
+                #{receiverCompanyName,jdbcType=VARCHAR},
+            </if>
+            <if test="receiverOrgId != null">
+                #{receiverOrgId,jdbcType=VARCHAR},
+            </if>
+            <if test="receiverOrgName != null">
+                #{receiverOrgName,jdbcType=VARCHAR},
+            </if>
+            <if test="receiverId != null">
+                #{receiverId,jdbcType=VARCHAR},
+            </if>
+            <if test="receiverName != null">
+                #{receiverName,jdbcType=VARCHAR},
+            </if>
+
+            <if test="activityDefId != null">
+                #{activityDefId,jdbcType=VARCHAR},
+            </if>
+            <if test="activityDefName != null">
+                #{activityDefName,jdbcType=VARCHAR},
+            </if>
+            <if test="nextActivityDefId != null">
+                #{nextActivityDefId,jdbcType=VARCHAR},
+            </if>
+            <if test="nextActivityDefName != null">
+                #{nextActivityDefName,jdbcType=VARCHAR},
+            </if>
+            <if test="orgName != null">
+                #{orgName,jdbcType=VARCHAR},
+            </if>
+            <if test="orgId != null">
+                #{orgId,jdbcType=VARCHAR},
+            </if>
+            <if test="userName != null">
+                #{userName,jdbcType=VARCHAR},
+            </if>
+            <if test="userId != null">
+                #{userId,jdbcType=VARCHAR},
+            </if>
+            <if test="workType != null">
+                #{workType,jdbcType=VARCHAR},
+            </if>
+            <if test="flowId != null">
+                #{flowId,jdbcType=BIGINT},
+            </if>
+            <if test="flowPid != null">
+                #{flowPid,jdbcType=BIGINT},
+            </if>
+            <if test="approveItemId != null">
+                #{approveItemId,jdbcType=VARCHAR},
+            </if>
+            <if test="approveItemType != null">
+                #{approveItemType,jdbcType=VARCHAR},
+            </if>
+            <if test="flowDefName != null">
+                #{flowDefName,jdbcType=VARCHAR},
+            </if>
+            <if test="toerId != null">
+                #{toerId,jdbcType=VARCHAR},
+            </if>
+            <if test="toerName != null">
+                #{toerName,jdbcType=VARCHAR},
+            </if>
+            <if test="actPid != null">
+                #{actPid,jdbcType=BIGINT},
+            </if>
+            <if test="optionType != null">
+                #{optionType,jdbcType=BIGINT},
+            </if>
+            <if test="deptName != null">
+                #{deptName,jdbcType=BIGINT},
+            </if>
+            <if test="deptId != null">
+                #{deptId,jdbcType=BIGINT},
+            </if>
+            <if test="versionId != null">
+                #{versionId,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+    <insert id="insertTBusinessEnd"
+            parameterType="com.chinatower.product.legalms.modules.flow.entity.flow.TBusinessEnd">
+        insert into t_business_end
+        (id,
+        business_title,
+        business_code,
+        business_type,
+        flow_status,
+        update_time,
+        approve_item_id,
+        approve_item_type,
+        module_name,
+        flow_id)
+        values
+        (#{tBusinessEnd.id},
+        #{tBusinessEnd.businessTitle},
+        #{tBusinessEnd.businessCode},
+        #{tBusinessEnd.businessType},
+        #{tBusinessEnd.flowStatus},
+        NOW(),
+        #{tBusinessEnd.approveItemId},
+        #{tBusinessEnd.approveItemType},
+        #{tBusinessEnd.moduleName},
+        #{tBusinessEnd.flowId})
+    </insert>
+    <update id="updateByPrimaryKeySelective"
+            parameterType="com.chinatower.product.legalms.modules.flow.entity.flow.TFlowLog">
+        update t_flow_log
+        <set>
+            <if test="status != null">
+                status = #{status,jdbcType=VARCHAR},
+            </if>
+            <if test="businessAdvice != null">
+                business_advice = #{businessAdvice,jdbcType=VARCHAR},
+            </if>
+            <if test="opinion != null">
+                opinion = #{opinion,jdbcType=VARCHAR},
+            </if>
+            <if test="modifyTime != null">
+                modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="activityInstId != null">
+                activity_inst_id = #{activityInstId,jdbcType=BIGINT},
+            </if>
+            <if test="activityDefId != null">
+                activity_def_id = #{activityDefId,jdbcType=VARCHAR},
+            </if>
+            <if test="activityDefName != null">
+                activity_def_name = #{activityDefName,jdbcType=VARCHAR},
+            </if>
+            <if test="nextActivityDefId != null">
+                next_activity_def_id = #{nextActivityDefId,jdbcType=VARCHAR},
+            </if>
+            <if test="nextActivityDefName != null">
+                next_activity_def_name = #{nextActivityDefName,jdbcType=VARCHAR},
+            </if>
+            <if test="orgName != null">
+                org_name = #{orgName,jdbcType=VARCHAR},
+            </if>
+            <if test="orgId != null">
+                org_id = #{orgId,jdbcType=VARCHAR},
+            </if>
+            <if test="userName != null">
+                user_name = #{userName,jdbcType=VARCHAR},
+            </if>
+            <if test="userId != null">
+                user_id = #{userId,jdbcType=VARCHAR},
+            </if>
+            <if test="workType != null">
+                work_type = #{workType,jdbcType=VARCHAR},
+            </if>
+            <if test="flowId != null">
+                flow_id = #{flowId,jdbcType=BIGINT},
+            </if>
+            <if test="flowPid != null">
+                flow_pid = #{flowPid,jdbcType=BIGINT},
+            </if>
+
+            <if test="receiverCompanyId != null">
+                receiver_company_id = #{receiverCompanyId,jdbcType=VARCHAR},
+            </if>
+            <if test="receiverCompanyName != null">
+                receiver_company_name = #{receiverCompanyName,jdbcType=VARCHAR},
+            </if>
+            <if test="receiverOrgId != null">
+                receiver_org_id = #{receiverOrgId,jdbcType=VARCHAR},
+            </if>
+            <if test="receiverOrgName != null">
+                receiver_org_name = #{receiverOrgName,jdbcType=VARCHAR},
+            </if>
+            <if test="receiverId != null">
+                receiver_id = #{receiverId,jdbcType=VARCHAR},
+            </if>
+            <if test="receiverName != null">
+                receiver_name = #{receiverName,jdbcType=VARCHAR},
+            </if>
+            <if test="approveItemId != null">
+                approve_item_id = #{approveItemId,jdbcType=VARCHAR},
+            </if>
+            <if test="approveItemType != null">
+                approve_item_type = #{approveItemType,jdbcType=VARCHAR},
+            </if>
+            <if test="flowDefName != null">
+                flow_def_name = #{flowDefName,jdbcType=VARCHAR},
+            </if>
+            <if test="toerId != null">
+                toer_id = #{toerId,jdbcType=VARCHAR},
+            </if>
+            <if test="toerName != null">
+                toer_name = #{toerName,jdbcType=VARCHAR},
+            </if>
+            <if test="actPid != null">
+                act_pid = #{actPid,jdbcType=BIGINT},
+            </if>
+            <if test="optionType != null">
+                option_type = #{optionType,jdbcType=BIGINT},
+            </if>
+            <if test="versionId != null">
+                version_id = #{versionId,jdbcType=INTEGER},
+            </if>
+        </set>
+        where flow_log_id = #{flowLogId,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey"
+            parameterType="com.chinatower.product.legalms.modules.flow.entity.flow.TFlowLog">
+        update t_flow_log
+        set status = #{status,jdbcType=VARCHAR},
+        business_advice = #{businessAdvice,jdbcType=VARCHAR},
+        opinion = #{opinion,jdbcType=VARCHAR},
+        modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+        activity_inst_id = #{activityInstId,jdbcType=BIGINT},
+        activity_def_id = #{activityDefId,jdbcType=VARCHAR},
+        activity_def_name = #{activityDefName,jdbcType=VARCHAR},
+        next_activity_def_id = #{nextActivityDefId,jdbcType=VARCHAR},
+        next_activity_def_name = #{nextActivityDefName,jdbcType=VARCHAR},
+        org_name = #{orgName,jdbcType=VARCHAR},
+        org_id = #{orgId,jdbcType=VARCHAR},
+        user_name = #{userName,jdbcType=VARCHAR},
+        user_id = #{userId,jdbcType=VARCHAR},
+        work_type = #{workType,jdbcType=VARCHAR},
+        flow_id = #{flowId,jdbcType=BIGINT},
+        flow_pid = #{flowPid,jdbcType=BIGINT}
+        receiver_company_id = #{receiverCompanyId,jdbcType=VARCHAR},
+        receiver_company_name = #{receiverCompanyName,jdbcType=VARCHAR},
+        receiver_org_id = #{receiverOrgId,jdbcType=VARCHAR},
+        receiver_org_name = #{receiverOrgName,jdbcType=VARCHAR},
+        receiver_id = #{receiverId,jdbcType=VARCHAR},
+        receiver_name = #{receiverName,jdbcType=VARCHAR},
+        approve_item_id = #{approveItemId,jdbcType=VARCHAR},
+        approve_item_type = #{approveItemType,jdbcType=VARCHAR},
+        flow_def_name = #{flowDefName,jdbcType=VARCHAR},
+        toer_id = #{toerId,jdbcType=VARCHAR},
+        toer_name = #{toerName,jdbcType=VARCHAR},
+        act_pid = #{actPid,jdbcType=BIGINT},
+        option_type = #{optionType,jdbcType=VARCHAR}
+        version_id = #{versionId,jdbcType=INTEGER}
+        where flow_log_id = #{flowLogId,jdbcType=VARCHAR}
+    </update>
+    <update id="updateBusinessTableState">
+        update ${approveItemType}
+        set ${businessStateField} = '10'
+        where ${businessIdField} = #{approveItemId}
+    </update>
+</mapper>

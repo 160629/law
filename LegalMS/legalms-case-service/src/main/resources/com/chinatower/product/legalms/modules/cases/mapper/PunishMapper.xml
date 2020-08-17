@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.chinatower.product.legalms.modules.cases.mapper.PunishMapper" >
+    <resultMap id="punishMap" type="com.chinatower.product.legalms.modules.cases.entity.PunishVO">
+        <id column="punish_id" property="punishId" jdbcType="VARCHAR" />
+        <result column="case_id" property="caseId" jdbcType="VARCHAR" />
+        <result column="our_body" property="ourBody" jdbcType="VARCHAR" />
+        <result column="penalty_institution" property="penaltyInstitution" jdbcType="VARCHAR" />
+        <result column="decided_penalty_truth" property="decidedPenaltyTruth" jdbcType="VARCHAR" />
+        <result column="judicially_legal_regulations" property="judiciallyLegalRegulations" jdbcType="VARCHAR" />
+        <result column="penalty_content" property="penaltyContent" jdbcType="VARCHAR" />
+        <result column="administrative_penalty_award" property="administrativePenaltyAward" jdbcType="VARCHAR" />
+        <result column="is_hearing" property="isHearing" jdbcType="VARCHAR" />
+        <result column="hearing_opinion" property="hearingOpinion" jdbcType="VARCHAR" />
+        <result column="is_reconsider" property="isReconsider" jdbcType="VARCHAR" />
+        <result column="administrative_reconsider_award" property="administrativeReconsiderAward" jdbcType="VARCHAR" />
+        <result column="bring_administrative_lawsuit" property="bringAdministrativeLawsuit" jdbcType="VARCHAR" />
+        <result column="penalty_money" property="penaltyMoney" jdbcType="DECIMAL" />
+        <result column="executive_way" property="executiveWay" jdbcType="VARCHAR" />
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+        <result column="creator_account_id" property="creatorAccountId" jdbcType="VARCHAR" />
+        <result column="creator_account_name" property="creatorAccountName" jdbcType="VARCHAR" />
+        <result column="last_update_time" property="lastUpdateTime" jdbcType="TIMESTAMP" />
+        <result column="status" property="status" jdbcType="VARCHAR" />
+        <result column="biz_id" property="bizId" jdbcType="VARCHAR" />
+        <result column="lawyer_money" property="lawyerMoney" jdbcType="DECIMAL" />
+        <result column="lawsuit_money" property="lawsuitMoney" jdbcType="DECIMAL" />
+    </resultMap>
+    <insert id="addPunish" parameterType="com.chinatower.product.legalms.modules.cases.entity.PunishVO">
+        insert into t_case_punish
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="punishId != null" > punish_id, </if>
+            <if test="caseId != null" > case_id, </if>
+            <if test="ourBody != null" > our_body, </if>
+            <if test="penaltyInstitution != null" > penalty_institution, </if>
+            <if test="decidedPenaltyTruth != null" > decided_penalty_truth, </if>
+            <if test="judiciallyLegalRegulations != null" > judicially_legal_regulations, </if>
+            <if test="penaltyContent != null" > penalty_content, </if>
+            <if test="administrativePenaltyAward != null" > administrative_penalty_award, </if>
+            <if test="isHearing != null" > is_hearing, </if>
+            <if test="hearingOpinion != null" > hearing_opinion, </if>
+            <if test="isReconsider != null" > is_reconsider, </if>
+            <if test="administrativeReconsiderAward != null" > administrative_reconsider_award, </if>
+            <if test="bringAdministrativeLawsuit != null" > bring_administrative_lawsuit, </if>
+            <if test="penaltyMoney != null" > penalty_money, </if>
+            <if test="executiveWay != null" > executive_way, </if>
+            create_time,
+            <if test="creatorAccountId != null" > creator_account_id, </if>
+            <if test="creatorAccountName != null" > creator_account_name, </if>
+            last_update_time,
+            status,
+            <if test="bizId != null" > biz_id, </if>
+            <if test="lawyerMoney != null" > lawyer_money, </if>
+            <if test="lawsuitMoney != null" > lawsuit_money, </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="punishId != null" > #{punishId,jdbcType=VARCHAR}, </if>
+            <if test="caseId != null" > #{caseId,jdbcType=VARCHAR}, </if>
+            <if test="ourBody != null" > #{ourBody,jdbcType=VARCHAR}, </if>
+            <if test="penaltyInstitution != null" > #{penaltyInstitution,jdbcType=VARCHAR}, </if>
+            <if test="decidedPenaltyTruth  != null" > #{decidedPenaltyTruth,jdbcType=VARCHAR}, </if>
+            <if test="judiciallyLegalRegulations != null" > #{judiciallyLegalRegulations,jdbcType=VARCHAR}, </if>
+            <if test="penaltyContent != null" > #{penaltyContent,jdbcType=VARCHAR}, </if>
+            <if test="administrativePenaltyAward != null" > #{administrativePenaltyAward,jdbcType=VARCHAR}, </if>
+            <if test="isHearing != null" > #{isHearing,jdbcType=VARCHAR}, </if>
+            <if test="hearingOpinion != null" > #{hearingOpinion,jdbcType=VARCHAR}, </if>
+            <if test="isReconsider != null" > #{isReconsider,jdbcType=VARCHAR}, </if>
+            <if test="administrativeReconsiderAward != null" > #{administrativeReconsiderAward,jdbcType=VARCHAR}, </if>
+            <if test="bringAdministrativeLawsuit != null" > #{bringAdministrativeLawsuit,jdbcType=VARCHAR}, </if>
+            <if test="penaltyMoney != null" > #{penaltyMoney,jdbcType=DECIMAL}, </if>
+            <if test="executiveWay != null" > #{executiveWay,jdbcType=VARCHAR}, </if>
+            now(),
+            <if test="creatorAccountId != null" > #{creatorAccountId,jdbcType=VARCHAR}, </if>
+            <if test="creatorAccountName != null" > #{creatorAccountName,jdbcType=VARCHAR}, </if>
+            now(),
+            '0',
+            <if test="bizId != null" > #{bizId,jdbcType=VARCHAR}, </if>
+            <if test="lawyerMoney != null" > #{lawyerMoney,jdbcType=DECIMAL}, </if>
+            <if test="lawsuitMoney != null" > #{lawsuitMoney,jdbcType=DECIMAL}, </if>
+        </trim>
+    </insert>
+
+    <select id="selectPunishById" resultMap="punishMap">
+        select
+           punish_id,case_id,our_body,penalty_institution,decided_penalty_truth,judicially_legal_regulations
+           ,penalty_content,administrative_penalty_award,is_hearing,hearing_opinion,is_reconsider,administrative_reconsider_award
+           ,bring_administrative_lawsuit,penalty_money,executive_way,create_time,creator_account_id,creator_account_name
+           ,last_update_time,status,biz_id,lawyer_money,lawsuit_money
+         from t_case_punish where case_id = #{caseId} and status = '0'
+    </select>
+
+
+    <update id="updatePunish">
+        update t_case_punish
+        <set>
+            <if test="caseId != null" > case_id = #{caseId,jdbcType=VARCHAR}, </if>
+            <if test="ourBody!=null">our_body = #{ourBody,jdbcType=VARCHAR},</if>
+            <if test="penaltyInstitution!=null">penalty_institution = #{penaltyInstitution,jdbcType=VARCHAR},</if>
+            <if test="decidedPenaltyTruth!=null">decided_penalty_truth = #{decidedPenaltyTruth,jdbcType=VARCHAR},</if>
+            <if test="judiciallyLegalRegulations!=null">judicially_legal_regulations = #{judiciallyLegalRegulations,jdbcType=VARCHAR},</if>
+            <if test="penaltyContent!=null">penalty_content = #{penaltyContent,jdbcType=VARCHAR},</if>
+            <if test="administrativePenaltyAward!=null">administrative_penalty_award = #{administrativePenaltyAward,jdbcType=VARCHAR},</if>
+            <if test="isHearing!=null">is_hearing = #{isHearing,jdbcType=VARCHAR},</if>
+            <if test="hearingOpinion!=null">hearing_opinion = #{hearingOpinion,jdbcType=VARCHAR},</if>
+            <if test="isReconsider!=null">is_reconsider = #{isReconsider,jdbcType=VARCHAR},</if>
+            <if test="administrativeReconsiderAward!=null">administrative_reconsider_award = #{administrativeReconsiderAward,jdbcType=VARCHAR},</if>
+            <if test="bringAdministrativeLawsuit!=null">bring_administrative_lawsuit = #{bringAdministrativeLawsuit,jdbcType=VARCHAR},</if>
+            <if test="penaltyMoney!=null">penalty_money = #{penaltyMoney,jdbcType=DECIMAL},</if>
+            <if test="executiveWay!=null">executive_way = #{executiveWay,jdbcType=VARCHAR},</if>
+            <if test="createTime!=null">create_time = #{createTime,jdbcType=TIMESTAMP},</if>
+            <if test="creatorAccountId!=null">creator_account_id = #{creatorAccountId,jdbcType=VARCHAR},</if>
+            <if test="creatorAccountName!=null">creator_account_name = #{creatorAccountName,jdbcType=VARCHAR},</if>
+            last_update_time = now(),
+            <if test="status!=null">status = #{status,jdbcType=VARCHAR},</if>
+            <if test="bizId!=null">biz_id = #{bizId,jdbcType=VARCHAR},</if>
+            <if test="lawyerMoney!=null">lawyer_money = #{lawyerMoney,jdbcType=DECIMAL},</if>
+            <if test="lawsuitMoney!=null">lawsuit_money = #{lawsuitMoney,jdbcType=DECIMAL},</if>
+        </set>
+        where case_id = #{caseId,jdbcType=VARCHAR}
+    </update>
+
+    <select id="selectAllPunishByCount" resultType="Integer">
+     select
+      count(1)
+     from  t_case_punish where case_id=#{caseId} and status = '0'
+   </select>
+
+    <delete id="deletePunish">
+        delete from t_case_punish
+        where case_id =  #{caseId, jdbcType=VARCHAR}
+    </delete>
+</mapper>

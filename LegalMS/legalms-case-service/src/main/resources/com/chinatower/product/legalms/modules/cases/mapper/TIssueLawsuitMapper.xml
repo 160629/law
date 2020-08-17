@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper
+	namespace="com.chinatower.product.legalms.modules.cases.mapper.TIssueLawsuitMapper">
+	<resultMap id="BaseResultMap"
+		type="com.chinatower.product.legalms.modules.cases.entity.TIssueLawsuitVO">
+		<id column="lawsuit_id" jdbcType="VARCHAR" property="lawsuitId" />
+		<result column="lawsuit_code" jdbcType="VARCHAR"
+			property="lawsuitCode" />
+		<result column="lawsuit_title" jdbcType="VARCHAR"
+			property="lawsuitTitle" />
+		<result column="guide_id" jdbcType="VARCHAR" property="guideId" />
+		<result column="case_id" jdbcType="VARCHAR"
+			property="caseId" />
+		<result column="approve_state" jdbcType="VARCHAR"
+			property="approveState" />
+		<result column="approve_city" jdbcType="VARCHAR"
+			property="approveCity" />
+		<result column="approve_org" jdbcType="VARCHAR"
+			property="approveOrg" />
+		<result column="approve_level" jdbcType="VARCHAR"
+			property="approveLevel" />
+		<result column="case_create_time" jdbcType="TIMESTAMP"
+			property="caseCreateTime" />
+		<result column="create_time" jdbcType="TIMESTAMP"
+			property="createTime" />
+		<result column="case_type" jdbcType="VARCHAR"
+			property="caseType" />
+		<result column="indict_or_unindict" jdbcType="VARCHAR"
+			property="indictOrUnindict" />
+		<result column="case_line" jdbcType="VARCHAR"
+			property="caseLine" />
+		<result column="case_cause" jdbcType="VARCHAR"
+			property="caseCause" />
+		<result column="our_lawsuit_body" jdbcType="VARCHAR"
+			property="ourLawsuitBody" />
+		<result column="our_lawsuit_body_name" jdbcType="VARCHAR"
+			property="ourLawsuitBodyName" />
+		<result column="they_lawsuit_body" jdbcType="VARCHAR"
+			property="theyLawsuitBody" />
+		<result column="our_lawsuit_status" jdbcType="VARCHAR"
+			property="ourLawsuitStatus" />
+		<result column="our_lawsuit_body_name" jdbcType="VARCHAR"
+			property="ourLawsuitBodyName" />
+		<result column="lawsuit_money" jdbcType="VARCHAR"
+			property="lawsuitMoney" />
+		<result column="lawsuit_size" jdbcType="VARCHAR"
+			property="lawsuitSize" />
+		<result column="lawsuit_detail" jdbcType="VARCHAR"
+			property="lawsuitDetail" />
+		<result column="file_url" jdbcType="VARCHAR" property="fileUrl" />
+		<result column="other_related" jdbcType="VARCHAR"
+			property="otherRelated" />
+		<result column="third_person" jdbcType="VARCHAR"
+			property="thirdPerson" />
+		<result column="plaintiff" jdbcType="VARCHAR"
+			property="plaintiff" />
+		<result column="defendant" jdbcType="VARCHAR"
+			property="defendant" />
+		<result column="sign_dept" jdbcType="VARCHAR"
+			property="signDept" />
+		<result column="login_acct" jdbcType="VARCHAR"
+			property="loginAcct" />
+		<result column="login_name" jdbcType="VARCHAR"
+			property="loginName" />
+		<result column="org_name" jdbcType="VARCHAR" property="orgName" />
+		<result column="org_id" jdbcType="VARCHAR" property="orgId" />
+		<result column="dept_name" jdbcType="VARCHAR"
+			property="deptName" />
+		<result column="dept_id" jdbcType="VARCHAR" property="deptId" />
+		<result column="mobile" jdbcType="VARCHAR" property="mobile" />
+		<result column="lawsuit_status" jdbcType="VARCHAR"
+			property="lawsuitStatus" />
+	</resultMap>
+
+    <select id="selectAllById" resultMap="BaseResultMap">
+		select lawsuit_id,guide_id,lawsuit_title from t_issue_lawsuit
+		<where>
+			<if test="lawsuitId !=null">
+				lawsuit_id = #{lawsuitId}
+			</if>
+			<if test="guideId !=null">
+				and guide_id = #{guideId}
+			</if>
+		</where>
+	</select>
+</mapper>

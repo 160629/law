@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chinatower.product.legalms.modules.flow.mapper.common.DraftsVOMapper">
+  <resultMap id="BaseResultMap" type="com.chinatower.product.legalms.modules.flow.entity.common.DraftsVO">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="law_case_title" jdbcType="VARCHAR" property="lawCaseTitle" />
+    <result column="law_case_code" jdbcType="VARCHAR" property="lawCaseCode" />
+    <result column="apply_type" jdbcType="VARCHAR" property="applyType" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="approve_item_id" jdbcType="VARCHAR" property="approveItemId" />
+    <result column="approve_item_type" jdbcType="VARCHAR" property="approveItemType" />
+    <result column="approve_item_name" jdbcType="VARCHAR" property="approveItemName" />
+    <result column="module_name" jdbcType="VARCHAR" property="moduleName" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    id, law_case_title, law_case_code, apply_type, create_time,update_time,module_name,approve_item_id,approve_item_type,approve_item_name
+  </sql>
+  <select id="selectDraftsCount" parameterType="com.chinatower.product.legalms.modules.flow.entity.common.DraftsVO" resultType="Integer">
+    select count(*) from t_pub_drafts where law_case_code = #{lawCaseCode,jdbcType=VARCHAR}
+  </select>
+  <select id="selectDrafts" parameterType="com.chinatower.product.legalms.modules.flow.entity.common.DraftsVO" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_pub_drafts where 1=1
+    <if test="lawCaseTitle!=null and lawCaseTitle!='' ">
+      and law_case_title like concat('%',#{lawCaseTitle,jdbcType=VARCHAR},'%')
+    </if>
+    <if test="lawCaseCode!=null and lawCaseCode!='' ">
+      and law_case_code like concat('%',#{lawCaseCode,jdbcType=VARCHAR},'%')
+    </if>
+    <if test="applyType!=null and applyType!='' ">
+      and apply_type like concat('%',#{applyType,jdbcType=VARCHAR},'%')
+    </if>
+    <if test="startDate!=null ">
+      and create_time  >= #{startDate,jdbcType=TIMESTAMP}
+    </if>
+    <if test="endDate!=null ">
+      and create_time  &lt;= #{endDate,jdbcType=TIMESTAMP}
+    </if>
+    and status = 1 and user_code = #{userCode,jdbcType=VARCHAR} order by create_time desc
+  </select>
+  <update id="deleteBatchDrafts" parameterType="com.chinatower.product.legalms.modules.flow.entity.common.DraftsVO">
+    update  t_pub_drafts
+    set status = 0
+    where approve_item_type = #{approveItemType} and approve_item_id in (
+    <foreach collection="approveItemIds" item="value" index = 'index' separator=",">
+      #{value}
+    </foreach>
+    )
+  </update>
+
+  <update id="delDraftsByItem" parameterType="com.chinatower.product.legalms.modules.flow.entity.common.DraftsVO">
+    update t_pub_drafts
+    set status = 0
+    where approve_item_id = #{approveItemId,jdbcType=VARCHAR} and approve_item_type = #{approveItemType,jdbcType=VARCHAR}
+  </update>
+  <insert id="insert" parameterType="com.chinatower.product.legalms.modules.flow.entity.common.DraftsVO">
+    insert into t_pub_drafts (law_case_title, law_case_code,
+      apply_type, create_time,approve_item_id,approve_item_type,approve_item_name,module_name,user_code
+      )
+    values (#{lawCaseTitle,jdbcType=VARCHAR}, #{lawCaseCode,jdbcType=VARCHAR},
+      #{applyType,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP},#{approveItemId,jdbcType=VARCHAR},
+      #{approveItemType,jdbcType=VARCHAR},#{approveItemName,jdbcType=VARCHAR},#{moduleName,jdbcType=VARCHAR},#{userCode,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.chinatower.product.legalms.modules.flow.entity.common.DraftsVO">
+    insert into t_pub_drafts
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="lawCaseTitle != null">
+        law_case_title,
+      </if>
+      <if test="lawCaseCode != null">
+        law_case_code,
+      </if>
+      <if test="applyType != null">
+        apply_type,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="lawCaseTitle != null">
+        #{lawCaseTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="lawCaseCode != null">
+        #{lawCaseCode,jdbcType=VARCHAR},
+      </if>
+      <if test="applyType != null">
+        #{applyType,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.chinatower.product.legalms.modules.flow.entity.common.DraftsVO">
+    update t_pub_drafts
+    <set>
+      <if test="lawCaseTitle != null">
+        law_case_title = #{lawCaseTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="lawCaseCode != null">
+        law_case_code = #{lawCaseCode,jdbcType=VARCHAR},
+      </if>
+      <if test="applyType != null">
+        apply_type = #{applyType,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateDrafts" parameterType="com.chinatower.product.legalms.modules.flow.entity.common.DraftsVO">
+    update t_pub_drafts <set>
+    update_time = #{updateTime,jdbcType=TIMESTAMP},
+    <if test="lawCaseTitle != null">
+      law_case_title = #{lawCaseTitle,jdbcType=VARCHAR},
+    </if>
+    <if test="status != null">
+      status = #{status,jdbcType=VARCHAR},
+    </if>
+    <if test="lawCaseCode != null">
+      law_case_code = #{lawCaseCode,jdbcType=VARCHAR},
+    </if>
+    <if test="applyType != null">
+      apply_type = #{applyType,jdbcType=VARCHAR},
+    </if>
+    <if test="createTime != null">
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+    </if>
+    <if test="approveItemName != null">
+      approve_item_name = #{approveItemName},
+    </if>
+    <if test="moduleName != null">
+      module_name = #{moduleName},
+    </if>
+  </set>
+    where approve_item_id = #{approveItemId,jdbcType=VARCHAR} and approve_item_type = #{approveItemType,jdbcType=VARCHAR}
+  </update>
+  <select id="isExist" parameterType="com.chinatower.product.legalms.modules.flow.entity.common.DraftsVO"
+          resultType="java.lang.Integer">
+    select count(1) from t_pub_drafts
+    where approve_item_id = #{approveItemId}
+    and approve_item_type = #{approveItemType}
+    and module_name = #{moduleName}
+    and law_case_code = #{lawCaseCode}
+  </select>
+</mapper>

@@ -1,0 +1,354 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chinatower.product.legalms.modules.flow.mapper.common.BusinessLogMapper">
+    <resultMap id="BusinessLogVO" type="com.chinatower.product.legalms.modules.flow.entity.common.BusinessLogVO">
+        <id column="id" property="id" jdbcType="VARCHAR" />
+        <result column="approve_item_id" property="approveItemId" jdbcType="VARCHAR"/>
+        <result column="approve_item_type" jdbcType="VARCHAR" property="approveItemType" />
+        <result column="file_id" property="fileId" jdbcType="VARCHAR" />
+        <result column="business_field1" property="businessField1" jdbcType="VARCHAR" />
+        <result column="business_field2" property="businessField2" jdbcType="VARCHAR" />
+        <result column="login_acct" jdbcType="VARCHAR" property="loginAcct" />
+        <result column="login_name" jdbcType="VARCHAR" property="loginName" />
+        <result column="org_name" jdbcType="VARCHAR" property="orgName" />
+        <result column="org_id" jdbcType="VARCHAR" property="orgId" />
+        <result column="dept_name" jdbcType="VARCHAR" property="deptName" />
+        <result column="dept_id" jdbcType="VARCHAR" property="deptId" />
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+        <result column="act_id" jdbcType="VARCHAR" property="actId" />
+        <result column="act_name" jdbcType="VARCHAR" property="actName" />
+        <result column="act_inst_id" jdbcType="VARCHAR" property="actInstId" />
+        <result column="act_parent_inst_id" jdbcType="VARCHAR" property="actParentInstId" />
+        <result column="flow_id" jdbcType="VARCHAR" property="flowId" />
+        <result column="flow_pid" jdbcType="VARCHAR" property="flowPid" />
+        <result column="completed_time" jdbcType="TIMESTAMP" property="completedTime" />
+        <result column="sort" jdbcType="INTEGER" property="sort" />
+    </resultMap>
+    <resultMap id="BusinessLogVO2" type="com.chinatower.product.legalms.modules.flow.entity.common.PbusinessLogVO">
+        <id column="flow_id" jdbcType="BIGINT" property="flowId" />
+        <result column="tfm_flow_name" jdbcType="VARCHAR" property="flowName" />
+        <result column="tfm_flow_status" jdbcType="VARCHAR" property="flowStatus" />
+        <result column="tfm_create_time" jdbcType="TIMESTAMP" property="createTime" />
+        <result column="tfm_create_user_id" jdbcType="VARCHAR" property="createUserId" />
+        <result column="tfm_create_user_name" jdbcType="VARCHAR" property="createUserName" />
+        <result column="tfm_approve_item_id" jdbcType="VARCHAR" property="approveItemId" />
+        <result column="tfm_approve_item_name" jdbcType="VARCHAR" property="approveItemName" />
+        <result column="tfm_approve_item_type" jdbcType="VARCHAR" property="approveItemType" />
+        <result column="tfm_module_name" jdbcType="VARCHAR" property="moduleName" />
+        <result column="tfm_version_id" jdbcType="VARCHAR" property="versionId" />
+        <collection property="businessLogVOS" ofType="com.chinatower.product.legalms.modules.flow.entity.common.BusinessLogVO">
+            <id column="id" property="id" jdbcType="VARCHAR" />
+            <result column="approve_item_id" property="approveItemId" jdbcType="VARCHAR"/>
+            <result column="approve_item_type" jdbcType="VARCHAR" property="approveItemType" />
+            <result column="file_id" property="fileId" jdbcType="VARCHAR" />
+            <result column="business_field1" property="businessField1" jdbcType="VARCHAR" />
+            <result column="business_field2" property="businessField2" jdbcType="VARCHAR" />
+            <result column="login_acct" jdbcType="VARCHAR" property="loginAcct" />
+            <result column="login_name" jdbcType="VARCHAR" property="loginName" />
+            <result column="org_name" jdbcType="VARCHAR" property="orgName" />
+            <result column="org_id" jdbcType="VARCHAR" property="orgId" />
+            <result column="dept_name" jdbcType="VARCHAR" property="deptName" />
+            <result column="dept_id" jdbcType="VARCHAR" property="deptId" />
+            <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+            <result column="act_id" jdbcType="VARCHAR" property="actId" />
+            <result column="act_name" jdbcType="VARCHAR" property="actName" />
+            <result column="act_inst_id" jdbcType="VARCHAR" property="actInstId" />
+            <result column="act_parent_inst_id" jdbcType="VARCHAR" property="actParentInstId" />
+            <result column="flow_id" jdbcType="VARCHAR" property="flowId" />
+            <result column="flow_pid" jdbcType="VARCHAR" property="flowPid" />
+            <result column="completed_time" jdbcType="TIMESTAMP" property="completedTime" />
+            <result column="sort" jdbcType="INTEGER" property="sort" />
+            <collection property="subBusinessLog" ofType="com.chinatower.product.legalms.modules.flow.entity.common.BusinessLogVO">
+                <id column="sub_id" property="id" jdbcType="VARCHAR" />
+                <result column="sub_approve_item_id" property="approveItemId" jdbcType="VARCHAR"/>
+                <result column="sub_approve_item_type" jdbcType="VARCHAR" property="approveItemType" />
+                <result column="sub_file_id" property="fileId" jdbcType="VARCHAR" />
+                <result column="sub_business_field1" property="businessField1" jdbcType="VARCHAR" />
+                <result column="sub_business_field2" property="businessField2" jdbcType="VARCHAR" />
+                <result column="sub_login_acct" jdbcType="VARCHAR" property="loginAcct" />
+                <result column="sub_login_name" jdbcType="VARCHAR" property="loginName" />
+                <result column="sub_org_name" jdbcType="VARCHAR" property="orgName" />
+                <result column="sub_org_id" jdbcType="VARCHAR" property="orgId" />
+                <result column="sub_dept_name" jdbcType="VARCHAR" property="deptName" />
+                <result column="sub_dept_id" jdbcType="VARCHAR" property="deptId" />
+                <result column="sub_update_time" jdbcType="TIMESTAMP" property="updateTime" />
+                <result column="sub_act_id" jdbcType="VARCHAR" property="actId" />
+                <result column="sub_act_name" jdbcType="VARCHAR" property="actName" />
+                <result column="sub_act_inst_id" jdbcType="VARCHAR" property="actInstId" />
+                <result column="sub_flow_id" jdbcType="VARCHAR" property="flowId" />
+                <result column="sub_flow_pid" jdbcType="VARCHAR" property="flowPid" />
+                <result column="sub_act_parent_inst_id" jdbcType="VARCHAR" property="actParentInstId" />
+                <result column="sub_completed_time" jdbcType="TIMESTAMP" property="completedTime" />
+                <result column="sub_sort" jdbcType="INTEGER" property="sort" />
+            </collection>
+        </collection>
+    </resultMap>
+    <insert id="insertBusinessLog">
+        insert into t_business_log
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            update_time,
+            <if test="businessLogVO.id != null">
+                id,
+            </if>
+            <if test="businessLogVO.approveItemId != null">
+                approve_item_id,
+            </if>
+            <if test="businessLogVO.fileId != null">
+                file_id,
+            </if>
+            <if test="businessLogVO.businessField1 != null">
+                business_field1,
+            </if>
+            <if test="businessLogVO.businessField2 != null">
+                business_field2,
+            </if>
+            <if test="businessLogVO.loginAcct != null">
+                login_acct,
+            </if>
+            <if test="businessLogVO.loginName != null">
+                login_name,
+            </if>
+            <if test="businessLogVO.orgName != null">
+                org_name,
+            </if>
+            <if test="businessLogVO.orgId != null">
+                org_id,
+            </if>
+            <if test="businessLogVO.deptName != null">
+                dept_name,
+            </if>
+            <if test="businessLogVO.deptId != null">
+                dept_id,
+            </if>
+            <if test="businessLogVO.approveItemType != null">
+                approve_item_type,
+            </if>
+            <if test="businessLogVO.actId != null">
+                act_id,
+            </if>
+            <if test="businessLogVO.actName != null">
+                act_name,
+            </if>
+            <if test="businessLogVO.actInstId != null">
+                act_inst_id,
+            </if>
+            <if test="businessLogVO.actParentInstId != null">
+                act_parent_inst_id,
+            </if>
+            <if test="businessLogVO.flowId != null">
+                flow_id,
+            </if>
+            <if test="businessLogVO.flowPid != null">
+                flow_pid,
+            </if>
+            <if test="businessLogVO.completedTime != null">
+                completed_time,
+            </if>
+            <if test="businessLogVO.sort != null">
+                sort,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            NOW(),
+            <if test="businessLogVO.id != null">
+                #{businessLogVO.id,jdbcType=VARCHAR},
+            </if>
+            <if test="businessLogVO.approveItemId != null">
+                #{businessLogVO.approveItemId,jdbcType=VARCHAR},
+            </if>
+            <if test="businessLogVO.fileId != null">
+                #{businessLogVO.fileId,jdbcType=VARCHAR},
+            </if>
+            <if test="businessLogVO.businessField1 != null">
+                #{businessLogVO.businessField1,jdbcType=VARCHAR},
+            </if>
+            <if test="businessLogVO.businessField2 != null">
+                #{businessLogVO.businessField2,jdbcType=VARCHAR},
+            </if>
+            <if test="businessLogVO.loginAcct != null">
+                #{businessLogVO.loginAcct,jdbcType=VARCHAR},
+            </if>
+            <if test="businessLogVO.loginName != null">
+                #{businessLogVO.loginName,jdbcType=VARCHAR},
+            </if>
+            <if test="businessLogVO.orgName != null">
+                #{businessLogVO.orgName,jdbcType=VARCHAR},
+            </if>
+            <if test="businessLogVO.orgId != null">
+                #{businessLogVO.orgId,jdbcType=VARCHAR},
+            </if>
+            <if test="businessLogVO.deptName != null">
+                #{businessLogVO.deptName,jdbcType=VARCHAR},
+            </if>
+            <if test="businessLogVO.deptId != null">
+                #{businessLogVO.deptId,jdbcType=VARCHAR},
+            </if>
+            <if test="businessLogVO.approveItemType != null">
+                #{businessLogVO.approveItemType,jdbcType=VARCHAR},
+            </if>
+            <if test="businessLogVO.actId != null">
+                #{businessLogVO.actId,jdbcType=VARCHAR},
+            </if>
+            <if test="businessLogVO.actName != null">
+                #{businessLogVO.actName,jdbcType=VARCHAR},
+            </if>
+            <if test="businessLogVO.actInstId != null and businessLogVO.actInstId != ''">
+                #{businessLogVO.actInstId,jdbcType=VARCHAR},
+            </if>
+            <if test="businessLogVO.actParentInstId != null and businessLogVO.actParentInstId != ''">
+                #{businessLogVO.actParentInstId,jdbcType=VARCHAR},
+            </if>
+            <if test="businessLogVO.flowId != null and businessLogVO.flowId != ''">
+                #{businessLogVO.flowId,jdbcType=VARCHAR},
+            </if>
+            <if test="businessLogVO.flowPid != null and businessLogVO.flowPid != ''">
+                #{businessLogVO.flowPid,jdbcType=VARCHAR},
+            </if>
+            <if test="businessLogVO.completedTime != null">
+                #{businessLogVO.completedTime, jdbcType=VARCHAR},
+            </if>
+            <if test="businessLogVO.sort != null">
+                #{businessLogVO.sort, jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateBusinessLog">
+        update t_business_log
+        <set>
+            <if test="businessLogVO.fileId != null">
+                file_id = #{businessLogVO.fileId, jdbcType=VARCHAR},
+            </if>
+            <if test="businessLogVO.businessField1 != null">
+                business_field1 = #{businessLogVO.businessField1, jdbcType=VARCHAR},
+            </if>
+            <if test="businessLogVO.businessField2 != null">
+                business_field2 = #{businessLogVO.businessField2, jdbcType=VARCHAR},
+            </if>
+            <if test="businessLogVO.loginAcct != null">
+                login_acct = #{businessLogVO.loginAcct, jdbcType=VARCHAR},
+            </if>
+            <if test="businessLogVO.loginName != null">
+                login_name = #{businessLogVO.loginName, jdbcType=VARCHAR},
+            </if>
+            <if test="businessLogVO.orgName != null">
+                org_name = #{businessLogVO.orgName, jdbcType=VARCHAR},
+            </if>
+            <if test="businessLogVO.orgId != null">
+                org_id = #{businessLogVO.orgId, jdbcType=VARCHAR},
+            </if>
+            <if test="businessLogVO.deptName != null">
+                dept_name = #{businessLogVO.deptName, jdbcType=VARCHAR},
+            </if>
+            <if test="businessLogVO.deptId != null">
+                dept_id = #{businessLogVO.deptId, jdbcType=VARCHAR},
+            </if>
+            <if test="businessLogVO.updateTime != null">
+                update_time = NOW(),
+            </if>
+            <if test="businessLogVO.completedTime != null">
+                completed_time = #{businessLogVO.completedTime, jdbcType=VARCHAR},
+            </if>
+            <if test="businessLogVO.sort != null">
+                sort = #{businessLogVO.sort, jdbcType=INTEGER}
+            </if>
+        </set>
+        where approve_item_id = #{businessLogVO.approveItemId,jdbcType=VARCHAR}
+        and dept_id = #{businessLogVO.deptId, jdbcType=VARCHAR}
+        and act_id = #{businessLogVO.actId, jdbcType=VARCHAR}
+    </update>
+    <select id="selectBusinessLog2" resultMap="BusinessLogVO2">
+        select
+            tfm.flow_id tfm_flow_id,
+            tfm.flow_name tfm_flow_name,
+            tfm.flow_status tfm_flow_status,
+            tfm.create_time tfm_create_time,
+            tfm.create_user_id tfm_create_user_id,
+            tfm.create_user_name tfm_create_user_name,
+            tfm.approve_item_id tfm_approve_item_id,
+            tfm.approve_item_name tfm_approve_item_name,
+            tfm.approve_item_type tfm_approve_item_type,
+            tfm.module_name tfm_module_name,
+            tfm.version_id tfm_version_id,
+            tbl2.id,
+            tbl2.file_id,
+            tbl2.approve_item_id,
+            tbl2.business_field1,
+            tbl2.business_field2,
+            tbl2.completed_time,
+            tbl2.login_acct,
+            tbl2.login_name,
+            tbl2.org_name,
+            tbl2.org_id,
+            tbl2.dept_name,
+            tbl2.dept_id,
+            tbl2.update_time,
+            tbl2.approve_item_type,
+            tbl2.act_id,
+            tbl2.act_name,
+            tbl2.act_inst_id,
+            tbl2.act_parent_inst_id,
+            tbl2.flow_id,
+            tbl2.flow_pid,
+            tbl2.sort,
+            tbl3.id sub_id,
+            tbl3.file_id sub_file_id,
+            tbl3.approve_item_id sub_approve_item_id,
+            tbl3.business_field1 sub_business_field1,
+            tbl3.business_field2 sub_business_field2,
+            tbl3.login_acct sub_login_acct,
+            tbl3.login_name sub_login_name,
+            tbl3.org_name sub_org_name,
+            tbl3.org_id sub_org_id,
+            tbl3.completed_time sub_completed_time,
+            tbl3.dept_name sub_dept_name,
+            tbl3.dept_id sub_dept_id,
+            tbl3.update_time sub_update_time,
+            tbl3.approve_item_type sub_approve_item_type,
+            tbl3.act_id sub_act_id,
+            tbl3.act_name sub_act_name,
+            tbl3.flow_id sub_flow_id,
+            tbl3.flow_pid sub_flow_pid,
+            tbl3.act_inst_id sub_act_inst_id,
+            tbl3.act_parent_inst_id sub_act_parent_inst_id,
+            tbl3.sort sub_sort
+        from t_flow_main tfm left join t_business_log tbl2 on tfm.approve_item_id = tbl2.approve_item_id and tfm.flow_id = tbl2.flow_pid
+        LEFT JOIN t_business_log tbl3 on tbl3.act_parent_inst_id = tbl2.act_inst_id and tbl2.flow_id = tbl3.flow_pid
+        where tfm.approve_item_id = #{businessLogVO.approveItemId}
+        order by tbl2.update_time, tbl3.update_time
+    </select>
+    <select id="selectBusinessLog" resultMap="BusinessLogVO" parameterType="string">
+        select
+        id,
+        file_id,
+        approve_item_id,
+        business_field1,
+        business_field2,
+        login_acct,
+        login_name,
+        org_name,
+        org_id,
+        dept_name,
+        dept_id,
+        update_time,
+        approve_item_type,
+        act_id,
+        act_name,
+        act_inst_id,
+        act_parent_inst_id,
+        flow_id,
+        flow_pid,
+        completed_time,
+        sort
+        from t_business_log
+        where approve_item_id = #{businessLogVO.approveItemId,jdbcType=VARCHAR}
+         order by update_time desc
+    </select>
+    <select id="selectFiles" resultType="java.util.HashMap">
+        SELECT m.file_id,m.file_length,m.file_http_url,m.file_name,m.file_extension from t_file_main m
+      where m.file_id in
+      (<foreach collection="fiIds" item="id" index = 'index' separator=",">
+        #{id}
+        </foreach>) ORDER BY m.file_status_update_time desc;
+    </select>
+
+</mapper>

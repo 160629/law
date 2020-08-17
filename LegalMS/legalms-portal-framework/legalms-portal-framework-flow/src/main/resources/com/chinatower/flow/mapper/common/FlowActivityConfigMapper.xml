@@ -1,0 +1,368 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chinatower.product.legalms.modules.flow.mapper.common.FlowActivityConfigMapper">
+    <resultMap id="BaseResultMap" type="com.chinatower.product.legalms.modules.flow.entity.common.FlowActivityConfigVO">
+        <id column="id" property="id" jdbcType="VARCHAR" />
+        <result column="flow_id"  property="flowId" jdbcType="VARCHAR" />
+        <result column="begin_id" property="beginId" jdbcType="VARCHAR" />
+        <result column="begin_name" property="beginName" jdbcType="VARCHAR" />
+        <result column="end_id" property="endId" jdbcType="BIGINT"/>
+        <result column="end_name" property="endName" jdbcType="VARCHAR"/>
+        <result column="condition" property="condition" jdbcType="VARCHAR"/>
+        <result column="order" property="order" jdbcType="BIGINT"/>
+        <result column="hidden" property="hidden" jdbcType="VARCHAR"/>
+        <result column="is_mut" property="isMut" jdbcType="VARCHAR"/>
+        <result column="is_countersign" property="isCountersign" jdbcType="VARCHAR"/>
+        <result column="important_level" property="importantLevel" jdbcType="VARCHAR"/>
+        <result column="handover_level" property="handoverLevel" jdbcType="VARCHAR"/>
+        <result column="line_name" property="lineName" jdbcType="VARCHAR"/>
+        <result column="is_return" property="isReturn" jdbcType="VARCHAR"/>
+        <result column="version_id"  property="versionId" jdbcType="VARCHAR" />
+        <result column="is_son_return"  property="isSonReturn" jdbcType="VARCHAR" />
+    </resultMap>
+    <insert id="addActivityConfig" parameterType="com.chinatower.product.legalms.modules.flow.entity.common.FlowActivityConfigVO">
+        insert into t_flow_activity_config
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="flowId != null and flowId != ''">
+                flow_id,
+            </if>
+            <if test="beginId != null and beginId != ''">
+                begin_id,
+            </if>
+            <if test="beginName != null and beginName != ''">
+                begin_name,
+            </if>
+            <if test="endId != null and endId != ''">
+                end_id,
+            </if>
+            <if test="endName != null and endName != ''">
+                end_name,
+            </if>
+            <if test="lineName != null and lineName != ''">
+                line_name,
+            </if>
+            <if test="condition != null and condition != ''">
+                `condition`,
+            </if>
+            <if test="hidden != null and hidden != ''">
+                hidden,
+            </if>
+            <if test="isMut != null and isMut != ''">
+                is_mut,
+            </if>
+            <if test="isCountersign != null and isCountersign != ''">
+                is_countersign,
+            </if>
+            <if test="importantLevel != null and importantLevel != ''">
+                important_level,
+            </if>
+            <if test="handoverLevel != null and handoverLevel != ''">
+                handover_level,
+            </if>
+            <if test="order != null and order != ''">
+                `order`,
+            </if>
+            <if test="isReturn != null and isReturn != ''">
+                is_return,
+            </if>
+            <if test="versionId != null and versionId != ''">
+                version_id,
+            </if>
+
+            <if test="isSonReturn != null and isSonReturn != ''">
+                is_son_return,
+            </if>
+
+        </trim>
+        <trim prefix="values(" suffix=")" suffixOverrides=",">
+            <if test="flowId != null and flowId != ''">
+                #{flowId},
+            </if>
+            <if test="beginId != null and beginId != ''">
+                #{beginId},
+            </if>
+            <if test="beginName != null and beginName != ''">
+                #{beginName},
+            </if>
+            <if test="endId != null and endId != ''">
+                #{endId},
+            </if>
+            <if test="endName != null and endName != ''">
+                #{endName},
+            </if>
+            <if test="lineName != null and lineName != ''">
+                #{lineName},
+            </if>
+            <if test="condition != null and condition != ''">
+                #{condition},
+            </if>
+            <if test="hidden != null and hidden != ''">
+                #{hidden},
+            </if>
+            <if test="isMut != null and isMut != ''">
+                #{isMut},
+            </if>
+            <if test="isCountersign != null and isCountersign != ''">
+                #{isCountersign},
+            </if>
+            <if test="importantLevel != null and importantLevel != ''">
+                #{importantLevel},
+            </if>
+            <if test="handoverLevel != null and handoverLevel != ''">
+                #{handoverLevel},
+            </if>
+            <if test="order != null and order != ''">
+                #{order},
+            </if>
+            <if test="isReturn != null and isReturn != ''">
+                #{isReturn},
+            </if>
+            <if test="versionId != null and versionId != ''">
+                #{versionId},
+            </if>
+
+            <if test="isSonReturn != null and isSonReturn != ''">
+                #{isSonReturn},
+            </if>
+
+        </trim>
+    </insert>
+    <delete id="delActivityConfig" parameterType="com.chinatower.product.legalms.modules.flow.entity.common.FlowActivityConfigVO">
+        delete from t_flow_activity_config
+        where id = #{id}
+    </delete>
+
+    <select id="selParamActivityConfig" resultMap="BaseResultMap">
+        select f.*
+        from t_flow_activity_config f
+        <where>
+            1 = 1
+            <if test="flowId!=null and flowId!=''">
+                and flow_id like concat('%', #{flowId}, '%')
+            </if>
+            <if test="beginId!=null and beginId!=''">
+                and begin_id = #{beginId}
+            </if>
+            <if test="beginName!=null and beginName!=''">
+                and begin_name ike concat('%', #{beginName}, '%')
+            </if>
+
+            <if test="endId != null and endId!=''">
+                and end_id = #{endId}
+            </if>
+
+            <if test="endName != null and endName!=''">
+                and end_name ike concat('%', #{endName}, '%')
+            </if>
+
+            <if test="importantLevel!=null and importantLevel!=''">
+                and important_level = #{importantLevel}
+            </if>
+
+            <if test="versionId!=null and versionId!=''">
+                and version_id = #{versionId}
+            </if>
+        </where>
+    </select>
+    <select id="selAllActivityConfig" resultMap="BaseResultMap">
+        select f.*
+        from t_flow_activity_config f
+        <where>
+            1 = 1
+            <if test="id!=null">
+                and id = #{id}
+            </if>
+            <if test="flowId!=null">
+                and flow_id = #{flowId}
+            </if>
+            <if test="beginId!=null">
+                and begin_id = #{beginId}
+            </if>
+
+            <if test="endId != null">
+                and end_id = #{endId}
+            </if>
+
+            <if test="isCountersign!=null">
+                and is_countersign = #{isCountersign}
+            </if>
+
+            <if test="importantLevel!=null">
+                and (important_level like #{importantLevel}
+                or important_level = 'share')
+            </if>
+
+            <if test="handoverLevel!=null">
+                and (handover_level like #{handoverLevel}
+                or handover_level = 'share')
+            </if>
+
+            <if test="isReturn!=null">
+                and is_return = #{isReturn}
+            </if>
+
+            <if test="versionId!=null and versionId!=''">
+                and version_id = #{versionId}
+            </if>
+        </where>
+        ORDER BY `order` ASC
+    </select>
+
+    <select id="selAllActivityCount" resultType="java.lang.Integer">
+        select count(*) from t_flow_activity_config
+        <where>
+            1 = 1
+            <if test="flowId!=null">
+                and flow_id = #{flowId}
+            </if>
+            <if test="beginId!=null">
+                and begin_id = #{beginId}
+            </if>
+            <if test="isCountersign!=null">
+                and is_countersign = #{isCountersign}
+            </if>
+            <if test="versionId!=null and versionId!=''">
+                and version_id = #{versionId}
+            </if>
+        </where>
+    </select>
+
+    <select id="selActivityId" resultMap="BaseResultMap" parameterType="String">
+        select * from t_flow_activity_config
+        where
+        flow_id = #{flowId,jdbcType=VARCHAR}
+        and  begin_id = #{beginId,jdbcType=VARCHAR}
+        and  end_id = #{endId,jdbcType=VARCHAR}
+        <if test="versionId!=null and versionId!=''">
+            and version_id = #{versionId}
+        </if>
+    </select>
+
+    <update id="updateActivityConfig" parameterType="com.chinatower.product.legalms.modules.flow.entity.common.FlowActivityConfigVO">
+        update t_flow_activity_config t
+        <set>
+            <if test="beginName != null">
+                t.begin_name = #{beginName,jdbcType=VARCHAR},
+            </if>
+            <if test="endName != null">
+                t.end_name = #{endName,jdbcType=VARCHAR},
+            </if>
+            <if test="condition != null">
+                t.`condition` = #{condition},
+            </if>
+            <if test="order != null">
+                t.`order` = #{order},
+            </if>
+            <if test="hidden != null">
+                t.hidden = #{hidden,jdbcType=VARCHAR},
+            </if>
+            <if test="isMut != null">
+                t.is_mut = #{isMut,jdbcType=VARCHAR},
+            </if>
+            <if test="isCountersign != null">
+                t.is_countersign = #{isCountersign,jdbcType=VARCHAR},
+            </if>
+            <if test="importantLevel != null">
+                t.important_level = #{importantLevel,jdbcType=VARCHAR},
+            </if>
+            <if test="handoverLevel != null">
+                t.handover_level = #{handoverLevel,jdbcType=VARCHAR},
+            </if>
+            <if test="lineName != null">
+                t.line_name = #{lineName,jdbcType=VARCHAR},
+            </if>
+            <if test="isReturn != null">
+                t.is_return = #{isReturn,jdbcType=VARCHAR},
+            </if>
+            <if test="isSonReturn != null and isSonReturn != ''">
+                t.is_son_return = #{isSonReturn},
+            </if>
+        </set>
+        where t.id = #{id,jdbcType=VARCHAR}
+    </update>
+
+    <resultMap id="QuickResultMap" type="com.chinatower.product.legalms.modules.flow.entity.common.SysQuickButtonVO">
+
+        <result column="flow_id" property="flowId" jdbcType="VARCHAR" />
+        <result column="icon_img" property="iconImg" jdbcType="VARCHAR" />
+        <result column="display_name" property="displayName" jdbcType="VARCHAR" />
+        <result column="module_name" property="moduleName" jdbcType="VARCHAR" />
+        <result column="flow_start_act" property="flowStartAct" jdbcType="VARCHAR" />
+
+        <result column="flow_start_act_name" property="flowStartActName" jdbcType="VARCHAR" />
+
+        <result column="sort" property="sort" jdbcType="INTEGER" />
+        <result column="level" property="level" jdbcType="VARCHAR" />
+        <result column="important_level" property="importantLevel" jdbcType="VARCHAR" />
+
+        <result column="is_jiyuehua" property="isJiyuehua" jdbcType="VARCHAR" />
+
+        <result column="version_id" property="versionId" jdbcType="INTEGER" />
+
+
+    </resultMap>
+
+    <select id="selectByRoleCode" resultMap="QuickResultMap" parameterType="com.chinatower.product.legalms.modules.flow.entity.common.SysQuickButtonVO">
+        SELECT b.flow_id,b.icon_img,b.display_name,b.module_name,b.flow_start_act,b.level,b.important_level,b.flow_start_act_name,p.version_id
+        FROM
+        t_sys_quick_button b,
+        t_pub_rolemenu c,
+        t_flow_activity_package p
+        WHERE b.flow_id = p.flow_id
+        and p.is_now=1
+        and b.menu_code = c.menu_code
+        and b.module_name = #{moduleName}
+        <if test="level!=null">
+            and b.level = #{level}
+        </if>
+        AND c.role_code IN
+        (<foreach collection="roleCodes" item="value" index = 'index' separator=",">
+        #{value}
+    </foreach>)
+
+        <if test="isJiyuehua!=null">
+            and (b.is_jiyuehua = #{isJiyuehua}
+            or b.is_jiyuehua = 'share')
+        </if>
+
+    </select>
+
+    <select id="selectorgLevelByAccountId" parameterType="string" resultType="Map">
+        SELECT o.org_level,j.is_jiyuehua from t_pub_account_tab a
+        LEFT JOIN t_pub_org o on a.account_unit_id = o.org_code
+        LEFT JOIN t_sys_jiyuehua j on a.account_unit_id = j.org_id
+        where  a.account_id = #{value}
+    </select>
+
+    <update id="updateConfig">
+        <foreach collection="configUpdateVOs" item="ConfigUpdateVO" separator=";">
+            update t_flow_activity_power set  act_id = #{ConfigUpdateVO.actId},
+            act_name = #{ConfigUpdateVO.actName},
+            version_id = #{ConfigUpdateVO.versionId},
+            flow_id = #{ConfigUpdateVO.flowId}
+            where act_id = #{ConfigUpdateVO.actIdOld}
+            and act_name = #{ConfigUpdateVO.actNameOld}
+            and version_id = #{ConfigUpdateVO.versionIdOld}
+            and flow_id = #{ConfigUpdateVO.flowIdOld};
+
+            update t_flow_activity_config set  begin_id = #{ConfigUpdateVO.actId},
+            begin_name = #{ConfigUpdateVO.actName},
+            version_id = #{ConfigUpdateVO.versionId},
+            flow_id = #{ConfigUpdateVO.flowId}
+            where begin_id = #{ConfigUpdateVO.actIdOld}
+            and begin_name = #{ConfigUpdateVO.actNameOld}
+            and version_id = #{ConfigUpdateVO.versionIdOld}
+            and flow_id = #{ConfigUpdateVO.flowIdOld};
+
+            update t_flow_activity_config set  end_id = #{ConfigUpdateVO.actId},
+            end_name = #{ConfigUpdateVO.actName},
+            version_id = #{ConfigUpdateVO.versionId},
+            flow_id = #{ConfigUpdateVO.flowId}
+            where end_id = #{ConfigUpdateVO.actIdOld}
+            and end_name = #{ConfigUpdateVO.actNameOld}
+            and version_id = #{ConfigUpdateVO.versionIdOld}
+            and flow_id = #{ConfigUpdateVO.flowIdOld}
+        </foreach>
+    </update>
+
+</mapper>

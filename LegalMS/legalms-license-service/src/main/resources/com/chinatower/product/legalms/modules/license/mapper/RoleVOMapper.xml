@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.chinatower.product.legalms.modules.license.mapper.RoleVoMapper" >
+        <resultMap id="BaseResultMap" type="com.chinatower.product.legalms.modules.license.entity.RoleVo" >
+        <id column="role_id" property="roleId" jdbcType="INTEGER" />
+        <result column="role_name" property="roleName" jdbcType="VARCHAR" />
+        <result column="role_level" property="roleLevel" jdbcType="INTEGER" />
+        <result column="role_code" property="roleCode" jdbcType="VARCHAR" />
+        <result column="role_state" property="roleState" jdbcType="INTEGER" />
+        <result column="create_date" property="createTime" jdbcType="DATE" />
+        <result column="status_cd" property="statusCd" jdbcType="INTEGER" />
+        <result column="remark" property="remark" jdbcType="VARCHAR" />
+        <result column="flag" property="flag" jdbcType="VARCHAR" />
+        <result column="service_id" property="serviceId" jdbcType="VARCHAR" />
+    </resultMap>
+
+    <insert id="addRole" parameterType="com.chinatower.product.legalms.modules.license.entity.RoleVo" >
+        insert into t_pub_role(role_id,role_name,role_level,role_code,role_state,create_date,status_cd,remark,flag,service_id)
+                                values (#{roleId},
+                                        #{roleName},
+                                        #{roleLevel},
+                                        #{roleCode},
+                                        #{roleState},
+                                        #{createTime},
+                                        #{statusCd},
+                                        #{remark},
+                                        #{flag},
+                                        #{serviceId})
+    </insert>
+    <update id="updateRole" parameterType="com.chinatower.product.legalms.modules.license.entity.RoleVo">
+        update t_pub_role set
+			role_name = #{roleName},
+			role_level = #{roleLevel},
+			role_id = #{roleId},
+			role_state = #{roleState},
+			create_date = #{createTime},
+			status_cd = #{statusCd},
+			remark = #{remark},
+			flag= #{flag},
+			service_id = #{serviceId}
+		where role_code = #{roleCode}
+    </update>
+    <update id="delectRoleByRoleCode" parameterType="String">
+        update t_pub_role set status_cd=1 where role_code = #{roleCode} and status_cd=0
+    </update>
+    <select id="selectRoleCountByRoleCode" resultType="Integer">
+        select count(1) from  t_pub_role WHERE role_code = #{roleCode}
+    </select>
+    <select id="selectRoleByRoleCode" parameterType="String" resultMap="BaseResultMap">
+        select
+            role_name ,
+			role_level ,
+			role_id ,
+			role_state ,
+			create_date ,
+			status_cd ,
+			remark ,
+			service_id
+        from  t_pub_role WHERE role_code = #{roleCode}
+    </select>
+
+    <select id="selectAllRole"  resultMap="BaseResultMap">
+        select *  from  t_pub_role where flag !='3'
+    </select>
+
+    <select id="selectYetAllRole"  resultMap="BaseResultMap">
+        select * from   t_pub_role where  flag !='3' and role_code in (
+        <foreach collection="roleColes" separator="," item="value">
+            #{value}
+        </foreach>
+        )
+    </select>
+
+    <select id="selectUnAllRole" resultMap="BaseResultMap">
+        select * from   t_pub_role where  flag !='3' and role_code not in (
+        <foreach collection="roleColes" separator="," item="value">
+            #{value}
+        </foreach>
+        )
+    </select>
+</mapper>

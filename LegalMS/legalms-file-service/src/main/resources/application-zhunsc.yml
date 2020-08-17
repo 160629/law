@@ -1,0 +1,113 @@
+server:
+  port: 8081
+  tomcat:
+    basedir: /app/temp
+# 日志级别
+logging:
+  config: classpath:logback.xml
+spring:
+##  zipkin:
+##    base-url: http://localhost:9411/
+##    enabled: true
+##  sleuth:
+##    web:
+##      client:
+##        enabled: true
+##    sampler:
+##      probability: 1.0  #zipkin采集率  0.1表示 10%采集率
+  application:
+    name: legalms-file-service
+  #配置数据源
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driverClassName: com.mysql.cj.jdbc.Driver
+    druid:
+      first:
+        url: jdbc:mysql://10.34.17.50:3306/lms?characterEncoding=UTF-8&useSSL=false&serverTimezone=GMT%2B8 #jdbc:mysql://120.52.99.112:13306/k8s?characterEncoding=UTF-8&useSSL=false
+        username: admin
+        password: ADpas$0o01_
+      second:
+        url: jdbc:mysql://10.34.17.50:3306/lms?characterEncoding=UTF-8&useSSL=false&serverTimezone=GMT%2B8 #jdbc:mysql://120.52.99.112:13306/k8s?characterEncoding=UTF-8&useSSL=false
+        username: admin
+        password: ADpas$0o01_
+      third:
+        url: jdbc:mysql://10.34.17.50:3306/lms?characterEncoding=UTF-8&useSSL=false&serverTimezone=GMT%2B8 #jdbc:mysql://120.52.99.112:13306/k8s?characterEncoding=UTF-8&useSSL=false
+        username: admin
+        password: ADpas$0o01_
+        # 使用druid数据源
+  redis:
+    host: 10.34.53.252
+    port: 6379
+    url: http://10.34.53.34:8081/codis
+  rabbitmq:
+    host: 10.34.53.14
+    port: 5672
+    username: admin
+    password: password
+#配置mybatis mapper.xml扫描路径
+mybatis:
+  mapper-locations: classpath*:com/chinatower/**/mapper/**/*.xml
+  #'classpath*:com/strongdata/**/mapper/**/*.xml'
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+#mybatis-pagehelper分页插件
+pagehelper:
+  helper-dialect: mysql
+  reasonable: true
+  support-methods-arguments: true
+  params: pageNum=pageNum;pageSize=pageSize
+swagger:
+  enable: true #是否开启swagger功能
+  package:
+    scan: com.chinatower.product #扫描包路径
+  title: springboot利用swagger构建api文档 #title
+  description: 简单优雅的restfun风格 #描述
+  version: 1.0 #版本
+  contact: #联系人
+    name: wq #联系人名称
+    tel: 13888888888 #联系人电话
+    email: test@qq.com #联系人qq
+ribbon:
+  ConnectTimeout: 3000
+  ReadTimeout: 60000
+hystrix:
+  command:
+      default:
+          execution:
+              isolation:
+                  thread:
+                      timeoutInMilliseconds: 60000
+eureka:
+  instance:
+    prefer-ip-address: true
+    instance-id: ${spring.application.name}:${spring.cloud.client.ip-address}:${server.port}
+    hostname: ${spring.cloud.client.ip-address}
+    statusPageUrlPath: /swagger-ui.html #/routes #${management.contextPath:}/info
+    healthCheckUrlPath: ${management.contextPath:}/health
+  client:
+    serviceUrl:
+      defaultZone: http://10.34.53.4:8761/eureka
+      #defaultZone:http://${eureka.instance.hostname}:${server.port}/eureka/
+feign:
+  hystrix:
+    enabled: false
+  client:
+    config:
+      default:           #服务名，填写default为所有服务
+        connectTimeout: 5000
+        readTimeout: 60000
+file: #测试环境地址
+  uploadFileAddress: http://10.34.53.27:8761/ChinatowerFileService/uploadFile/
+  deleteFileAddress: http://10.34.53.27:8761/ChinatowerFileService/deleteFile/
+  updateFileAddress: http://10.34.53.27:8761/ChinatowerFileService/updateFile/
+  loadFileAddress: http://10.34.53.27:8761/ChinatowerFileService/dowloadFile/
+  loadFileMultAddress: http://10.34.53.27:8761/ChinatowerFileService/batchDowloadFile/
+  privateKey: 21277454384770a143e75240509dc597699135165c12b040306b1424d430572e        #找对接人获取  私钥
+  intranetIp: 10.34.53.27:8761,10.34.53.28:8762,10.34.53.29:8762
+  extranetIp: 49.4.2.125:9551,49.4.2.125:9553,49.4.2.125:9554
+system:
+  custom:
+    attachUrl: http://10.34.53.27:8761/ #测试平台ip地址
+
+nginx:
+  formurl: http://49.4.2.125:9051

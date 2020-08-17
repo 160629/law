@@ -1,0 +1,353 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper
+        namespace="com.chinatower.product.legalms.modules.dispute.mapper.assist.TIssueAssistConditionMapper">
+    <resultMap id="BaseMap" type="com.chinatower.product.legalms.modules.dispute.entity.assist.TIssueAssistCondition">
+        <id column="id" property="id" jdbcType="VARCHAR"/>
+        <result column="assist_id" property="assistId" jdbcType="VARCHAR"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="modify_time" property="modifyTime" jdbcType="TIMESTAMP"/>
+        <result column="jointly_unit_name" property="jointlyUnitName" jdbcType="VARCHAR"/>
+        <result column="jointly_unit_id" property="jointlyUnitId" jdbcType="VARCHAR"/>
+        <result column="account_id" property="accountId" jdbcType="VARCHAR"/>
+        <result column="account_name" property="accountName" jdbcType="VARCHAR"/>
+        <result column="jointly_dept_name" property="jointlyDeptName" jdbcType="VARCHAR"/>
+        <result column="jointly_dept_id" property="jointlyDeptId" jdbcType="VARCHAR"/>
+        <result column="check_content" property="checkContent" jdbcType="VARCHAR"/>
+        <result column="finance_content" property="financeContent" jdbcType="VARCHAR"/>
+        <result column="business_content" property="businessContent" jdbcType="VARCHAR"/>
+        <result column="check_file" property="checkFile" jdbcType="VARCHAR"/>
+        <result column="finance_file" property="financeFile" jdbcType="VARCHAR"/>
+        <result column="business_file" property="businessFile" jdbcType="VARCHAR"/>
+        <result column="assist_content" property="assistContent" jdbcType="VARCHAR"/>
+        <result column="assist_file" property="assistFile" jdbcType="VARCHAR"/>
+        <result column="assist_relation_ids" property="assistRelationIds" jdbcType="VARCHAR"/>
+        <result column="state" property="state" jdbcType="VARCHAR"/>
+        <result column="act_id" property="actId" jdbcType="VARCHAR"/>
+        <result column="act_parent_inst_id" property="actParentInstId" jdbcType="VARCHAR"/>
+        <result column="act_inst_id" property="actInstId" jdbcType="VARCHAR"/>
+        <result column="flow_id" property="flowId" jdbcType="VARCHAR"/>
+        <result column="flow_pid" property="flowPid" jdbcType="VARCHAR"/>
+        <result column="record_type" property="recordType" jdbcType="VARCHAR"/>
+    </resultMap>
+    <sql id="baseFields">
+        id,
+        assist_id,
+        create_time,
+        modify_time,
+        jointly_unit_name,
+        jointly_unit_id,
+        account_id,
+        account_name,
+        jointly_dept_name,
+        jointly_dept_id,
+        check_content,
+        finance_content,
+        business_content,
+        check_file,
+        finance_file,
+        business_file,
+        assist_content,
+        assist_file,
+        assist_relation_ids,
+        state,
+        act_id,
+        act_parent_inst_id,
+        act_inst_id,
+        flow_id,
+        flow_pid,
+        record_type
+    </sql>
+    <insert id="insertCondition">
+        insert into t_issue_assist_condition
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            id,
+            assist_id,
+            create_time,
+            modify_time,
+            <if test="tIssueAssistCondition.jointlyUnitName != null and tIssueAssistCondition.jointlyUnitName != ''">
+                jointly_unit_name,
+            </if>
+            <if test="tIssueAssistCondition.jointlyUnitId != null and tIssueAssistCondition.jointlyUnitId != ''">
+                jointly_unit_id,
+            </if>
+            <if test="tIssueAssistCondition.accountId != null and tIssueAssistCondition.accountId != ''">
+                account_id,
+            </if>
+            <if test="tIssueAssistCondition.accountName != null and tIssueAssistCondition.accountName != ''">
+                account_name,
+            </if>
+            <if test="tIssueAssistCondition.jointlyDeptName != null and tIssueAssistCondition.jointlyDeptName != ''">
+                jointly_dept_name,
+            </if>
+            <if test="tIssueAssistCondition.jointlyDeptId != null and tIssueAssistCondition.jointlyDeptId != ''">
+                jointly_dept_id,
+            </if>
+            <if test="tIssueAssistCondition.checkContent != null and tIssueAssistCondition.checkContent != ''">
+                check_content,
+            </if>
+            <if test="tIssueAssistCondition.financeContent != null and tIssueAssistCondition.financeContent != ''">
+                finance_content,
+            </if>
+            <if test="tIssueAssistCondition.businessContent != null and tIssueAssistCondition.businessContent != ''">
+                business_content,
+            </if>
+            <if test="tIssueAssistCondition.checkFile != null">
+                check_file,
+            </if>
+            <if test="tIssueAssistCondition.financeFile != null">
+                finance_file,
+            </if>
+            <if test="tIssueAssistCondition.businessFile != null">
+                business_file,
+            </if>
+            <if test="tIssueAssistCondition.assistContent != null and tIssueAssistCondition.assistContent != ''">
+                assist_content,
+            </if>
+            <if test="tIssueAssistCondition.assistFile != null">
+                assist_file,
+            </if>
+            <if test="tIssueAssistCondition.assistRelationIds != null">
+                assist_relation_ids,
+            </if>
+            <if test="tIssueAssistCondition.state != null and tIssueAssistCondition.state != ''">
+                state,
+            </if>
+            <if test="tIssueAssistCondition.actId != null and tIssueAssistCondition.actId != ''">
+                act_id,
+            </if>
+            <if test="tIssueAssistCondition.actParentInstId != null and tIssueAssistCondition.actParentInstId != ''">
+                act_parent_inst_id,
+            </if>
+            <if test="tIssueAssistCondition.actInstId != null and tIssueAssistCondition.actInstId != ''">
+                act_inst_id,
+            </if>
+            <if test="tIssueAssistCondition.flowId != null and tIssueAssistCondition.flowId != ''">
+                flow_id,
+            </if>
+            <if test="tIssueAssistCondition.flowPid != null and tIssueAssistCondition.flowPid != ''">
+                flow_pid,
+            </if>
+            <if test="tIssueAssistCondition.recordType != null and tIssueAssistCondition.recordType != ''">
+                record_type,
+            </if>
+        </trim>
+        <trim prefix=" VALUES(" suffix=")" suffixOverrides=",">
+            #{tIssueAssistCondition.id, jdbcType=VARCHAR},
+            #{tIssueAssistCondition.assistId, jdbcType=VARCHAR},
+            NOW(),
+            NOW(),
+            <if test="tIssueAssistCondition.jointlyUnitName != null and tIssueAssistCondition.jointlyUnitName != ''">
+                #{tIssueAssistCondition.jointlyUnitName, jdbcType=VARCHAR},
+            </if>
+            <if test="tIssueAssistCondition.jointlyUnitId != null and tIssueAssistCondition.jointlyUnitId != ''">
+                #{tIssueAssistCondition.jointlyUnitId, jdbcType=VARCHAR},
+            </if>
+            <if test="tIssueAssistCondition.accountId != null and tIssueAssistCondition.accountId != ''">
+                #{tIssueAssistCondition.accountId, jdbcType=VARCHAR},
+            </if>
+            <if test="tIssueAssistCondition.accountName != null and tIssueAssistCondition.accountName != ''">
+                #{tIssueAssistCondition.accountName, jdbcType=VARCHAR},
+            </if>
+            <if test="tIssueAssistCondition.jointlyDeptName != null and tIssueAssistCondition.jointlyDeptName != ''">
+                #{tIssueAssistCondition.jointlyDeptName, jdbcType=VARCHAR},
+            </if>
+            <if test="tIssueAssistCondition.jointlyDeptId != null and tIssueAssistCondition.jointlyDeptId != ''">
+                #{tIssueAssistCondition.jointlyDeptId, jdbcType=VARCHAR},
+            </if>
+            <if test="tIssueAssistCondition.checkContent != null and tIssueAssistCondition.checkContent != ''">
+                #{tIssueAssistCondition.checkContent, jdbcType=VARCHAR},
+            </if>
+            <if test="tIssueAssistCondition.financeContent != null and tIssueAssistCondition.financeContent != ''">
+                #{tIssueAssistCondition.financeContent, jdbcType=VARCHAR},
+            </if>
+            <if test="tIssueAssistCondition.businessContent != null and tIssueAssistCondition.businessContent != ''">
+                #{tIssueAssistCondition.businessContent, jdbcType=VARCHAR},
+            </if>
+            <if test="tIssueAssistCondition.checkFile != null">
+                #{tIssueAssistCondition.checkFile, jdbcType=VARCHAR},
+            </if>
+            <if test="tIssueAssistCondition.financeFile != null">
+                #{tIssueAssistCondition.financeFile, jdbcType=VARCHAR},
+            </if>
+            <if test="tIssueAssistCondition.businessFile != null">
+                #{tIssueAssistCondition.businessFile, jdbcType=VARCHAR},
+            </if>
+            <if test="tIssueAssistCondition.assistContent != null and tIssueAssistCondition.assistContent != ''">
+                #{tIssueAssistCondition.assistContent, jdbcType=VARCHAR},
+            </if>
+            <if test="tIssueAssistCondition.assistFile != null">
+                #{tIssueAssistCondition.assistFile, jdbcType=VARCHAR},
+            </if>
+            <if test="tIssueAssistCondition.assistRelationIds != null">
+                #{tIssueAssistCondition.assistRelationIds, jdbcType=VARCHAR},
+            </if>
+            <if test="tIssueAssistCondition.state != null and tIssueAssistCondition.state != ''">
+                #{tIssueAssistCondition.state, jdbcType=VARCHAR},
+            </if>
+            <if test="tIssueAssistCondition.actId != null and tIssueAssistCondition.actId != ''">
+                #{tIssueAssistCondition.actId, jdbcType=VARCHAR},
+            </if>
+            <if test="tIssueAssistCondition.actParentInstId != null and tIssueAssistCondition.actParentInstId != ''">
+                #{tIssueAssistCondition.actParentInstId, jdbcType=VARCHAR},
+            </if>
+            <if test="tIssueAssistCondition.actInstId != null and tIssueAssistCondition.actInstId != ''">
+                #{tIssueAssistCondition.actInstId, jdbcType=VARCHAR},
+            </if>
+            <if test="tIssueAssistCondition.flowId != null and tIssueAssistCondition.flowId != ''">
+                #{tIssueAssistCondition.flowId, jdbcType=VARCHAR},
+            </if>
+            <if test="tIssueAssistCondition.flowPid != null and tIssueAssistCondition.flowPid != ''">
+                #{tIssueAssistCondition.flowPid, jdbcType=VARCHAR},
+            </if>
+            <if test="tIssueAssistCondition.recordType != null and tIssueAssistCondition.recordType != ''">
+                #{tIssueAssistCondition.recordType, jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateById">
+        update t_issue_assist_condition
+        <set>
+            modify_time = NOW(),
+            <if test="tIssueAssistCondition.jointlyUnitName != null and tIssueAssistCondition.jointlyUnitName != ''">
+                jointly_unit_name = #{tIssueAssistCondition.jointlyUnitName, jdbcType=VARCHAR},
+            </if>
+            <if test="tIssueAssistCondition.jointlyUnitId != null and tIssueAssistCondition.jointlyUnitId != ''">
+                jointly_unit_id = #{tIssueAssistCondition.jointlyUnitId, jdbcType=VARCHAR},
+            </if>
+            <if test="tIssueAssistCondition.accountId != null and tIssueAssistCondition.accountId != ''">
+                account_id = #{tIssueAssistCondition.accountId, jdbcType=VARCHAR},
+            </if>
+            <if test="tIssueAssistCondition.accountName != null and tIssueAssistCondition.accountName != ''">
+                account_name = #{tIssueAssistCondition.accountName, jdbcType=VARCHAR},
+            </if>
+            <if test="tIssueAssistCondition.jointlyDeptName != null and tIssueAssistCondition.jointlyDeptName != ''">
+                jointly_dept_name = #{tIssueAssistCondition.jointlyDeptName, jdbcType=VARCHAR},
+            </if>
+            <if test="tIssueAssistCondition.jointlyDeptId != null and tIssueAssistCondition.jointlyDeptId != ''">
+                jointly_dept_id = #{tIssueAssistCondition.jointlyDeptId, jdbcType=VARCHAR},
+            </if>
+            <if test="tIssueAssistCondition.checkContent != null and tIssueAssistCondition.checkContent != ''">
+                check_content = #{tIssueAssistCondition.checkContent, jdbcType=VARCHAR},
+            </if>
+            <if test="tIssueAssistCondition.financeContent != null and tIssueAssistCondition.financeContent != ''">
+                finance_content = #{tIssueAssistCondition.financeContent, jdbcType=VARCHAR},
+            </if>
+            <if test="tIssueAssistCondition.businessContent != null and tIssueAssistCondition.businessContent != ''">
+                business_content = #{tIssueAssistCondition.businessContent, jdbcType=VARCHAR},
+            </if>
+            <if test="tIssueAssistCondition.checkFile != null">
+                check_file = #{tIssueAssistCondition.checkFile, jdbcType=VARCHAR},
+            </if>
+            <if test="tIssueAssistCondition.financeFile != null">
+                finance_file = #{tIssueAssistCondition.financeFile, jdbcType=VARCHAR},
+            </if>
+            <if test="tIssueAssistCondition.businessFile != null">
+                business_file = #{tIssueAssistCondition.businessFile, jdbcType=VARCHAR},
+            </if>
+            <if test="tIssueAssistCondition.assistContent != null and tIssueAssistCondition.assistContent != ''">
+                assist_content = #{tIssueAssistCondition.assistContent, jdbcType=VARCHAR},
+            </if>
+            <if test="tIssueAssistCondition.assistFile != null">
+                assist_file = #{tIssueAssistCondition.assistFile, jdbcType=VARCHAR},
+            </if>
+            <if test="tIssueAssistCondition.assistRelationIds != null">
+                assist_relation_ids = #{tIssueAssistCondition.assistRelationIds, jdbcType=VARCHAR},
+            </if>
+            <if test="tIssueAssistCondition.state != null and tIssueAssistCondition.state != ''">
+                state = #{tIssueAssistCondition.state, jdbcType=VARCHAR},
+            </if>
+            <if test="tIssueAssistCondition.actId != null and tIssueAssistCondition.actId != ''">
+                act_id = #{tIssueAssistCondition.actId, jdbcType=VARCHAR},
+            </if>
+            <if test="tIssueAssistCondition.actParentInstId != null and tIssueAssistCondition.actParentInstId != ''">
+                act_parent_inst_id = #{tIssueAssistCondition.actParentInstId, jdbcType=VARCHAR},
+            </if>
+            <if test="tIssueAssistCondition.actInstId != null and tIssueAssistCondition.actInstId != ''">
+                act_inst_id = #{tIssueAssistCondition.actInstId, jdbcType=VARCHAR},
+            </if>
+            <if test="tIssueAssistCondition.flowId != null and tIssueAssistCondition.flowId != ''">
+                flow_id = #{tIssueAssistCondition.flowId, jdbcType=VARCHAR},
+            </if>
+            <if test="tIssueAssistCondition.flowPid != null and tIssueAssistCondition.flowPid != ''">
+                flow_pid = #{tIssueAssistCondition.flowPid, jdbcType=VARCHAR},
+            </if>
+            <if test="tIssueAssistCondition.recordType != null and tIssueAssistCondition.recordType != ''">
+                record_type = #{tIssueAssistCondition.recordType, jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = #{tIssueAssistCondition.id, jdbcType=VARCHAR}
+    </update>
+    <update id="updateConditionState">
+        update t_issue_assist_condition
+        set state = #{state, jdbcType=VARCHAR}, modify_time = NOW()
+        where flow_id = #{flowId, jdbcType=VARCHAR}
+        and jointly_unit_id in (
+        <foreach collection="joinUnitIds" separator="," item="joinUnitId">
+            #{joinUnitId}
+        </foreach>
+        )
+    </update>
+    <update id="updateRelationIdById">
+        update t_issue_assist_condition
+        set assist_relation_ids = #{assistId, jdbcType=VARCHAR}
+        where id = #{conditionId, jdbcType=VARCHAR}
+    </update>
+    <select id="selectByIds"
+            parameterType="com.chinatower.product.legalms.modules.dispute.entity.assist.TIssueAssistCondition"
+            resultMap="BaseMap">
+        select
+        <include refid="baseFields"/>
+        from t_issue_assist_condition
+        <where>
+            <if test="tIssueAssistCondition.assistId != null and tIssueAssistCondition.assistId != ''">
+                and assist_id = #{tIssueAssistCondition.assistId, jdbcType=VARCHAR}
+            </if>
+            <if test="tIssueAssistCondition.jointlyUnitId != null and tIssueAssistCondition.jointlyUnitId != ''">
+                and jointly_unit_id = #{tIssueAssistCondition.jointlyUnitId, jdbcType=VARCHAR}
+            </if>
+            <if test="tIssueAssistCondition.jointlyDeptId != null and tIssueAssistCondition.jointlyDeptId != ''">
+                and jointly_dept_id = #{tIssueAssistCondition.jointlyDeptId, jdbcType=VARCHAR}
+            </if>
+        </where>
+    </select>
+    <select id="selectConditionByIds" resultMap="BaseMap">
+        select
+        <include refid="baseFields"/>
+        from t_issue_assist_condition
+        <where>
+            assist_id = #{id, jdbcType=VARCHAR}
+            <if test="recordType != null and recordType == '2'">
+                and jointly_unit_id = #{info.orgId, jdbcType=VARCHAR}
+            </if>
+        </where>
+        order by modify_time desc
+    </select>
+    <select id="selectByFlowId" resultMap="BaseMap">
+        select <include refid="baseFields"/>
+        from t_issue_assist_condition
+        where flow_id = #{flowId, jdbcType=VARCHAR}
+        order by create_time desc limit 1
+    </select>
+    <select id="selectById" resultMap="BaseMap">
+        select <include refid="baseFields"/>
+        from t_issue_assist_condition
+        where id = #{conditionId, jdbcType=VARCHAR}
+    </select>
+    <select id="selectByActInstId" resultMap="BaseMap">
+        select <include refid="baseFields"/>
+        from t_issue_assist_condition
+        where act_inst_id = #{activityInstID, jdbcType=VARCHAR}
+    </select>
+    <select id="selectByFlowIdAndJoinUnit" resultMap="BaseMap">
+        select <include refid="baseFields"/>
+        from t_issue_assist_condition
+        where flow_id = #{flowId, jdbcType=VARCHAR}
+        and jointly_unit_id in (
+            <foreach collection="joinUnitIds" separator="," item="joinUnitId">
+                #{joinUnitId}
+            </foreach>
+        )
+        order by modify_time desc Limit 1
+    </select>
+</mapper>

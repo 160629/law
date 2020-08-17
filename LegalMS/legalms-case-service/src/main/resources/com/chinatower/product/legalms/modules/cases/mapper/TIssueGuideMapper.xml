@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper
+	namespace="com.chinatower.product.legalms.modules.cases.mapper.TIssueGuideMapper">
+	<resultMap id="BaseResultMap"
+		type="com.chinatower.product.legalms.modules.cases.entity.TIssueGuideVO">
+		<id column="guide_id" jdbcType="VARCHAR" property="guideId" />
+		<result column="guide_code" jdbcType="VARCHAR"
+			property="guideCode" />
+		<result column="guide_title" jdbcType="VARCHAR"
+			property="guideTitle" />
+		<result column="guide_result" jdbcType="VARCHAR"
+			property="guideResult" />
+		<result column="guide_size" jdbcType="VARCHAR"
+			property="guideSize" />
+		<result column="create_time" jdbcType="TIMESTAMP"
+			property="createTime" />
+		<result column="login_acct" jdbcType="VARCHAR"
+			property="loginAcct" />
+		<result column="login_name" jdbcType="VARCHAR"
+			property="loginName" />
+		<result column="org_name" jdbcType="VARCHAR" property="orgName" />
+		<result column="org_id" jdbcType="VARCHAR" property="orgId" />
+		<result column="dept_name" jdbcType="VARCHAR"
+			property="deptName" />
+		<result column="dept_id" jdbcType="VARCHAR" property="deptId" />
+		<result column="mobile" jdbcType="VARCHAR" property="mobile" />
+		<result column="modify_time" jdbcType="TIMESTAMP"
+			property="modifyTime" />
+		<result column="our_lawsuit_body" jdbcType="VARCHAR"
+			property="ourLawsuitBody" />
+		<result column="our_lawsuit_body_name" jdbcType="VARCHAR"
+			property="ourLawsuitBodyName" />
+		<result column="other_depute_body" jdbcType="VARCHAR"
+			property="otherDeputeBody" />
+		<result column="case_reason" jdbcType="VARCHAR"
+			property="caseReason" />
+		<result column="case_depute_money" jdbcType="DECIMAL"
+			property="caseDeputeMoney" />
+		<result column="case_happen_time" jdbcType="TIMESTAMP"
+			property="caseHappenTime" />
+		<result column="sign_dept" jdbcType="VARCHAR"
+			property="signDept" />
+		<result column="guide_file" jdbcType="VARCHAR"
+			property="guideFile" />
+		<result column="impl_money" jdbcType="DECIMAL"
+			property="implMoney" />
+		<result column="guide_method" jdbcType="VARCHAR"
+			property="guideMethod" />
+		<result column="guide_status" jdbcType="VARCHAR"
+			property="guideStatus" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		guide_id, guide_code, guide_title,guide_result,guide_size,
+		create_time,
+		login_acct,login_name,org_name,org_id,dept_name,dept_id,mobile,
+		modify_time,
+		our_lawsuit_body,our_lawsuit_body_name,
+		other_depute_body,
+		case_reason,
+		case_depute_money, case_happen_time,
+		sign_dept,
+		guide_file,
+		impl_money,
+		guide_method, guide_status
+	</sql>
+
+	<select id="selectAllById" resultMap="BaseResultMap">
+		select guide_title from t_issue_guide where guide_id =#{guideId}
+	</select>
+
+</mapper>

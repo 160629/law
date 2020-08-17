@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chinatower.product.legalms.modules.license.mapper.OrgDepLeaderMapper">
+    <resultMap id="BaseResultMap" type="com.chinatower.product.legalms.modules.license.entity.depleader.OrgDepLeader">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="org_code" jdbcType="VARCHAR" property="orgCode"/>
+        <result column="account_id" jdbcType="VARCHAR" property="accountId"/>
+        <result column="org_name" jdbcType="VARCHAR" property="orgName"/>
+        <result column="emp_name" jdbcType="VARCHAR" property="empName"/>
+        <result column="company_name" jdbcType="VARCHAR" property="compName"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="last_update" jdbcType="TIMESTAMP" property="lastUpdate"/>
+        <result column="is_setup" jdbcType="VARCHAR" property="isSetup"/>
+        <result column="leaderorgcode" jdbcType="VARCHAR" property="leadeOrgCode"/>
+    </resultMap>
+    <!--分管领导组织树返回实体类-->
+    <resultMap id="OrgTreeBean" type="com.chinatower.product.legalms.modules.license.entity.depleader.OrgDepTreeVO">
+        <result column="org_name" jdbcType="VARCHAR" property="orgName"/>
+        <result column="org_code" jdbcType="VARCHAR" property="orgCode"/>
+        <result column="org_parent_code" jdbcType="VARCHAR" property="orgParentCode"/>
+        <result column="is_unit" jdbcType="VARCHAR" property="isUnit"/>
+        <result column="org_level" jdbcType="VARCHAR" property="orgLevel"/>
+        <result column="company_code" jdbcType="VARCHAR" property="companyCode"/>
+        <result column="org_path" jdbcType="VARCHAR" property="orgPath"/>
+    </resultMap>
+    <!--模糊查询条件-->
+    <sql id="sqlWhere">/*是否设置*/
+        <if test="isSetup=='0'.toString()">
+            and (t.is_setup = #{isSetup} or t.is_setup is null)
+        </if>
+        <if test="isSetup=='1'.toString()">
+            and t.is_setup = #{isSetup}
+        </if>/*部门领导*/
+        <if test="empName!=null and empName!='' ">
+            and t.emp_name like concat('%',#{empName},'%')
+        </if>/*部门名称*/
+        <if test="orgName!=null and orgName!='' ">
+            and o.org_name like concat('%',#{orgName},'%')
+        </if>/*公司名称*/
+        <if test="orgCodeList!=null and orgCodeList.size() > 0 ">
+            and o.org_code in (
+            <foreach collection="orgCodeList" separator="," item="value">
+                #{value}
+            </foreach>
+            )
+        </if>
+    </sql>
+    <select id="selectAll" resultMap="BaseResultMap">
+        select CASE
+        WHEN LEFT (org_code,2) ='03' THEN  concat(LEFT(org_code,9),'100')
+        WHEN LEFT (org_code,2) ='02' THEN  concat(LEFT(org_code,9),'100')
+        ELSE concat(LEFT(org_code,7),'100') END as leaderorgcode,t.org_code org_code,t.account_id account_id FROM t_orgdep_leader t
+    </select>
+
+    <select id="initLeaderData" resultType="int">
+        select initleader(#{leadeOrgCode},#{accountId},#{orgCode})
+    </select>
+
+    <!--根据分管领导查询分管部门Code-->
+    <select id="selectDeptCodeByAccountId" parameterType="string" resultMap="BaseResultMap">
+        select o.org_name org_name, t.org_code org_code ,o.org_parent_code org_parent_code
+        from t_orgdep_leader t ,t_pub_org o
+        where t.org_code = o.org_code and t.account_id = #{value}
+    </select>
+    <!--所有分管领导查询-->
+    <select id="selectLeaderInfo"
+            parameterType="com.chinatower.product.legalms.modules.license.entity.depleader.OrgDepLeader"
+            resultMap="BaseResultMap">
+        SELECT o.org_name org_name,o.org_path org_path,o.org_parent_code org_parent_code,o.company_name
+        company_name,t.is_setup is_setup,t.emp_name emp_name,t.account_id account_id ,o.org_code org_code from t_pub_org o LEFT JOIN
+        ( SELECT org_code,any_value(is_setup) is_setup,
+        GROUP_CONCAT(emp_name SEPARATOR ',') emp_name ,GROUP_CONCAT(account_id SEPARATOR ',') account_id
+        FROM t_orgdep_leader GROUP BY org_code) t on o.org_code = t.org_code
+        where o.org_level = '04' and o.company_name !=''
+        and o.org_name !=#{filterOrgName}
+        <include refid="sqlWhere"/>
+        <if test="superRole==null">
+        and o.enterp_type = #{enterpType}
+        <if test="orgLevel=='01'.toString()||orgLevel=='02'.toString()">
+        and o.org_path LIKE CONCAT((SELECT org_path FROM t_pub_org WHERE
+        org_code = ( SELECT org_parent_code FROM t_pub_org WHERE org_code = ( SELECT company_code FROM t_pub_org
+        WHERE org_code = #{currOrgCode} ))),'%')
+        </if>
+        <if test="orgLevel=='03'.toString()">
+        and o.org_path LIKE CONCAT((SELECT org_path FROM t_pub_org WHERE
+        org_code =  ( SELECT company_code FROM t_pub_org
+        WHERE org_code = #{currOrgCode} )),'%')
+        </if>
+        </if>
+        ORDER BY o.company_code ,o.org_code
+    </select>
+    <!--选择分管领导查询-->
+    <select id="selectLeaderTree"
+            parameterType="com.chinatower.product.legalms.modules.license.entity.depleader.OrgDepLeader"
+            resultMap="OrgTreeBean">
+        SELECT is_unit,org_level, org_name, org_code,org_parent_code ,company_code,org_path FROM t_pub_org WHERE org_path like concat((SELECT org_path FROM t_pub_org WHERE org_code = (SELECT company_code FROM t_pub_org WHERE org_code =#{orgCode})),'%')
+    </select>
+    <!--模糊查询组织树-->
+    <select id="selectOrgTree" resultMap="OrgTreeBean">
+        SELECT org_name,org_code,org_parent_code FROM t_pub_org WHERE org_level !='04'
+        <if test="superRole==null">
+         and enterp_type = #{enterpType}
+        <if test="orgLevel=='02'.toString()">
+            and org_path LIKE CONCAT((SELECT org_path FROM t_pub_org WHERE
+            org_code = ( SELECT org_parent_code FROM t_pub_org WHERE org_code = ( SELECT company_code FROM t_pub_org
+            WHERE org_code = #{deptId} ))),'%')
+            and org_level IN ( '02', '03' )
+        </if>
+        <if test="orgLevel=='01'.toString()">
+            and org_path LIKE CONCAT((SELECT org_path FROM t_pub_org WHERE
+            org_code = ( SELECT org_parent_code FROM t_pub_org WHERE org_code = ( SELECT company_code FROM t_pub_org
+            WHERE org_code = #{deptId} ))),'%')
+            and org_level IN ( '01', '02', '03' )
+        </if>
+        <if test="orgLevel=='03'.toString()">
+            and org_code = (SELECT company_code FROM t_pub_org WHERE org_code = #{deptId})
+        </if>
+        </if>
+        order by enterp_type,org_code
+    </select>
+    <!--增加部门及领导信息-->
+    <insert id="addLeaderInfo"
+            parameterType="com.chinatower.product.legalms.modules.license.entity.depleader.OrgDepLeader">
+        insert into t_orgdep_leader
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            is_setup,last_update,
+            <if test="accountId != null">
+                account_id,
+            </if>
+            <if test="orgCode != null">
+                org_code,
+            </if>
+            <if test="empName != null">
+                emp_name,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            '1', now(),
+            <if test="accountId != null">
+                #{accountId,jdbcType=VARCHAR},
+            </if>
+            <if test="orgCode != null">
+                #{orgCode,jdbcType=VARCHAR},
+            </if>
+            <if test="empName != null">
+                #{empName,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <!--清空部门领导仅仅增加部门信息-->
+    <insert id="addOrgDepInfo"
+            parameterType="com.chinatower.product.legalms.modules.license.entity.depleader.OrgDepLeader">
+        insert into t_orgdep_leader
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            is_setup,create_time,
+            <if test="orgCode != null">
+                org_code,
+            </if>
+            <if test="empName != null">
+                emp_name,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+             '0', now(),
+            <if test="orgCode != null">
+                #{orgCode,jdbcType=VARCHAR},
+            </if>
+            <if test="empName != null">
+                #{empName,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+
+    <!--删除部门及领导信息-->
+    <delete id="deleteLeaderByOrgCode" parameterType="string">
+    delete from t_orgdep_leader
+    where org_code = #{orgCode,jdbcType=VARCHAR}
+    </delete>
+    <!---->
+    <update id="updateLeaderByOrgCode"
+            parameterType="com.chinatower.product.legalms.modules.license.entity.depleader.OrgDepLeader">
+        update t_orgdep_leader
+        <set>
+            last_update = now(),
+            <if test="accountId != null">
+                account_id = #{accountId,jdbcType=VARCHAR},
+            </if>
+            <if test="empName != null">
+                emp_name = #{empName,jdbcType=VARCHAR},
+            </if>
+            <if test="isSetup != null">
+                is_setup = '0'
+            </if>
+        </set>
+        where org_code = #{orgCode,jdbcType=INTEGER}
+    </update>
+</mapper>

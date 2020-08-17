@@ -1,0 +1,337 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper
+	namespace="com.chinatower.product.legalms.modules.flow.mapper.flow.TFlowDelegateMapper">
+	<resultMap id="BaseResultMap"
+		type="com.chinatower.product.legalms.modules.flow.entity.delegate.TFlowDelegate">
+		<id column="delegate_id" jdbcType="BIGINT" property="delegateId" />
+		<result column="start_time" jdbcType="TIMESTAMP"
+			property="startTime" />
+		<result column="end_time" jdbcType="TIMESTAMP"
+			property="endTime" />
+		<result column="real_end_time" jdbcType="TIMESTAMP"
+			property="realEndTime" />
+		<result column="delegate_status" jdbcType="VARCHAR"
+			property="delegateStatus" />
+		<result column="login_acct" jdbcType="VARCHAR"
+			property="loginAcct" />
+		<result column="login_name" jdbcType="VARCHAR"
+			property="loginName" />
+		<result column="org_name" jdbcType="VARCHAR" property="orgName" />
+		<result column="org_id" jdbcType="VARCHAR" property="orgId" />
+		<result column="dept_name" jdbcType="VARCHAR"
+			property="deptName" />
+		<result column="dept_id" jdbcType="VARCHAR" property="deptId" />
+		<result column="mobile" jdbcType="VARCHAR" property="mobile" />
+		<result column="create_time" jdbcType="TIMESTAMP"
+			property="createTime" />
+		<result column="toer_id" jdbcType="VARCHAR" property="toerId" />
+		<result column="toer_name" jdbcType="VARCHAR"
+			property="toerName" />
+		<result column="approve_item_type" jdbcType="VARCHAR"
+			property="approveItemType" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		delegate_id, start_time, end_time, real_end_time,
+		delegate_status, login_acct,
+		login_name,
+		org_name, org_id, dept_name,
+		dept_id, mobile, create_time,
+		toer_id, toer_name,
+		approve_item_type
+	</sql>
+	<select id="selectByPrimaryKey" parameterType="java.lang.Long"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from t_flow_delegate
+		where delegate_id = #{delegateId,jdbcType=BIGINT}
+	</select>
+	<select id="selectAll"
+		parameterType="com.chinatower.product.legalms.modules.flow.entity.delegate.TFlowDelegate"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from t_flow_delegate
+		where delegate_status!='0'
+		<choose>
+			<when
+				test="approveItemType != null and approveItemType == '1'.toString() ">
+				<if test="loginAcct != null ">
+					and login_acct = #{loginAcct,jdbcType=VARCHAR}
+				</if>
+				<if test="toerName != null and toerName !='' ">
+					and toer_name like '%${toerName}%'
+				</if>
+				<choose>
+					<when test="startTime != null and  endTime != null">
+						and start_time between #{startTime} and #{endTime}
+						and end_time between #{startTime} and #{endTime}
+					</when>
+					<when test="startTime != null">
+						and start_time >= #{startTime,jdbcType=TIMESTAMP}
+					</when>
+					<when test="endTime !=null">
+						and end_time <![CDATA[<=]]>
+						#{endTime,jdbcType=TIMESTAMP}
+					</when>
+					<otherwise></otherwise>
+				</choose>
+				<if test="toerId != null">
+					and toer_id = #{toerId,jdbcType=VARCHAR}
+				</if>
+			</when>
+			<otherwise>
+				and delegate_status='18'
+				<if test="loginAcct != null">
+					and login_acct = #{loginAcct,jdbcType=VARCHAR}
+				</if>
+			</otherwise>
+		</choose>
+		order by delegate_status ,start_time desc
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		delete from
+		t_flow_delegate
+		where delegate_id = #{delegateId,jdbcType=BIGINT}
+	</delete>
+	<insert id="insert"
+		parameterType="com.chinatower.product.legalms.modules.flow.entity.delegate.TFlowDelegate">
+		insert into t_flow_delegate (delegate_id, start_time,
+		end_time,
+		real_end_time, delegate_status, login_acct,
+		login_name,
+		org_name, org_id, dept_name, dept_id, mobile, create_time,
+		toer_id,
+		toer_name,
+		approve_item_type)
+		values
+		(#{delegateId,jdbcType=BIGINT},
+		#{startTime,jdbcType=TIMESTAMP},
+		#{endTime,jdbcType=TIMESTAMP},
+		#{realEndTime,jdbcType=TIMESTAMP},
+		#{delegateStatus,jdbcType=VARCHAR},
+		#{loginAcct,jdbcType=VARCHAR},
+		#{loginName,jdbcType=VARCHAR},
+		#{orgName,jdbcType=VARCHAR},
+		#{orgId,jdbcType=VARCHAR},
+		#{deptName,jdbcType=VARCHAR}, #{deptId,jdbcType=VARCHAR},
+		#{mobile,jdbcType=VARCHAR},
+		#{createTime,jdbcType=TIMESTAMP},
+		#{toerId,jdbcType=VARCHAR},
+		#{toerName,jdbcType=VARCHAR},
+		#{approveItemType,jdbcType=VARCHAR})
+	</insert>
+	<insert id="insertSelective"
+		parameterType="com.chinatower.product.legalms.modules.flow.entity.delegate.TFlowDelegate">
+		insert into t_flow_delegate
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="delegateId != null">
+				delegate_id,
+			</if>
+			<if test="startTime != null">
+				start_time,
+			</if>
+			<if test="endTime != null">
+				end_time,
+				real_end_time,
+			</if>
+			<if test="delegateStatus != null">
+				delegate_status,
+			</if>
+			<if test="loginAcct != null">
+				login_acct,
+			</if>
+			<if test="loginName != null">
+				login_name,
+			</if>
+			<if test="orgName != null">
+				org_name,
+			</if>
+			<if test="orgId != null">
+				org_id,
+			</if>
+			<if test="deptName != null">
+				dept_name,
+			</if>
+			<if test="deptId != null">
+				dept_id,
+			</if>
+			<if test="mobile != null">
+				mobile,
+			</if>
+			<if test="createTime != null">
+				create_time,
+			</if>
+			<if test="toerId != null">
+				toer_id,
+			</if>
+			<if test="toerName != null">
+				toer_name,
+			</if>
+			<if test="approveItemType != null">
+				approve_item_type,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="delegateId != null">
+				#{delegateId,jdbcType=BIGINT},
+			</if>
+			<if test="startTime != null">
+				#{startTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="endTime != null">
+				#{endTime,jdbcType=TIMESTAMP},
+				#{realEndTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="delegateStatus != null">
+				#{delegateStatus,jdbcType=VARCHAR},
+			</if>
+			<if test="loginAcct != null">
+				#{loginAcct,jdbcType=VARCHAR},
+			</if>
+			<if test="loginName != null">
+				#{loginName,jdbcType=VARCHAR},
+			</if>
+			<if test="orgName != null">
+				#{orgName,jdbcType=VARCHAR},
+			</if>
+			<if test="orgId != null">
+				#{orgId,jdbcType=VARCHAR},
+			</if>
+			<if test="deptName != null">
+				#{deptName,jdbcType=VARCHAR},
+			</if>
+			<if test="deptId != null">
+				#{deptId,jdbcType=VARCHAR},
+			</if>
+			<if test="mobile != null">
+				#{mobile,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="toerId != null">
+				#{toerId,jdbcType=VARCHAR},
+			</if>
+			<if test="toerName != null">
+				#{toerName,jdbcType=VARCHAR},
+			</if>
+			<if test="approveItemType != null">
+				#{approveItemType,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective"
+		parameterType="com.chinatower.product.legalms.modules.flow.entity.delegate.TFlowDelegate">
+		update t_flow_delegate
+		<set>
+			<if test="startTime != null">
+				start_time = #{startTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="endTime != null">
+				end_time = #{endTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="realEndTime != null">
+				real_end_time = #{realEndTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="delegateStatus != null">
+				delegate_status = #{delegateStatus,jdbcType=VARCHAR},
+			</if>
+			<if test="loginAcct != null">
+				login_acct = #{loginAcct,jdbcType=VARCHAR},
+			</if>
+			<if test="loginName != null">
+				login_name = #{loginName,jdbcType=VARCHAR},
+			</if>
+			<if test="orgName != null">
+				org_name = #{orgName,jdbcType=VARCHAR},
+			</if>
+			<if test="orgId != null">
+				org_id = #{orgId,jdbcType=VARCHAR},
+			</if>
+			<if test="deptName != null">
+				dept_name = #{deptName,jdbcType=VARCHAR},
+			</if>
+			<if test="deptId != null">
+				dept_id = #{deptId,jdbcType=VARCHAR},
+			</if>
+			<if test="mobile != null">
+				mobile = #{mobile,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				create_time = #{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="toerId != null">
+				toer_id = #{toerId,jdbcType=VARCHAR},
+			</if>
+			<if test="toerName != null">
+				toer_name = #{toerName,jdbcType=VARCHAR},
+			</if>
+			<if test="approveItemType != null">
+				approve_item_type = #{approveItemType,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where delegate_id = #{delegateId,jdbcType=BIGINT}
+	</update>
+	<update id="updateByPrimaryKey"
+		parameterType="com.chinatower.product.legalms.modules.flow.entity.delegate.TFlowDelegate">
+		update t_flow_delegate
+		set start_time =
+		#{startTime,jdbcType=TIMESTAMP},
+		end_time =
+		#{endTime,jdbcType=TIMESTAMP},
+		real_end_time =
+		#{realEndTime,jdbcType=TIMESTAMP},
+		delegate_status =
+		#{delegateStatus,jdbcType=VARCHAR},
+		login_acct =
+		#{loginAcct,jdbcType=VARCHAR},
+		login_name =
+		#{loginName,jdbcType=VARCHAR},
+		org_name = #{orgName,jdbcType=VARCHAR},
+		org_id = #{orgId,jdbcType=VARCHAR},
+		dept_name =
+		#{deptName,jdbcType=VARCHAR},
+		dept_id = #{deptId,jdbcType=VARCHAR},
+		mobile = #{mobile,jdbcType=VARCHAR},
+		create_time =
+		#{createTime,jdbcType=TIMESTAMP},
+		toer_id = #{toerId,jdbcType=VARCHAR},
+		toer_name = #{toerName,jdbcType=VARCHAR},
+		approve_item_type =
+		#{approveItemType,jdbcType=VARCHAR}
+		where delegate_id =
+		#{delegateId,jdbcType=BIGINT}
+	</update>
+
+	<update id="endDelegate">
+		update t_flow_delegate set delegate_status='19',
+		real_end_time = now()
+		where delegate_id in
+		<foreach item="item" index="index" collection="list" open="("
+			separator="," close=")">#{item}
+		</foreach>
+		and delegate_status!='19'
+	</update>
+	<update id="updateStatusByPrimaryKey"
+		parameterType="com.chinatower.product.legalms.modules.flow.entity.delegate.TFlowDelegate">
+		update
+		t_flow_delegate set
+		delegate_status = #{delegateStatus}
+		where
+		delegate_id = #{delegateId}
+	</update>
+	<update id="updateBatch"
+		parameterType="com.chinatower.product.legalms.modules.flow.entity.delegate.TFlowDelegate">
+		<!-- <foreach collection="list" separator=";" item="item"> update t_flow_delegate 
+			set delegate_status = #{item.delegateStatus} where delegate_id = #{item.delegateId} 
+			</foreach> -->
+		<!-- update t_flow_delegate <trim prefix="set" suffixOverrides=","> <trim 
+			prefix="delegateStatus =case" suffix="end,"> <foreach collection="list" item="item" 
+			index="index"> when delegate_id=#{item.delegateId} then #{item.delegateStatus} 
+			</foreach> </trim> </trim>     where delegate_id in <foreach collection="list" 
+			index="index" item="item" separator="," open="(" close=")">       #{item.delegateId,jdbcType=BIGINT} 
+			     </foreach> -->
+	</update>
+</mapper>

@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.chinatower.product.legalms.modules.cases.mapper.RelationshipMapper" >
+    <resultMap id="relationshipMap" type="com.chinatower.product.legalms.modules.cases.entity.RelationshipVO">
+        <id column="case_id" property="caseId" jdbcType="VARCHAR" />
+        <id column="business_id" property="businessId" jdbcType="VARCHAR" />
+        <result column="business_type" property="businessType" jdbcType="VARCHAR" />
+        <result column="tittle" property="tittle" jdbcType="VARCHAR"/>
+        <result column="code" property="code" jdbcType="VARCHAR"/>
+        <result column="module_name" property="moduleName" jdbcType="VARCHAR"/>
+        <result column="is_auto" property="isAuto" jdbcType="VARCHAR"/>
+        <result column="is_delete" property="isDelete" jdbcType="VARCHAR"/>
+        <result column="flow_status" property="flowStatus" jdbcType="VARCHAR"/>
+        <result column="create_time" property="createTime" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <insert id="addRelationship">
+        insert into t_case_relationship
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+        <if test="caseId != null" > case_id, </if>
+        <if test="businessId != null" > business_id, </if>
+        <if test="businessType != null" > business_type, </if>
+        <if test="tittle != null">tittle, </if>
+        <if test="code != null">code, </if>
+        <if test="moduleName != null">module_name, </if>
+        <if test="isAuto != null">is_auto, </if>
+        <if test="isDelete != null">is_delete, </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+        <if test="caseId != null" > #{caseId,jdbcType=VARCHAR}, </if>
+        <if test="businessId != null" > #{businessId,jdbcType=VARCHAR}, </if>
+        <if test="businessType != null" > #{businessType,jdbcType=VARCHAR}, </if>
+        <if test="tittle != null" > #{tittle,jdbcType=VARCHAR}, </if>
+        <if test="code != null" > #{code,jdbcType=VARCHAR}, </if>
+        <if test="moduleName != null" > #{moduleName,jdbcType=VARCHAR}, </if>
+        <if test="isAuto != null" > #{isAuto,jdbcType=VARCHAR}, </if>
+        <if test="isDelete != null" > #{isDelete,jdbcType=VARCHAR}, </if>
+        </trim>
+    </insert>
+    <update id="updateRelationship">
+        update t_case_relationship
+        <set>
+            <if test="relationshipVO.caseId != null and relationshipVO.caseId != ''">
+                case_id = #{relationshipVO.caseId},
+            </if>
+            <if test="relationshipVO.businessId != null and relationshipVO.businessId != ''">
+                business_id = #{relationshipVO.businessId},
+            </if>
+            <if test="relationshipVO.tittle != null and relationshipVO.tittle != ''">
+                tittle = #{relationshipVO.tittle},
+            </if>
+            <if test="relationshipVO.businessType != null and relationshipVO.businessType != ''">
+                business_type = #{relationshipVO.businessType},
+            </if>
+            <if test="relationshipVO.isDelete != null and relationshipVO.isDelete != ''">
+                is_delete = #{relationshipVO.isDelete},
+            </if>
+            <if test="relationshipVO.isAuto != null and relationshipVO.isAuto != ''">
+                is_auto = #{relationshipVO.isAuto},
+            </if>
+            <if test="relationshipVO.code != null and relationshipVO.code != ''">
+                code = #{relationshipVO.code},
+            </if>
+        </set>
+        where case_id = #{relationshipVO.caseId}
+    </update>
+
+    <delete id="deleteRelationship">
+        delete from t_case_relationship
+            where case_id=#{caseId} and business_id=#{businessId} and business_type=#{businessType}
+    </delete>
+    <delete id="deleteRelationships">
+        <foreach collection="relationshipVOS" separator=";" item="relationshipVO">
+            delete from t_case_relationship
+            where case_id=#{relationshipVO.caseId} and business_id=#{relationshipVO.businessId}
+        </foreach>
+    </delete>
+
+    <select id="selectRelationship" resultMap="relationshipMap">
+        select
+        tcr.case_id,
+        tcr.business_id,
+        tcr.business_type,
+        tcr.tittle,
+        tcr.code,
+        tcr.module_name,
+        tcr.is_auto,
+        tcr.is_delete,
+        tfm.flow_status,
+        tfm.create_time
+        from t_case_relationship tcr, t_flow_main tfm
+        where tcr.business_id = tfm.approve_item_id
+        and tcr.business_type = tfm.approve_item_type
+        and tcr.case_id= #{caseId}
+        and tfm.flow_status in ('20', '30', '50')
+    </select>
+
+    <select id="selectRelationshipById" resultType="Integer">
+        select count(*) from t_case_relationship
+            where case_id=#{caseId} and business_id = #{businessId} and business_type=#{businessType}
+    </select>
+
+    <insert id="addRelationships">
+        insert into t_case_relationship
+        (case_id,business_id,business_type,tittle,code,module_name,is_auto,is_delete) values
+        <foreach item="item" index="index" collection="relationshipVOS" separator=",">
+            (#{item.caseId,jdbcType=VARCHAR},
+           #{item.businessId,jdbcType=VARCHAR},
+           #{item.businessType,jdbcType=VARCHAR},
+           #{item.tittle,jdbcType=VARCHAR},
+            #{item.code,jdbcType=VARCHAR},
+            #{item.moduleName,jdbcType=VARCHAR},
+            #{item.isAuto,jdbcType=VARCHAR},
+            #{item.isDelete,jdbcType=VARCHAR})
+        </foreach>
+    </insert>
+    <select id="isLawsuitAutoGuide" resultType="Integer">
+        select count(*)
+        from t_case_relationship tcr, t_issue_lawsuit til
+        where tcr.case_id = #{relationshipVO.caseId}
+        and tcr.is_auto = '1'
+        and tcr.business_type = 't_issue_lawsuit'
+        and til.guide_id = #{relationshipVO.businessId}
+        and til.lawsuit_id = tcr.business_id
+    </select>
+
+    <select id="isLawsuitAutoLawsuit" resultType="Integer">
+        select count(*) from t_case_relationship
+        where case_id=#{relationshipVO.caseId}
+        and business_id = #{relationshipVO.businessId}
+        and business_type=#{relationshipVO.businessType}
+        and is_auto = '1'
+    </select>
+    <sql id="TIssueLawsuitBaseColumn">
+        lawsuit_id, lawsuit_code,lawsuit_title,guide_id, case_id,
+        approve_state, approve_city,
+        approve_org, approve_level,
+        case_create_time,create_time, case_type, indict_or_unindict,
+        case_line,
+        case_cause,
+        our_lawsuit_body,our_lawsuit_body_name,
+        they_lawsuit_body, our_lawsuit_status,
+        lawsuit_money, lawsuit_size,
+        lawsuit_detail,
+        file_url,
+        other_related,sign_dept,login_acct,login_name,org_name,org_id,dept_name,dept_id,mobile,
+        lawsuit_status,module_name,lawsuit_analyze,lawsuit_advise,business_advice
+    </sql>
+    <resultMap id="BaseResultMap"
+               type="com.chinatower.product.legalms.modules.cases.issue.TIssueLawsuit">
+        <id column="lawsuit_id" jdbcType="VARCHAR" property="lawsuitId" />
+        <result column="lawsuit_code" jdbcType="VARCHAR"
+                property="lawsuitCode" />
+        <result column="lawsuit_title" jdbcType="VARCHAR"
+                property="lawsuitTitle" />
+        <result column="guide_id" jdbcType="VARCHAR" property="guideId" />
+        <result column="case_id" jdbcType="VARCHAR" property="caseId" />
+        <result column="approve_state" jdbcType="VARCHAR"
+                property="approveState" />
+        <result column="approve_city" jdbcType="VARCHAR"
+                property="approveCity" />
+        <result column="approve_org" jdbcType="VARCHAR"
+                property="approveOrg" />
+        <result column="approve_level" jdbcType="VARCHAR"
+                property="approveLevel" />
+        <result column="case_create_time" jdbcType="TIMESTAMP"
+                property="caseCreateTime" />
+        <result column="create_time" jdbcType="TIMESTAMP"
+                property="createTime" />
+        <result column="case_type" jdbcType="VARCHAR"
+                property="caseType" />
+        <result column="indict_or_unindict" jdbcType="VARCHAR"
+                property="indictOrUnindict" />
+        <result column="case_line" jdbcType="VARCHAR"
+                property="caseLine" />
+        <result column="case_cause" jdbcType="VARCHAR"
+                property="caseCause" />
+        <result column="our_lawsuit_body" jdbcType="VARCHAR"
+                property="ourLawsuitBody" />
+        <result column="our_lawsuit_body_name" jdbcType="VARCHAR"
+                property="ourLawsuitBodyName" />
+        <result column="they_lawsuit_body" jdbcType="VARCHAR"
+                property="theyLawsuitBody" />
+        <result column="our_lawsuit_status" jdbcType="VARCHAR"
+                property="ourLawsuitStatus" />
+        <result column="our_lawsuit_body_name" jdbcType="VARCHAR"
+                property="ourLawsuitBodyName" />
+        <result column="lawsuit_money" jdbcType="VARCHAR"
+                property="lawsuitMoney" />
+        <result column="lawsuit_size" jdbcType="VARCHAR"
+                property="lawsuitSize" />
+        <result column="lawsuit_detail" jdbcType="VARCHAR"
+                property="lawsuitDetail" />
+        <result column="file_url" jdbcType="VARCHAR" property="fileUrl" />
+        <result column="other_related" jdbcType="VARCHAR"
+                property="otherRelated" />
+        <result column="third_person" jdbcType="VARCHAR"
+                property="thirdPerson" />
+        <result column="plaintiff" jdbcType="VARCHAR"
+                property="plaintiff" />
+        <result column="defendant" jdbcType="VARCHAR"
+                property="defendant" />
+        <result column="sign_dept" jdbcType="VARCHAR"
+                property="signDept" />
+        <result column="login_acct" jdbcType="VARCHAR"
+                property="loginAcct" />
+        <result column="login_name" jdbcType="VARCHAR"
+                property="loginName" />
+        <result column="org_name" jdbcType="VARCHAR" property="orgName" />
+        <result column="org_id" jdbcType="VARCHAR" property="orgId" />
+        <result column="dept_name" jdbcType="VARCHAR"
+                property="deptName" />
+        <result column="dept_id" jdbcType="VARCHAR" property="deptId" />
+        <result column="mobile" jdbcType="VARCHAR" property="mobile" />
+        <result column="lawsuit_status" jdbcType="VARCHAR"
+                property="lawsuitStatus" />
+        <result column="module_name" jdbcType="VARCHAR"
+                property="moduleName" />
+        <result column="lawsuit_analyze" jdbcType="VARCHAR"
+                property="lawsuitAnalyze" />
+        <result column="lawsuit_advise" jdbcType="VARCHAR"
+                property="lawsuitAdvise" />
+        <result column="business_advice" jdbcType="VARCHAR"
+                property="businessAdvice" />
+    </resultMap>
+    <select id="selectAll" resultMap="BaseResultMap">
+        select
+        <include refid="TIssueLawsuitBaseColumn" />
+        from t_issue_lawsuit
+        where lawsuit_status !='0'
+        and (case_id = '' or case_id = null)
+        <choose>
+            <when test="startDate != null and endDate != null">
+                and case_create_time BETWEEN
+                #{startDate,jdbcType=TIMESTAMP}
+                and
+                #{endDate,jdbcType=TIMESTAMP}
+            </when>
+            <when test="startDate != null">
+                and case_create_time <![CDATA[>]]>
+                #{startDate,jdbcType=TIMESTAMP}
+            </when>
+            <when test="endDate != null">
+                and case_create_time <![CDATA[<]]>
+                #{endDate,jdbcType=TIMESTAMP}
+            </when>
+        </choose>
+        <if test="title != null and title != ''">
+            and lawsuit_title like '%${title}%'
+        </if>
+        <if test="code != null and code != ''">
+            and lawsuit_code like'%${code}%'
+        </if>
+        <if test="approveOrg != null and approveOrg != ''">
+            and approve_org like'%${approveOrg}%'
+        </if>
+        <if test="caseType != null and caseType != ''">
+            and case_type = #{caseType,jdbcType=VARCHAR}
+        </if>
+        <if test="status != null and status != ''">
+            and lawsuit_status= #{status,jdbcType=VARCHAR}
+        </if>
+        <if test="orgId != null and orgId != ''">
+            and org_id = #{orgId}
+        </if>
+        <if test="otherDeputeBody != null and otherDeputeBody != ''">
+            and they_lawsuit_body like '%${otherDeputeBody}%'
+        </if>
+        <if test="ourLawsuitBodyName != null and ourLawsuitBodyName != ''">
+            and (our_lawsuit_body_name ='${ourLawsuitBodyName}'
+            or
+            our_lawsuit_body_name like'${ourLawsuitBodyName},%'
+            or
+            our_lawsuit_body_name like'%,${ourLawsuitBodyName},%'
+            or
+            our_lawsuit_body_name like'%,${ourLawsuitBodyName}')
+        </if>
+
+
+        order by lawsuit_status,create_time desc
+    </select>
+    <select id="selectRelationshipByIds" resultMap="relationshipMap">
+        select * from t_case_relationship
+        where case_id=#{oldCaseId}
+        and business_id = #{businessId}
+    </select>
+    <select id="selectRelationshipByCaseIds" resultMap="relationshipMap">
+        select * from t_case_relationship
+        where case_id=#{oldCaseId}
+    </select>
+
+</mapper>

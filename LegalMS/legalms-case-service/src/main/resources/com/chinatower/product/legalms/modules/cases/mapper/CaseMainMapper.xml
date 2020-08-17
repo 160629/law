@@ -1,0 +1,968 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chinatower.product.legalms.modules.cases.mapper.CaseMainMappper" >
+  <resultMap id="BaseResultMap" type="com.chinatower.product.legalms.modules.cases.entity.CaseMainVO" >
+    <id column="case_id" property="caseId" jdbcType="VARCHAR" />
+    <result column="case_code" property="caseCode" jdbcType="VARCHAR" />
+    <result column="case_title" property="caseTitle" jdbcType="VARCHAR" />
+    <result column="case_status" property="caseStatus" jdbcType="VARCHAR" />
+    <result column="our_lawsuit_body_name" property="ourLawsuitBodyName" jdbcType="VARCHAR" />
+    <result column="other_lawsuit_body" property="otherLawsuitBody" jdbcType="VARCHAR" />
+    <result column="case_depute_money" property="caseDeputeMoney" jdbcType="DECIMAL" />
+    <result column="depute_type" property="deputeType" jdbcType="VARCHAR" />
+    <result column="last_update_time" property="lastUpdateTime" jdbcType="TIMESTAMP" />
+    <result column="delete_status" property="deleteStatus" jdbcType="INTEGER" />
+  </resultMap>
+
+  <resultMap id="caseMap" type="com.chinatower.product.legalms.modules.cases.entity.CaseMainVO">
+    <id column="case_id" property="caseId" jdbcType="VARCHAR" />
+    <result column="case_code" property="caseCode" jdbcType="VARCHAR" />
+    <result column="case_title" property="caseTitle" jdbcType="VARCHAR" />
+    <result column="case_status" property="caseStatus" jdbcType="VARCHAR" />
+    <result column="drafter_unit" property="drafterUnit" jdbcType="VARCHAR" />
+    <result column="case_record_time" property="caseRecordTime" jdbcType="TIMESTAMP" />
+    <result column="institution_case_code" property="institutionCaseCode" jdbcType="VARCHAR" />
+    <result column="lawsuit_type" property="lawsuitType" jdbcType="VARCHAR" />
+    <result column="our_lawsuit_body" property="ourLawsuitBody" jdbcType="VARCHAR" />
+    <result column="our_lawsuit_body_name" property="ourLawsuitBodyName" jdbcType="VARCHAR" />
+    <result column="our_lawsuit_identity" property="ourLawsuitIdentity" jdbcType="VARCHAR" />
+    <result column="other_lawsuit_body" property="otherLawsuitBody" jdbcType="VARCHAR" />
+    <result column="case_the_third" property="caseTheThird" jdbcType="VARCHAR" />
+    <result column="case_depute_money" property="caseDeputeMoney" jdbcType="DECIMAL" />
+    <result column="case_special_line" property="caseSpecialLine" jdbcType="VARCHAR" />
+    <result column="related_body_attribution" property="relatedBodyAttribution" jdbcType="VARCHAR" />
+    <result column="case_review_grade" property="caseReviewGrade" jdbcType="VARCHAR" />
+    <result column="case_reason" property="caseReason" jdbcType="VARCHAR" />
+    <result column="depute_type" property="deputeType" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="last_update_time" property="lastUpdateTime" jdbcType="TIMESTAMP" />
+    <result column="case_is_finish" property="caseIsFinish" jdbcType="INTEGER" />
+    <result column="case_finish_time" property="caseFinishTime" jdbcType="TIMESTAMP" />
+    <result column="case_finish_way" property="caseFinishWay" jdbcType="VARCHAR" />
+    <result column="large_lawsuit_mark" property="largeLawsuitMark" jdbcType="VARCHAR" />
+    <result column="creator_account_id" property="creatorAccountId" jdbcType="VARCHAR" />
+    <result column="creator_account_name" property="creatorAccountName" jdbcType="VARCHAR" />
+    <result column="creator_cell" property="creatorCell" jdbcType="VARCHAR" />
+    <result column="case_truth" property="caseTruth" jdbcType="VARCHAR" />
+    <result column="plaintiff_lawsuit_request" property="plaintiffLawsuitRequest" jdbcType="VARCHAR" />
+    <result column="case_file" property="caseFile" jdbcType="VARCHAR" />
+    <result column="case_keyword" property="caseKeyword" jdbcType="VARCHAR" />
+    <result column="case_same_plaintiff" property="caseSamePlaintiff" jdbcType="VARCHAR" />
+    <result column="case_same_defendant" property="caseSameDefendant" jdbcType="VARCHAR" />
+    <result column="creator_dept_id" property="creatorDeptId" jdbcType="VARCHAR" />
+    <result column="creator_dept_name" property="creatorDeptName" jdbcType="VARCHAR" />
+    <result column="creator_unit_id" property="creatorUnitId" jdbcType="VARCHAR" />
+    <result column="creator_unit_name" property="creatorUnitName" jdbcType="VARCHAR" />
+    <result column="ruling_classes" property="rulingClasses" jdbcType="VARCHAR" />
+    <result column="file_name" property="FileMainVO.fileName" jdbcType="VARCHAR"/>
+    <result column="delete_status" property="deleteStatus" jdbcType="INTEGER" />
+    <result column="case_explain" property="caseExplain" jdbcType="VARCHAR"/>
+    <result column="involved_account_id" property="involvedAccountId" jdbcType="VARCHAR"/>
+    <result column="involved_account_name" property="involvedAccountName" jdbcType="VARCHAR"/>
+    <result column="involved_dept_id" property="involvedDeptId" jdbcType="VARCHAR"/>
+    <result column="involved_dept_name" property="involvedDeptName" jdbcType="VARCHAR"/>
+    <result column="involved_org_id" property="involvedOrgId" jdbcType="VARCHAR"/>
+    <result column="involved_org_name" property="involvedOrgName" jdbcType="VARCHAR"/>
+  </resultMap>
+  <delete id="deleteCaseMainByIdsArray">
+    <foreach collection="caseMainVOS" item="value" separator=";">
+      update t_case_main
+      set delete_status = '1', case_status = #{value.caseStatus}
+      where case_id = #{value.caseId}
+    </foreach>
+  </delete>
+
+
+  <select id="selectAllCaseMains" resultMap="caseMap">
+    select
+    t.case_id case_id, t.case_code case_code, t.case_title case_title, t.case_status case_status,
+    t.our_lawsuit_body_name our_lawsuit_body_name, t.other_lawsuit_body other_lawsuit_body,
+    t.case_depute_money case_depute_money, t.depute_type depute_type, t.last_update_time last_update_time,
+    t.delete_status delete_status,t.creator_account_id creator_account_id,t.creator_account_name creator_account_name,
+    t.creator_dept_id creator_dept_id,t.creator_unit_id creator_unit_id,t.creator_unit_name creator_unit_name,t.involved_account_id involved_account_id,
+    t.involved_account_name involved_account_name, t.involved_dept_id involved_dept_id,t.involved_dept_name involved_dept_name,
+    t.involved_org_id involved_org_id,t.involved_org_name involved_org_name
+    from t_case_main t INNER  JOIN t_pub_org o ON t.involved_dept_id = o.org_code
+    <where>
+      1=1
+      and t.delete_status = 0 and t.case_status in ('2','3')
+        <if test="param.companyCodeList!=null ">
+        and t.creator_unit_id  in
+            <foreach collection="param.companyCodeList" open="(" close=")" separator=","
+                     item="companyCode">
+                #{companyCode}
+            </foreach>
+        </if>
+      <if test="param.creatorAccountName!=null and param.creatorAccountName!=''">
+        and t.creator_account_name = #{param.creatorAccountName}
+      </if>
+      <if test="param.allOrgCodeList != null and param.allOrgCodeList.size() > 0">
+        and t.creator_unit_id in (
+        select company_code from t_pub_org where org_parent_code in
+        <foreach collection="param.allOrgCodeList" open="(" close=")" separator=","
+                 item="value">
+          #{value}
+        </foreach>
+        )
+      </if>
+      <if test="param.singleOrgCodeList != null and param.singleOrgCodeList.size() > 0">
+        and t.creator_unit_id  in
+        <foreach collection="param.singleOrgCodeList" open="(" close=")" separator=","
+                 item="orgCode">
+          #{orgCode}
+        </foreach>
+      </if>
+      <if test="param.title!=null and param.title!=''">
+        and t.case_title like concat('%',#{param.title},'%')
+      </if>
+      <if test="param.startDate != null and param.endDate != null">
+        and t.last_update_time BETWEEN #{param.startDate,jdbcType=TIMESTAMP}
+        and #{param.endDate,jdbcType=TIMESTAMP}
+      </if>
+      <if test="param.caseCode!=null and param.caseCode!=''">
+        and t.case_code like concat ('%',#{param.caseCode},'%')
+      </if>
+      <if test="param.ourLawsuitBodyName!=null and param.ourLawsuitBodyName!=''">
+        and t.our_lawsuit_body_name like concat ('%',#{param.ourLawsuitBodyName},'%')
+      </if>
+      <if test="param.otherLawsuitBody!=null and param.otherLawsuitBody!=''">
+        and t.other_lawsuit_body like concat ('%',#{param.otherLawsuitBody},'%')
+      </if>
+      <if test="param.caseStatus!=null and param.caseStatus!=''">
+        and t.case_status =#{param.caseStatus}
+      </if>
+      <if test="param.deputeType!=null and param.deputeType!=''">
+        and t.depute_type = #{param.deputeType}
+      </if>
+    </where>
+    order by t.last_update_time desc
+  </select>
+
+  <select id="selectAllCaseMain" resultMap="BaseResultMap">
+    select t.case_id, t.case_code, t.case_title, t.case_status, t.our_lawsuit_body_name, t.other_lawsuit_body
+    , t.case_depute_money, t.depute_type, t.last_update_time, t.delete_status
+    from t_case_main t LEFT  JOIN t_pub_org o ON t.creator_dept_id = o.org_code
+    <where>
+      case_status in ('1', '2', '3')
+      AND delete_status = 0
+      <if test="param.creatorAccountId != null and param.creatorAccountId != ''">
+        AND t.creator_account_id = #{param.creatorAccountId}
+      </if>
+      <if test="deptIds != null and deptIds.size() > 0">
+        AND t.creator_dept_id in
+        <foreach collection="deptIds" open="(" close=")" item="deptId" separator=",">
+          #{deptId}
+        </foreach>
+      </if>
+      <if test="param.orgPath != null and param.orgPath != ''">
+        AND o.org_path like #{param.orgPath}
+      </if>
+      <if test="param.deleteStatus!=1">
+        and t.delete_status=#{param.deleteStatus}
+      </if>
+      <if test="param.title!=null and param.title!=''">
+        and t.case_title like concat('%',#{param.title},'%')
+      </if>
+      <if test="param.startDate != null">
+        and last_update_time <![CDATA[>=]]> #{param.startDate,jdbcType=TIMESTAMP}
+      </if>
+      <if test="param.endDate != null">
+        and last_update_time <![CDATA[<=]]> #{param.endDate,jdbcType=TIMESTAMP}
+      </if>
+      <if test="param.caseCode!=null and param.caseCode!=''">
+        and t.case_code like concat ('%',#{param.caseCode},'%')
+      </if>
+      <if test="param.ourLawsuitBodyName!=null and param.ourLawsuitBodyName!=''">
+        and (t.our_lawsuit_body_name ='${param.ourLawsuitBodyName}'
+        or t.our_lawsuit_body_name like'${param.ourLawsuitBodyName},%'
+        or t.our_lawsuit_body_name like'%,${param.ourLawsuitBodyName},%'
+        or t.our_lawsuit_body_name like'%,${param.ourLawsuitBodyName}')
+      </if>
+      <if test="param.otherLawsuitBody!=null and param.otherLawsuitBody!=''">
+        and t.other_lawsuit_body like CONCAT('%', #{param.otherLawsuitBody}, '%')
+      </if>
+      <if test="param.deputeType!=null and param.deputeType!=''">
+        and t.depute_type = #{param.deputeType}
+      </if>
+    </where>
+    order by t.case_status asc, t.last_update_time desc
+  </select>
+
+  <select id="selectAllRelevanceCaseMain" resultMap="caseMap">
+    select
+    case_id,case_code,case_title,case_status,drafter_unit,case_record_time,institution_case_code,
+    lawsuit_type,our_lawsuit_body,our_lawsuit_body_name,our_lawsuit_identity,other_lawsuit_body,case_the_third,case_depute_money,
+    case_special_line,related_body_attribution,case_review_grade,case_reason,depute_type,
+    create_time,last_update_time,case_is_finish,case_finish_time,case_finish_way,large_lawsuit_mark,
+    creator_account_id,creator_account_name,creator_cell,case_truth,plaintiff_lawsuit_request,
+    case_file,case_keyword,case_same_plaintiff,case_same_defendant,creator_dept_id,creator_dept_name,creator_unit_id,creator_unit_name,
+    ruling_classes,delete_status,case_explain,involved_account_id,
+    involved_account_name,
+    involved_dept_id,
+    involved_dept_name,
+    involved_org_id,
+    involved_org_name
+    from t_case_main
+    <where>
+      case_status = '2' and involved_org_id=#{orgId}
+      <if test="param.deleteStatus!=1">
+        and delete_status=#{param.deleteStatus}
+      </if>
+      <if test="param.title!=null and param.title!=''">
+        and case_title like concat('%',#{param.title},'%')
+      </if>
+      <if test="param.startDate != null">
+        and last_update_time <![CDATA[>=]]> #{param.startDate,jdbcType=TIMESTAMP}
+      </if>
+      <if test="param.endDate != null">
+        and last_update_time <![CDATA[<=]]> #{param.endDate,jdbcType=TIMESTAMP}
+      </if>
+      <if test="param.caseCode!=null and param.caseCode!=''">
+        and case_code like concat ('%',#{param.caseCode},'%')
+      </if>
+      <if test="param.ourLawsuitBodyName!=null and param.ourLawsuitBodyName!=''">
+        and our_lawsuit_body_name like concat ('%',#{param.ourLawsuitBodyName},'%')
+      </if>
+      <if test="param.otherLawsuitBody!=null and param.otherLawsuitBody!=''">
+        and other_lawsuit_body like concat ('%',#{param.otherLawsuitBody},'%')
+      </if>
+      <if test="param.deputeType!=null and param.deputeType!=''">
+        and depute_type = #{param.deputeType}
+      </if>
+    </where>
+    order by last_update_time desc
+  </select>
+
+  <select id="selectAllRelevanceCaseMains" resultMap="caseMap">
+    select
+    case_id,case_code,case_title,case_status,drafter_unit,case_record_time,institution_case_code,
+    lawsuit_type,our_lawsuit_body,our_lawsuit_body_name,our_lawsuit_identity,other_lawsuit_body,case_the_third,case_depute_money,
+    case_special_line,related_body_attribution,case_review_grade,case_reason,depute_type,
+    create_time,last_update_time,case_is_finish,case_finish_time,case_finish_way,large_lawsuit_mark,
+    creator_account_id,creator_account_name,creator_cell,case_truth,plaintiff_lawsuit_request,
+    case_file,case_keyword,case_same_plaintiff,case_same_defendant,creator_dept_id,creator_dept_name,creator_unit_id,creator_unit_name,
+    ruling_classes,delete_status,case_explain,involved_account_id,
+    involved_account_name,
+    involved_dept_id,
+    involved_dept_name,
+    involved_org_id,
+    involved_org_name
+    from t_case_main
+    <where>
+      case_status = '2' and creator_account_id=#{loginAcct}
+      <if test="param.deleteStatus!=1">
+        and delete_status=#{param.deleteStatus}
+      </if>
+      <if test="param.title!=null and param.title!=''">
+        and case_title like concat('%',#{param.title},'%')
+      </if>
+      <if test="param.startDate != null">
+        and last_update_time <![CDATA[>=]]> #{param.startDate,jdbcType=TIMESTAMP}
+      </if>
+      <if test="param.endDate != null">
+        and last_update_time <![CDATA[<=]]> #{param.endDate,jdbcType=TIMESTAMP}
+      </if>
+      <if test="param.caseCode!=null and param.caseCode!=''">
+        and case_code like concat ('%',#{param.caseCode},'%')
+      </if>
+      <if test="param.ourLawsuitBodyName!=null and param.ourLawsuitBodyName!=''">
+        and (our_lawsuit_body_name like concat ('%,',#{param.ourLawsuitBodyName},',%')
+        or our_lawsuit_body_name like concat ('%,',#{param.ourLawsuitBodyName})
+        or our_lawsuit_body_name like concat (#{param.ourLawsuitBodyName},',%')
+        or our_lawsuit_body_name = #{param.ourLawsuitBodyName})
+      </if>
+      <if test="param.otherLawsuitBody!=null and param.otherLawsuitBody!=''">
+        and other_lawsuit_body like concat ('%',#{param.otherLawsuitBody},'%')
+      </if>
+      <if test="param.deputeType!=null and param.deputeType!=''">
+        and depute_type = #{param.deputeType}
+      </if>
+    </where>
+    order by last_update_time desc
+  </select>
+  <insert id="addCaseMain" parameterType="com.chinatower.product.legalms.modules.cases.entity.CaseMainVO">
+    insert into t_case_main
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="caseMainVO.caseId != null and caseMainVO.caseId != ''" >case_id,</if>
+      <if test="caseMainVO.caseCode != null and caseMainVO.caseCode != ''" >case_code,</if>
+      <if test="caseMainVO.caseTitle != null and caseMainVO.caseTitle != ''" > case_title, </if>
+      <if test="caseMainVO.caseStatus != null and caseMainVO.caseStatus != ''" > case_status, </if>
+      <if test="caseMainVO.drafterUnit != null and  caseMainVO.drafterUnit != ''" > drafter_unit, </if>
+      <if test="caseMainVO.caseRecordTime != null" > case_record_time, </if>
+      <if test="caseMainVO.institutionCaseCode != null and caseMainVO.institutionCaseCode != ''" > institution_case_code, </if>
+      <if test="caseMainVO.lawsuitType != null and caseMainVO.lawsuitType != ''" > lawsuit_type, </if>
+      <if test="caseMainVO.ourLawsuitBody != null and caseMainVO.ourLawsuitBody != ''" > our_lawsuit_body, </if>
+      <if test="caseMainVO.ourLawsuitBodyName != null and caseMainVO.ourLawsuitBodyName != ''" > our_lawsuit_body_name, </if>
+      <if test="caseMainVO.ourLawsuitIdentity != null and caseMainVO.ourLawsuitIdentity != ''" > our_lawsuit_identity, </if>
+      <if test="caseMainVO.otherLawsuitBody != null and caseMainVO.otherLawsuitBody != ''" > other_lawsuit_body, </if>
+      <if test="caseMainVO.caseTheThird != null and caseMainVO.caseTheThird != ''" > case_the_third, </if>
+      <if test="caseMainVO.caseDeputeMoney != null and caseMainVO.caseDeputeMoney != ''" > case_depute_money, </if>
+      <if test="caseMainVO.caseSpecialLine != null and caseMainVO.caseSpecialLine != ''" > case_special_line, </if>
+      <if test="caseMainVO.relatedBodyAttribution != null and caseMainVO.relatedBodyAttribution != ''" > related_body_attribution, </if>
+      <if test="caseMainVO.caseReviewGrade != null and caseMainVO.caseReviewGrade != ''" > case_review_grade, </if>
+      <if test="caseMainVO.caseReason != null and caseMainVO.caseReason != ''" > case_reason, </if>
+      <if test="caseMainVO.deputeType != null and  caseMainVO.deputeType != ''" > depute_type, </if>
+      create_time,
+      last_update_time,
+      <if test="caseMainVO.caseIsFinish != null" > case_is_finish, </if>
+      <if test="caseMainVO.caseFinishTime != null" > case_finish_time, </if>
+      <if test="caseMainVO.caseFinishWay != null and caseMainVO.caseFinishWay != ''" > case_finish_way, </if>
+      <if test="caseMainVO.largeLawsuitMark != null and caseMainVO.largeLawsuitMark != ''" > large_lawsuit_mark, </if>
+      <if test="caseMainVO.creatorAccountId != null and caseMainVO.creatorAccountId != ''" > creator_account_id, </if>
+      <if test="caseMainVO.creatorAccountName != null and caseMainVO.creatorAccountName != ''" > creator_account_name, </if>
+      <if test="caseMainVO.creatorCell != null and caseMainVO.creatorCell != ''" > creator_cell, </if>
+      <if test="caseMainVO.caseTruth != null and caseMainVO.caseTruth != ''" > case_truth, </if>
+      <if test="caseMainVO.plaintiffLawsuitRequest != null and caseMainVO.plaintiffLawsuitRequest != ''" > plaintiff_lawsuit_request, </if>
+      <if test="caseMainVO.caseFile != null and caseMainVO.caseFile != ''" > case_file, </if>
+      <if test="caseMainVO.caseKeyword != null and caseMainVO.caseKeyword != ''" > case_keyword, </if>
+      <if test="caseMainVO.caseSamePlaintiff != null and caseMainVO.caseSamePlaintiff != ''" > case_same_plaintiff, </if>
+      <if test="caseMainVO.caseSameDefendant != null and caseMainVO.caseSameDefendant != ''" > case_same_defendant, </if>
+      <if test="caseMainVO.creatorDeptId != null and caseMainVO.creatorDeptId != ''" > creator_dept_id, </if>
+      <if test="caseMainVO.creatorDeptName != null and caseMainVO.creatorDeptName != ''" > creator_dept_name, </if>
+      <if test="caseMainVO.creatorUnitId != null and caseMainVO.creatorUnitId != ''" > creator_unit_id, </if>
+      <if test="caseMainVO.creatorUnitName != null and caseMainVO.creatorUnitName != ''" > creator_unit_name, </if>
+      <if test="caseMainVO.rulingClasses != null and caseMainVO.rulingClasses != ''" > ruling_classes, </if>
+
+      <if test="caseMainVO.involvedAccountId != null and caseMainVO.involvedAccountId != ''" > involved_account_id, </if>
+      <if test="caseMainVO.involvedAccountName != null and caseMainVO.involvedAccountName != ''" > involved_account_name, </if>
+      <if test="caseMainVO.involvedDeptId != null and caseMainVO.involvedDeptId != ''" > involved_dept_id, </if>
+      <if test="caseMainVO.involvedDeptName != null and caseMainVO.involvedDeptName != ''" > involved_dept_name, </if>
+      <if test="caseMainVO.involvedOrgId != null and caseMainVO.involvedOrgId != ''" > involved_org_id, </if>
+      <if test="caseMainVO.involvedOrgName != null and caseMainVO.involvedOrgName != ''" > involved_org_name, </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="caseMainVO.caseId != null and caseMainVO.caseId != ''" >#{caseMainVO.caseId,jdbcType=VARCHAR},</if>
+      <if test="caseMainVO.caseCode != null and caseMainVO.caseCode != ''" >#{caseMainVO.caseCode,jdbcType=VARCHAR},</if>
+      <if test="caseMainVO.caseTitle != null and caseMainVO.caseTitle != ''" > #{caseMainVO.caseTitle,jdbcType=VARCHAR}, </if>
+      <if test="caseMainVO.caseStatus != null and caseMainVO.caseStatus != ''" > #{caseMainVO.caseStatus,jdbcType=VARCHAR}, </if>
+      <if test="caseMainVO.drafterUnit  != null and caseMainVO.drafterUnit  != ''" > #{caseMainVO.drafterUnit,jdbcType=VARCHAR}, </if>
+      <if test="caseMainVO.caseRecordTime != null" > #{caseMainVO.caseRecordTime,jdbcType=TIMESTAMP}, </if>
+      <if test="caseMainVO.institutionCaseCode != null and caseMainVO.institutionCaseCode != ''" > #{caseMainVO.institutionCaseCode,jdbcType=VARCHAR}, </if>
+      <if test="caseMainVO.lawsuitType != null and caseMainVO.lawsuitType != ''" > #{caseMainVO.lawsuitType,jdbcType=VARCHAR}, </if>
+      <if test="caseMainVO.ourLawsuitBody != null and caseMainVO.ourLawsuitBody != ''" > #{caseMainVO.ourLawsuitBody,jdbcType=VARCHAR}, </if>
+      <if test="caseMainVO.ourLawsuitBodyName != null and caseMainVO.ourLawsuitBodyName != ''" > #{caseMainVO.ourLawsuitBodyName,jdbcType=VARCHAR}, </if>
+      <if test="caseMainVO.ourLawsuitIdentity != null and caseMainVO.ourLawsuitIdentity != ''" > #{caseMainVO.ourLawsuitIdentity,jdbcType=VARCHAR}, </if>
+      <if test="caseMainVO.otherLawsuitBody != null and caseMainVO.otherLawsuitBody != ''" > #{caseMainVO.otherLawsuitBody,jdbcType=VARCHAR}, </if>
+      <if test="caseMainVO.caseTheThird != null and caseMainVO.caseTheThird != ''" > #{caseMainVO.caseTheThird,jdbcType=VARCHAR}, </if>
+      <if test="caseMainVO.caseDeputeMoney != null and caseMainVO.caseDeputeMoney != ''" > #{caseMainVO.caseDeputeMoney,jdbcType=DECIMAL}, </if>
+      <if test="caseMainVO.caseSpecialLine != null and caseMainVO.caseSpecialLine != ''" > #{caseMainVO.caseSpecialLine,jdbcType=VARCHAR}, </if>
+      <if test="caseMainVO.relatedBodyAttribution != null and caseMainVO.relatedBodyAttribution != ''" > #{caseMainVO.relatedBodyAttribution,jdbcType=VARCHAR}, </if>
+      <if test="caseMainVO.caseReviewGrade != null and caseMainVO.caseReviewGrade != ''" > #{caseMainVO.caseReviewGrade,jdbcType=VARCHAR}, </if>
+      <if test="caseMainVO.caseReason != null and caseMainVO.caseReason != ''" > #{caseMainVO.caseReason,jdbcType=VARCHAR}, </if>
+      <if test="caseMainVO.deputeType != null and caseMainVO.deputeType != ''" > #{caseMainVO.deputeType,jdbcType=VARCHAR}, </if>
+      now(),
+      now(),
+      <if test="caseMainVO.caseIsFinish != null" > #{caseMainVO.caseIsFinish,jdbcType=INTEGER}, </if>
+      <if test="caseMainVO.caseFinishTime != null" > #{caseMainVO.caseFinishTime,jdbcType=TIMESTAMP}, </if>
+      <if test="caseMainVO.caseFinishWay != null and caseMainVO.caseFinishWay != ''" > #{caseMainVO.caseFinishWay,jdbcType=VARCHAR}, </if>
+      <if test="caseMainVO.largeLawsuitMark != null and caseMainVO.largeLawsuitMark != ''" > #{caseMainVO.largeLawsuitMark,jdbcType=VARCHAR}, </if>
+      <if test="caseMainVO.creatorAccountId != null and caseMainVO.creatorAccountId != ''" > #{caseMainVO.creatorAccountId,jdbcType=VARCHAR}, </if>
+      <if test="caseMainVO.creatorAccountName != null and caseMainVO.creatorAccountName != ''" > #{caseMainVO.creatorAccountName,jdbcType=VARCHAR}, </if>
+      <if test="caseMainVO.creatorCell != null and caseMainVO.creatorCell != ''" > #{caseMainVO.creatorCell,jdbcType=VARCHAR}, </if>
+      <if test="caseMainVO.caseTruth != null and caseMainVO.caseTruth != ''" > #{caseMainVO.caseTruth,jdbcType=VARCHAR}, </if>
+      <if test="caseMainVO.plaintiffLawsuitRequest != null and caseMainVO.plaintiffLawsuitRequest != ''" > #{caseMainVO.plaintiffLawsuitRequest,jdbcType=VARCHAR}, </if>
+      <if test="caseMainVO.caseFile != null and caseMainVO.caseFile != ''" > #{caseMainVO.caseFile,jdbcType=VARCHAR}, </if>
+      <if test="caseMainVO.caseKeyword != null and caseMainVO.caseKeyword != ''" > #{caseMainVO.caseKeyword,jdbcType=VARCHAR}, </if>
+      <if test="caseMainVO.caseSamePlaintiff != null and caseMainVO.caseSamePlaintiff != ''" > #{caseMainVO.caseSamePlaintiff,jdbcType=VARCHAR}, </if>
+      <if test="caseMainVO.caseSameDefendant != null and caseMainVO.caseSameDefendant != ''" > #{caseMainVO.caseSameDefendant,jdbcType=VARCHAR}, </if>
+      <if test="caseMainVO.creatorDeptId != null and caseMainVO.creatorDeptId != ''" > #{caseMainVO.creatorDeptId,jdbcType=VARCHAR}, </if>
+      <if test="caseMainVO.creatorDeptName != null and caseMainVO.creatorDeptName != ''" > #{caseMainVO.creatorDeptName,jdbcType=VARCHAR}, </if>
+      <if test="caseMainVO.creatorUnitId != null and caseMainVO.creatorUnitId != ''" > #{caseMainVO.creatorUnitId,jdbcType=VARCHAR}, </if>
+      <if test="caseMainVO.creatorUnitName != null and caseMainVO.creatorUnitName != ''" > #{caseMainVO.creatorUnitName,jdbcType=VARCHAR}, </if>
+      <if test="caseMainVO.rulingClasses != null and caseMainVO.rulingClasses != ''" > #{caseMainVO.rulingClasses,jdbcType=VARCHAR}, </if>
+
+      <if test="caseMainVO.involvedAccountId != null and caseMainVO.involvedAccountId != ''" > #{caseMainVO.involvedAccountId,jdbcType=VARCHAR},</if>
+      <if test="caseMainVO.involvedAccountName != null and caseMainVO.involvedAccountName != ''" >#{caseMainVO.involvedAccountName,jdbcType=VARCHAR},</if>
+      <if test="caseMainVO.involvedDeptId != null and caseMainVO.involvedDeptId != ''" > #{caseMainVO.involvedDeptId,jdbcType=VARCHAR}, </if>
+      <if test="caseMainVO.involvedDeptName != null and caseMainVO.involvedDeptName != ''" > #{caseMainVO.involvedDeptName,jdbcType=VARCHAR}, </if>
+      <if test="caseMainVO.involvedOrgId != null and caseMainVO.involvedOrgId != ''" > #{caseMainVO.involvedOrgId,jdbcType=VARCHAR}, </if>
+      <if test="caseMainVO.involvedOrgName != null and caseMainVO.involvedOrgName != ''" > #{caseMainVO.involvedOrgName,jdbcType=VARCHAR}, </if>
+    </trim>
+  </insert>
+
+  <select id="selectCaseMainById" resultMap="caseMap">
+       select
+          c.case_id,c.case_code,c.case_title,c.case_status,c.drafter_unit,c.case_record_time,c.institution_case_code,c.
+          lawsuit_type,c.our_lawsuit_body,c.our_lawsuit_body_name,c. our_lawsuit_identity,c.other_lawsuit_body,c.case_the_third,c.case_depute_money,c.
+          case_special_line,c.related_body_attribution,c.case_review_grade,c.case_reason,c.depute_type,c.
+          create_time,c.last_update_time,c.case_is_finish,c.case_finish_time,c.case_finish_way,c.large_lawsuit_mark,c.
+          creator_account_id,c.creator_account_name,c.creator_cell,c.case_truth,c.plaintiff_lawsuit_request,c.
+          case_file,c.case_keyword,c.case_same_plaintiff,c.case_same_defendant,c.creator_dept_id,c.creator_dept_name,c.creator_unit_id,c.creator_unit_name,
+          c.ruling_classes,c.delete_status,c.case_explain,c.involved_account_id, c.involved_account_name, c.involved_dept_id,
+          c.involved_dept_name ,c.involved_org_id ,c.involved_org_name
+
+    from  t_case_main c where c.case_id = #{caseId}
+  </select>
+
+  <update id="updateExplain">
+    update t_case_main
+    <set>
+      <if test="caseExplain != null" > case_explain = #{caseExplain,jdbcType=VARCHAR}, </if>
+      <if test="caseFinishWay!=null">case_finish_way = #{caseFinishWay,jdbcType=VARCHAR},</if>
+      case_finish_time = #{caseFinishTime,jdbcType=TIMESTAMP},
+      last_update_time = now(),
+    </set>
+    where case_id = #{caseId,jdbcType=VARCHAR}
+  </update>
+
+  <update id="updaterulingClassesById">
+    update t_case_main
+    <set>
+      <if test="rulingClasses != null" > ruling_classes = #{rulingClasses,jdbcType=VARCHAR}, </if>
+      <if test="caseReviewGrade != null" > case_review_grade = #{caseReviewGrade,jdbcType=VARCHAR}, </if>
+    </set>
+    where case_id = #{caseId,jdbcType=VARCHAR}
+  </update>
+
+  <update id="updateCaseMainById">
+    update t_case_main
+    <set>
+      <if test="caseCode != null and caseCode != ''" > case_code = #{caseCode,jdbcType=VARCHAR}, </if>
+      <if test="caseTitle!=null and caseTitle!=''">case_title = #{caseTitle,jdbcType=VARCHAR},</if>
+      <if test="caseStatus!=null and caseStatus!=''">case_status = #{caseStatus,jdbcType=VARCHAR},</if>
+      <if test="drafterUnit!=null and drafterUnit!=''">drafter_unit = #{drafterUnit,jdbcType=VARCHAR},</if>
+      <if test="caseRecordTime!=null">case_record_time = #{caseRecordTime,jdbcType=TIMESTAMP},</if>
+      <if test="institutionCaseCode!=null">institution_case_code = #{institutionCaseCode,jdbcType=VARCHAR},</if>
+      <if test="lawsuitType!=null and lawsuitType!=''">lawsuit_type = #{lawsuitType,jdbcType=VARCHAR},</if>
+      <if test="ourLawsuitBody!=null">our_lawsuit_body = #{ourLawsuitBody,jdbcType=VARCHAR},</if>
+      <if test="ourLawsuitBodyName!=null">our_lawsuit_body_name = #{ourLawsuitBodyName,jdbcType=VARCHAR},</if>
+      <if test="ourLawsuitIdentity!=null">our_lawsuit_identity = #{ourLawsuitIdentity,jdbcType=VARCHAR},</if>
+      <if test="otherLawsuitBody!=null">other_lawsuit_body = #{otherLawsuitBody,jdbcType=VARCHAR},</if>
+      <if test="caseTheThird!=null">case_the_third = #{caseTheThird,jdbcType=VARCHAR},</if>
+      <if test="caseDeputeMoney!=null">case_depute_money = #{caseDeputeMoney,jdbcType=DECIMAL},</if>
+      <if test="caseSpecialLine!=null">case_special_line = #{caseSpecialLine,jdbcType=VARCHAR},</if>
+      <if test="relatedBodyAttribution!=null and relatedBodyAttribution!=''">related_body_attribution = #{relatedBodyAttribution,jdbcType=VARCHAR},</if>
+      <if test="caseReviewGrade!=null">case_review_grade = #{caseReviewGrade,jdbcType=VARCHAR},</if>
+      <if test="caseReason!=null">case_reason = #{caseReason,jdbcType=VARCHAR},</if>
+      <if test="deputeType!=null">depute_type = #{deputeType,jdbcType=VARCHAR},</if>
+      <if test="createTime!=null">create_time = #{createTime,jdbcType=TIMESTAMP},</if>
+      last_update_time = now(),
+      <if test="caseIsFinish!=null">case_is_finish = #{caseIsFinish,jdbcType=INTEGER},</if>
+      <if test="caseFinishTime!=null">case_finish_time = #{caseFinishTime,jdbcType=TIMESTAMP},</if>
+      <if test="caseFinishWay!=null and caseFinishWay!=''">case_finish_way = #{caseFinishWay,jdbcType=VARCHAR},</if>
+      <if test="largeLawsuitMark!=null">large_lawsuit_mark = #{largeLawsuitMark,jdbcType=VARCHAR},</if>
+      <if test="creatorAccountId!=null and creatorAccountId!=''">creator_account_id = #{creatorAccountId,jdbcType=VARCHAR},</if>
+      <if test="creatorAccountName!=null and creatorAccountName!=''">creator_account_name = #{creatorAccountName,jdbcType=VARCHAR},</if>
+      <if test="creatorCell!=null and creatorCell!=''">creator_cell = #{creatorCell,jdbcType=VARCHAR},</if>
+      <if test="caseTruth!=null">case_truth = #{caseTruth,jdbcType=VARCHAR},</if>
+      <if test="plaintiffLawsuitRequest!=null">plaintiff_lawsuit_request = #{plaintiffLawsuitRequest,jdbcType=VARCHAR},</if>
+      <if test="caseFile!=null and caseFile!=''">case_file = #{caseFile,jdbcType=VARCHAR},</if>
+      <if test="caseKeyword!=null">case_keyword = #{caseKeyword,jdbcType=VARCHAR},</if>
+      <if test="caseSamePlaintiff!=null">case_same_plaintiff = #{caseSamePlaintiff,jdbcType=VARCHAR},</if>
+      <if test="caseSameDefendant!=null">case_same_defendant = #{caseSameDefendant,jdbcType=VARCHAR},</if>
+      <if test="creatorDeptId!=null and creatorDeptId!=''">creator_dept_id = #{creatorDeptId,jdbcType=VARCHAR},</if>
+      <if test="creatorDeptName!=null and creatorDeptName!=''">creator_dept_name = #{creatorDeptName,jdbcType=VARCHAR},</if>
+      <if test="creatorUnitId!=null and creatorUnitId!=''">creator_unit_id = #{creatorUnitId,jdbcType=VARCHAR},</if>
+      <if test="creatorUnitName!=null and creatorUnitName!=''">creator_unit_name = #{creatorUnitName,jdbcType=VARCHAR},</if>
+      <if test="caseExplain!=null and caseExplain!=''">case_explain = #{caseExplain,jdbcType=VARCHAR},</if>
+      <if test="rulingClasses!=null and rulingClasses!=''">ruling_classes = #{rulingClasses,jdbcType=VARCHAR},</if>
+
+      <if test="involvedAccountId!=null and involvedAccountId!=''">involved_account_id = #{involvedAccountId,jdbcType=VARCHAR},</if>
+      <if test="involvedAccountName!=null and involvedAccountName!=''">involved_account_name = #{involvedAccountName,jdbcType=VARCHAR},</if>
+      <if test="involvedDeptId!=null and involvedDeptId!=''">involved_dept_id = #{involvedDeptId,jdbcType=VARCHAR},</if>
+      <if test="involvedDeptName!=null and involvedDeptName!=''">involved_dept_name = #{involvedDeptName,jdbcType=VARCHAR},</if>
+      <if test="involvedOrgId!=null and involvedOrgId!=''">involved_org_id = #{involvedOrgId ,jdbcType=VARCHAR},</if>
+      <if test="involvedOrgName!=null and involvedOrgName!=''">involved_org_name = #{involvedOrgName,jdbcType=VARCHAR},</if>
+    </set>
+    where case_id = #{caseId,jdbcType=VARCHAR}
+  </update>
+
+  <update id="deleteCaseMainByIds">
+    update t_case_main
+    <set>
+      <if test="deleteStatus != null" > delete_status = #{deleteStatus,jdbcType=INTEGER}, </if>
+    </set>
+    where case_id = #{caseId}
+  </update>
+
+  <update id="updateCaseStatusById">
+  update t_case_main
+  <set>
+    <if test="caseStatus != null" > case_status = #{caseStatus,jdbcType=INTEGER}, </if>
+    last_update_time = now(),
+  </set>
+  where case_id = #{caseId}
+ </update>
+
+  <update id="updateLastTime">
+    update t_case_main
+    <set>
+      last_update_time = now(),
+    </set>
+    where case_id = #{caseId}
+  </update>
+  <update id="updateInvolveBusinessTablesByRelationshipVOS">
+    <foreach collection="relationshipVOS" separator=";" item="relationshipVO">
+      <choose>
+        <when test="relationshipVO.businessType == 't_case_assign'.toString()">
+          update t_case_assign
+          set create_case_type = 1, case_title = #{caseMainVO.caseTitle}, case_id = #{caseMainVO.caseId},
+          involved_account_id = #{caseMainVO.involvedAccountId}, involved_account_name =
+          #{caseMainVO.involvedAccountName},
+          involved_dept_id = #{caseMainVO.involvedDeptId}, involved_dept_name = #{caseMainVO.involvedDeptName},
+          involved_org_id = #{caseMainVO.involvedOrgId}, involved_org_name = #{caseMainVO.involvedOrgName}
+          where assign_id = #{relationshipVO.businessId}
+          and assign_code = #{relationshipVO.code}
+        </when>
+        <when test="relationshipVO.businessType == 't_issue_jointly'.toString()">
+          update t_issue_jointly
+          set jointly_case = #{caseMainVO.caseId}, case_create_time = #{caseMainVO.createTime}, case_line =
+          #{caseMainVO.caseSpecialLine},
+          our_lawsuit_body = #{caseMainVO.ourLawsuitBodyName}, they_lawsuit_body = #{caseMainVO.otherLawsuitBody},
+          our_lawsuit_status = #{caseMainVO.ourLawsuitIdentity}, plaintiff = #{caseMainVO.caseSamePlaintiff},
+          defendant = #{caseMainVO.caseSameDefendant}, lawsuit_money = #{caseMainVO.caseDeputeMoney}, lawsuit_detail =
+          #{caseMainVO.caseTruth},
+          approve_level = #{caseMainVO.caseReviewGrade}, case_type = #{caseMainVO.deputeType}, third_person =
+          #{caseMainVO.caseTheThird},
+          lawsuit_size = #{caseMainVO.largeLawsuitMark}
+          where jointly_id = #{relationshipVO.businessId}
+          and jointly_code = #{relationshipVO.code}
+        </when>
+        <when test="relationshipVO.businessType == 't_issue_lawsuit'.toString()">
+          update t_issue_lawsuit
+          set case_id = #{caseMainVO.caseId}, case_title = #{caseMainVO.caseTitle},create_case_type = 1
+          where lawsuit_id = #{relationshipVO.businessId}
+          and lawsuit_code = #{relationshipVO.code}
+        </when>
+        <when test="relationshipVO.businessType == 't_case_legislation'.toString()">
+          update t_case_legislation
+          set case_file = #{caseMainVO.caseId}, our_executor = #{caseMainVO.ourLawsuitBodyName},
+          counterparty_executor = #{caseMainVO.otherLawsuitBody}
+          where id = #{relationshipVO.businessId}
+          and odd = #{relationshipVO.code}
+        </when>
+      </choose>
+    </foreach>
+  </update>
+
+    <select id="selectAllCaseMainByDeptA" resultMap="BaseResultMap">
+    select c.case_id, c.case_code, c.case_title, c.case_status, c.our_lawsuit_body_name, c.other_lawsuit_body
+    , c.case_depute_money, c.depute_type, c.last_update_time,c.delete_status
+    from t_case_main c,t_pub_org o
+    <where>
+        o.org_code = c.creator_dept_id and o.enterp_type = #{unitCode}
+        and c.case_status in ('2','3')
+      <if test="param.deleteStatus!=1">
+        and c.delete_status=#{param.deleteStatus}
+      </if>
+      <if test="param.title!=null and param.title!=''">
+        and c.case_title like concat('%',#{param.title},'%')
+      </if>
+      <if test="param.startDate != null and param.endDate != null">
+        and c.last_update_time BETWEEN #{param.startDate,jdbcType=TIMESTAMP}
+        and #{param.endDate,jdbcType=TIMESTAMP}
+      </if>
+      <if test="param.caseCode!=null and param.caseCode!=''">
+        and c.case_code = #{param.caseCode}
+      </if>
+      <if test="param.ourLawsuitBodyName!=null and param.ourLawsuitBodyName!=''">
+        and c.our_lawsuit_body_name like concat ('%',#{param.ourLawsuitBodyName},'%')
+      </if>
+      <if test="param.otherLawsuitBody!=null and param.otherLawsuitBody!=''">
+        and c.other_lawsuit_body like concat ('%',#{param.otherLawsuitBody},'%')
+      </if>
+      <if test="param.company!= null and param.company!=''">
+        and  o.org_path like concat ((SELECT o.org_path from t_pub_org o where o.org_code = #{param.company}),'%')
+      </if>
+      <if test="param.deputeType!=null and param.deputeType!=''">
+        and c.depute_type = #{param.deputeType}
+      </if>
+    </where>
+    order by c.last_update_time desc
+  </select>
+
+  <select id="selectAllCaseMainByDeptB" resultMap="BaseResultMap">
+    select c.case_id, c.case_code, c.case_title, c.case_status, c.our_lawsuit_body_name, c.other_lawsuit_body
+    , c.case_depute_money, c.depute_type, c.last_update_time,c.delete_status
+    from t_case_main c,t_pub_org o
+    <where>
+      o.org_code = c.creator_dept_id and o.org_path like concat ((SELECT o.org_path from t_pub_org o where o.org_code = #{orgId}),'%')
+      and c.case_status in ('2','3')
+      <if test="param.deleteStatus!=1">
+        and c.delete_status=#{param.deleteStatus}
+      </if>
+      <if test="param.title!=null and param.title!=''">
+        and c.case_title like concat('%',#{param.title},'%')
+      </if>
+      <if test="param.startDate != null and param.endDate != null">
+        and c.last_update_time BETWEEN #{param.startDate,jdbcType=TIMESTAMP}
+        and #{param.endDate,jdbcType=TIMESTAMP}
+      </if>
+      <if test="param.caseCode!=null and param.caseCode!=''">
+        and c.case_code = #{param.caseCode}
+      </if>
+      <if test="param.ourLawsuitBodyName!=null and param.ourLawsuitBodyName!=''">
+        and our_lawsuit_body_name like concat ('%',#{param.ourLawsuitBodyName},'%')
+      </if>
+      <if test="param.otherLawsuitBody!=null and param.otherLawsuitBody!=''">
+        and c.other_lawsuit_body like concat ('%',#{param.otherLawsuitBody},'%')
+      </if>
+      <if test="param.company!= null and param.company!=''">
+        and  o.org_path like concat ((SELECT o.org_path from t_pub_org o where o.org_code = #{param.company}),'%')
+      </if>
+      <if test="param.deputeType!=null and param.deputeType!=''">
+        and c.depute_type = #{param.deputeType}
+      </if>
+    </where>
+    order by c.last_update_time desc
+  </select>
+
+  <select id="selectAllCaseMainByDeptC" resultMap="BaseResultMap">
+    select c.case_id, c.case_code, c.case_title, c.case_status, c.our_lawsuit_body_name, c.other_lawsuit_body
+    , c.case_depute_money, c.depute_type, c.last_update_time,c.delete_status
+    from t_case_main c,t_pub_org o
+    <where>
+      o.org_code = c.creator_dept_id and o.company_code = #{orgId}
+      and c.case_status in ('2','3')
+      <if test="param.deleteStatus!=1">
+        and c.delete_status=#{param.deleteStatus}
+      </if>
+      <if test="param.title!=null and param.title!=''">
+        and c.case_title like concat('%',#{param.title},'%')
+      </if>
+      <if test="param.startDate != null and param.endDate != null">
+        and c.last_update_time BETWEEN #{param.startDate,jdbcType=TIMESTAMP}
+        and #{param.endDate,jdbcType=TIMESTAMP}
+      </if>
+      <if test="param.caseCode!=null and param.caseCode!=''">
+        and c.case_code like concat ('%',#{param.caseCode},'%')
+      </if>
+      <if test="param.ourLawsuitBodyName!=null and param.ourLawsuitBodyName!=''">
+        and our_lawsuit_body_name like concat ('%',#{param.ourLawsuitBodyName},'%')
+      </if>
+      <if test="param.otherLawsuitBody!=null and param.otherLawsuitBody!=''">
+        and c.other_lawsuit_body like concat ('%',#{param.otherLawsuitBody},'%')
+      </if>
+      <if test="param.company!= null and param.company!=''">
+        and  o.org_path like concat ((SELECT o.org_path from t_pub_org o where o.org_code = #{param.company}),'%')
+      </if>
+      <if test="param.deputeType!=null and param.deputeType!=''">
+        and c.depute_type = #{param.deputeType}
+      </if>
+    </where>
+    order by c.last_update_time desc
+  </select>
+
+  <select id="selectAllCaseMainByCount" resultType="Integer">
+     select
+      count(1)
+     from  t_case_main where case_id=#{caseId}
+   </select>
+
+  <insert id="addAutoCaseMain" parameterType="com.chinatower.product.legalms.modules.cases.entity.CaseMainAutoVO">
+    insert into t_case_main
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      case_id,
+      case_code,
+      <if test="caseMainAutoVO.caseTitle != null" > case_title, </if>
+      <if test="caseMainAutoVO.drafterUnit != null" > drafter_unit, </if>
+      <if test="caseMainAutoVO.ourLawsuitBody != null" > our_lawsuit_body, </if>
+      <if test="caseMainAutoVO.ourLawsuitBodyName != null" > our_lawsuit_body_name, </if>
+      <if test="caseMainAutoVO.ourLawsuitIdentity != null" > our_lawsuit_identity, </if>
+      <if test="caseMainAutoVO.otherLawsuitBody != null" > other_lawsuit_body, </if>
+      <if test="caseMainAutoVO.caseTheThird != null" > case_the_third, </if>
+      <if test="caseMainAutoVO.caseDeputeMoney != null" > case_depute_money, </if>
+      <if test="caseMainAutoVO.caseSpecialLine != null" > case_special_line, </if>
+      <if test="caseMainAutoVO.caseReason != null" > case_reason, </if>
+      <if test="caseMainAutoVO.deputeType != null" > depute_type, </if>
+      <if test="caseMainAutoVO.createTime != null" > create_time, </if>
+      last_update_time,
+      <if test="caseMainAutoVO.largeLawsuitMark != null" > large_lawsuit_mark, </if>
+      <if test="caseMainAutoVO.creatorAccountId != null" > creator_account_id, </if>
+      <if test="caseMainAutoVO.creatorAccountName != null" > creator_account_name, </if>
+      <if test="caseMainAutoVO.creatorCell != null" > creator_cell, </if>
+      <if test="caseMainAutoVO.caseTruth != null" > case_truth, </if>
+      <if test="caseMainAutoVO.caseFile != null" > case_file, </if>
+      <if test="caseMainAutoVO.caseSamePlaintiff != null" > case_same_plaintiff, </if>
+      <if test="caseMainAutoVO.caseSameDefendant != null" > case_same_defendant, </if>
+      <if test="caseMainAutoVO.creatorDeptId != null" > creator_dept_id, </if>
+      <if test="caseMainAutoVO.creatorDeptName != null" > creator_dept_name, </if>
+      <if test="caseMainAutoVO.creatorUnitId != null" > creator_unit_id, </if>
+      <if test="caseMainAutoVO.creatorUnitName != null" > creator_unit_name, </if>
+      <if test="caseMainAutoVO.isAuto != null" > is_auto, </if>
+      <if test="caseMainAutoVO.caseStatus != null" > case_status, </if>
+      <if test="caseMainAutoVO.rulingClasses != null" > ruling_classes, </if>
+      <if test="caseMainAutoVO.caseRecordTime != null" > case_record_time, </if>
+      <if test="caseMainAutoVO.institutionCaseCode != null" > institution_case_code, </if>
+
+      <if test="caseMainAutoVO.involvedAccountId != null" > involved_account_id, </if>
+      <if test="caseMainAutoVO.involvedAccountName != null" > involved_account_name, </if>
+      <if test="caseMainAutoVO.involvedDeptId != null" > involved_dept_id, </if>
+      <if test="caseMainAutoVO.involvedDeptName != null" > involved_dept_name, </if>
+      <if test="caseMainAutoVO.involvedOrgId != null" > involved_org_id, </if>
+      <if test="caseMainAutoVO.involvedOrgName != null" > involved_org_name, </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      #{caseMainAutoVO.caseId,jdbcType=VARCHAR},
+      #{caseMainAutoVO.caseCode,jdbcType=VARCHAR},
+      <if test="caseMainAutoVO.caseTitle != null" > #{caseMainAutoVO.caseTitle,jdbcType=VARCHAR}, </if>
+      <if test="caseMainAutoVO.drafterUnit  != null" > #{caseMainAutoVO.drafterUnit,jdbcType=VARCHAR}, </if>
+      <if test="caseMainAutoVO.ourLawsuitBody != null" > #{caseMainAutoVO.ourLawsuitBody,jdbcType=VARCHAR}, </if>
+      <if test="caseMainAutoVO.ourLawsuitBodyName != null" > #{caseMainAutoVO.ourLawsuitBodyName,jdbcType=VARCHAR}, </if>
+      <if test="caseMainAutoVO.ourLawsuitIdentity != null" > #{caseMainAutoVO.ourLawsuitIdentity,jdbcType=VARCHAR}, </if>
+      <if test="caseMainAutoVO.otherLawsuitBody != null" > #{caseMainAutoVO.otherLawsuitBody,jdbcType=VARCHAR}, </if>
+      <if test="caseMainAutoVO.caseTheThird != null" > #{caseMainAutoVO.caseTheThird,jdbcType=VARCHAR}, </if>
+      <if test="caseMainAutoVO.caseDeputeMoney != null" > #{caseMainAutoVO.caseDeputeMoney,jdbcType=DECIMAL}, </if>
+      <if test="caseMainAutoVO.caseSpecialLine != null" > #{caseMainAutoVO.caseSpecialLine,jdbcType=VARCHAR}, </if>
+      <if test="caseMainAutoVO.caseReason != null" > #{caseMainAutoVO.caseReason,jdbcType=VARCHAR}, </if>
+      <if test="caseMainAutoVO.deputeType != null" > #{caseMainAutoVO.deputeType,jdbcType=VARCHAR}, </if>
+      <if test="caseMainAutoVO.createTime != null" > #{caseMainAutoVO.createTime,jdbcType=TIMESTAMP}, </if>
+      now(),
+      <if test="caseMainAutoVO.largeLawsuitMark != null" > #{caseMainAutoVO.largeLawsuitMark,jdbcType=VARCHAR}, </if>
+      <if test="caseMainAutoVO.creatorAccountId != null" > #{caseMainAutoVO.creatorAccountId,jdbcType=VARCHAR}, </if>
+      <if test="caseMainAutoVO.creatorAccountName != null" > #{caseMainAutoVO.creatorAccountName,jdbcType=VARCHAR}, </if>
+      <if test="caseMainAutoVO.creatorCell != null" > #{caseMainAutoVO.creatorCell,jdbcType=VARCHAR}, </if>
+      <if test="caseMainAutoVO.caseTruth != null" > #{caseMainAutoVO.caseTruth,jdbcType=VARCHAR}, </if>
+      <if test="caseMainAutoVO.caseFile != null" > #{caseMainAutoVO.caseFile,jdbcType=VARCHAR}, </if>
+      <if test="caseMainAutoVO.caseSamePlaintiff != null" > #{caseMainAutoVO.caseSamePlaintiff,jdbcType=VARCHAR}, </if>
+      <if test="caseMainAutoVO.caseSameDefendant != null" > #{caseMainAutoVO.caseSameDefendant,jdbcType=VARCHAR}, </if>
+      <if test="caseMainAutoVO.creatorDeptId != null" > #{caseMainAutoVO.creatorDeptId,jdbcType=VARCHAR}, </if>
+      <if test="caseMainAutoVO.creatorDeptName != null" > #{caseMainAutoVO.creatorDeptName,jdbcType=VARCHAR}, </if>
+      <if test="caseMainAutoVO.creatorUnitId != null" > #{caseMainAutoVO.creatorUnitId,jdbcType=VARCHAR}, </if>
+      <if test="caseMainAutoVO.creatorUnitName != null" > #{caseMainAutoVO.creatorUnitName,jdbcType=VARCHAR}, </if>
+      <if test="caseMainAutoVO.isAuto != null" > #{caseMainAutoVO.isAuto,jdbcType=VARCHAR}, </if>
+      <if test="caseMainAutoVO.caseStatus != null" > #{caseMainAutoVO.caseStatus,jdbcType=VARCHAR}, </if>
+      <if test="caseMainAutoVO.rulingClasses != null" > #{caseMainAutoVO.rulingClasses,jdbcType=VARCHAR}, </if>
+      <if test="caseMainAutoVO.caseRecordTime != null" > #{caseMainAutoVO.caseRecordTime,jdbcType=VARCHAR}, </if>
+      <if test="caseMainAutoVO.institutionCaseCode != null" > #{caseMainAutoVO.institutionCaseCode,jdbcType=VARCHAR}, </if>
+
+      <if test="caseMainAutoVO.involvedAccountId != null" > #{caseMainAutoVO.involvedAccountId,jdbcType=VARCHAR}, </if>
+      <if test="caseMainAutoVO.involvedAccountName != null" > #{caseMainAutoVO.involvedAccountName,jdbcType=VARCHAR}, </if>
+      <if test="caseMainAutoVO.involvedDeptId != null" > #{caseMainAutoVO.involvedDeptId,jdbcType=VARCHAR}, </if>
+      <if test="caseMainAutoVO.involvedDeptName != null" > #{caseMainAutoVO.involvedDeptName,jdbcType=VARCHAR}, </if>
+      <if test="caseMainAutoVO.involvedOrgId != null" > #{caseMainAutoVO.involvedOrgId,jdbcType=VARCHAR}, </if>
+      <if test="caseMainAutoVO.involvedOrgName != null" > #{caseMainAutoVO.involvedOrgName,jdbcType=VARCHAR}, </if>
+    </trim>
+  </insert>
+
+  <select id="dictMaps" resultType="HashMap">
+		SELECT
+		dd.`dict_value`,dd.`dict_cabel` FROM t_sys_dict_data dd WHERE
+		dd.`dict_type`= #{dictType}
+	</select>
+
+  <select id="getExcelDate" resultType="HashMap">
+    select  c.case_title, c.case_code, c.case_status, c.our_lawsuit_body_name, c.other_lawsuit_body
+    , c.case_depute_money, c.depute_type, c.last_update_time,c.delete_status
+    from t_case_main c
+	</select>
+
+  <select id="selectCode" resultType="String">
+		select nextval(#{unitCode,jdbcType=VARCHAR},#{codeNull,jdbcType=VARCHAR},#{orgCode,jdbcType=VARCHAR},1)
+	</select>
+    <resultMap id="OrgInfoMap" type="com.chinatower.product.legalms.modules.cases.entity.OrgBeanVO">
+      <id column="org_id" property="orgId" jdbcType="VARCHAR"/>
+      <result column="org_id" property="orgId" jdbcType="VARCHAR"/>
+      <result column="org_id_old" property="orgIdOld" jdbcType="VARCHAR"/>
+      <result column="org_name" property="orgName" jdbcType="VARCHAR"/>
+      <result column="org_vulgo" property="orgVulgo" jdbcType="VARCHAR"/>
+      <result column="org_code" property="orgCode" jdbcType="VARCHAR"/>
+      <result column="org_parent_id" property="orgParentId" jdbcType="VARCHAR"/>
+      <result column="org_parent_id_old" property="orgParentIdOld" jdbcType="VARCHAR"/>
+      <result column="org_tree_level" property="orgTreeLevel" jdbcType="DOUBLE"/>
+      <result column="org_type" property="orgType" jdbcType="VARCHAR"/>
+      <result column="org_unit_id" property="orgUnitId" jdbcType="VARCHAR"/>
+      <result column="org_dept_id" property="orgDeptId" jdbcType="VARCHAR"/>
+      <result column="org_dept_id_old" property="orgDeptIdOld" jdbcType="VARCHAR"/>
+      <result column="org_abbreviation_cn" property="orgAbbreviationCn" jdbcType="VARCHAR"/>
+      <result column="org_abbreviation_en" property="orgAbbreviationEn" jdbcType="VARCHAR"/>
+      <result column="org_station_cn" property="orgStationCn" jdbcType="VARCHAR"/>
+      <result column="org_station_en" property="orgStationEn" jdbcType="VARCHAR"/>
+      <result column="org_email" property="orgEmail" jdbcType="VARCHAR"/>
+      <result column="org_fax" property="orgFax" jdbcType="VARCHAR"/>
+      <result column="org_phone" property="orgPhone" jdbcType="VARCHAR"/>
+      <result column="org_order" property="orgOrder" jdbcType="INTEGER"/>
+      <result column="org_status" property="orgStatus" jdbcType="VARCHAR"/>
+      <result column="org_status_update_time" property="orgStatusUpdateTime" jdbcType="TIMESTAMP"/>
+      <result column="org_create_time" property="orgCreateTime" jdbcType="TIMESTAMP"/>
+      <result column="org_remarks" property="orgRemarks" jdbcType="VARCHAR"/>
+      <result column="enterp_type" property="enterpType" jdbcType="VARCHAR"/>
+      <result column="org_level" property="orgLevel" jdbcType="VARCHAR"/>
+      <result column="org_parent_code" property="orgParentCode" jdbcType="VARCHAR"/>
+      <result column="org_change" property="orgChange" jdbcType="VARCHAR"/>
+      <result column="org_path" property="orgPath" jdbcType="VARCHAR"/>
+      <result column="org_reserved_text1" property="orgReservedText1" jdbcType="VARCHAR"/>
+      <result column="mdm_org_code" property="mdmOrgCode" jdbcType="VARCHAR"/>
+      <result column="org_base_id" property="orgBaseId" jdbcType="INTEGER"/>
+      <result column="area_name" property="areaName" jdbcType="VARCHAR"/>
+      <result column="is_unit" property="isUnit" jdbcType="INTEGER"/>
+      <result column="company_code" property="companyCode" jdbcType="VARCHAR"/>
+    </resultMap>
+  <select id="selectOrgInfoByOrgCode" parameterType="string" resultMap="OrgInfoMap">
+         SELECT * FROM t_pub_org WHERE org_code = #{orgCode}
+  </select>
+
+  <select id="selectAllCase" resultMap="caseMap">
+    SELECT
+      tcm.case_id,
+      tcm.case_code,
+      tcm.case_title,
+      tcm.case_status,
+      tcm.drafter_unit,
+      tcm.case_record_time,
+      tcm.institution_case_code,
+      tcm.lawsuit_type,
+      tcm.our_lawsuit_body,
+      tcm.our_lawsuit_body_name,
+      tcm.our_lawsuit_identity,
+      tcm.other_lawsuit_body,
+      tcm.case_the_third,
+      tcm.case_depute_money,
+      tcm.case_special_line,
+      tcm.related_body_attribution,
+      tcm.case_review_grade,
+      tcm.case_reason,
+      tcm.depute_type,
+      tcm.create_time,
+      tcm.last_update_time,
+      tcm.case_is_finish,
+      tcm.case_finish_time,
+      tcm.case_finish_way,
+      tcm.large_lawsuit_mark,
+      tcm.creator_account_id,
+      tcm.creator_account_name,
+      tcm.creator_cell,
+      tcm.case_truth,
+      tcm.plaintiff_lawsuit_request,
+      tcm.case_file,
+      tcm.case_keyword,
+      tcm.case_same_plaintiff,
+      tcm.case_same_defendant,
+      tcm.creator_dept_id,
+      tcm.creator_dept_name,
+      tcm.creator_unit_id,
+      tcm.creator_unit_name,
+      tcm.ruling_classes,
+      tcm.delete_status,
+      tcm.case_explain,
+      tcm.involved_account_id,
+      tcm.involved_account_name,
+      tcm.involved_dept_id,
+      tcm.involved_dept_name,
+      tcm.involved_org_id,
+      tcm.involved_org_name
+    FROM t_case_main tcm LEFT JOIN t_pub_org tpo ON tcm.involved_dept_id = tpo.org_code
+    <where>
+      AND delete_status = '0' and case_status in ('2', '3')
+      <if test="param.caseStatus != null and param.caseStatus != ''">
+        AND tcm.case_status = #{param.caseStatus}
+      </if>
+      <if test="param.orgPath != null and param.orgPath != ''">
+        AND tpo.org_path like #{param.orgPath}
+      </if>
+      <if test="param.involvedAccountId != null and param.involvedAccountId != ''">
+        AND tcm.involved_account_id = #{param.involvedAccountId}
+      </if>
+      <if test="param.involvedAccountName != null and param.involvedAccountName != ''">
+        AND tcm.involved_account_name = #{param.involvedAccountName}
+      </if>
+      <if test="param.title != null and param.title != ''">
+        AND tcm.case_title like CONCAT_WS('','%', #{param.title},'%')
+      </if>
+      <if test="param.caseCode != null and param.caseCode != ''">
+        AND tcm.case_code like '%${param.caseCode}%'
+      </if>
+      <if test="param.startDate != null">
+        AND tcm.create_time > #{param.startDate,jdbcType=TIMESTAMP}
+      </if>
+      <if test="param.endDate != null">
+        AND tcm.create_time <![CDATA[<]]> #{param.endDate,jdbcType=TIMESTAMP}
+      </if>
+      <if test="param.deputeType != null and param.deputeType != ''">
+        AND tcm.depute_type = #{param.deputeType}
+      </if>
+      <if test="param.ourLawsuitBodyName!=null and param.ourLawsuitBodyName!=''">
+        AND (tcm.our_lawsuit_body_name ='${param.ourLawsuitBodyName}'
+        or tcm.our_lawsuit_body_name like'${param.ourLawsuitBodyName},%'
+        or tcm.our_lawsuit_body_name like'%,${param.ourLawsuitBodyName},%'
+        or tcm.our_lawsuit_body_name like'%,${param.ourLawsuitBodyName}')
+      </if>
+      <if test="param.otherLawsuitBody!=null and param.otherLawsuitBody!=''">
+        AND tcm.other_lawsuit_body like concat ('%',#{param.otherLawsuitBody},'%')
+      </if>
+      <if test="param.caseSpecialLine != null and param.caseSpecialLine != ''">
+        AND tcm.case_special_line = #{param.caseSpecialLine}
+      </if>
+    </where>
+    ORDER BY case_status
+  </select>
+  <select id="selectAllRelevanceCaseMain2" resultMap="caseMap">
+    select
+    case_id,case_code,case_title,case_status,drafter_unit,case_record_time,institution_case_code,
+    lawsuit_type,our_lawsuit_body,our_lawsuit_body_name,our_lawsuit_identity,other_lawsuit_body,case_the_third,case_depute_money,
+    case_special_line,related_body_attribution,case_review_grade,case_reason,depute_type,
+    create_time,last_update_time,case_is_finish,case_finish_time,case_finish_way,large_lawsuit_mark,
+    creator_account_id,creator_account_name,creator_cell,case_truth,plaintiff_lawsuit_request,
+    case_file,case_keyword,case_same_plaintiff,case_same_defendant,creator_dept_id,creator_dept_name,creator_unit_id,creator_unit_name,
+    ruling_classes,delete_status,case_explain,involved_account_id,
+    involved_account_name,
+    involved_dept_id,
+    involved_dept_name,
+    involved_org_id,
+    involved_org_name
+    from t_case_main
+    <where>
+      case_status = '2' and creator_unit_id=#{orgId}
+      <if test="param.deleteStatus!=1">
+        and delete_status=#{param.deleteStatus}
+      </if>
+      <if test="param.title!=null and param.title!=''">
+        and case_title like concat('%',#{param.title},'%')
+      </if>
+      <if test="param.startDate != null">
+        and last_update_time <![CDATA[>=]]> #{param.startDate,jdbcType=TIMESTAMP}
+      </if>
+      <if test="param.endDate != null">
+        and last_update_time <![CDATA[<=]]> #{param.endDate,jdbcType=TIMESTAMP}
+      </if>
+      <if test="param.caseCode!=null and param.caseCode!=''">
+        and case_code like concat ('%',#{param.caseCode},'%')
+      </if>
+      <if test="param.ourLawsuitBodyName!=null and param.ourLawsuitBodyName!=''">
+        and our_lawsuit_body_name like concat ('%',#{param.ourLawsuitBodyName},'%')
+      </if>
+      <if test="param.otherLawsuitBody!=null and param.otherLawsuitBody!=''">
+        and other_lawsuit_body like concat ('%',#{param.otherLawsuitBody},'%')
+      </if>
+      <if test="param.deputeType!=null and param.deputeType!=''">
+        and depute_type = #{param.deputeType}
+      </if>
+    </where>
+    order by last_update_time desc
+  </select>
+    <select id="selectNewCaseMainList" resultMap="caseMap">
+      select * from t_case_main
+      <where>
+        case_status in ('2', '3')
+        and creator_unit_id = #{param.creatorUnitId}
+        <if test="param.title != null and param.title != ''">
+          and case_title like concat ('%',#{param.title},'%')
+        </if>
+        <if test="param.caseCode != null and param.caseCode != ''">
+          and case_code like concat ('%',#{param.caseCode},'%')
+        </if>
+        <if test="param.otherLawsuitBody!=null and param.otherLawsuitBody!=''">
+          and other_lawsuit_body like concat ('%',#{param.otherLawsuitBody},'%')
+        </if>
+        <if test="param.ourLawsuitBodyName!=null and param.ourLawsuitBodyName!=''">
+          AND (our_lawsuit_body_name ='${param.ourLawsuitBodyName}'
+          or our_lawsuit_body_name like'${param.ourLawsuitBodyName},%'
+          or our_lawsuit_body_name like'%,${param.ourLawsuitBodyName},%'
+          or our_lawsuit_body_name like'%,${param.ourLawsuitBodyName}')
+        </if>
+        <if test="param.deputeType!=null and param.deputeType!=''">
+          and depute_type = #{param.deputeType}
+        </if>
+        <if test="param.startDate != null">
+          AND last_update_time > #{param.startDate,jdbcType=TIMESTAMP}
+        </if>
+        <if test="param.endDate != null">
+          AND last_update_time <![CDATA[<]]> #{param.endDate,jdbcType=TIMESTAMP}
+        </if>
+        <if test="param.nullifyCaseId != null">
+          AND case_id <![CDATA[!=]]> #{param.nullifyCaseId,jdbcType=TIMESTAMP}
+        </if>
+      </where>
+    </select>
+</mapper>
+

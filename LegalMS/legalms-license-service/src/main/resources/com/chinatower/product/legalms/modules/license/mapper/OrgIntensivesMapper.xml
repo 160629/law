@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chinatower.product.legalms.modules.license.mapper.OrgIntensivesMapper">
+
+    <resultMap id="BaseResultMap" type="com.chinatower.product.legalms.modules.license.entity.jiyuehua.OrgIntensivesVO">
+        <result column="org_id" jdbcType="VARCHAR" property="orgCode"/>
+        <result column="org_name" jdbcType="VARCHAR" property="orgName"/>
+        <result column="province_name" jdbcType="VARCHAR" property="provinceName"/>
+        <result column="unit_name" jdbcType="TIMESTAMP" property="unitName"/>
+        <result column="is_jiyuehua" jdbcType="VARCHAR" property="isJiYueHua"/>
+    </resultMap>
+
+
+    <sql id="sqlWhere">/*是否设置*/
+        <if test="isJiYueHua=='0'.toString()">
+            and (t.is_jiyuehua = #{isJiYueHua})
+        </if>
+        <if test="isJiYueHua=='1'.toString()">
+            and t.is_jiyuehua = #{isJiYueHua}
+        </if>
+        <if test="orgCodeList!=null and orgCodeList.size() > 0 ">
+            and o.org_code in (
+            <foreach collection="orgCodeList" separator="," item="value">
+                #{value}
+            </foreach>
+            )
+        </if>
+    </sql>
+
+    <select id="selectOrgIntensives"
+            parameterType="com.chinatower.product.legalms.modules.license.entity.jiyuehua.OrgIntensives"
+            resultMap="BaseResultMap">
+        SELECT
+        o.org_name org_name,
+        t.is_jiyuehua is_jiyuehua,
+        o.org_code org_id,
+        c.org_name province_name,
+        d.dict_cabel unit_name
+        FROM
+        t_pub_org o
+        LEFT JOIN t_sys_jiyuehua t ON o.org_code = t.org_id
+        LEFT JOIN ( SELECT org_name, org_code FROM t_pub_org ) c ON o.org_parent_code = c.org_code
+        LEFT JOIN t_sys_dict_data d on d.dict_value = o.enterp_type
+        WHERE
+        o.org_level = '03' AND d.dict_type = 'sys_enterp_type'
+        <include refid="sqlWhere"/>
+        <if test="superRole==null">
+            and o.enterp_type = #{enterpType}
+            <if test="orgLevel=='01'.toString()||orgLevel=='02'.toString()">
+                and o.org_path LIKE CONCAT((SELECT org_path FROM t_pub_org WHERE
+                org_code = ( SELECT org_parent_code FROM t_pub_org WHERE org_code = ( SELECT company_code FROM t_pub_org
+                WHERE org_code = #{currOrgCode} ))),'%')
+            </if>
+            <if test="orgLevel=='03'.toString()">
+                and o.org_path LIKE CONCAT((SELECT org_path FROM t_pub_org WHERE
+                org_code = ( SELECT company_code FROM t_pub_org
+                WHERE org_code = #{currOrgCode} )),'%')
+            </if>
+        </if>
+        order by o.enterp_type,o.org_id
+    </select>
+
+    <update id="updateOrgIntensives" parameterType="com.chinatower.product.legalms.modules.license.entity.jiyuehua.OrgIntensives" >
+        update t_sys_jiyuehua set is_jiyuehua = #{isJiYueHua}  where  org_id in (
+        <foreach collection="orgCodeList" index="index" separator="," item="value">
+            #{value}
+        </foreach>
+        )
+    </update>
+
+    <select id="selectOrgIntensivesByCodeList" parameterType="com.chinatower.product.legalms.modules.license.entity.jiyuehua.OrgIntensives" resultMap="BaseResultMap">
+        select org_id from t_sys_jiyuehua where org_id in (
+        <foreach collection="orgCodeList" index="index" separator="," item="value">
+            #{value}
+        </foreach>
+        )
+    </select>
+    <insert id="addrgIntensives" parameterType="com.chinatower.product.legalms.modules.license.entity.jiyuehua.OrgIntensives">
+        insert  into t_sys_jiyuehua (org_id ,is_jiyuehua) values
+        <foreach collection="orgCodeList" index="index" separator="," item="value">
+            (#{value},#{isJiYueHua})
+        </foreach>
+    </insert>
+</mapper>

@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chinatower.product.legalms.modules.system.mapper.AnnouncementVoMapper">
+	<resultMap id="BaseResultMap" type="com.chinatower.product.legalms.modules.system.entity.AnnouncementVO">
+		<id column="announcement_id" property="announcementId" jdbcType="VARCHAR" />
+		<result column="announcement_order" property="announcementOrder" jdbcType="INTEGER" />
+		<result column="announcement_name" property="announcementName" jdbcType="VARCHAR" />
+		<result column="announcement_content" property="announcementContent" jdbcType="CLOB" />
+
+		<result column="announcement_starttime" property="announcementStarttime" jdbcType="TIMESTAMP" />
+
+		<result column="announcement_finishtime" property="announcementFinishtime" jdbcType="TIMESTAMP" />
+		<result column="announcement_state" property="announcementState" jdbcType="VARCHAR" />
+		<result column="announcement_typeid" property="announcementTypeid" jdbcType="INTEGER" />
+		<result column="announcement_issuerid" property="announcementIssuerid" jdbcType="VARCHAR" />
+
+		<result column="announcement_issuername" property="announcementIssuername" jdbcType="VARCHAR" />
+
+		<result column="announcement_status" property="announcementStatus" jdbcType="INTEGER" />
+		<result column="announcement_createtime" property="announcementCreatetime" jdbcType="TIMESTAMP" />
+		<result column="announcement_filestate" property="announcementFilestate" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<select id="selectAllAnnouncement" resultMap="BaseResultMap">
+		select		t.*
+		from t_sys_announce_base t
+		<where>
+			1=1
+			<if test="announcementStatus!=null">
+				and t.announcement_status = #{announcementStatus}
+			</if>
+			<if test="announcementName!=null and announcementName!='null'">
+				and t.announcement_name like concat('%',#{announcementName},'%')
+			</if>
+
+			<if test="announcementIssuername!=null and announcementIssuername!='null'">
+				and t.announcement_issuerid like concat('%',#{announcementIssuername},'%')
+			</if>
+
+			<if test="announcementTypeid!=null">
+				and t.announcement_typeid = #{announcementTypeid}
+			</if>
+
+			<if test="announcementTime!=null and announcementTime1!=null">
+				and t.announcement_createtime between #{announcementTime} and #{announcementTime1}
+			</if>
+		</where>
+		order by announcement_createtime desc
+	</select>
+
+	<select id="selectAnnouncementMore"  resultMap="BaseResultMap">
+		select		t.*
+		from t_sys_announce_base t where
+		announcement_status=0
+		/*去除发布完毕的状态 取消发布 和过期会变成发布完毕的状态*/
+		and announcement_state!='2'
+		and now() &gt;= announcement_starttime and now() &lt;= announcement_finishtime
+		order by announcement_starttime desc
+	</select>
+
+	<select id="selectAnnouncementbyfive"  resultMap="BaseResultMap">
+		select		t.*
+		from t_sys_announce_base t where
+		announcement_status=0
+		/*去除发布完毕的状态 取消发布 和过期会变成发布完毕的状态*/
+		and announcement_state!='2'
+		and now() &gt;= announcement_starttime and now() &lt;= announcement_finishtime
+		order by announcement_starttime desc limit 5
+	</select>
+
+	<insert id="insertAnnouncementById">
+		insert into t_sys_announce_base
+		<trim prefix="(" suffix=")" suffixOverrides="," >
+			<if test="announcementId != null" > announcement_id, </if>
+			<if test="announcementOrder != null" > announcement_order, </if>
+			<if test="announcementName != null" > announcement_name, </if>
+			<if test="announcementContent != null" > announcement_content, </if>
+
+			<if test="announcementStarttime != null" > announcement_starttime, </if>
+
+			<if test="announcementFinishtime != null" > announcement_finishtime, </if>
+			<if test="announcementState != null" > announcement_state, </if>
+			<if test="announcementTypeid != null" > announcement_typeid, </if>
+			<if test="announcementIssuerid != null" > announcement_issuerid, </if>
+
+
+
+			<if test="announcementIssuername != null" > announcement_issuername,</if>
+
+			<if test="announcementStatus != null" > announcement_status, </if>
+			 announcement_createtime,
+			<if test="announcementFilestate != null" > announcement_filestate, </if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides="," >
+			<if test="announcementId != null" > #{announcementId,jdbcType=INTEGER}, </if>
+			<if test="announcementOrder != null" > #{announcementOrder,jdbcType=VARCHAR}, </if>
+			<if test="announcementName != null" > #{announcementName,jdbcType=INTEGER}, </if>
+			<if test="announcementContent != null" > #{announcementContent,jdbcType=VARCHAR}, </if>
+
+			<if test="announcementStarttime != null" > #{announcementStarttime}, </if>
+
+			<if test="announcementFinishtime != null" > #{announcementFinishtime,jdbcType=INTEGER}, </if>
+			<if test="announcementState != null" > #{announcementState,jdbcType=TIMESTAMP}, </if>
+			<if test="announcementTypeid != null" > #{announcementTypeid,jdbcType=INTEGER}, </if>
+			<if test="announcementIssuerid != null" > #{announcementIssuerid,jdbcType=VARCHAR}, </if>
+
+			<if test="announcementIssuername != null" > #{announcementIssuername,jdbcType=VARCHAR},</if>
+
+			<if test="announcementStatus != null" > #{announcementStatus,jdbcType=VARCHAR}, </if>
+			now(),
+			<if test="announcementFilestate != null" > #{announcementFilestate,jdbcType=VARCHAR}, </if>
+		</trim>
+	</insert>
+
+	<update id="updateAnnouncementById">
+		update t_sys_announce_base
+		<set>
+			<if test="announcementOrder != null" > announcement_order =#{announcementOrder}, </if>
+			<if test="announcementName != null" > announcement_name =#{announcementName} ,</if>
+			<if test="announcementContent != null" > announcement_content =#{announcementContent} ,</if>
+
+			<if test="announcementStarttime != null" > announcement_starttime = #{announcementStarttime}, </if>
+
+			<if test="announcementFinishtime != null" > announcement_finishtime =#{announcementFinishtime}, </if>
+			<if test="announcementState != null" > announcement_state =#{announcementState}, </if>
+			<if test="announcementTypeid != null" > announcement_typeid =#{announcementTypeid} ,</if>
+			<if test="announcementStatus != null" > announcement_status =#{announcementStatus}, </if>
+			<if test="announcementFilestate != null" > announcement_filestate =#{announcementFilestate}, </if>
+		</set>
+		where announcement_id = #{announcementId}
+	</update>
+
+	<select id="selectannouncementById" resultMap="BaseResultMap">
+         SELECT a.*
+         from t_sys_announce_base a
+         where a.announcement_id= #{id}
+	</select>
+</mapper>

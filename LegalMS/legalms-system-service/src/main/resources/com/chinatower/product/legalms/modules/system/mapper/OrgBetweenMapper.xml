@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chinatower.product.legalms.modules.system.mapper.OrgBetweenMapper">
+    <resultMap id="BaseResultMap" type="com.chinatower.product.legalms.modules.system.entity.OrgInfoBeanVO">
+    <id column="org_code" property="orgCode" jdbcType="VARCHAR" />
+    <result column="org_name" property="orgName" jdbcType="VARCHAR" />
+    <result column="org_code" property="orgCode" jdbcType="VARCHAR" />
+    <result column="org_status" property="orgStatus" jdbcType="VARCHAR" />
+    <result column="org_remarks" property="orgRemarks" jdbcType="VARCHAR" />
+    <result column="enterp_type" property="enterpType" jdbcType="VARCHAR" />
+    <result column="org_level" property="orgLevel" jdbcType="VARCHAR" />
+    <result column="org_parent_code" property="orgParentCode" jdbcType="VARCHAR" />
+    <result column="org_change" property="orgChange" jdbcType="VARCHAR" />
+    <result column="org_path" property="orgPath" jdbcType="VARCHAR" />
+    <result column="created_by" property="createdBy" jdbcType="VARCHAR" />
+    <result column="creation_date" property="creationDate" jdbcType="TIMESTAMP" />
+    <result column="last_updated_by" property="lastUpdatedBy" jdbcType="VARCHAR" />
+    <result column="last_update_date" property="lastUpdateDate" jdbcType="TIMESTAMP" />
+    <result column="org_reserved_text1" property="orgReservedText1" jdbcType="VARCHAR" />
+    <result column="org_relation" property="orgRelation" jdbcType="VARCHAR" />
+    <result column="flag" property="flag" jdbcType="VARCHAR" />
+    <result column="url" property="url" jdbcType="VARCHAR" />
+    <result column="mdm_org_code" property="mdmOrgCode" jdbcType="VARCHAR" />
+    <result column="org_base_id" property="orgBaseId" jdbcType="INTEGER" />
+    </resultMap>
+
+    <select id="selectOrgBeanByCode" resultMap="BaseResultMap">
+        SELECT * from t_pub_org_between a LEFT JOIN t_pub_org_between b on a.org_code=b.org_parent_code
+            where b.org_parent_code = #{org_code}
+    </select>
+</mapper>

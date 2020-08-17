@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chinatower.product.legalms.modules.flow.mapper.common.OrgDepLeaderVOMapper">
+    <resultMap id="BaseResultMap" type="com.chinatower.product.legalms.modules.flow.entity.common.OrgDepLeader">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="org_code" jdbcType="VARCHAR" property="orgCode"/>
+        <result column="account_id" jdbcType="VARCHAR" property="accountId"/>
+        <result column="org_name" jdbcType="VARCHAR" property="orgName"/>
+        <result column="emp_name" jdbcType="VARCHAR" property="empName"/>
+        <result column="company_name" jdbcType="VARCHAR" property="compName"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="last_update" jdbcType="TIMESTAMP" property="lastUpdate"/>
+        <result column="is_setup" jdbcType="VARCHAR" property="isSetup"/>
+    </resultMap>
+
+    <resultMap id="ResultMap" type="com.chinatower.product.legalms.modules.flow.entity.common.AccountLogic">
+        <id column="account_id" jdbcType="VARCHAR" property="accountId"/>
+        <result column="account_status" jdbcType="VARCHAR" property="accountStatus"/>
+        <result column="account_type" jdbcType="VARCHAR" property="accountType"/>
+        <result column="account_name" jdbcType="VARCHAR" property="accountName"/>
+        <result column="account_app_id" jdbcType="VARCHAR" property="accountAppId"/>
+        <result column="account_cur_user_id" jdbcType="VARCHAR" property="accountCurUserId"/>
+        <result column="account_cur_user_name" jdbcType="VARCHAR" property="accountCurUserName"/>
+        <result column="account_pre_user_id" jdbcType="VARCHAR" property="accountPreUserId"/>
+        <result column="account_pre_user_name" jdbcType="VARCHAR" property="accountPreUserName"/>
+        <result column="account_org_id" jdbcType="VARCHAR" property="accountOrgId"/>
+        <result column="account_org_id_old" jdbcType="VARCHAR" property="accountOrgIdOld"/>
+        <result column="account_unit_id" jdbcType="VARCHAR" property="accountUnitId"/>
+        <result column="account_dept_id" jdbcType="VARCHAR" property="accountDeptId"/>
+        <result column="account_dept_id_old" jdbcType="VARCHAR" property="accountDeptIdOld"/>
+        <result column="account_order" jdbcType="VARCHAR" property="accountOrder"/>
+        <result column="account_status_update_time" jdbcType="TIMESTAMP" property="accountStatusUpdateTime"/>
+        <result column="account_create_time" jdbcType="TIMESTAMP" property="accountCreateTime"/>
+        <result column="account_remark" jdbcType="VARCHAR" property="accountRemark"/>
+        <result column="account_duty_id" jdbcType="DOUBLE" property="accountDutyId"/>
+        <result column="site_type" jdbcType="VARCHAR" property="siteType"/>
+        <result column="account_phone" jdbcType="VARCHAR" property="mobile"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+    id, org_code,  account_id,emp_name, create_time,last_update
+  </sql>
+    <sql id="userInfo">
+    b.account_cur_user_name account_cur_user_name,b.account_cur_user_id account_cur_user_id,b.account_org_id account_org_id,b.account_id account_id,b.account_unit_id account_unit_id
+  </sql>
+    <select id="selectOrgCodeByAccountId" parameterType="string" resultMap="ResultMap">
+   select * from t_pub_account_tab where  account_id = #{value} and account_status !='3'
+  </select>
+    <!--根据分管领导查询分管部门Code-->
+    <select id="selectDeptCodeByAccountId" parameterType="string" resultMap="BaseResultMap">
+        select * from t_orgdep_leader where  account_id = #{value}
+    </select>
+    <select id="selectOrgDepLeader" parameterType="java.lang.String" resultMap="ResultMap">
+        select
+        <include refid="userInfo"/>
+        from t_orgdep_leader a ,t_pub_account_tab b
+        where a.account_id = b.account_id and a.org_code = #{orgCode,jdbcType=VARCHAR}
+    </select>
+
+    <select id="selectDepLeader" resultMap="ResultMap">
+     SELECT
+        b.account_cur_user_name account_cur_user_name,
+        b.account_cur_user_id account_cur_user_id,
+        b.account_org_id account_org_id,
+        b.account_id account_id,
+        b.account_unit_id account_unit_id,
+        case when
+        b.account_phone_status = '1' then b.account_phone
+        when b.account_phone_status = '2' then b.account_phone  = null end account_phone
+    FROM
+        t_orgdep_leader a,
+        t_pub_account_tab b
+    WHERE
+	a.account_id = b.account_id
+	AND a.org_code = (
+	SELECT
+		ORG_CODE
+	FROM
+		t_pub_org
+	WHERE
+		enterp_type = #{enterpTye}
+		AND org_level = '04'
+		AND company_code = ( SELECT company_code FROM t_pub_org WHERE org_code = #{orgCode} )
+	AND org_name = ( SELECT dict_cabel FROM t_sys_dict_data WHERE dict_value = #{orgLevel} AND dict_type = 'sys_fawu_dept__name' )
+	)
+  </select>
+
+
+</mapper>

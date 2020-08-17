@@ -1,0 +1,994 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper
+	namespace="com.chinatower.product.legalms.modules.dispute.mapper.issue.TIssueJointlyMapper">
+	<resultMap id="BaseResultMap"
+		type="com.chinatower.product.legalms.modules.dispute.entity.issue.TIssueJointly">
+		<id column="jointly_id" jdbcType="VARCHAR" property="jointlyId" />
+		<result column="jointly_code" jdbcType="VARCHAR"
+			property="jointlyCode" />
+		<result column="jointly_title" jdbcType="VARCHAR"
+			property="jointlyTitle" />
+		<result column="approve_org" jdbcType="VARCHAR"
+			property="approveOrg" />
+		<result column="case_line" jdbcType="VARCHAR"
+			property="caseLine" />
+		<result column="case_create_time" jdbcType="TIMESTAMP"
+			property="caseCreateTime" />
+		<result column="indict_or_unindict" jdbcType="VARCHAR"
+			property="indictOrUnindict" />
+		<result column="case_type" jdbcType="VARCHAR"
+			property="caseType" />
+		<result column="approve_level" jdbcType="VARCHAR"
+			property="approveLevel" />
+		<result column="lawsuit_size" jdbcType="VARCHAR"
+			property="lawsuitSize" />
+		<result column="lawsuit_money" jdbcType="VARCHAR"
+			property="lawsuitMoney" />
+		<result column="our_lawsuit_body" jdbcType="VARCHAR"
+			property="ourLawsuitBody" />
+		<result column="they_lawsuit_body" jdbcType="VARCHAR"
+			property="theyLawsuitBody" />
+		<result column="our_lawsuit_status" jdbcType="VARCHAR"
+			property="ourLawsuitStatus" />
+		<result column="third_person" jdbcType="VARCHAR"
+			property="thirdPerson" />
+		<result column="plaintiff" jdbcType="VARCHAR"
+			property="plaintiff" />
+		<result column="defendant" jdbcType="VARCHAR"
+			property="defendant" />
+		<result column="lawsuit_detail" jdbcType="VARCHAR"
+			property="lawsuitDetail" />
+		<result column="jointly_org" jdbcType="VARCHAR"
+			property="jointlyOrg" />
+		<result column="jointly_item" jdbcType="VARCHAR"
+			property="jointlyItem" />
+		<result column="file_url" jdbcType="VARCHAR" property="fileUrl" />
+		<result column="create_time" jdbcType="TIMESTAMP"
+			property="createTime" />
+		<result column="jointly_status" jdbcType="VARCHAR"
+			property="jointlyStatus" />
+		<result column="sign_dept" jdbcType="VARCHAR"
+			property="signDept" />
+		<result column="jointly_case" jdbcType="VARCHAR"
+			property="jointlyCase" />
+		<result column="case_title" jdbcType="VARCHAR"
+			property="caseTitle" />
+		<result column="jointly_org_id" jdbcType="VARCHAR"
+			property="jointlyOrgId" />
+		<result column="login_acct" jdbcType="VARCHAR"
+			property="loginAcct" />
+		<result column="login_name" jdbcType="VARCHAR"
+			property="loginName" />
+		<result column="org_name" jdbcType="VARCHAR" property="orgName" />
+		<result column="org_id" jdbcType="VARCHAR" property="orgId" />
+		<result column="dept_name" jdbcType="VARCHAR"
+			property="deptName" />
+		<result column="dept_id" jdbcType="VARCHAR" property="deptId" />
+		<result column="mobile" jdbcType="VARCHAR" property="mobile" />
+		<result column="module_name" jdbcType="VARCHAR"
+			property="moduleName" />
+		<result column="jointly_unit_name" jdbcType="VARCHAR"
+				property="jointlyUnitName" />
+		<result column="jointly_unit_id" jdbcType="VARCHAR"
+				property="jointlyUnitId" />
+	</resultMap>
+	<resultMap id="JointlyVO" type="com.chinatower.product.legalms.modules.dispute.vo.jointly.JointlyVO">
+		<!-- 案件协办单字段 -->
+		<id column="jointly_id" jdbcType="VARCHAR" property="jointlyId" />
+		<result column="jointly_code" jdbcType="VARCHAR" property="jointlyCode" />
+		<result column="jointly_title" jdbcType="VARCHAR" property="jointlyTitle" />
+		<result column="approve_org" jdbcType="VARCHAR" property="approveOrg" />
+		<result column="case_line" jdbcType="VARCHAR" property="caseLine" />
+		<result column="case_create_time" jdbcType="TIMESTAMP" property="caseCreateTime" />
+		<result column="indict_or_unindict" jdbcType="VARCHAR" property="indictOrUnindict" />
+		<result column="case_type" jdbcType="VARCHAR" property="caseType" />
+		<result column="approve_level" jdbcType="VARCHAR" property="approveLevel" />
+		<result column="lawsuit_size" jdbcType="VARCHAR" property="lawsuitSize" />
+		<result column="lawsuit_money" jdbcType="VARCHAR" property="lawsuitMoney" />
+		<result column="our_lawsuit_body" jdbcType="VARCHAR" property="ourLawsuitBody" />
+		<result column="they_lawsuit_body" jdbcType="VARCHAR" property="theyLawsuitBody" />
+		<result column="our_lawsuit_status" jdbcType="VARCHAR" property="ourLawsuitStatus" />
+		<result column="third_person" jdbcType="VARCHAR" property="thirdPerson" />
+		<result column="plaintiff" jdbcType="VARCHAR" property="plaintiff" />
+		<result column="defendant" jdbcType="VARCHAR" property="defendant" />
+		<result column="lawsuit_detail" jdbcType="VARCHAR" property="lawsuitDetail" />
+		<result column="jointly_org" jdbcType="VARCHAR" property="jointlyOrg" />
+		<result column="jointly_item" jdbcType="VARCHAR" property="jointlyItem" />
+		<result column="file_url" jdbcType="VARCHAR" property="fileUrl" />
+		<result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+		<result column="login_acct" jdbcType="VARCHAR" property="loginAcct" />
+		<result column="jointly_status" jdbcType="VARCHAR" property="jointlyStatus" />
+		<result column="login_name" jdbcType="VARCHAR" property="loginName" />
+		<result column="sign_dept" jdbcType="VARCHAR" property="signDept" />
+		<result column="jointly_case" jdbcType="VARCHAR" property="jointlyCase" />
+		<result column="jointly_org_id" jdbcType="VARCHAR" property="jointlyOrgId" />
+		<result column="login_acct" jdbcType="VARCHAR" property="loginAcct" />
+		<result column="login_name" jdbcType="VARCHAR" property="loginName" />
+		<result column="org_name" jdbcType="VARCHAR" property="orgName" />
+		<result column="org_id" jdbcType="VARCHAR" property="orgId" />
+		<result column="dept_name" jdbcType="VARCHAR" property="deptName" />
+		<result column="dept_id" jdbcType="VARCHAR" property="deptId" />
+		<result column="mobile" jdbcType="VARCHAR" property="mobile" />
+		<result column="module_name" jdbcType="VARCHAR" property="moduleName" />
+		<result column="feed_back" jdbcType="VARCHAR" property="feedBack" />
+		<result column="jointly_unit_name" jdbcType="VARCHAR" property="jointlyUnitName" />
+		<result column="jointly_unit_id" jdbcType="VARCHAR" property="jointlyUnitId" />
+		<result column="unit_level" jdbcType="VARCHAR" property="unitLevel" />
+		<!-- 流程主表字段 -->
+		<collection property="mian" ofType="com.chinatower.product.legalms.modules.flow.vo.flow.TFlowMainVO">
+			<id column="flow_id" jdbcType="BIGINT" property="flowId" />
+			<result column="flow_name" jdbcType="VARCHAR" property="flowName" />
+			<result column="flow_status" jdbcType="VARCHAR" property="flowStatus" />
+			<result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+			<result column="create_user_id" jdbcType="VARCHAR" property="createUserId" />
+			<result column="create_user_name" jdbcType="VARCHAR" property="createUserName" />
+			<result column="approve_item_id" jdbcType="VARCHAR" property="approveItemId" />
+			<result column="approve_item_name" jdbcType="VARCHAR" property="approveItemName" />
+			<result column="approve_item_type" jdbcType="VARCHAR" property="approveItemType" />
+			<result column="module_name" jdbcType="VARCHAR" property="moduleName" />
+			<result column="version_id" jdbcType="VARCHAR" property="versionId" />
+			<!-- 日志表字段 -->
+			<collection property="logs"
+				ofType="com.chinatower.product.legalms.modules.flow.vo.flow.TFlowLogVO">
+				<id column="flow_log_id" jdbcType="VARCHAR" property="flowLogId" />
+				<result column="status" jdbcType="VARCHAR" property="status" />
+				<result column="business_advice" jdbcType="VARCHAR" property="businessAdvice" />
+				<result column="opinion" jdbcType="VARCHAR" property="opinion" />
+				<result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+				<result column="activity_inst_id" jdbcType="BIGINT" property="activityInstId" />
+				<result column="activity_def_id" jdbcType="VARCHAR" property="activityDefId" />
+				<result column="activity_def_name" jdbcType="VARCHAR" property="activityDefName" />
+				<result column="next_activity_def_id" jdbcType="VARCHAR" property="nextActivityDefId" />
+				<result column="next_activity_def_name" jdbcType="VARCHAR" property="nextActivityDefName" />
+				<result column="org_name" jdbcType="VARCHAR" property="orgName" />
+				<result column="org_id" jdbcType="VARCHAR" property="orgId" />
+				<result column="user_name" jdbcType="VARCHAR" property="userName" />
+				<result column="user_id" jdbcType="VARCHAR" property="userId" />
+				<result column="work_type" jdbcType="VARCHAR" property="workType" />
+				<result column="flow_id" jdbcType="BIGINT" property="flowId" />
+				<result column="flow_pid" jdbcType="BIGINT" property="flowPid" />
+				<result column="receiver_company_id" jdbcType="VARCHAR" property="receiverCompanyId" />
+				<result column="receiver_company_name" jdbcType="VARCHAR" property="receiverCompanyName" />
+				<result column="receiver_org_id" jdbcType="VARCHAR" property="receiverOrgId" />
+				<result column="receiver_org_name" jdbcType="VARCHAR" property="receiverOrgName" />
+				<result column="receiver_id" jdbcType="VARCHAR" property="receiverId" />
+				<result column="receiver_name" jdbcType="VARCHAR" property="receiverName" />
+				<result column="approve_item_id" jdbcType="VARCHAR" property="approveItemId" />
+				<result column="approve_item_type" jdbcType="VARCHAR" property="approveItemType" />
+				<result column="toer_id" jdbcType="VARCHAR" property="toerId" />
+				<result column="toer_name" jdbcType="VARCHAR" property="toerName" />
+				<result column="option_type" jdbcType="VARCHAR" property="optionType" />
+				<result column="dept_name" jdbcType="VARCHAR" property="deptName" />
+				<result column="dept_id" jdbcType="VARCHAR" property="deptId" />
+				<!-- 子流程字段 -->
+				<collection property="subLogs"
+					ofType="com.chinatower.product.legalms.modules.flow.vo.flow.SubTFlowLogVO">
+					<id column="flow_log_id_sub" jdbcType="VARCHAR" property="flowLogId" />
+					<result column="status_sub" jdbcType="VARCHAR" property="status" />
+					<result column="business_advice_sub" jdbcType="VARCHAR" property="businessAdvice" />
+					<result column="opinion_sub" jdbcType="VARCHAR" property="opinion" />
+					<result column="modify_time_sub" jdbcType="TIMESTAMP" property="modifyTime" />
+					<result column="activity_inst_id_sub" jdbcType="BIGINT" property="activityInstId" />
+					<result column="activity_def_id_sub" jdbcType="VARCHAR" property="activityDefId" />
+					<result column="activity_def_name_sub" jdbcType="VARCHAR" property="activityDefName" />
+					<result column="next_activity_def_id_sub" jdbcType="VARCHAR" property="nextActivityDefId" />
+					<result column="next_activity_def_name_sub" jdbcType="VARCHAR" property="nextActivityDefName" />
+					<result column="org_name_sub" jdbcType="VARCHAR" property="orgName" />
+					<result column="org_id_sub" jdbcType="VARCHAR" property="orgId" />
+					<result column="user_name_sub" jdbcType="VARCHAR" property="userName" />
+					<result column="user_id_sub" jdbcType="VARCHAR" property="userId" />
+					<result column="work_type_sub" jdbcType="VARCHAR" property="workType" />
+					<result column="flow_id_sub" jdbcType="BIGINT" property="flowId" />
+					<result column="flow_pid_sub" jdbcType="BIGINT" property="flowPid" />
+					<result column="receiver_company_id_sub" jdbcType="VARCHAR" property="receiverCompanyId" />
+					<result column="receiver_company_name_sub" jdbcType="VARCHAR" property="receiverCompanyName" />
+					<result column="receiver_org_id_sub" jdbcType="VARCHAR" property="receiverOrgId" />
+					<result column="receiver_org_name_sub" jdbcType="VARCHAR" property="receiverOrgName" />
+					<result column="receiver_id_sub" jdbcType="VARCHAR" property="receiverId" />
+					<result column="receiver_name_sub" jdbcType="VARCHAR" property="receiverName" />
+					<result column="approve_item_id_sub" jdbcType="VARCHAR" property="approveItemId" />
+					<result column="approve_item_type_sub" jdbcType="VARCHAR" property="approveItemType" />
+					<result column="toer_id_sub" jdbcType="VARCHAR" property="toerId" />
+					<result column="toer_name_sub" jdbcType="VARCHAR" property="toerName" />
+					<result column="option_type_sub" jdbcType="VARCHAR" property="optionType" />
+					<result column="dept_name_sub" jdbcType="VARCHAR" property="deptName" />
+					<result column="dept_id_sub" jdbcType="VARCHAR" property="deptId" />
+					<collection property="subTFlowLogVOList" ofType="com.chinatower.product.legalms.modules.flow.vo.flow.SubTFlowLogVO">
+						<id column="flow_log_id_sub_sub" jdbcType="VARCHAR" property="flowLogId" />
+						<result column="status_sub_sub" jdbcType="VARCHAR" property="status" />
+						<result column="business_advice_sub_sub" jdbcType="VARCHAR" property="businessAdvice" />
+						<result column="opinion_sub_sub" jdbcType="VARCHAR" property="opinion" />
+						<result column="modify_time_sub_sub" jdbcType="TIMESTAMP" property="modifyTime" />
+						<result column="activity_inst_id_sub_sub" jdbcType="BIGINT" property="activityInstId" />
+						<result column="activity_def_id_sub_sub" jdbcType="VARCHAR" property="activityDefId" />
+						<result column="activity_def_name_sub_sub" jdbcType="VARCHAR" property="activityDefName" />
+						<result column="next_activity_def_id_sub_sub" jdbcType="VARCHAR" property="nextActivityDefId" />
+						<result column="next_activity_def_name_sub_sub" jdbcType="VARCHAR" property="nextActivityDefName" />
+						<result column="org_name_sub_sub" jdbcType="VARCHAR" property="orgName" />
+						<result column="org_id_sub_sub" jdbcType="VARCHAR" property="orgId" />
+						<result column="user_name_sub_sub" jdbcType="VARCHAR" property="userName" />
+						<result column="user_id_sub_sub" jdbcType="VARCHAR" property="userId" />
+						<result column="work_type_sub_sub" jdbcType="VARCHAR" property="workType" />
+						<result column="flow_id_sub_sub" jdbcType="BIGINT" property="flowId" />
+						<result column="flow_pid_sub_sub" jdbcType="BIGINT" property="flowPid" />
+						<result column="receiver_company_id_sub_sub" jdbcType="VARCHAR" property="receiverCompanyId" />
+						<result column="receiver_company_name_sub_sub" jdbcType="VARCHAR" property="receiverCompanyName" />
+						<result column="receiver_org_id_sub_sub" jdbcType="VARCHAR" property="receiverOrgId" />
+						<result column="receiver_org_name_sub_sub" jdbcType="VARCHAR" property="receiverOrgName" />
+						<result column="receiver_id_sub_sub" jdbcType="VARCHAR" property="receiverId" />
+						<result column="receiver_name_sub_sub" jdbcType="VARCHAR" property="receiverName" />
+						<result column="approve_item_id_sub_sub" jdbcType="VARCHAR" property="approveItemId" />
+						<result column="approve_item_type_sub_sub" jdbcType="VARCHAR" property="approveItemType" />
+						<result column="toer_id_sub_sub" jdbcType="VARCHAR" property="toerId" />
+						<result column="toer_name_sub_sub" jdbcType="VARCHAR" property="toerName" />
+						<result column="option_type_sub_sub" jdbcType="VARCHAR" property="optionType" />
+						<result column="dept_name_sub_sub" jdbcType="VARCHAR" property="deptName" />
+						<result column="dept_id_sub_sub" jdbcType="VARCHAR" property="deptId" />
+					</collection>
+				</collection>
+			</collection>
+		</collection>
+	</resultMap>
+	<sql id="Sub_Column_List">
+		flo.flow_log_id flow_log_id_sub, flo.status status_sub,
+		flo.business_advice
+		business_advice_sub,
+		flo.receiver_company_id
+		receiver_company_id_sub, flo.receiver_company_name
+		receiver_company_name_sub,
+		flo.receiver_org_id receiver_org_id_sub,
+		flo.receiver_org_name receiver_org_name_sub, flo.receiver_id
+		receiver_id_sub,
+		flo.receiver_name receiver_name_sub,
+		flo.opinion
+		opinion_sub, flo.modify_time modify_time_sub, flo.activity_inst_id
+		activity_inst_id_sub, flo.activity_def_id activity_def_id_sub,
+		flo.activity_def_name activity_def_name_sub,
+		flo.next_activity_def_id
+		next_activity_def_id_sub, flo.next_activity_def_name
+		next_activity_def_name_sub,
+		flo.org_name org_name_sub, flo.org_id
+		org_id_sub, flo.user_name user_name_sub,
+		flo.user_id user_id_sub,
+		flo.work_type work_type_sub, flo.flow_id flow_id_sub, flo.flow_pid
+		flow_pid_sub,flo.toer_id toer_id_sub,flo.toer_name
+		toer_name_sub,flo.option_type option_type_sub,
+		flo.dept_name
+		dept_name_sub,flo.dept_id dept_id_sub
+	</sql>
+	<sql id="Subs_sub_Column_List">
+		flo2.flow_log_id flow_log_id_sub_sub,
+		flo2.status status_sub_sub,
+		flo2.business_advice business_advice_sub_sub,
+		flo2.receiver_company_id receiver_company_id_sub_sub,
+		flo2.receiver_company_name receiver_company_name_sub_sub,
+		flo2.receiver_org_id receiver_org_id_sub_sub,
+		flo2.receiver_org_name receiver_org_name_sub_sub,
+		flo2.receiver_id receiver_id_sub_sub,
+		flo2.receiver_name receiver_name_sub_sub,
+		flo2.opinion opinion_sub_sub,
+		flo2.modify_time modify_time_sub_sub,
+		flo2.activity_inst_id activity_inst_id_sub_sub,
+		flo2.activity_def_id activity_def_id_sub_sub,
+		flo2.activity_def_name activity_def_name_sub_sub,
+		flo2.next_activity_def_id next_activity_def_id_sub_sub,
+		flo2.next_activity_def_name next_activity_def_name_sub_sub,
+		flo2.org_name org_name_sub_sub,
+		flo2.org_id org_id_sub_sub,
+		flo2.user_name user_name_sub_sub,
+		flo2.user_id user_id_sub_sub,
+		flo2.work_type work_type_sub_sub,
+		flo2.flow_id flow_id_sub_sub,
+		flo2.flow_pid flow_pid_sub_sub,
+		flo2.toer_id toer_id_sub_sub,
+		flo2.toer_name toer_name_sub_sub,
+		flo2.option_type option_type_sub_sub,
+		flo2.dept_name dept_name_sub_sub,
+		flo2.dept_id dept_id_sub_sub
+	</sql>
+	<insert id="insertSelective">
+		insert into t_issue_jointly
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			jointly_id,
+			jointly_code,
+			create_time,
+			<if
+				test="tIssueJointly.jointlyTitle != null and tIssueJointly.jointlyTitle != ''">
+				jointly_title,
+			</if>
+			<if
+				test="tIssueJointly.jointlyCase != null and tIssueJointly.jointlyCase != ''">
+				jointly_case,
+			</if>
+			<if
+				test="tIssueJointly.approveOrg != null and tIssueJointly.approveOrg != ''">
+				approve_org,
+			</if>
+			<if
+				test="tIssueJointly.caseLine != null and tIssueJointly.caseLine != ''">
+				case_line,
+			</if>
+			<if
+				test="tIssueJointly.caseCreateTime != null and tIssueJointly.caseCreateTime != ''">
+				case_create_time,
+			</if>
+			<if
+				test="tIssueJointly.indictOrUnindict != null and tIssueJointly.indictOrUnindict != ''">
+				indict_or_unindict,
+			</if>
+			<if
+				test="tIssueJointly.caseType != null and tIssueJointly.caseType != ''">
+				case_type,
+			</if>
+			<if
+				test="tIssueJointly.approveLevel != null and tIssueJointly.approveLevel != ''">
+				approve_level,
+			</if>
+			<if
+				test="tIssueJointly.lawsuitSize != null and tIssueJointly.lawsuitSize != ''">
+				lawsuit_size,
+			</if>
+			<if
+				test="tIssueJointly.lawsuitMoney != null and tIssueJointly.lawsuitMoney != ''">
+				lawsuit_money,
+			</if>
+			<if
+				test="tIssueJointly.ourLawsuitBody != null and tIssueJointly.ourLawsuitBody != ''">
+				our_lawsuit_body,
+			</if>
+			<if
+				test="tIssueJointly.theyLawsuitBody != null and tIssueJointly.theyLawsuitBody != ''">
+				they_lawsuit_body,
+			</if>
+			<if
+				test="tIssueJointly.ourLawsuitStatus != null and tIssueJointly.ourLawsuitStatus != ''">
+				our_lawsuit_status,
+			</if>
+			<if
+				test="tIssueJointly.thirdPerson != null and tIssueJointly.thirdPerson != ''">
+				third_person,
+			</if>
+			<if
+				test="tIssueJointly.plaintiff != null and tIssueJointly.plaintiff != ''">
+				plaintiff,
+			</if>
+			<if
+				test="tIssueJointly.defendant != null and tIssueJointly.defendant != ''">
+				defendant,
+			</if>
+			<if
+				test="tIssueJointly.lawsuitDetail != null and tIssueJointly.lawsuitDetail != ''">
+				lawsuit_detail,
+			</if>
+			<if
+				test="tIssueJointly.jointlyOrg != null and tIssueJointly.jointlyOrg != ''">
+				jointly_org,
+			</if>
+			<if
+				test="tIssueJointly.jointlyItem != null and tIssueJointly.jointlyItem != ''">
+				jointly_item,
+			</if>
+			<if
+				test="tIssueJointly.fileUrl != null and tIssueJointly.fileUrl != ''">
+				file_url,
+			</if>
+			<if
+				test="tIssueJointly.jointlyStatus != null and tIssueJointly.jointlyStatus != ''">
+				jointly_status,
+			</if>
+			<if
+				test="tIssueJointly.jointlyOrgId != null and tIssueJointly.jointlyOrgId != ''">
+				jointly_org_id,
+			</if>
+			<if
+				test="tIssueJointly.loginAcct != null and tIssueJointly.loginAcct != ''">
+				login_acct,
+			</if>
+			<if
+				test="tIssueJointly.loginName != null and tIssueJointly.loginName != ''">
+				login_name,
+			</if>
+			<if
+				test="tIssueJointly.orgName != null and tIssueJointly.orgName != ''">
+				org_name,
+			</if>
+			<if
+				test="tIssueJointly.orgId != null and tIssueJointly.orgId != ''">
+				org_id,
+			</if>
+			<if
+				test="tIssueJointly.deptName != null and tIssueJointly.deptName != ''">
+				dept_name,
+			</if>
+			<if
+				test="tIssueJointly.deptId != null and tIssueJointly.deptId != ''">
+				dept_id,
+			</if>
+			<if
+				test="tIssueJointly.mobile != null and tIssueJointly.mobile != ''">
+				mobile,
+			</if>
+			<if
+				test="tIssueJointly.moduleName != null and tIssueJointly.moduleName != ''">
+				module_name,
+			</if>
+			<if
+				test="tIssueJointly.feedBack != null and tIssueJointly.feedBack != ''">
+				feed_back,
+			</if>
+			<if
+					test="tIssueJointly.jointlyUnitName != null and tIssueJointly.jointlyUnitName != ''">
+				jointly_unit_name,
+			</if>
+			<if
+					test="tIssueJointly.jointlyUnitId != null and tIssueJointly.jointlyUnitId != ''">
+				jointly_unit_id,
+			</if>
+			<if
+					test="tIssueJointly.unitLevel != null and tIssueJointly.unitLevel != ''">
+				unit_level
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			#{tIssueJointly.jointlyId,jdbcType=VARCHAR},
+			#{tIssueJointly.jointlyCode,jdbcType=VARCHAR},
+			#{tIssueJointly.createTime,jdbcType=TIMESTAMP},
+			<if
+				test="tIssueJointly.jointlyTitle != null and tIssueJointly.jointlyTitle != ''">
+				#{tIssueJointly.jointlyTitle,jdbcType=VARCHAR},
+			</if>
+			<if
+				test="tIssueJointly.jointlyCase != null and tIssueJointly.jointlyCase != ''">
+				#{tIssueJointly.jointlyCase,jdbcType=VARCHAR},
+			</if>
+			<if
+				test="tIssueJointly.approveOrg != null and tIssueJointly.approveOrg != ''">
+				#{tIssueJointly.approveOrg,jdbcType=VARCHAR},
+			</if>
+			<if
+				test="tIssueJointly.caseLine != null and tIssueJointly.caseLine != ''">
+				#{tIssueJointly.caseLine,jdbcType=VARCHAR},
+			</if>
+			<if
+				test="tIssueJointly.indictOrUnindict != null and tIssueJointly.indictOrUnindict != ''">
+				#{tIssueJointly.indictOrUnindict,jdbcType=VARCHAR},
+			</if>
+			<if
+				test="tIssueJointly.caseType != null and tIssueJointly.caseType != ''">
+				#{tIssueJointly.caseType,jdbcType=VARCHAR},
+			</if>
+			<if
+				test="tIssueJointly.approveLevel != null and tIssueJointly.approveLevel != ''">
+				#{tIssueJointly.approveLevel,jdbcType=VARCHAR},
+			</if>
+			<if
+				test="tIssueJointly.lawsuitSize != null and tIssueJointly.lawsuitSize != ''">
+				#{tIssueJointly.lawsuitSize,jdbcType=VARCHAR},
+			</if>
+			<if
+				test="tIssueJointly.lawsuitMoney != null and tIssueJointly.lawsuitMoney != ''">
+				#{tIssueJointly.lawsuitMoney,jdbcType=DOUBLE},
+			</if>
+			<if
+				test="tIssueJointly.ourLawsuitBody != null and tIssueJointly.ourLawsuitBody != ''">
+				#{tIssueJointly.ourLawsuitBody,jdbcType=VARCHAR},
+			</if>
+			<if
+				test="tIssueJointly.theyLawsuitBody != null and tIssueJointly.theyLawsuitBody != ''">
+				#{tIssueJointly.theyLawsuitBody,jdbcType=VARCHAR},
+			</if>
+			<if
+				test="tIssueJointly.ourLawsuitStatus != null and tIssueJointly.ourLawsuitStatus != ''">
+				#{tIssueJointly.ourLawsuitStatus,jdbcType=VARCHAR},
+			</if>
+			<if
+				test="tIssueJointly.thirdPerson != null and tIssueJointly.thirdPerson != ''">
+				#{tIssueJointly.thirdPerson,jdbcType=VARCHAR},
+			</if>
+			<if
+				test="tIssueJointly.plaintiff != null and tIssueJointly.plaintiff != ''">
+				#{tIssueJointly.plaintiff,jdbcType=VARCHAR},
+			</if>
+			<if
+				test="tIssueJointly.defendant != null and tIssueJointly.defendant != ''">
+				#{tIssueJointly.defendant,jdbcType=VARCHAR},
+			</if>
+			<if
+				test="tIssueJointly.lawsuitDetail != null and tIssueJointly.lawsuitDetail != ''">
+				#{tIssueJointly.lawsuitDetail,jdbcType=VARCHAR},
+			</if>
+			<if
+				test="tIssueJointly.jointlyOrg != null and tIssueJointly.jointlyOrg != ''">
+				#{tIssueJointly.jointlyOrg,jdbcType=VARCHAR},
+			</if>
+			<if
+				test="tIssueJointly.jointlyItem != null and tIssueJointly.jointlyItem != ''">
+				#{tIssueJointly.jointlyItem,jdbcType=VARCHAR},
+			</if>
+			<if
+				test="tIssueJointly.fileUrl != null and tIssueJointly.fileUrl != ''">
+				#{tIssueJointly.fileUrl,jdbcType=VARCHAR},
+			</if>
+			<if
+				test="tIssueJointly.jointlyStatus != null and tIssueJointly.jointlyStatus != ''">
+				#{tIssueJointly.jointlyStatus,jdbcType=VARCHAR},
+			</if>
+			<if
+				test="tIssueJointly.jointlyOrgId != null and tIssueJointly.jointlyOrgId != ''">
+				#{tIssueJointly.jointlyOrgId,jdbcType=VARCHAR},
+			</if>
+			<if
+				test="tIssueJointly.loginAcct != null and tIssueJointly.loginAcct != ''">
+				#{tIssueJointly.loginAcct,jdbcType=VARCHAR},
+			</if>
+			<if
+				test="tIssueJointly.loginName != null and tIssueJointly.loginName != ''">
+				#{tIssueJointly.loginName,jdbcType=VARCHAR},
+			</if>
+			<if
+				test="tIssueJointly.orgName != null and tIssueJointly.orgName != ''">
+				#{tIssueJointly.orgName,jdbcType=VARCHAR},
+			</if>
+			<if
+				test="tIssueJointly.orgId != null and tIssueJointly.orgId != ''">
+				#{tIssueJointly.orgId,jdbcType=VARCHAR},
+			</if>
+			<if
+				test="tIssueJointly.deptName != null and tIssueJointly.deptName != ''">
+				#{tIssueJointly.deptName,jdbcType=VARCHAR},
+			</if>
+			<if
+				test="tIssueJointly.deptId != null and tIssueJointly.deptId != ''">
+				#{tIssueJointly.deptId,jdbcType=VARCHAR},
+			</if>
+			<if
+				test="tIssueJointly.mobile != null and tIssueJointly.mobile != ''">
+				#{tIssueJointly.mobile,jdbcType=VARCHAR},
+			</if>
+			<if
+				test="tIssueJointly.moduleName != null and tIssueJointly.moduleName != ''">
+				#{tIssueJointly.moduleName,jdbcType=VARCHAR},
+			</if>
+			<if
+				test="tIssueJointly.feedBack != null and tIssueJointly.feedBack != ''">
+				#{tIssueJointly.feedBack,jdbcType=VARCHAR},
+			</if>
+			<if
+					test="tIssueJointly.jointlyUnitName != null and tIssueJointly.jointlyUnitName != ''">
+				#{tIssueJointly.jointlyUnitName,jdbcType=VARCHAR},
+			</if>
+			<if test="tIssueJointly.jointlyUnitId != null and tIssueJointly.jointlyUnitId != ''">
+				#{tIssueJointly.jointlyUnitId,jdbcType=VARCHAR},
+			</if>
+			<if test="tIssueJointly.unitLevel != null and tIssueJointly.unitLevel != ''">
+				#{tIssueJointly.unitLevel,jdbcType=VARCHAR}
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective"
+		parameterType="com.chinatower.product.legalms.modules.dispute.entity.issue.TIssueJointly">
+		update t_issue_jointly
+		<set>
+			<if
+				test="jointly.jointlyTitle != null and jointly.jointlyTitle != ''">
+				jointly_title=#{jointly.jointlyTitle,jdbcType=VARCHAR},
+			</if>
+			<if
+				test="jointly.jointlyCase != null and jointly.jointlyCase != ''">
+				jointly_case=#{jointly.jointlyCase,jdbcType=VARCHAR},
+			</if>
+			<if
+				test="jointly.approveOrg != null and jointly.approveOrg != ''">
+				approve_org=#{jointly.approveOrg,jdbcType=VARCHAR},
+			</if>
+			<if
+				test="jointly.caseLine != null and jointly.caseLine != ''">
+				case_line=#{jointly.caseLine,jdbcType=VARCHAR},
+			</if>
+			<if
+				test="jointly.caseCreateTime != null and jointly.caseCreateTime != ''">
+				case_create_time=#{jointly.caseCreateTime,jdbcType=VARCHAR},
+			</if>
+			<if
+				test="jointly.indictOrUnindict != null and jointly.indictOrUnindict != ''">
+				indict_or_unindict=#{jointly.indictOrUnindict,jdbcType=VARCHAR},
+			</if>
+			<if
+				test="jointly.caseType != null and jointly.caseType != ''">
+				case_type=#{jointly.caseType,jdbcType=VARCHAR},
+			</if>
+			<if
+				test="jointly.approveLevel != null and jointly.approveLevel != ''">
+				approve_level=#{jointly.approveLevel,jdbcType=VARCHAR},
+			</if>
+			<if
+				test="jointly.lawsuitSize != null and jointly.lawsuitSize != ''">
+				lawsuit_size=#{jointly.lawsuitSize,jdbcType=VARCHAR},
+			</if>
+			<if
+				test="jointly.lawsuitMoney != null and jointly.lawsuitMoney != ''">
+				lawsuit_money=#{jointly.lawsuitMoney,jdbcType=VARCHAR},
+			</if>
+			<if
+				test="jointly.ourLawsuitBody != null and jointly.ourLawsuitBody != ''">
+				our_lawsuit_body=#{jointly.ourLawsuitBody,jdbcType=VARCHAR},
+			</if>
+			<if
+				test="jointly.theyLawsuitBody != null and jointly.theyLawsuitBody != ''">
+				they_lawsuit_body=#{jointly.theyLawsuitBody,jdbcType=VARCHAR},
+			</if>
+			<if
+				test="jointly.ourLawsuitStatus != null and jointly.ourLawsuitStatus != ''">
+				our_lawsuit_status=#{jointly.ourLawsuitStatus,jdbcType=VARCHAR},
+			</if>
+			<if
+				test="jointly.thirdPerson != null and jointly.thirdPerson != ''">
+				third_person=#{jointly.thirdPerson,jdbcType=VARCHAR},
+			</if>
+			<if
+				test="jointly.plaintiff != null and jointly.plaintiff != ''">
+				plaintiff=#{jointly.plaintiff,jdbcType=VARCHAR},
+			</if>
+			<if
+				test="jointly.defendant != null and jointly.defendant != ''">
+				defendant=#{jointly.defendant,jdbcType=VARCHAR},
+			</if>
+			<if
+				test="jointly.lawsuitDetail != null and jointly.lawsuitDetail != ''">
+				lawsuit_detail=#{jointly.lawsuitDetail,jdbcType=VARCHAR},
+			</if>
+			<if
+				test="jointly.jointlyOrg != null">
+				jointly_org=#{jointly.jointlyOrg,jdbcType=VARCHAR},
+			</if>
+			<if
+				test="jointly.jointlyItem != null and jointly.jointlyItem != ''">
+				jointly_item=#{jointly.jointlyItem,jdbcType=VARCHAR},
+			</if>
+			<if
+				test="jointly.fileUrl != null and jointly.fileUrl != ''">
+				file_url=#{jointly.fileUrl,jdbcType=VARCHAR},
+			</if>
+			<if
+				test="jointly.jointlyStatus != null and jointly.jointlyStatus != ''">
+				jointly_status=#{jointly.jointlyStatus,jdbcType=VARCHAR},
+			</if>
+			<if
+				test="jointly.jointlyOrgId != null">
+				jointly_org_id=#{jointly.jointlyOrgId,jdbcType=VARCHAR},
+			</if>
+			<if
+				test="jointly.moduleName != null and jointly.moduleName != ''">
+				module_name=#{jointly.moduleName,jdbcType=VARCHAR},
+			</if>
+			<!--			<if test="feedBack != null and feedBack != ''">-->
+			<!--				feed_back= #{feedBack,jdbcType=VARCHAR},-->
+			<!--			</if>-->
+			<if
+				test="jointly.jointlyId != null and jointly.jointlyId != ''">
+				jointly_id = #{jointly.jointlyId,jdbcType=VARCHAR},
+			</if>
+
+			<if
+					test="jointly.jointlyUnitName != null and jointly.jointlyUnitName != ''">
+				jointly_unit_name=#{jointly.jointlyUnitName,jdbcType=VARCHAR},
+			</if>
+			<if
+					test="jointly.jointlyUnitId != null and jointly.jointlyUnitId != ''">
+				jointly_unit_id = #{jointly.jointlyUnitId,jdbcType=VARCHAR},
+			</if>
+			<if
+					test="jointly.unitLevel != null and jointly.unitLevel != ''">
+				unit_level = #{jointly.unitLevel,jdbcType=VARCHAR}
+			</if>
+		</set>
+		where jointly_id = #{jointly.jointlyId,jdbcType=VARCHAR}
+	</update>
+	<update id="updateByPrimaryKey"
+		parameterType="com.chinatower.product.legalms.modules.dispute.entity.issue.TIssueJointly">
+		update t_issue_jointly
+		set
+		jointly_title=#{jointly.jointlyTitle,jdbcType=VARCHAR},
+		jointly_case=#{jointly.jointlyCase,jdbcType=VARCHAR},
+		approve_org=#{jointly.approveOrg,jdbcType=VARCHAR},
+		case_line=#{jointly.caseLine,jdbcType=VARCHAR},
+		case_create_time=#{jointly.caseCreateTime,jdbcType=VARCHAR},
+		indict_or_unindict=#{jointly.indictOrUnindict,jdbcType=VARCHAR},
+		case_type=#{jointly.caseType,jdbcType=VARCHAR},
+		approve_level=#{jointly.approveLevel,jdbcType=VARCHAR},
+		lawsuit_size=#{jointly.lawsuitSize,jdbcType=VARCHAR},
+		lawsuit_money=#{jointly.lawsuitMoney,jdbcType=VARCHAR},
+		our_lawsuit_body=#{jointly.ourLawsuitBody,jdbcType=VARCHAR},
+		they_lawsuit_body=#{jointly.theyLawsuitBody,jdbcType=VARCHAR},
+		our_lawsuit_status=#{jointly.ourLawsuitStatus,jdbcType=VARCHAR},
+		third_person=#{jointly.thirdPerson,jdbcType=VARCHAR},
+		plaintiff=#{jointly.plaintiff,jdbcType=VARCHAR},
+		defendant=#{jointly.defendant,jdbcType=VARCHAR},
+		lawsuit_detail=#{jointly.lawsuitDetail,jdbcType=VARCHAR},
+		jointly_org=#{jointly.jointlyOrg,jdbcType=VARCHAR},
+		jointly_item=#{jointly.jointlyItem,jdbcType=VARCHAR},
+		file_url=#{jointly.fileUrl,jdbcType=VARCHAR},
+		jointly_status=#{jointly.jointlyStatus,jdbcType=VARCHAR},
+		jointly_org_id=#{jointly.jointlyOrgId,jdbcType=VARCHAR},
+		module_name=#{jointly.moduleName,jdbcType=VARCHAR},
+		feed_back=#{jointly.feedBack,jdbcType=VARCHAR},
+		jointly_unit_name=#{jointly.jointlyUnitName,jdbcType=VARCHAR},
+		jointly_unit_id=#{jointly.jointlyUnitId,jdbcType=VARCHAR},
+		unit_level=#{jointly.unitLevel,jdbcType=VARCHAR}
+		where jointly_id =
+		#{jointly.jointlyId,jdbcType=VARCHAR}
+	</update>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from
+		t_issue_jointly
+		where jointly_id = #{jointlyId,jdbcType=VARCHAR}
+	</delete>
+	<select id="selectAll" resultMap="BaseResultMap">
+		select
+		tij.*,
+		tcm.case_title
+		from t_issue_jointly tij left join t_case_main tcm on tij.jointly_case =
+		tcm.case_id
+		where
+		tij.login_acct = #{loginAcct}
+		and tij.jointly_status != '0'
+		<if test="param.jointlyTitle != null and param.jointlyTitle != ''">
+			and tij.jointly_title like '%${param.jointlyTitle}%'
+		</if>
+		<if test="param.jointlyCode != null and param.jointlyCode != ''">
+			and tij.jointly_code like '%${param.jointlyCode}%'
+		</if>
+		<if test="param.jointlyOrg != null and param.jointlyOrg != ''">
+			and tij.jointly_org like '%${param.jointlyOrg}%'
+		</if>
+		<if
+			test="param.jointlyStatus != null and param.jointlyStatus != ''">
+			and tij.jointly_status = #{param.jointlyStatus}
+		</if>
+		<if test="param.caseTitle != null and param.caseTitle != ''">
+			and tcm.case_title like '%${param.caseTitle}%'
+		</if>
+		<choose>
+			<when test="param.startDate != null and param.endDate != null">
+				and tij.create_time  BETWEEN
+				#{param.startDate,jdbcType=TIMESTAMP}
+				and
+				#{param.endDate,jdbcType=TIMESTAMP}
+			</when>
+			<when test="param.startDate != null">
+				and tij.create_time  <![CDATA[>]]>
+				#{param.startDate,jdbcType=TIMESTAMP}
+			</when>
+			<when test="param.endDate != null">
+				and tij.create_time  <![CDATA[<]]>
+				#{param.endDate,jdbcType=TIMESTAMP}
+			</when>
+		</choose>
+		<if test="param.orgCodeList!=null and param.orgCodeList.size() > 0 ">
+			and tij.jointly_unit_id in (
+			<foreach collection="param.orgCodeList" separator="," item="value">
+				#{value}
+			</foreach>
+			)
+		</if>
+		order by tij.jointly_status,tij.create_time desc
+	</select>
+	<select id="selectCode" resultType="String">
+		select
+		nextval(#{unitCode,jdbcType=VARCHAR},'XB',#{orgCode,jdbcType=VARCHAR},0)
+	</select>
+	<sql id="Base_Main_Column_List">
+		fm.flow_id, fm.flow_name, fm.flow_status,fm.create_user_id,
+		fm.create_user_name,
+		fm.approve_item_name,
+		fm.module_name,fm.version_id
+	</sql>
+	<select id="findOneTIssueJointly" parameterType="String" resultMap="JointlyVO">
+		SELECT tij.*,
+		<include refid="Base_Main_Column_List" />
+		,fl.*,
+		<include refid="Sub_Column_List" />,
+		<include refid="Subs_sub_Column_List" />
+		FROM t_issue_jointly tij LEFT JOIN t_flow_main fm ON tij.`jointly_id`=fm.`approve_item_id` AND fm.`approve_item_type`='t_issue_jointly'
+		LEFT JOIN t_flow_log fl ON fm.`approve_item_id`=fl.`approve_item_id` AND fm.`flow_id`=fl.`flow_id`
+		LEFT JOIN t_flow_log flo ON fl.`flow_id`=flo.`flow_pid` AND fl.`activity_inst_id`=flo.`act_pid`
+		LEFT JOIN t_flow_log flo2 ON flo2.`flow_pid` = flo.`flow_id` AND flo.`activity_inst_id`=flo2.`act_pid`
+		WHERE
+		tij.`jointly_id`= #{jointlyId}
+		ORDER BY fl.`modify_time`,flo.`modify_time`,flo2.`modify_time`
+	</select>
+	<update id="deleteTIssueJointly">
+		update t_issue_jointly set jointly_status='0'
+		where jointly_id in
+		<foreach item="item" index="index" collection="list" open="("
+			separator="," close=")">#{item}
+		</foreach>
+		and jointly_status='10'
+	</update>
+	<select id="findTIssueJointlyList" resultMap="BaseResultMap">
+		select
+		jointly_id,
+		jointly_code,
+		jointly_title,
+		jointly_status,
+		create_time,
+		jointly_org,
+		jointly_case,
+		module_name
+		from
+		t_issue_jointly
+		where jointly_status = '20'
+		<if test="param.jointlyTitle != null and param.jointlyTitle != ''">
+			and jointly_title like '%${param.jointlyTitle}%'
+		</if>
+		<if test="param.startDate != null">
+			and create_time >= #{param.startDate}
+		</if>
+		<if test="param.endDate != null">
+			and create_time <![CDATA[ <= ]]>#{param.endDate}
+		</if>
+		<if test="param.jointlyCode != null and param.jointlyCode != ''">
+			and jointly_code like '%${param.jointlyCode}%'
+		</if>
+		<if test="param.jointlyOrg != null and param.jointlyOrg != ''">
+			and jointly_org = #{param.jointlyOrg}
+		</if>
+		<if
+			test="param.jointlyStatus != null and param.jointlyStatus != ''">
+			and jointly_status = #{param.jointlyStatus}
+		</if>
+		<if test="pageParam.orgName != null and pageParam.orgName != ''">
+			AND orgName = #{pageParam.orgName}
+		</if>
+		order by jointly_status,case_create_time desc
+	</select>
+	<select id="selectByPrimaryKey" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select *
+		from t_issue_jointly
+		where jointly_id = #{jointlyId,jdbcType=VARCHAR}
+	</select>
+	<select id="selectAlles" resultMap="BaseResultMap">
+		select
+		tij.jointly_id,
+		tij.jointly_code,
+		tij.jointly_title,
+		tcm.case_title,
+		tij.jointly_status,
+		tij.create_time,
+		tij.jointly_org,
+		tij.jointly_case,
+		tij.login_acct,
+		tij.module_name
+		from t_issue_jointly tij left join t_case_main tcm on tij.jointly_case =
+		tcm.case_id
+		where
+		tij.login_acct = #{loginAcct}
+		and tij.jointly_org_id = #{param.deptId}
+		and tij.jointly_status in ('20', '30', '50')
+		<if test="param.jointlyTitle != null and param.jointlyTitle != ''">
+			and tij.jointly_title like '%${param.jointlyTitle}%'
+		</if>
+		<if test="param.startDate != null and param.endDate != null">
+			and tij.case_create_time BETWEEN
+			#{param.startDate,jdbcType=TIMESTAMP}
+			and #{param.endDate,jdbcType=TIMESTAMP}
+		</if>
+		<if test="param.jointlyCode != null and param.jointlyCode != ''">
+			and tij.jointly_code like '%${param.jointlyCode}%'
+		</if>
+		<if test="param.jointlyOrg != null and param.jointlyOrg != ''">
+			and tij.jointly_org = #{param.jointlyOrg}
+		</if>
+		<if
+			test="param.jointlyStatus != null and param.jointlyStatus != ''">
+			and tij.jointly_status = #{param.jointlyStatus}
+		</if>
+		<if test="param.caseTitle != null and param.caseTitle != ''">
+			and tcm.case_title like '%${param.caseTitle}%'
+		</if>
+		<if test="param.orgName != null and param.orgName != ''">
+			and tij.org_name ={param.orgName}
+		</if>
+		order by tij.jointly_status,tij.create_time desc
+	</select>
+	<select id="selectWholeData" resultMap="BaseResultMap">
+		select * from (
+		select
+		tij.jointly_id,
+		tij.jointly_code,
+		tij.jointly_title,
+		tij.jointly_status,
+		tij.create_time,
+		tij.jointly_org,
+		tij.jointly_case,
+		tcm.case_title,
+		tij.org_name,
+		tij.module_name,
+		tij.jointly_unit_name,
+		tpo.org_path,
+		tij.jointly_unit_id
+		from t_issue_jointly tij left join t_case_main tcm on tij.jointly_case =tcm.case_id
+		left join t_pub_org tpo on tij.dept_id = tpo.org_code
+		<where>
+			<if test="param.creatorUnitId != null and param.creatorUnitId != ''">
+				and tpo.org_path like #{param.creatorUnitId}
+			</if>
+		</where>
+		<if test="param.preOrgId != null and param.preOrgId.size() > 0 and param.execUnitId != null and param.execUnitId != ''">
+			UNION
+			select
+			tij.jointly_id,
+			tij.jointly_code,
+			tij.jointly_title,
+			tij.jointly_status,
+			tij.create_time,
+			tij.jointly_org,
+			tij.jointly_case,
+			tcm.case_title,
+			tij.org_name,
+			tij.module_name,
+			tij.jointly_unit_name,
+			tpo.org_path,
+			tij.jointly_unit_id
+			from t_issue_jointly tij left join t_case_main tcm on tij.jointly_case =tcm.case_id
+			left join t_pub_org tpo on tij.dept_id = tpo.org_code
+			<where>
+				and tij.org_id in
+				<foreach collection="param.preOrgId" open="(" close=")" separator="," item="value">
+					#{value}
+				</foreach>
+				and  tij.jointly_unit_id in (select org_code from t_pub_org where org_path like #{param.execUnitId})
+			</where>
+		</if>
+		) t3
+		<where>
+			and t3.jointly_status in ('20', '30')
+			<if test="param.startDate != null">
+				and t3.create_time  <![CDATA[>]]>
+				#{param.startDate,jdbcType=TIMESTAMP}
+			</if>
+			<if test="param.endDate != null">
+				and t3.create_time  <![CDATA[<]]>
+				#{param.endDate,jdbcType=TIMESTAMP}
+			</if>
+			<if test="param.jointlyTitle != null and param.jointlyTitle != ''">
+				and t3.jointly_title like '%${param.jointlyTitle}%'
+			</if>
+			<if test="param.jointlyCode != null and param.jointlyCode != ''">
+				and t3.jointly_code like'%${param.jointlyCode}%'
+			</if>
+			<if test="param.caseTitle != null and param.caseTitle != ''">
+				and t3.case_title like '%${param.caseTitle}%'
+			</if>
+			<if test="param.jointlyOrg != null and param.jointlyOrg != ''">
+				and t3.jointly_org like '%${param.jointlyOrg}%'
+			</if>
+			<if test="param.deptId != null and param.deptId != ''">
+				and t3.jointly_org_id = #{param.deptId}
+			</if>
+			<if test="param.userId != null and param.userId != ''">
+				and t3.jointly_id in (
+				select distinct tfl.approve_item_id
+				from t_flow_log tfl
+				where tfl.user_id = #{param.userId}
+				and tfl.approve_item_type = 't_issue_jointly'
+				)
+			</if>
+			<if test="param.jointlyStatus != null and param.jointlyStatus != ''">
+				and t3.jointly_status = #{param.jointlyStatus}
+			</if>
+			<if test="param.orgPath != null and param.orgPath != ''">
+				and t3.org_path like #{param.orgPath}
+			</if>
+			<if test="param.jointlyUnitId != null and param.jointlyUnitId != ''">
+				and t3.jointly_unit_id in (select org_code from t_pub_org where org_path like #{param.unitIdPath})
+			</if>
+		</where>
+		order by t3.jointly_status,t3.create_time desc
+	</select>
+	<select id="getHeadOrgCode" resultType="java.lang.String">
+		SELECT org_code FROM t_pub_org WHERE org_level ='01' AND enterp_type = #{enterpType} AND org_code LIKE '%00001'
+	</select>
+</mapper>

@@ -1,0 +1,115 @@
+server:
+  port: 8086
+# 日志级别
+logging:
+  config: classpath:logback.xml
+spring:
+  ##  zipkin:
+  ##    base-url: http://localhost:9411/
+  ##    enabled: true
+  ##  sleuth:
+  ##    web:
+  ##      client:
+  ##        enabled: true
+  ##    sampler:
+  ##      probability: 1.0  #zipkin采集率  0.1表示 10%采集率
+    application:
+      name: legalms-dispute-service
+
+#配置数据源
+    datasource:
+      type: com.alibaba.druid.pool.DruidDataSource
+      driverClassName: com.mysql.cj.jdbc.Driver
+      druid:
+        first:
+          url: jdbc:mysql://192.168.103.30:2206/lms?characterEncoding=UTF-8&useSSL=false&serverTimezone=GMT%2B8&allowMultiQueries=true #jdbc:mysql://120.52.99.112:13306/k8s?characterEncoding=UTF-8&useSSL=false
+          username: admin
+          password: ADpass$0o01_
+        second:
+          url: jdbc:mysql://192.168.103.30:2206/lms?characterEncoding=UTF-8&useSSL=false&serverTimezone=GMT%2B8&allowMultiQueries=true #jdbc:mysql://120.52.99.112:13306/k8s?characterEncoding=UTF-8&useSSL=false
+          username: admin
+          password: ADpass$0o01_
+        third:
+          url: jdbc:mysql://192.168.103.30:2206/lms?characterEncoding=UTF-8&useSSL=false&serverTimezone=GMT%2B8&allowMultiQueries=true #jdbc:mysql://120.52.99.112:13306/k8s?characterEncoding=UTF-8&useSSL=false
+          username: admin
+          password: ADpass$0o01_
+
+    redis:
+      host: 192.168.157.106
+      port: 6379
+      url: http://192.168.154.149:8081/codis
+    rabbitmq:
+      host: 192.168.157.110
+      port: 5672
+      username: test
+      password: test
+
+#配置mybatis com.chinatower.product.legalms.modules.flowpath.mapper.xml扫描路径
+mybatis:
+  #com.chinatower.product.legalms.modules.flowpath.mapper-locations: classpath*:com/chinatower/**/com.chinatower.product.legalms.modules.flowpath.mapper/**/*.xml
+  #'classpath*:com/strongdata/**/com.chinatower.product.legalms.modules.flowpath.mapper/**/*.xml'
+  mapper-locations: classpath*:com/chinatower/**/mapper/**/*.xml
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+##mybatis-pagehelper分页插件
+pagehelper:
+  helper-dialect: mysql
+  reasonable: true
+  support-methods-arguments: true
+  params: pageNum=pageNum;pageSize=pageSize
+swagger:
+  enable: true #是否开启swagger功能
+  package:
+    scan: com.chinatower.product #扫描包路径
+  title: springboot利用swagger构建api文档 #title
+  description: 简单优雅的restfun风格 #描述
+  version: 1.0 #版本
+  contact: #联系人
+    name: wq #联系人名称
+    tel: 13888888888 #联系人电话
+    email: test@qq.com #联系人qq
+ribbon:
+  ConnectTimeout: 3000
+  ReadTimeout: 60000
+hystrix:
+  command:
+      default:
+          execution:
+              isolation:
+                  thread:
+                      timeoutInMilliseconds: 60000
+eureka:
+  instance:
+    prefer-ip-address: true
+    instance-id: ${spring.application.name}:${spring.cloud.client.ip-address}:${server.port}
+    hostname: ${spring.cloud.client.ip-address}
+    statusPageUrlPath: /swagger-ui.html #/routes #${management.contextPath:}/info
+    healthCheckUrlPath: ${management.contextPath:}/health
+  client:
+    serviceUrl:
+      defaultZone: http://192.168.157.110:10911/eureka
+      #defaultZone:http://${eureka.instance.hostname}:${server.port}/eureka/
+    authToken: cc53022aae2ed974b45489d7f2fb1f58
+feign:
+  hystrix:
+    enabled: true
+  client:
+    config:
+      default:           #服务名，填写default为所有服务
+        connectTimeout: 5000
+        readTimeout: 10000
+job:
+  lawSumService: 0 0 * * * *
+  subjectMatterService: 0 0 * * * *
+  unviewPushRetry: 0 * * * * *
+push-service:
+  lawSumService:  http://123.126.34.230:20078/v1/chntlbp/lawSum
+  subjectMatterService:  http://123.126.34.230:20078/v1/chntlbp/subjectMatter
+  addAutoCaseMain:  http://123.126.34.157:1183/case/addAutoCaseMain
+  formurl: http://120.52.136.3:10355/
+  formName: rcys
+  unviewUrl: /legalms/legalms-portal/src/html/myworkbench/unview/unviewView.html?formId=
+  workItemUrl: /legalms/legalms-portal/form.html?activityInstId=
+gateway:
+  url: http://192.168.157.106:8097  #验收环境网关内网地址
+flowurl: 192.168.157.226:8080

@@ -1,0 +1,321 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chinatower.product.legalms.modules.cases.mapper.CaseTransferVOMapper">
+    <resultMap id="BaseResultMap" type="com.chinatower.product.legalms.modules.cases.entity.CaseTransfer">
+        <id column="case_id" jdbcType="VARCHAR" property="caseId"/>
+        <result column="case_recept_user" jdbcType="VARCHAR" property="caseReceptUser"/>
+        <result column="case_transfer_user" jdbcType="VARCHAR" property="caseTransferUser"/>
+        <result column="case_transfer_time" jdbcType="TIMESTAMP" property="caseTransferTime"/>
+        <result column="recept_user_id" jdbcType="VARCHAR" property="receptUserId"/>
+        <result column="transfer_user_id" jdbcType="VARCHAR" property="transferUserId"/>
+        <result column="case_title" jdbcType="VARCHAR" property="caseTitle"/>
+        <result column="case_code" jdbcType="VARCHAR" property="caseCode"/>
+        <result column="case_status" jdbcType="VARCHAR" property="caseStatus"/>
+        <result column="transfer_reason" jdbcType="VARCHAR" property="tansferReason"/>
+    </resultMap>
+
+    <resultMap id="orgResultMap" type="com.chinatower.product.legalms.modules.cases.entity.OrgBeanVO">
+        <id column="org_id" property="orgId" jdbcType="VARCHAR"/>
+        <result column="org_id" property="orgId" jdbcType="VARCHAR"/>
+        <result column="org_id_old" property="orgIdOld" jdbcType="VARCHAR"/>
+        <result column="org_name" property="orgName" jdbcType="VARCHAR"/>
+        <result column="org_vulgo" property="orgVulgo" jdbcType="VARCHAR"/>
+        <result column="org_code" property="orgCode" jdbcType="VARCHAR"/>
+        <result column="org_parent_id" property="orgParentId" jdbcType="VARCHAR"/>
+        <result column="org_parent_id_old" property="orgParentIdOld" jdbcType="VARCHAR"/>
+        <result column="org_tree_level" property="orgTreeLevel" jdbcType="DOUBLE"/>
+        <result column="org_type" property="orgType" jdbcType="VARCHAR"/>
+        <result column="org_unit_id" property="orgUnitId" jdbcType="VARCHAR"/>
+        <result column="org_dept_id" property="orgDeptId" jdbcType="VARCHAR"/>
+        <result column="org_dept_id_old" property="orgDeptIdOld" jdbcType="VARCHAR"/>
+        <result column="org_abbreviation_cn" property="orgAbbreviationCn" jdbcType="VARCHAR"/>
+        <result column="org_abbreviation_en" property="orgAbbreviationEn" jdbcType="VARCHAR"/>
+        <result column="org_station_cn" property="orgStationCn" jdbcType="VARCHAR"/>
+        <result column="org_station_en" property="orgStationEn" jdbcType="VARCHAR"/>
+        <result column="org_email" property="orgEmail" jdbcType="VARCHAR"/>
+        <result column="org_fax" property="orgFax" jdbcType="VARCHAR"/>
+        <result column="org_phone" property="orgPhone" jdbcType="VARCHAR"/>
+        <result column="org_order" property="orgOrder" jdbcType="INTEGER"/>
+        <result column="org_status" property="orgStatus" jdbcType="VARCHAR"/>
+        <result column="org_status_update_time" property="orgStatusUpdateTime" jdbcType="TIMESTAMP"/>
+        <result column="org_create_time" property="orgCreateTime" jdbcType="TIMESTAMP"/>
+        <result column="org_remarks" property="orgRemarks" jdbcType="VARCHAR"/>
+        <result column="enterp_type" property="enterpType" jdbcType="VARCHAR"/>
+        <result column="org_level" property="orgLevel" jdbcType="VARCHAR"/>
+        <result column="org_parent_code" property="orgParentCode" jdbcType="VARCHAR"/>
+        <result column="org_change" property="orgChange" jdbcType="VARCHAR"/>
+        <result column="org_path" property="orgPath" jdbcType="VARCHAR"/>
+        <result column="org_reserved_text1" property="orgReservedText1" jdbcType="VARCHAR"/>
+        <result column="mdm_org_code" property="mdmOrgCode" jdbcType="VARCHAR"/>
+        <result column="org_base_id" property="orgBaseId" jdbcType="INTEGER"/>
+        <result column="area_name" property="areaName" jdbcType="VARCHAR"/>
+        <result column="is_unit" property="isUnit" jdbcType="INTEGER"/>
+        <result column="company_code" property="companyCode" jdbcType="VARCHAR"/>
+        <result column="user_name" property="userName" jdbcType="VARCHAR"/>
+        <result column="account_id" property="accountId" jdbcType="VARCHAR"/>
+    </resultMap>
+
+
+
+    <resultMap id="UserResultMap" type="com.chinatower.product.legalms.modules.cases.entity.UserInfo">
+        <result column="org_name" jdbcType="VARCHAR" property="orgName"/>
+        <result column="mobile" jdbcType="VARCHAR" property="mobile"/>
+        <result column="company_code" jdbcType="VARCHAR" property="companyCode"/>
+    </resultMap>
+
+    <resultMap id="CaseStsus" type="com.chinatower.product.legalms.modules.cases.entity.CaseStatusVO">
+        <result column="case_id" jdbcType="VARCHAR" property="caseId"/>
+    </resultMap>
+
+    <!--根据当前人权限查询权限法务人-->
+    <select id="selectOrgTreeByWhere" resultMap="orgResultMap">
+        select org_name,org_code,org_parent_code,org_path,company_code,org_level from t_pub_org where 1=1
+        <if test="superRole==null">
+        AND enterp_type = ( SELECT enterp_type FROM t_pub_org WHERE org_code = #{deptId} )
+        and org_path LIKE CONCAT(
+            (
+            SELECT
+            org_path
+            FROM
+            t_pub_org
+            WHERE
+            org_code = ( SELECT org_parent_code FROM t_pub_org WHERE org_code = ( SELECT company_code FROM t_pub_org
+            WHERE org_code = #{deptId} ) )
+            ),
+            '%'
+            )
+            AND CASE
+            WHEN #{orgLevel} = '02' THEN
+            org_level IN ( '02', '03' )
+            WHEN #{orgLevel} = '03' THEN
+            org_level IN ( '03' )
+            WHEN #{orgLevel} = '01' THEN
+            org_level IN ( '01', '02', '03' )
+            END
+        </if>
+    </select>
+
+    <sql id="Base_Column_List">
+    a.case_id case_id, a.case_recept_user case_recept_user, a.case_transfer_user case_transfer_user, a.case_transfer_time case_transfer_time, a.recept_user_id recept_user_id,
+    a.transfer_user_id transfer_user_id,b.case_title case_title,b.case_code case_code,b.case_status case_status
+  </sql>
+    <!--模糊查询条件-->
+    <sql id="sqlWhere">
+        /*根据当前人权限查询移交卷宗*/
+        <if test="superRole==null">
+            and a.transfer_unit_id in
+            <foreach collection="companyCodeList" open="(" close=")" separator=","
+                     item="companyCode">
+                #{companyCode}
+            </foreach>
+        </if>
+
+        <if test="startDate!=null ">
+            and a.case_transfer_time >=#{startDate}
+        </if>
+        <if test="endDate!=null ">
+            and a.case_transfer_time &lt;=#{endDate}
+        </if>
+        <if test="caseReceptUser!=null and caseReceptUser!='' ">
+            and a.case_recept_user like concat('%',#{caseReceptUser},'%')
+        </if>
+        <if test="caseTransferUser!=null and caseTransferUser!='' ">
+            and a.case_transfer_user like concat('%',#{caseTransferUser},'%')
+        </if>
+        <if test="caseCode!=null and caseCode!='' ">
+            and b.case_code like concat('%',#{caseCode},'%')
+        </if>
+        <if test="caseTitle!=null and caseTitle!='' ">
+            and b.case_title like concat('%',#{caseTitle},'%')
+        </if>
+        <if test="caseStatus!=null and caseStatus!='' ">
+            and b.case_status like concat('%',#{caseStatus},'%')
+        </if>
+    </sql>
+    <!--查询移交卷宗-->
+    <select id="selectCaseTransferInfo" parameterType="com.chinatower.product.legalms.modules.cases.entity.CaseTransfer"
+            resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from t_case_transfer a,t_case_main b
+        where 1=1 and a.case_id = b.case_id
+        <include refid="sqlWhere"/>
+        order by case_transfer_time desc
+    </select>
+
+    <!--查询用户信息-->
+    <select id="selectUserInfo" resultMap="UserResultMap">
+        SELECT
+            t.org_name org_name,
+            u.mobile mobile,
+            a.account_unit_id company_code
+        FROM
+            t_pub_org t,
+            t_pub_user u,
+            t_pub_account_tab a
+        WHERE
+            t.org_code = u.org_code
+        AND u.user_code = a.account_cur_user_id
+        AND u.org_code = a.account_org_id
+        AND a.account_id = #{accountId}
+  </select>
+    <!--添加移交记录-->
+    <insert id="addCaseTransferInfo" parameterType="com.chinatower.product.legalms.modules.cases.entity.CaseTransfer">
+        insert into t_case_transfer
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            case_transfer_time,
+            <if test="caseId != null">
+                case_id,
+            </if>
+            <if test="caseReceptUser != null">
+                case_recept_user,
+            </if>
+            <if test="caseTransferUser != null">
+                case_transfer_user,
+            </if>
+            <if test="receptUserId != null">
+                recept_user_id,
+            </if>
+            <if test="transferUserId != null">
+                transfer_user_id,
+            </if>
+            <if test="tansferReason != null">
+                transfer_reason,
+            </if>
+            <if test="receptorUnitId != null">
+                receptor_unit_id,
+            </if>
+            <if test="transferUnitId != null">
+                transfer_unit_id,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            now(),
+            <if test="caseId != null">
+                #{caseId,jdbcType=VARCHAR},
+            </if>
+            <if test="caseReceptUser != null">
+                #{caseReceptUser,jdbcType=VARCHAR},
+            </if>
+            <if test="caseTransferUser != null">
+                #{caseTransferUser,jdbcType=VARCHAR},
+            </if>
+            <if test="receptUserId != null">
+                #{receptUserId,jdbcType=VARCHAR},
+            </if>
+            <if test="transferUserId != null">
+                #{transferUserId,jdbcType=VARCHAR},
+            </if>
+            <if test="tansferReason != null">
+                #{tansferReason,jdbcType=VARCHAR},
+            </if>
+            <if test="receptorUnitId != null">
+                #{receptorUnitId,jdbcType=VARCHAR},
+            </if>
+            <if test="transferUnitId != null">
+                #{transferUnitId,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+
+    <!--查询指定caseid移交记录-->
+    <select id="selectInfoBycaseId" parameterType="string" resultType="int">
+        select count(*) from  t_case_transfer where case_id = #{value}
+    </select>
+    <!--更新指定caseId移交记录-->
+    <update id="updateInfoBycaseId" parameterType="com.chinatower.product.legalms.modules.cases.entity.CaseTransfer">
+     update t_case_transfer
+     set case_recept_user = #{caseReceptUser,jdbcType=VARCHAR},
+      case_transfer_user = #{caseTransferUser,jdbcType=VARCHAR},
+      case_transfer_time = now(),
+      recept_user_id = #{receptUserId,jdbcType=VARCHAR},
+      transfer_user_id = #{transferUserId,jdbcType=VARCHAR},
+      transfer_reason =#{tansferReason,jdbcType=VARCHAR},
+      receptor_unit_id =#{receptorUnitId,jdbcType=VARCHAR},
+      transfer_unit_id =#{transferUnitId,jdbcType=VARCHAR}
+    where case_id = #{caseId,jdbcType=VARCHAR}
+    </update>
+
+
+
+    <!--查询指定诉讼单案件状态-->
+    <select id="selectLawSuitStatusByCaseId" parameterType="com.chinatower.product.legalms.modules.cases.entity.CaseStatusVO" resultMap="CaseStsus">
+        select distinct case_id from t_issue_lawsuit where  lawsuit_status = '20' and
+        case_id in
+        (<foreach collection="caseIdList" separator="," index='index' item="value">
+            #{value}
+        </foreach>)
+    </select>
+    <!--查询指定转办单案件状态-->
+    <select id="selectCaseLegislationStatusByCaseId" parameterType="com.chinatower.product.legalms.modules.cases.entity.CaseStatusVO" resultMap="CaseStsus">
+        select distinct case_file case_id from t_case_legislation where  state = '20' and
+        case_file in
+        (<foreach collection="caseIdList" separator="," index='index' item="value">
+        #{value}
+    </foreach>)
+    </select>
+    <!--查询指定协办单案件状态-->
+    <select id="selectJointlyStatusByCaseId" parameterType="com.chinatower.product.legalms.modules.cases.entity.CaseStatusVO" resultMap="CaseStsus">
+        select distinct jointly_case case_id from t_issue_jointly where jointly_status = '20' and
+        jointly_case in
+        (<foreach collection="caseIdList" separator="," index='index' item="value">
+        #{value}
+    </foreach>)
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from t_case_transfer
+    where case_id = #{caseId,jdbcType=VARCHAR}
+  </delete>
+    <insert id="insert" parameterType="com.chinatower.product.legalms.modules.cases.entity.CaseTransfer">
+    insert into t_case_transfer (case_id, case_recept_user, case_transfer_user, 
+      case_transfer_time, recept_user_id, transfer_user_id
+      )
+    values (#{caseId,jdbcType=VARCHAR}, #{caseReceptUser,jdbcType=VARCHAR}, #{caseTransferUser,jdbcType=VARCHAR}, 
+      #{caseTransferTime,jdbcType=TIMESTAMP}, #{receptUserId,jdbcType=VARCHAR}, #{transferUserId,jdbcType=VARCHAR}
+      )
+  </insert>
+    <update id="updateByPrimaryKeySelective"
+            parameterType="com.chinatower.product.legalms.modules.cases.entity.CaseTransfer">
+        update t_case_transfer
+        <set>
+            <if test="caseReceptUser != null">
+                case_recept_user = #{caseReceptUser,jdbcType=VARCHAR},
+            </if>
+            <if test="caseTransferUser != null">
+                case_transfer_user = #{caseTransferUser,jdbcType=VARCHAR},
+            </if>
+            <if test="caseTransferTime != null">
+                case_transfer_time = #{caseTransferTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="receptUserId != null">
+                recept_user_id = #{receptUserId,jdbcType=VARCHAR},
+            </if>
+            <if test="transferUserId != null">
+                transfer_user_id = #{transferUserId,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where case_id = #{caseId,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.chinatower.product.legalms.modules.cases.entity.CaseTransfer">
+    update t_case_transfer
+    set case_recept_user = #{caseReceptUser,jdbcType=VARCHAR},
+      case_transfer_user = #{caseTransferUser,jdbcType=VARCHAR},
+      case_transfer_time = #{caseTransferTime,jdbcType=TIMESTAMP},
+      recept_user_id = #{receptUserId,jdbcType=VARCHAR},
+      transfer_user_id = #{transferUserId,jdbcType=VARCHAR}
+    where case_id = #{caseId,jdbcType=VARCHAR}
+  </update>
+    <select id="dictMaps" resultType="HashMap">
+		SELECT
+		dd.`dict_value`,dd.`dict_cabel` FROM t_sys_dict_data dd WHERE
+		dd.`dict_type`= #{dictType}
+	</select>
+
+    <select id="getExcelDate" resultType="HashMap">
+    select  tcm.case_title, tcm.case_code, tcm.case_status, tct.case_transfer_user, tct.case_recept_user
+    , tct.case_transfer_time
+    from t_case_transfer tct  LEFT JOIN t_case_main tcm on
+	tct.case_id=tcm.case_id
+	</select>
+</mapper>

@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chinatower.product.legalms.modules.license.mapper.AdmMapper">
+  <resultMap id="BaseResultMap" type="com.chinatower.product.legalms.modules.license.entity.AdmVO">
+  	<id column="adm_base_id" property="admBaseId" jdbcType="VARCHAR" />
+  	<result column="mdm_adm_Code" property="mdmAdmCode" jdbcType="VARCHAR" />
+  	<result column="adm_code" property="admCode" jdbcType="VARCHAR" />
+  	<result column="adm_name" property="admName" jdbcType="VARCHAR" />
+  	<result column="adm_alias" property="admAlias" jdbcType="VARCHAR" />
+  	<result column="adm_status" property="admStatus" jdbcType="VARCHAR" />
+  	<result column="relation_adm_code" property="relationAdmCode" jdbcType="VARCHAR" />
+  	<result column="adm_remark" property="admRemark" jdbcType="VARCHAR" />
+  	<result column="adm_base_id" property="admBaseId" jdbcType="INTEGER" />
+  	<result column="adm_level" property="admLevel" jdbcType="INTEGER" />
+  	<result column="parent_adm_code" property="parentAdmCode" jdbcType="VARCHAR" />
+  	<result column="last_level" property="lastLevel" jdbcType="VARCHAR" />
+  	<result column="change_type" property="changeType" jdbcType="VARCHAR" />
+  	<result column="last_update_date" property="lastUpdateDate" jdbcType="TIMESTAMP" />
+  	<result column="last_updated_by" property="lastUpdatedBy" jdbcType="VARCHAR" />
+  	<result column="creation_date" property="creationDate" jdbcType="TIMESTAMP" />
+  	<result column="created_by" property="createdBy" jdbcType="VARCHAR" />
+  	<result column="last_update_login" property="lastUpdateLogin" jdbcType="INTEGER" />
+  	<result column="org_id" property="orgId" jdbcType="VARCHAR" />
+  	<result column="audit_status" property="auditStatus" jdbcType="VARCHAR" />
+  	<result column="company_id" property="companyId" jdbcType="INTEGER" />
+  	<result column="reserve_one" property="reserveOne" jdbcType="VARCHAR" />
+  	<result column="reserve_two" property="reserveTwo" jdbcType="VARCHAR" />
+  	<result column="reserve_three" property="reserveThree" jdbcType="VARCHAR" />
+  	<result column="reserve_four" property="reserveFour" jdbcType="VARCHAR" />
+  	<result column="reserve_five" property="reserveFive" jdbcType="VARCHAR" />
+  	<result column="adm_path" property="admPath" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+  	mdm_adm_Code, adm_code , adm_name,adm_alias, adm_status, relation_adm_code,
+    adm_remark, adm_base_id, adm_level, parent_adm_code, last_level, change_type,
+    last_update_date, last_updated_by, creation_date, created_by, last_update_login, org_id,
+    audit_status,company_id, company_id, reserve_two, reserve_three, reserve_four,
+   reserve_five, adm_path
+  </sql>
+  <insert id="addAdmVO" parameterType="com.chinatower.product.legalms.modules.license.entity.AdmVO">
+    insert into adm_base
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="mdmAdmCode != null" > mdm_adm_Code, </if>
+      <if test="admCode != null" > adm_code, </if>
+      <if test="admName != null" > adm_name, </if>
+      <if test="admAlias != null" > adm_alias, </if>
+      <if test="admStatus != null" > adm_status, </if>
+      <if test="relationAdmCode != null" > relation_adm_code, </if>
+      <if test="admRemark != null" > adm_remark, </if>
+      <if test="admBaseId != null" > adm_base_id, </if>
+      <if test="admLevel != null" > adm_level, </if>
+      <if test="parentAdmCode != null" > parent_adm_code, </if>
+      <if test="lastLevel != null" > last_level, </if>
+      <if test="changeType != null" > change_type, </if>
+      <if test="lastUpdateDate != null" > last_update_date, </if>
+      <if test="lastUpdatedBy != null" > last_updated_by, </if>
+      <if test="creationDate != null" > creation_date, </if>
+      <if test="createdBy != null" > created_by, </if>
+      <if test="lastUpdateLogin != null" > last_update_login, </if>
+      <if test="orgId != null" > org_id, </if>
+      <if test="auditStatus != null" > audit_status, </if>
+      <if test="companyId != null" > company_id, </if>
+      <if test="reserveOne != null" > reserve_one, </if>
+      <if test="reserveTwo != null" > reserve_two, </if>
+      <if test="reserveThree != null" > reserve_three, </if>
+      <if test="reserveFour != null" > reserve_four, </if>
+      <if test="reserveFive != null" > reserve_five, </if>
+      <if test="admPath != null" > adm_path, </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="mdmAdmCode != null" > #{mdmAdmCode,jdbcType=VARCHAR}, </if>
+      <if test="admCode != null" > #{admCode,jdbcType=VARCHAR}, </if>
+      <if test="admName != null" > #{admName,jdbcType=VARCHAR}, </if>
+      <if test="admAlias != null" > #{admAlias,jdbcType=VARCHAR}, </if>
+      <if test="admStatus != null" > #{admStatus,jdbcType=VARCHAR}, </if>
+      <if test="relationAdmCode != null" > #{relationAdmCode,jdbcType=VARCHAR}, </if>
+      <if test="admRemark != null" > #{admRemark,jdbcType=VARCHAR}, </if>
+      <if test="admBaseId != null" > #{admBaseId,jdbcType=INTEGER}, </if>
+      <if test="admLevel != null" > #{admLevel,jdbcType=INTEGER}, </if>
+      <if test="parentAdmCode != null" > #{parentAdmCode,jdbcType=VARCHAR}, </if>
+      <if test="lastLevel != null" > #{lastLevel,jdbcType=VARCHAR}, </if>
+      <if test="changeType != null" > #{changeType,jdbcType=VARCHAR}, </if>
+      <if test="lastUpdateDate != null" > #{lastUpdateDate,jdbcType=DATE}, </if>
+      <if test="lastUpdatedBy != null" > #{lastUpdatedBy,jdbcType=VARCHAR}, </if>
+      <if test="creationDate != null" > #{creationDate,jdbcType=DATE}, </if>
+      <if test="createdBy != null" > #{createdBy,jdbcType=VARCHAR}, </if>
+      <if test="lastUpdateLogin != null" > #{lastUpdateLogin,jdbcType=INTEGER}, </if>
+      <if test="orgId != null" > #{orgId,jdbcType=VARCHAR}, </if>
+      <if test="auditStatus != null" > #{auditStatus,jdbcType=VARCHAR}, </if>
+      <if test="companyId != null" > #{companyId,jdbcType=INTEGER}, </if>
+      <if test="reserveOne != null" > #{reserveOne,jdbcType=VARCHAR}, </if>
+      <if test="reserveTwo != null" > #{reserveTwo,jdbcType=VARCHAR}, </if>
+      <if test="reserveThree != null" > #{reserveThree,jdbcType=VARCHAR}, </if>
+      <if test="reserveFour != null" > #{reserveFour,jdbcType=VARCHAR}, </if>
+      <if test="reserveFive != null" > #{reserveFive,jdbcType=VARCHAR}, </if>
+      <if test="admPath != null" > #{admPath,jdbcType=VARCHAR}, </if>
+    </trim>
+  </insert>
+  <update id="updateAdmVO" parameterType="com.chinatower.product.legalms.modules.license.entity.AdmVO">
+    update adm_base 
+    <set>
+      <if test="mdmAdmCode != null" > mdm_adm_Code = #{mdmAdmCode,jdbcType=VARCHAR}, </if>
+      <if test="admName != null" > adm_name = #{admName,jdbcType=VARCHAR}, </if>
+      <if test="admAlias != null" > adm_alias = #{admAlias,jdbcType=VARCHAR}, </if>
+      <if test="admStatus != null" > adm_status = #{admStatus,jdbcType=VARCHAR}, </if>
+      <if test="relationAdmCode != null" > relation_adm_code = #{relationAdmCode,jdbcType=VARCHAR}, </if>
+      <if test="admRemark != null" > adm_remark = #{admRemark,jdbcType=VARCHAR}, </if>
+      <if test="admBaseId != null" > adm_base_id = #{admBaseId,jdbcType=INTEGER}, </if>
+      <if test="admLevel != null" > adm_level = #{admLevel,jdbcType=INTEGER}, </if>
+      <if test="parentAdmCode != null" > parent_adm_code = #{parentAdmCode,jdbcType=VARCHAR}, </if>
+      <if test="lastLevel != null" > last_level = #{lastLevel,jdbcType=VARCHAR}, </if>
+      <if test="changeType != null" > change_type = #{changeType,jdbcType=VARCHAR}, </if>
+      <if test="lastUpdateDate != null" > last_update_date = #{lastUpdateDate,jdbcType=DATE}, </if>
+      <if test="lastUpdatedBy != null" > last_updated_by = #{lastUpdatedBy,jdbcType=VARCHAR}, </if>
+      <if test="creationDate != null" > creation_date = #{creationDate,jdbcType=DATE}, </if>
+      <if test="createdBy != null" > created_by = #{createdBy,jdbcType=VARCHAR}, </if>
+      <if test="lastUpdateLogin != null" > last_update_login = #{lastUpdateLogin,jdbcType=INTEGER}, </if>
+      <if test="orgId != null" > org_id = #{orgId,jdbcType=VARCHAR}, </if>
+      <if test="auditStatus != null" > audit_status = #{auditStatus,jdbcType=VARCHAR}, </if>
+      <if test="companyId != null" > company_id = #{companyId,jdbcType=INTEGER}, </if>
+      <if test="reserveOne != null" > reserve_one = #{reserveOne,jdbcType=VARCHAR}, </if>
+      <if test="reserveTwo != null" > reserve_two = #{reserveTwo,jdbcType=VARCHAR}, </if>
+      <if test="reserveThree != null" > reserve_three = #{reserveThree,jdbcType=VARCHAR}, </if>
+      <if test="reserveFour != null" > reserve_four = #{reserveFour,jdbcType=VARCHAR}, </if>
+      <if test="reserveFive != null" > reserve_five = #{reserveFive,jdbcType=VARCHAR}, </if>
+      <if test="admPath != null" > adm_path = #{admPath,jdbcType=VARCHAR}, </if>
+    </set>
+    where adm_code = #{admCode,jdbcType=VARCHAR}
+  </update>
+
+  <select id="selectAllAdmVO" resultType="Integer">
+     select
+      count(1)
+     from   adm_base where adm_code=#{admCode}
+   </select>
+
+    <select id="selectAdmByAdmLevelAndParentAdmCode" parameterType="com.chinatower.product.legalms.modules.license.entity.AdmVO" resultMap="BaseResultMap">
+     select adm_name,adm_code,adm_level,parent_adm_code from adm_base
+     where 1=1
+        <if test="admLevel != null" > and adm_level=#{admLevel} </if>
+        <if test="parentAdmCode != null" > and parent_adm_code=#{parentAdmCode} </if>
+   </select>
+
+
+  
+</mapper>

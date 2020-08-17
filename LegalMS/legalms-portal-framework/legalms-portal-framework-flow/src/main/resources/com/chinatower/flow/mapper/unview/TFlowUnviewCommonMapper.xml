@@ -1,0 +1,432 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper
+	namespace="com.chinatower.product.legalms.modules.flow.mapper.unview.TFlowUnviewCommonMapper">
+	<resultMap id="BaseResultMap"
+		type="com.chinatower.product.legalms.modules.flow.entity.unview.TFlowUnview">
+		<id column="view_id" jdbcType="VARCHAR" property="viewId" />
+		<result column="view_type" jdbcType="VARCHAR"
+			property="viewType" />
+		<result column="view_title" jdbcType="VARCHAR"
+			property="viewTitle" />
+		<result column="view_status" jdbcType="VARCHAR"
+			property="viewStatus" />
+		<result column="view_coment" jdbcType="VARCHAR"
+			property="viewComent" />
+		<result column="login_acct" jdbcType="VARCHAR"
+			property="loginAcct" />
+		<result column="login_name" jdbcType="VARCHAR"
+			property="loginName" />
+		<result column="org_name" jdbcType="VARCHAR" property="orgName" />
+		<result column="org_id" jdbcType="VARCHAR" property="orgId" />
+		<result column="dept_name" jdbcType="VARCHAR"
+			property="deptName" />
+		<result column="dept_id" jdbcType="VARCHAR" property="deptId" />
+		<result column="mobile" jdbcType="VARCHAR" property="mobile" />
+		<result column="create_time" jdbcType="TIMESTAMP"
+			property="createTime" />
+		<result column="toer_id" jdbcType="VARCHAR" property="toerId" />
+		<result column="toer_name" jdbcType="VARCHAR"
+			property="toerName" />
+		<result column="toer_time" jdbcType="TIMESTAMP"
+			property="toerTime" />
+		<result column="view_url" jdbcType="VARCHAR" property="viewUrl" />
+		<result column="view_url_name" jdbcType="VARCHAR"
+			property="viewUrlName" />
+		<result column="push_flag" jdbcType="VARCHAR"
+			property="pushFlag" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		view_id, view_type, view_title, view_status, view_coment,
+		login_acct,
+		login_name,
+		org_name, org_id, dept_name, dept_id, mobile,
+		create_time, toer_id, toer_name,
+		toer_time,
+		view_url,view_url_name,push_flag
+	</sql>
+
+	<select id="selectByViewIds" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		FROM t_flow_unview where view_id in
+		<foreach collection="viewIds" index="index" item="id" open="("
+			separator="," close=")">
+			#{id}
+		</foreach>
+	</select>
+	<select id="getLawKafka" resultType="String">
+		SELECT dd.`status` FROM t_sys_dict_data dd WHERE
+		dd.`dict_type`='sys_law_kafka' LIMIT 1;
+	</select>
+	<select id="pushSelectList" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		FROM t_flow_unview where toer_id IS NOT NULL 
+		and push_flag !='000'
+		<if test="viewStatus != null ">
+			and view_status = #{viewStatus,jdbcType=VARCHAR}
+		</if>
+		<if test="pushFlag != null ">
+			and push_flag like '${pushFlag}%'
+		</if>
+		ORDER BY `create_time` DESC
+		LIMIT 10
+	</select>
+	<update id="updatePushFlag">
+		update t_flow_unview set push_flag =
+		#{pushFlag,jdbcType=VARCHAR}
+		where view_id = #{viewId,jdbcType=VARCHAR}
+	</update>
+	<insert id="insertBatch" parameterType="java.util.List">
+		insert into t_flow_unview (view_id, view_type,
+		view_title,
+		view_coment,
+		login_acct,
+		login_name, org_name,
+		org_id,
+		dept_name, dept_id, mobile,
+		toer_id, toer_name,
+		view_url,view_url_name,open_type,approve_item_id)
+		values
+		<foreach collection="list" item="item" index="index"
+			separator=",">
+			(
+			#{item.viewId,jdbcType=VARCHAR},
+			#{item.viewType,jdbcType=VARCHAR},
+			#{item.viewTitle,jdbcType=VARCHAR},
+			#{item.viewComent,jdbcType=VARCHAR},
+			#{item.loginAcct,jdbcType=VARCHAR},
+			#{item.loginName,jdbcType=VARCHAR},
+			#{item.orgName,jdbcType=VARCHAR},
+			#{item.orgId,jdbcType=VARCHAR},
+			#{item.deptName,jdbcType=VARCHAR},
+			#{item.deptId,jdbcType=VARCHAR},
+			#{item.mobile,jdbcType=VARCHAR},
+			#{item.toerId,jdbcType=VARCHAR},
+			#{item.toerName,jdbcType=VARCHAR},
+			#{item.viewUrl,jdbcType=VARCHAR},
+			#{item.viewUrlName,jdbcType=VARCHAR},
+			#{item.openType,jdbcType=INTEGER},
+			#{item.approveItemId,jdbcType=VARCHAR}
+			)
+		</foreach>
+	</insert>
+	<insert id="insertSelective"
+		parameterType="com.chinatower.product.legalms.modules.flow.entity.unview.TFlowUnview">
+		insert into t_flow_unview
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="viewId != null">
+				view_id,
+			</if>
+			<if test="viewType != null">
+				view_type,
+			</if>
+			<if test="viewTitle != null">
+				view_title,
+			</if>
+			<if test="viewStatus != null">
+				view_status,
+			</if>
+			<if test="viewComent != null">
+				view_coment,
+			</if>
+			<if test="loginAcct != null">
+				login_acct,
+			</if>
+			<if test="loginName != null">
+				login_name,
+			</if>
+			<if test="orgName != null">
+				org_name,
+			</if>
+			<if test="orgId != null">
+				org_id,
+			</if>
+			<if test="deptName != null">
+				dept_name,
+			</if>
+			<if test="deptId != null">
+				dept_id,
+			</if>
+			<if test="mobile != null">
+				mobile,
+			</if>
+			<if test="createTime != null">
+				create_time,
+			</if>
+			<if test="toerId != null">
+				toer_id,
+			</if>
+			<if test="toerName != null">
+				toer_name,
+			</if>
+			<if test="toerTime != null">
+				toer_time,
+			</if>
+			<if test="viewUrl != null">
+				view_url,
+			</if>
+			<if test="viewUrlName != null">
+				view_url_name,
+			</if>
+			<if test="approveItemId != null">
+				approve_item_id,
+			</if>
+			<if test="openType != null">
+				open_type,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="viewId != null">
+				#{viewId,jdbcType=VARCHAR},
+			</if>
+			<if test="viewType != null">
+				#{viewType,jdbcType=VARCHAR},
+			</if>
+			<if test="viewTitle != null">
+				#{viewTitle,jdbcType=VARCHAR},
+			</if>
+			<if test="viewStatus != null">
+				#{viewStatus,jdbcType=VARCHAR},
+			</if>
+			<if test="viewComent != null">
+				#{viewComent,jdbcType=VARCHAR},
+			</if>
+			<if test="loginAcct != null">
+				#{loginAcct,jdbcType=VARCHAR},
+			</if>
+			<if test="loginName != null">
+				#{loginName,jdbcType=VARCHAR},
+			</if>
+			<if test="orgName != null">
+				#{orgName,jdbcType=VARCHAR},
+			</if>
+			<if test="orgId != null">
+				#{orgId,jdbcType=VARCHAR},
+			</if>
+			<if test="deptName != null">
+				#{deptName,jdbcType=VARCHAR},
+			</if>
+			<if test="deptId != null">
+				#{deptId,jdbcType=VARCHAR},
+			</if>
+			<if test="mobile != null">
+				#{mobile,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="toerId != null">
+				#{toerId,jdbcType=VARCHAR},
+			</if>
+			<if test="toerName != null">
+				#{toerName,jdbcType=VARCHAR},
+			</if>
+			<if test="toerTime != null">
+				#{toerTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="viewUrl != null">
+				#{viewUrl,jdbcType=VARCHAR},
+			</if>
+			<if test="viewUrlName != null">
+				#{viewUrlName,jdbcType=VARCHAR},
+			</if>
+			<if test="approveItemId != null">
+				#{approveItemId,jdbcType=VARCHAR},
+			</if>
+			<if test="openType != null">
+				#{openType,jdbcType=INTEGER},
+			</if>
+		</trim>
+	</insert>
+
+
+	<select id="selectLawsuitCaseId" resultType="String"
+		parameterType="String">
+		SELECT tt.`case_id` FROM t_issue_lawsuit tt WHERE
+		tt.`lawsuit_id`=#{id}
+	</select>
+
+	<select id="selectLegislationCaseId" resultType="String"
+		parameterType="String">
+		SELECT tt.`case_file` FROM t_case_legislation tt WHERE
+		tt.`id`=#{id}
+	</select>
+
+	<select id="selectjointlyCaseId" resultType="String"
+		parameterType="String">
+		SELECT tt.`jointly_case` FROM t_issue_jointly tt WHERE
+		tt.`jointly_id`=#{id}
+	</select>
+
+	<select id="selectCase" resultType="java.util.HashMap"
+		parameterType="String">
+		select *
+		from t_case_main where
+		case_id = #{caseId}
+	</select>
+
+
+
+
+
+
+
+
+
+
+	<resultMap id="ConfingBaseResultMap"
+		type="com.chinatower.product.legalms.modules.flow.vo.unview.TFlowUnviewConfigVO">
+		<id column="config_id" jdbcType="INTEGER" property="configId" />
+		<result column="config_name" jdbcType="VARCHAR"
+			property="configName" />
+		<result column="short_flow_name" jdbcType="VARCHAR"
+			property="shortFlowName" />
+		<result column="config_scene" jdbcType="VARCHAR"
+			property="configScene" />
+		<result column="sender" jdbcType="VARCHAR" property="sender" />
+		<result column="title" jdbcType="VARCHAR" property="title" />
+		<result column="coment" jdbcType="VARCHAR" property="coment" />
+		<result column="config_url" jdbcType="VARCHAR"
+			property="configUrl" />
+		<result column="config_url_name" jdbcType="VARCHAR"
+			property="configUrlName" />
+		<result column="config_order" jdbcType="INTEGER"
+			property="configOrder" />
+		<result column="config_sender_type" jdbcType="INTEGER"
+			property="configSendType" />
+		<result column="config_roles" jdbcType="VARCHAR"
+			property="configRoles" />
+		<result column="open_type" jdbcType="INTEGER"
+			property="openType" />
+		<result column="is_default" jdbcType="CHAR"
+			property="isDefault" />
+		<result column="status" jdbcType="CHAR" property="status" />
+		<result column="remark" jdbcType="VARCHAR" property="remark" />
+	</resultMap>
+
+
+	<sql id="Config_Base_Column_List">
+		config_id,config_name, short_flow_name, config_scene,
+		sender, title,
+		coment, config_url,
+		config_url_name,config_order,config_sender_type,
+		config_roles,open_type
+	</sql>
+	<select id="selectByType" resultMap="ConfingBaseResultMap">
+		select
+		uc.*,dd. is_default,dd.status,dd.remark
+		from t_flow_unview_config
+		uc
+		left join t_sys_dict_data dd on dd.dict_type ='sys_flow_type' and
+		uc.config_name= dd.dict_cabel
+		where short_flow_name like
+		'${shortFlowName}%'
+		<if test="configOrder != null ">
+			and config_order = #{configOrder,jdbcType=INTEGER}
+		</if>
+		order by config_order
+	</select>
+
+
+	<resultMap id="DelegateResultMap"
+		type="com.chinatower.product.legalms.modules.flow.entity.delegate.TFlowDelegate">
+		<id column="delegate_id" jdbcType="BIGINT" property="delegateId" />
+		<result column="start_time" jdbcType="TIMESTAMP"
+			property="startTime" />
+		<result column="end_time" jdbcType="TIMESTAMP"
+			property="endTime" />
+		<result column="real_end_time" jdbcType="TIMESTAMP"
+			property="realEndTime" />
+		<result column="delegate_status" jdbcType="VARCHAR"
+			property="delegateStatus" />
+		<result column="login_acct" jdbcType="VARCHAR"
+			property="loginAcct" />
+		<result column="login_name" jdbcType="VARCHAR"
+			property="loginName" />
+		<result column="org_name" jdbcType="VARCHAR" property="orgName" />
+		<result column="org_id" jdbcType="VARCHAR" property="orgId" />
+		<result column="dept_name" jdbcType="VARCHAR"
+			property="deptName" />
+		<result column="dept_id" jdbcType="VARCHAR" property="deptId" />
+		<result column="mobile" jdbcType="VARCHAR" property="mobile" />
+		<result column="create_time" jdbcType="TIMESTAMP"
+			property="createTime" />
+		<result column="toer_id" jdbcType="VARCHAR" property="toerId" />
+		<result column="toer_name" jdbcType="VARCHAR"
+			property="toerName" />
+		<result column="approve_item_type" jdbcType="VARCHAR"
+			property="approveItemType" />
+	</resultMap>
+	<sql id="Delegate_Column_List">
+		delegate_id, start_time, end_time, real_end_time,
+		delegate_status, login_acct,
+		login_name,
+		org_name, org_id, dept_name,
+		dept_id, mobile, create_time,
+		toer_id, toer_name,
+		approve_item_type
+	</sql>
+	<select id="selectDelegates"
+		parameterType="com.chinatower.product.legalms.modules.flow.entity.delegate.TFlowDelegate"
+		resultMap="DelegateResultMap">
+		select
+		<include refid="Delegate_Column_List" />
+		from t_flow_delegate
+		where delegate_status!='0'
+		<choose>
+			<when
+				test="approveItemType != null and approveItemType == '1'.toString() ">
+				<if test="loginAcct != null ">
+					and login_acct = #{loginAcct,jdbcType=VARCHAR}
+				</if>
+				<if test="toerName != null and toerName !='' ">
+					and toer_name like '%${toerName}%'
+				</if>
+				<if test="startTime != null and  endTime != null">
+					and start_time between #{startTime} and #{endTime}
+					and
+					end_time between #{startTime} and #{endTime}
+				</if>
+				<if test="toerId != null">
+					and toer_id = #{toerId,jdbcType=VARCHAR}
+				</if>
+			</when>
+			<otherwise>
+				and delegate_status='18'
+				<if test="loginAcct != null">
+					and login_acct = #{loginAcct,jdbcType=VARCHAR}
+				</if>
+			</otherwise>
+		</choose>
+		order by start_time desc
+	</select>
+
+	<update id="updateDelegateStatusByPrimaryKey"
+		parameterType="com.chinatower.product.legalms.modules.flow.entity.delegate.TFlowDelegate">
+		update
+		t_flow_delegate set
+		delegate_status =
+		#{delegateStatus}
+		where
+		delegate_id = #{delegateId}
+	</update>
+
+	<select id="test" resultType="Map">
+		select * from t_flow_unview limit 1
+	</select>
+
+	<update id="updateByPrimaryKeyStatus">
+		update
+		${itemType} set ${itemStatusName} =
+		#{itemStatus}
+		where ${itemName} = #{itemId}
+	</update>
+	<update id="updateLawKafka">
+		update
+		t_sys_dict_data set status =
+		#{status,jdbcType=VARCHAR}
+		where dict_type ='sys_law_kafka' LIMIT 1
+	</update>
+</mapper>

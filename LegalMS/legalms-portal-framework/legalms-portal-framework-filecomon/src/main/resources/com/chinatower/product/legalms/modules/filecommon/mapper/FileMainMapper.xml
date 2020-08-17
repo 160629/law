@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chinatower.product.legalms.modules.filecommon.mapper.filecommon.FileMainMapper">
+  <resultMap id="BaseResultMap" type="com.chinatower.product.legalms.modules.filecommon.vo.filecommon.FileMainVO">
+  	<id column="file_id" property="fileId" jdbcType="VARCHAR" />
+    <result column="file_extension" property="fileExtension" jdbcType="VARCHAR" />
+    <result column="file_http_url" property="fileHttpUrl" jdbcType="VARCHAR" />
+    <result column="file_name" property="fileName" jdbcType="VARCHAR" />
+    <result column="file_remark" property="fileRemark" jdbcType="VARCHAR" />
+    <result column="file_status" property="fileStatus" jdbcType="VARCHAR" />
+    <result column="file_status_update_time" property="fileStatusUpdateTime" jdbcType="TIMESTAMP" />
+    <result column="file_upload_app_id" property="fileUploadAppId" jdbcType="VARCHAR" />
+    <result column="file_upload_time" property="fileUploadTime" jdbcType="TIMESTAMP" />
+    <result column="visibility_level" property="visibilityLevel" jdbcType="VARCHAR" />
+    <result column="file_upload_user_id" property="fileUploadUserId" jdbcType="VARCHAR" />
+    <result column="file_length" property="fileLength" jdbcType="VARCHAR"/>
+    <result column="process_inst_id" property="processInstId" jdbcType="VARCHAR"/>
+  </resultMap>
+
+    <select id="selectAllfile" resultType="java.util.Map">
+        SELECT f.file_id,f.file_name,f.file_extension,f.file_length,f.file_http_url,s.file_share_business_key,s.file_share_type,s.file_share_id,s.process_inst_id as processInstId
+        from t_file_main f ,t_file_share s
+        <where>
+            f.file_id = s.file_id and s.file_share_business_key = #{fileShareBusinessKey} and f.file_status=0
+            <if test="shareType !=null and shareType !=''">
+                and s.file_share_type = #{shareType}
+            </if>
+            <if test="processInstId !=null and processInstId !=''">
+                and s.process_inst_id = #{processInstId}
+            </if>
+
+        </where>
+        order by f.file_upload_time ASC
+    </select>
+
+  <insert id="insertFileMain" parameterType="com.chinatower.product.legalms.modules.filecommon.vo.filecommon.FileMainVO">
+    insert into t_file_main (
+           file_id,file_name,file_extension,file_http_url,file_upload_app_id,file_upload_user_id,
+                file_upload_time,file_status_update_time,file_remark,visibility_level,file_length   )
+       values (
+            #{fileId},#{fileName},#{fileExtension},#{fileHttpUrl},#{fileUploadAppId},#{fileUploadUserId},
+                #{fileUploadTime},#{fileStatusUpdateTime},#{fileRemark},#{visibilityLevel},#{fileLength})
+  </insert>
+
+    <update id="updatefilemain" parameterType="com.chinatower.product.legalms.modules.filecommon.vo.filecommon.FileMainVO">
+        update t_file_main set
+             file_name=#{fileName},file_extension=#{fileExtension},file_http_url=#{fileHttpUrl}
+             ,file_upload_app_id=#{fileUploadAppId},file_upload_user_id=#{fileUploadUserId}
+             ,file_upload_time=#{fileUploadTime},file_status_update_time=#{fileStatusUpdateTime}
+             ,file_status=#{fileStatus},file_remark=#{fileRemark},visibility_level=#{visibilityLevel}
+             ,file_length=#{fileLength}
+        where file_id=#{fileId}
+    </update>
+
+    <update id="deleteFileCaseMainById">
+        update t_file_main
+           <set>
+               file_status = '1'
+           </set>
+           where file_id = #{fileId,jdbcType=VARCHAR}
+    </update>
+</mapper>

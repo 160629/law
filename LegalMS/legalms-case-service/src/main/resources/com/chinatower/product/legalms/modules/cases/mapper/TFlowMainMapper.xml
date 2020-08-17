@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chinatower.product.legalms.modules.cases.mapper.TFlowMainMapper">
+    <resultMap id="BaseResultMap" type="com.chinatower.product.legalms.modules.cases.entity.TFlowMain">
+        <id column="flow_id" jdbcType="BIGINT" property="flowId" />
+        <result column="flow_name" jdbcType="VARCHAR"
+                property="flowName" />
+        <result column="flow_status" jdbcType="VARCHAR"
+                property="flowStatus" />
+        <result column="create_time" jdbcType="TIMESTAMP"
+                property="createTime" />
+        <result column="create_user_id" jdbcType="VARCHAR"
+                property="createUserId" />
+        <result column="create_user_name" jdbcType="VARCHAR"
+                property="createUserName" />
+        <result column="approve_item_id" jdbcType="VARCHAR"
+                property="approveItemId" />
+        <result column="approve_item_name" jdbcType="VARCHAR"
+                property="approveItemName" />
+        <result column="approve_item_type" jdbcType="VARCHAR"
+                property="approveItemType" />
+        <result column="module_name" jdbcType="VARCHAR"
+                property="moduleName" />
+    </resultMap>
+
+    <select id="selectFlowMainById" resultType="String">
+        SELECT
+            CASE
+                WHEN #{businessType} = 't_issue_guide' THEN
+                    (
+                        SELECT
+                            tig.guide_title title
+                        FROM
+                            t_issue_guide tig, t_flow_main tfm
+                        WHERE
+                            tig.guide_id = #{businessId}
+                            and tig.guide_id = tfm.approve_item_id
+                            and tfm.flow_status = '20'
+                    )
+                WHEN #{businessType} = 't_issue_lawsuit' THEN
+                    (
+                        SELECT
+                            til.lawsuit_title title
+                        FROM
+                            t_issue_lawsuit til, t_flow_main tfm
+                        WHERE
+                            til.lawsuit_id = #{businessId}
+                            and til.lawsuit_id = tfm.approve_item_id
+                            and tfm.flow_status = '20'
+                    )
+                WHEN #{businessType} = 't_issue_jointly' THEN
+                    (
+                        SELECT
+                            tij.jointly_title title
+                        FROM
+                            t_issue_jointly tij, t_flow_main tfm
+                        WHERE
+                            tij.jointly_id = #{businessId}
+                            and tij.jointly_id = tfm.approve_item_id
+                            and tfm.flow_status = '20'
+                    )
+                WHEN #{businessType} = 't_case_assign' THEN
+                    (
+                        SELECT
+                            tca.assign_title title
+                        FROM
+                            t_case_assign tca, t_flow_main tfm
+                        WHERE
+                            tca.assign_id = #{businessId}
+                            and tca.assign_id = tfm.approve_item_id
+                            and tfm.flow_status = '20'
+                    )
+                WHEN #{businessType} = 't_case_legislation' THEN
+                    (
+                        SELECT
+                            tcl.title title
+                        FROM
+                            t_case_legislation tcl, t_flow_main tfm
+                        WHERE
+                            tcl.id = #{businessId}
+                            and tcl.id = tfm.approve_item_id
+                            and tfm.flow_status = '20'
+                    )
+            END
+    </select>
+    <select id="selectFlowMainByBusinessId"
+            resultMap="BaseResultMap">
+        select * from t_flow_main where approve_item_id = #{businessId}
+    </select>
+</mapper>

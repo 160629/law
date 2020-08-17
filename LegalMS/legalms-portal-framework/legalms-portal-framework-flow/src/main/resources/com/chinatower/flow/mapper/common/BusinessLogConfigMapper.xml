@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chinatower.product.legalms.modules.flow.mapper.common.BusinessLogConfigMapper">
+    <select id="selectBusinessLogConfig" resultType="java.lang.String">
+        select activity_def_name
+        FROM t_business_log_config tblc, t_flow_main tfm
+        WHERE tblc.flow_def_name = tfm.flow_name
+        and tblc.version_id = tfm.version_id
+        and tfm.approve_item_id = #{approveItemId}
+        and tblc.flow_def_name = #{defName}
+    </select>
+    <insert id="addConfig" parameterType="com.chinatower.product.legalms.modules.flow.vo.flow.BusinessLogConfigVO">
+        INSERT INTO t_business_log_config(activity_def_name, flow_def_name, version_id, is_special)
+        VALUES(#{businessLogConfigVO.activityDefName}, #{businessLogConfigVO.flowDefName}, #{businessLogConfigVO.versionId},#{businessLogConfigVO.isSpecial})
+    </insert>
+    <update id="updateConfig">
+        <foreach collection="businessLogConfigVOS" item="businessLogConfigVO" separator=";">
+            UPDATE t_business_log_config
+                <set>
+                    activity_def_name = #{businessLogConfigVO.activityDefName},
+                    flow_def_name = #{businessLogConfigVO.flowDefName},
+                    version_id = #{businessLogConfigVO.versionId},
+                    is_special = #{businessLogConfigVO.isSpecial},
+                </set>
+            WHERE id = #{businessLogConfigVO.id}
+        </foreach>
+    </update>
+    <delete id="delConfig">
+        DELETE FROM t_business_log_config
+        WHERE id in
+        <foreach collection="businessLogConfigVOS" open="(" close=")" item="businessLogConfigVO" separator=",">
+            #{businessLogConfigVO.id}
+        </foreach>
+    </delete>
+    <resultMap id="BaseMap" type="com.chinatower.product.legalms.modules.flow.vo.flow.BusinessLogConfigVO">
+        <id column="id" property="id" javaType="Integer" jdbcType="INTEGER"/>
+        <result column="activity_def_name" property="activityDefName" javaType="String" jdbcType="VARCHAR"/>
+        <result column="flow_def_name" property="flowDefName" javaType="String" jdbcType="VARCHAR"/>
+        <result column="version_id" property="versionId" javaType="Integer" jdbcType="INTEGER"/>
+        <result column="is_special" property="isSpecial" javaType="Integer" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <select id="selectAll" resultMap="BaseMap">
+        select * from t_business_log_config
+    </select>
+    <select id="selectConfigActs" resultMap="BaseMap">
+        select * from t_business_log_config
+        where flow_def_name = #{processDefName, jdbcType=VARCHAR}
+        and version_id=#{versionId, jdbcType=INTEGER}
+    </select>
+    <select id="selectBusinessConfigByIds" resultType="java.lang.Integer">
+        select count(id) from t_business_log
+        where act_id = #{activityDefId, jdbcType=VARCHAR}
+        and approve_item_id = #{approveItemId, jdbcType=VARCHAR}
+        and dept_id = #{deptId}
+    </select>
+
+</mapper>

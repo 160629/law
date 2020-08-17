@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <groupId>com.chinatower.product</groupId>
+        <artifactId>legalms</artifactId>
+        <version>1.0</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>legalms-file-service</artifactId>
+    <packaging>jar</packaging>
+    <version>1.0</version>
+    <name>legalms-file-service</name>
+    <url>http://maven.apache.org</url>
+    <properties>
+        <springboot.version>1.5.9.RELEASE</springboot.version>
+        <springcloud.version>Dalston.SR5</springcloud.version>
+        <feign-form-version>3.0.3</feign-form-version>
+        <feign-form-spring-version>3.0.3</feign-form-spring-version>
+        <chinatower_encrypt.version>1.0</chinatower_encrypt.version>
+    </properties>
+    <dependencies>
+        <dependency>
+            <groupId>com.chinatower.product</groupId>
+            <artifactId>legalms-file-api</artifactId>
+            <version>1.0</version>
+        </dependency>
+        <!--<dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>-->
+        <!-- swagger -->
+        <dependency>
+            <groupId>com.chinatower.framework.cloud</groupId>
+            <artifactId>chinatower-swagger-starter</artifactId>
+            <version>1.0</version>
+        </dependency>
+        <!-- 缓存 -->
+        <!-- <dependency>
+            <groupId>com.chinatower.framework.cloud</groupId>
+            <artifactId>chinatower-cache-starter</artifactId>
+            <version>1.1</version>
+        </dependency> -->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>8.0.11</version>
+        </dependency>
+        <!-- 文件服务组件 -->
+        <dependency>
+            <groupId>com.chinatower</groupId>
+            <artifactId>chinatower_encrypt</artifactId>
+            <version>${chinatower_encrypt.version}</version>
+        </dependency>
+        <!--<dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-core</artifactId>
+            <version>4.0.6.RELEASE</version>
+        </dependency>-->
+        <!-- <dependency>
+             <groupId>org.springframework.cloud</groupId>
+             <artifactId>spring-cloud-starter-openfeign</artifactId>
+             <version>2.0.2.RELEASE</version>
+         </dependency>-->
+
+    </dependencies>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>2.1.7.RELEASE</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>

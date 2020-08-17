@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chinatower.product.legalms.modules.dispute.mapper.TaskMapper">
+
+    <insert id="insertTask" parameterType="com.chinatower.product.legalms.modules.dispute.entity.TaskNumVO">
+        insert into t_flow_task_count
+        (id,
+        user_id,
+        todo_task,
+        finish_task,
+        end_task,
+        last_update_date,
+        start_time,
+        end_time)
+        values
+        <foreach collection="taskNumVOS" item="item" index = 'index' separator=",">
+            (#{item.id,jdbcType=VARCHAR},
+            #{item.userId,jdbcType=VARCHAR},
+            #{item.toDoTask,jdbcType=INTEGER},
+            #{item.finishTask,jdbcType=INTEGER},
+            #{item.endTask,jdbcType=INTEGER},
+            NOW(),
+            #{item.startTime,jdbcType=TIMESTAMP},
+            #{item.endTime,jdbcType=TIMESTAMP})
+        </foreach>
+    </insert>
+
+    <resultMap id="TaskNumMap" type="com.chinatower.product.legalms.modules.dispute.entity.TaskNumVO">
+        <id column="id" jdbcType="VARCHAR" property="id"/>
+        <result column="user_id" jdbcType="VARCHAR" property="userId"/>
+        <result column="todo_task" jdbcType="INTEGER" property="toDoTask"/>
+        <result column="finish_task" jdbcType="INTEGER" property="finishTask"/>
+        <result column="end_task" jdbcType="INTEGER" property="endTask"/>
+        <result column="last_update_date" jdbcType="VARCHAR" property="lastUpdateDate"/>
+        <result column="start_time" jdbcType="VARCHAR" property="startTime"/>
+        <result column="end_time" jdbcType="VARCHAR" property="endTime"/>
+    </resultMap>
+
+    <select id="queryPersonTaskCount" resultMap="TaskNumMap">
+        select
+        id,
+        user_id,
+        todo_task,
+        finish_task,
+        end_task,
+        last_update_date,
+        start_time,
+        end_time
+        from t_flow_task_count
+        where user_id = #{userId}
+        and #{lastUpdateDate} = DATE_FORMAT( last_update_date, "%Y-%m-%d" )
+    </select>
+
+</mapper>

@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.chinatower.product.legalms.modules.license.mapper.AccountVOMapper">
+    <resultMap id="BaseResultMap" type="com.chinatower.product.legalms.modules.license.entity.AccountVO">
+        <result column="flag" property="flag" jdbcType="VARCHAR"/>
+        <result column="user_code" property="userCode" jdbcType="VARCHAR"/>
+        <result column="user_name" property="userName" jdbcType="VARCHAR"/>
+        <result column="emp_no" property="empNo" jdbcType="VARCHAR"/>
+        <result column="user_rank" property="userRank" jdbcType="VARCHAR"/>
+        <result column="user_nature" property="userNature" jdbcType="VARCHAR"/>
+        <result column="user_level" property="userLevel" jdbcType="VARCHAR"/>
+        <result column="sort_no" property="sortNo" jdbcType="VARCHAR"/>
+        <result column="org_code" property="orgCode" jdbcType="VARCHAR"/>
+        <result column="create_date" property="createDate" jdbcType="VARCHAR"/>
+        <result column="sex" property="sex" jdbcType="VARCHAR"/>
+        <result column="birthday" property="birthday" jdbcType="VARCHAR"/>
+        <result column="native_place" property="nativePlace" jdbcType="VARCHAR"/>
+        <result column="identity_card" property="identityCard" jdbcType="VARCHAR"/>
+        <result column="degree" property="degree" jdbcType="VARCHAR"/>
+        <result column="finish_school" property="finishSchool" jdbcType="VARCHAR"/>
+        <result column="mobile" property="mobile" jdbcType="VARCHAR"/>
+        <result column="email" property="email" jdbcType="VARCHAR"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+        <result column="sync_status" property="syncStatus" jdbcType="VARCHAR"/>
+        <result column="service_code" property="serviceCode" jdbcType="VARCHAR"/>
+        <result column="account_remark" property="accountRemark" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+    flag, user_code, user_name, emp_no, user_rank, user_nature, user_level, sort_no,
+    org_code, create_date, sex, birthday, native_place, identity_card, degree, finish_school,
+    mobile, email,create_time, update_time, sync_status,service_code
+   </sql>
+
+
+    <update id="updateOrgCodeByUserCode" parameterType="string" >
+     update t_pub_account_tab set  account_org_id_old = '20000000' where account_type = '1'and  account_status !='3' and account_id = #{value}
+    </update>
+
+    <update id="updateServiceCodeByAccoungId" >
+        update t_pub_account_tab set account_remark =#{providerArea}  where account_id = #{userCode} and account_status!='3'
+    </update>
+    <select id="selectUserInfoByAccountId" parameterType="string" resultMap="BaseResultMap">
+        SELECT DISTINCT
+        case when
+        r.account_type = '0' then r.account_org_id
+        when r.account_type = '1' then r.account_org_id_old end org_code,
+        r.account_id user_code, a.flag flag,
+        a.user_name user_name,a.sex sex,a.birthday birthday,a.identity_card identity_card,
+        a.mobile mobile,a.email email,r.account_remark, r.account_type user_nature
+        FROM t_pub_account_tab r,t_pub_user a
+        WHERE r.account_id = #{value} and a.user_code = r.account_cur_user_id and a.flag !='3' and account_status!='3'
+    </select>
+    <insert id="addAccount" parameterType="com.chinatower.product.legalms.modules.license.entity.AccountVO">
+     insert into t_pub_usera (flag,
+                                user_code,
+                                user_name,
+                                emp_no,
+                                user_rank,
+                                user_nature,
+                                user_level,
+                                sort_no,
+                                org_code,
+                                create_date,
+                                sex,
+                                birthday,
+                                native_place,
+                                identity_card,
+                                degree,
+                                finish_school,
+                                mobile,
+                                email,
+                                service_code,
+                                create_time
+                                )values (
+                                #{flag},
+                                #{userCode},
+                                #{userName},
+                                #{empNo},
+                                #{userRank},
+                                #{userNature},
+                                #{userLevel},
+                                #{sortNo},
+                                #{orgCode},
+                                #{createDate},
+                                #{sex},
+                                #{birthday},
+                                #{nativePlace},
+                                #{identityCard},
+                                #{degree},
+                                #{finishSchool},
+                                #{mobile},
+                                #{email},
+                                #{serviceCode},
+                                now()
+                                )
+    </insert>
+    <update id="updateAccount" parameterType="com.chinatower.product.legalms.modules.license.entity.AccountVO">
+        update t_pub_usera set flag = #{flag},
+                                 user_name = #{userName},
+                                 emp_no = #{empNo},
+                                 user_rank = #{userRank},
+                                 user_nature = #{userNature},
+                                 user_level = #{userLevel},
+                                 sort_no = #{sortNo},
+                                 org_code = #{orgCode},
+                                 create_date = #{createDate},
+                                 sex = #{sex},
+                                 birthday = #{birthday},
+                                 native_place = #{nativePlace},
+                                 identity_card = #{identityCard},
+                                 degree = #{degree},
+                                 finish_school = #{finishSchool},
+                                 mobile = #{mobile},
+                                 email = #{email},
+                                 update_time = now(),
+                                 service_code=#{serviceCode},
+                                 sync_status = #{syncStatus}
+                                 where user_code = #{userCode}
+    </update>
+
+    <update id="deleteAccount" parameterType="com.chinatower.product.legalms.modules.license.entity.AccountVO">
+            update t_pub_usera set flag = #{flag},sync_status = #{syncStatus} where user_code = #{userCode}
+    </update>
+    <select id="selectAccountByCode" resultMap="BaseResultMap"
+            parameterType="com.chinatower.product.legalms.modules.license.entity.AccountVO">
+        select * from t_pub_usera where user_code = #{userCode}
+    </select>
+
+    <select id="selectByStatus" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from t_pub_usera where sync_status = #{syncStatus}
+    </select>
+
+    <select id="selectByUnStatus" parameterType="com.chinatower.product.legalms.modules.license.entity.AccountVO" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from t_pub_usera where sync_status != #{syncStatus}
+    </select>
+
+    <update id="updateAccountBySyncStatus" >
+        update t_pub_usera set sync_status = #{status} where 1=1
+        <if test="userCodeList !=null">
+            and user_code in
+            (<foreach collection="userCodeList" item="value" index='index' separator=",">
+            #{value}
+        </foreach>)
+        </if>
+    </update>
+</mapper>

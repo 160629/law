@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chinatower.product.legalms.modules.system.mapper.SysQuickButtonMapper">
+    <resultMap id="BaseResultMap" type="com.chinatower.product.legalms.modules.system.entity.SysQuickButtonVO">
+        <id column="id" property="id" jdbcType="INTEGER" />
+        <result column="flow_id" property="flowId" jdbcType="VARCHAR" />
+        <result column="icon_img" property="iconImg" jdbcType="VARCHAR" />
+        <result column="display_name" property="displayName" jdbcType="VARCHAR" />
+
+        <result column="module_name" property="moduleName" jdbcType="VARCHAR" />
+        <result column="flow_start_act" property="flowStartAct" jdbcType="VARCHAR" />
+
+        <result column="sort" property="sort" jdbcType="INTEGER" />
+
+        <result column="path" property="path" jdbcType="VARCHAR" />
+
+        <result column="open_type" property="openType" jdbcType="VARCHAR" />
+        <result column="page_key" property="pageKey" jdbcType="VARCHAR" />
+        <result column="is_jiyuehua" property="isJiyuehua" jdbcType="VARCHAR" />
+
+
+
+    </resultMap>
+    <select id="selectByRoleCode" resultMap="BaseResultMap">
+      SELECT DISTINCT b.flow_id,b.icon_img,b.display_name,b.module_name,b.flow_start_act,b.sort,b.path,b.open_type,b.page_key
+      FROM
+	 t_sys_quick_button b,
+     t_pub_rolemenu c
+     WHERE
+	    b.menu_code = c.menu_code
+    <if test="level != null">
+        and b.level = #{level}
+    </if>
+    <if test="businessType != null">
+        and b.module_name like #{businessType}
+    </if>
+
+    <if test="isJiyuehua!=null">
+        and (is_jiyuehua = #{isJiyuehua}
+        or is_jiyuehua = 'share')
+    </if>
+
+	AND c.role_code IN
+    (<foreach collection="roleCodes" item="value" index = 'index' separator=",">
+        #{value}
+    </foreach>)
+    ORDER BY b.sort asc
+    </select>
+
+    <select id="selectByUserCode" resultMap="BaseResultMap">
+        SELECT DISTINCT b.flow_id,b.icon_img,b.display_name,b.module_name,b.flow_start_act,b.sort,b.path,b.open_type,b.page_key
+        FROM
+        t_sys_quick_button b,
+        t_pub_rolemenu c
+        WHERE
+        b.menu_code = c.menu_code
+        <if test="level != null">
+            and b.level = #{level}
+        </if>
+        <if test="businessType != null">
+            and b.module_name like #{businessType}
+        </if>
+
+        <if test="isJiyuehua!=null">
+            and (is_jiyuehua = #{isJiyuehua}
+            or is_jiyuehua = 'share')
+        </if>
+
+        AND c.role_code IN
+        (
+        select role_codes from t_pub_accroleimpower where permisson_key = #{accountId} and flag !='3'
+        )
+        ORDER BY b.sort asc
+    </select>
+
+    <select id="selectByLevel" resultMap="BaseResultMap">
+        SELECT DISTINCT b.flow_id,b.icon_img,b.display_name,b.module_name,b.flow_start_act,b.sort,b.path,b.open_type,b.page_key
+        FROM
+        t_sys_quick_button b
+        WHERE b.level = #{level}
+        <if test="businessType != null">
+            and b.module_name like #{businessType}
+        </if>
+
+        <if test="isJiyuehua!=null">
+            and (is_jiyuehua = #{isJiyuehua}
+            or is_jiyuehua = 'share')
+        </if>
+
+    </select>
+
+    <select id="selectAccRoleImpowerByAccountId" parameterType="string" resultType="string">
+        select role_codes from t_pub_accroleimpower where permisson_key  = #{value} and flag !='3'
+    </select>
+
+    <select id="selectorgLevelByAccountId" parameterType="string" resultType="Map">
+        SELECT o.org_level,j.is_jiyuehua from t_pub_account_tab a
+        LEFT JOIN t_pub_org o on a.account_unit_id = o.org_code
+        LEFT JOIN t_sys_jiyuehua j on a.account_unit_id = j.org_id
+        where  a.account_id = #{value}
+    </select>
+
+    <select id="sellectQuickButton" parameterType="String" resultMap="BaseResultMap">
+        SELECT  b.*
+        FROM
+        t_sys_quick_button b
+        <where>
+        <if test="sysQuickButtonPage.flowId != null and sysQuickButtonPage.flowId != ''">
+            b.flow_id = #{sysQuickButtonPage.flowId}
+        </if>
+        <if test="sysQuickButtonPage.displayName != null and sysQuickButtonPage.displayName != ''">
+            and b.display_name = #{sysQuickButtonPage.displayName}
+        </if>
+        </where>
+        ORDER BY b.sort
+    </select>
+    <insert id="addQuickButton" parameterType="com.chinatower.product.legalms.modules.system.entity.SysQuickButtonVO">
+        INSERT INTO t_sys_quick_button (
+        	flow_id,
+        	icon_img ,
+        	display_name ,
+        	module_name ,
+        	flow_start_act ,
+        	sort,
+        	path,
+        	open_type,
+        	page_key,
+        	is_jiyuehua
+        ) VALUES (
+        	#{flowId,jdbcType=VARCHAR},
+        	#{iconImg,jdbcType=VARCHAR} ,
+        	#{displayName,jdbcType=VARCHAR} ,
+        	#{moduleName,jdbcType=VARCHAR} ,
+        	#{flowStartAct,jdbcType=VARCHAR} ,
+        	#{sort,jdbcType=INTEGER},
+        	#{path,jdbcType=VARCHAR} ,
+        	#{openType,jdbcType=VARCHAR} ,
+        	#{pageKey,jdbcType=VARCHAR} ,
+        	#{isJiyuehua,jdbcType=VARCHAR}
+        )
+    </insert>
+    <delete id="deleteQuickButton">
+        DELETE FROM t_sys_quick_button WHERE
+            id = #{id}
+    </delete>
+    <update id="updateQuickButton" >
+        UPDATE t_sys_quick_button SET
+	        flow_id = #{flowId,jdbcType=VARCHAR} ,
+            icon_img  = #{iconImg,jdbcType=VARCHAR} ,
+	        display_name = #{displayName,jdbcType=VARCHAR} ,
+	        module_name = #{moduleName,jdbcType=VARCHAR} ,
+	        flow_start_act = #{flowStartAct,jdbcType=VARCHAR} ,
+	        sort = #{sort,jdbcType=INTEGER},
+        	path = #{path,jdbcType=VARCHAR} ,
+        	open_type = #{openType,jdbcType=VARCHAR} ,
+        	page_key = #{pageKey,jdbcType=VARCHAR} ,
+        	is_jiyuehua = #{isJiyuehua,jdbcType=VARCHAR}
+        WHERE
+	        id = #{id}
+	</update>
+</mapper>

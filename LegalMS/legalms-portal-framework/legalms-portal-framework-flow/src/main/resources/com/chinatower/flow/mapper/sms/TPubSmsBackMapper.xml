@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chinatower.product.legalms.modules.flow.mapper.sms.TPubSmsBackMapper">
+  <resultMap id="BaseResultMap" type="com.chinatower.product.legalms.modules.flow.entity.sms.TPubSmsBack">
+    <id column="phone" jdbcType="VARCHAR" property="phone" />
+    <id column="receive_time" jdbcType="VARCHAR" property="receiveTime" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.chinatower.product.legalms.modules.flow.entity.sms.TPubSmsBack">
+    <result column="content" jdbcType="LONGVARCHAR" property="content" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    phone, receive_time
+  </sql>
+  <sql id="Blob_Column_List">
+    content
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="map" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from t_pub_sms_back
+    where phone = #{phone,jdbcType=VARCHAR}
+      and receive_time = #{receiveTime,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="map">
+    delete from t_pub_sms_back
+    where phone = #{phone,jdbcType=VARCHAR}
+      and receive_time = #{receiveTime,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.chinatower.product.legalms.modules.flow.entity.sms.TPubSmsBack">
+    insert into t_pub_sms_back (phone, receive_time, content
+      )
+    values (#{phone,jdbcType=VARCHAR}, #{receiveTime,jdbcType=VARCHAR}, #{content,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.chinatower.product.legalms.modules.flow.entity.sms.TPubSmsBack">
+    insert into t_pub_sms_back
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="phone != null">
+        phone,
+      </if>
+      <if test="receiveTime != null">
+        receive_time,
+      </if>
+      <if test="content != null">
+        content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="phone != null">
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="receiveTime != null">
+        #{receiveTime,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.chinatower.product.legalms.modules.flow.entity.sms.TPubSmsBack">
+    update t_pub_sms_back
+    <set>
+      <if test="content != null">
+        content = #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where phone = #{phone,jdbcType=VARCHAR}
+      and receive_time = #{receiveTime,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.chinatower.product.legalms.modules.flow.entity.sms.TPubSmsBack">
+    update t_pub_sms_back
+    set content = #{content,jdbcType=LONGVARCHAR}
+    where phone = #{phone,jdbcType=VARCHAR}
+      and receive_time = #{receiveTime,jdbcType=VARCHAR}
+  </update>
+</mapper>

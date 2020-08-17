@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<uddi__address__list>
+    <uddi__address id="dev">
+        <name>localserver</name>
+        <logicName>default</logicName>
+        <type>remote</type>
+        <uddiHost>192.168.52.244</uddiHost>
+        <uddiPort>10100</uddiPort>
+        <uddiAdminPort>6200</uddiAdminPort>
+        <uddiWebContext>default</uddiWebContext>
+        <uddiUserID>bps</uddiUserID>
+        <uddiPassword>000000</uddiPassword>
+        <description>
+        </description>
+    </uddi__address>
+    <uddi__address id="local">
+        <name>localserver</name>
+        <logicName>default</logicName>
+        <type>remote</type>
+        <uddiHost>123.126.34.157</uddiHost>
+        <uddiPort>45820</uddiPort>
+        <uddiAdminPort>6200</uddiAdminPort>
+        <uddiWebContext>default</uddiWebContext>
+        <uddiUserID>bps</uddiUserID>
+        <uddiPassword>000000</uddiPassword>
+        <description>
+        </description>
+    </uddi__address>
+    <uddi__address id="rcys">
+        <name>localserver</name>
+        <logicName>default</logicName>
+        <type>remote</type>
+        <uddiHost>192.168.157.226</uddiHost>
+        <uddiPort>8080</uddiPort>
+        <uddiAdminPort>6200</uddiAdminPort>
+        <uddiWebContext>default</uddiWebContext>
+        <uddiUserID>bps</uddiUserID>
+        <uddiPassword>000000</uddiPassword>
+        <description>
+        </description>
+    </uddi__address>
+    <uddi__address id="test">
+        <name>localserver</name>
+        <logicName>default</logicName>
+        <type>remote</type>
+        <uddiHost>192.168.160.4</uddiHost>
+        <uddiPort>8080</uddiPort>
+        <uddiAdminPort>6200</uddiAdminPort>
+        <uddiWebContext>default</uddiWebContext>
+        <uddiUserID>bps</uddiUserID>
+        <uddiPassword>000000</uddiPassword>
+        <description>
+        </description>
+    </uddi__address>
+    <uddi__address id="zhunsc">
+        <name>localserver</name>
+        <logicName>default</logicName>
+        <type>remote</type>
+        <uddiHost>10.34.6.51</uddiHost>
+        <uddiPort>10100</uddiPort>
+        <uddiAdminPort>6200</uddiAdminPort>
+        <uddiWebContext>default</uddiWebContext>
+        <uddiUserID>bps</uddiUserID>
+        <uddiPassword>000000</uddiPassword>
+        <description>
+        </description>
+    </uddi__address>
+
+    <uddi__address id="newtest">
+        <name>localserver</name>
+        <logicName>default</logicName>
+        <type>remote</type>
+        <uddiHost>10.34.6.51</uddiHost>
+        <uddiPort>10100</uddiPort>
+        <uddiAdminPort>6200</uddiAdminPort>
+        <uddiWebContext>default</uddiWebContext>
+        <uddiUserID>bps</uddiUserID>
+        <uddiPassword>000000</uddiPassword>
+        <description>
+        </description>
+    </uddi__address>
+</uddi__address__list>

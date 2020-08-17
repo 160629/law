@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chinatower.product.legalms.modules.flow.mapper.common.SysBodyconfigMapper">
+
+    <resultMap id="BaseResultMap" type="com.chinatower.product.legalms.modules.flow.entity.common.SysBodyconfigVO">
+        <id column="approve_item_id" jdbcType="VARCHAR" property="approveItemId" />
+        <result column="approve_item_type" jdbcType="VARCHAR" property="approveItemType" />
+        <result column="unit_code" jdbcType="VARCHAR" property="unitCode" />
+        <result column="body_code" jdbcType="VARCHAR" property="bodyCode" />
+        <result column="our_sign_date" jdbcType="TIMESTAMP" property="ourSignDate" />
+    </resultMap>
+
+    <select id="selectAllSysBodyconfig" resultMap="BaseResultMap">
+        select approve_item_id,approve_item_type,unit_code,body_code,our_sign_date
+        from t_sys_bodyconfig
+    </select>
+
+    <insert id="addSysBodyconfig">
+        insert into t_sys_bodyconfig
+            (approve_item_id,approve_item_type,unit_code,body_code,our_sign_date)
+        value
+            <foreach collection="syslist" item="sysBodyconfig" index='index' separator=",">
+                (#{sysBodyconfig.approveItemId,jdbcType=VARCHAR},
+            #{sysBodyconfig.approveItemType,jdbcType=VARCHAR},
+            #{sysBodyconfig.unitCode,jdbcType=VARCHAR},
+            #{sysBodyconfig.bodyCode,jdbcType=VARCHAR},
+            now())
+            </foreach>
+    </insert>
+
+    <update id="updateSysBodyconfig">
+    update t_sys_bodyconfig
+    <set>
+    <if test="approveItemId != null" > approve_item_id = #{approveItemId,jdbcType=VARCHAR}, </if>
+    <if test="approveItemType!=null">approve_item_type = #{approveItemType,jdbcType=VARCHAR},</if>
+    <if test="unitCode!=null">unit_code = #{unitCode,jdbcType=VARCHAR},</if>
+    <if test="bodyCode!=null">body_code = #{bodyCode,jdbcType=VARCHAR},</if>
+    <if test="ourSignDate!=null">our_sign_date = #{ourSignDate,jdbcType=TIMESTAMP},</if>
+    </set>
+    where approve_item_id = #{approveItemId}
+    </update>
+
+    <delete id="deleteSysBodyconfig">
+        delete from t_sys_bodyconfig where approve_item_id = #{approveItemId}
+    </delete>
+
+    <delete id="deleteSysBodyconfigByIT">
+        delete from t_sys_bodyconfig where approve_item_id = #{approveItemId} and approve_item_type =#{approveItemType}
+    </delete>
+</mapper>

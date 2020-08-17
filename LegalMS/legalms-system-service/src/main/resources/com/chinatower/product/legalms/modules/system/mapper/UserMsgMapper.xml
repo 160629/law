@@ -1,0 +1,479 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chinatower.product.legalms.modules.system.mapper.UserMsgMapper">
+    <resultMap id="BaseResultMap" type="com.chinatower.product.legalms.modules.system.entity.UserMsg">
+        <!--t_pub_user-->
+        <id column="user_id" jdbcType="VARCHAR" property="userId"/>
+        <result column="flag" jdbcType="VARCHAR" property="flag"/>
+        <result column="user_code" jdbcType="VARCHAR" property="userCode"/>
+        <result column="user_name" jdbcType="VARCHAR" property="userName"/>
+        <result column="emp_no" jdbcType="VARCHAR" property="empNo"/>
+        <result column="user_rank" jdbcType="VARCHAR" property="userRank"/>
+        <!--用户所属企业类型-->
+        <result column="user_nature" jdbcType="VARCHAR" property="userEnterpType"/>
+        <!--企业简称-->
+        <result column="area_en" jdbcType="VARCHAR" property="areaEn"/>
+        <!--用户父级code-->
+        <result column="org_parent_code" jdbcType="VARCHAR" property="orgParentCode"/>
+        <!--用户等级-->
+        <result column="user_level" jdbcType="VARCHAR" property="userLevel"/>
+        <!--用户等级名称-->
+        <result column="org_name" jdbcType="VARCHAR" property="orgName"/>
+        <!--用户所属单位-->
+        <result column="user_unit_id" jdbcType="VARCHAR" property="userUnitId"/>
+        <result column="sort_no" jdbcType="VARCHAR" property="sortNo"/>
+        <result column="org_code" jdbcType="VARCHAR" property="orgCode"/>
+        <result column="create_date" jdbcType="VARCHAR" property="createDate"/>
+        <result column="sex" jdbcType="VARCHAR" property="sex"/>
+        <result column="birthday" jdbcType="VARCHAR" property="birthday"/>
+        <result column="native_place" jdbcType="VARCHAR" property="nativePlace"/>
+        <result column="identity_card" jdbcType="VARCHAR" property="identityCard"/>
+        <result column="degree" jdbcType="VARCHAR" property="degree"/>
+        <result column="finish_school" jdbcType="VARCHAR" property="finishSchool"/>
+        <result column="mobile" jdbcType="VARCHAR" property="mobile"/>
+        <result column="email" jdbcType="VARCHAR" property="email"/>
+        <result column="user_mis_code" jdbcType="VARCHAR" property="userMisCode"/>
+        <result column="user_pwd" jdbcType="VARCHAR" property="userPwd"/>
+        <result column="user_org_id_old" jdbcType="VARCHAR" property="userOrgIdOld"/>
+        <result column="user_dept_id" jdbcType="VARCHAR" property="userDeptId"/>
+        <result column="user_dept_id_old" jdbcType="VARCHAR" property="userDeptIdOld"/>
+        <result column="user_duty_id" jdbcType="VARCHAR" property="userDutyId"/>
+        <result column="user_duty_name" jdbcType="VARCHAR" property="userDutyName"/>
+        <result column="user_order" jdbcType="BIGINT" property="userOrder"/>
+        <result column="user_status" jdbcType="VARCHAR" property="userStatus"/>
+        <result column="user_status_update_time" jdbcType="TIMESTAMP" property="userStatusUpdateTime"/>
+        <result column="user_create_time" jdbcType="TIMESTAMP" property="userCreateTime"/>
+        <result column="user_remark" jdbcType="VARCHAR" property="userRemark"/>
+        <result column="user_initial" jdbcType="CHAR" property="userInitial"/>
+        <result column="is_jiyuehua" jdbcType="VARCHAR" property="isJiYueHua"/>
+        <result column="org_parent_name" jdbcType="VARCHAR" property="parentOrgName"/>
+        <result column="org_level" jdbcType="VARCHAR" property="orgLevel"/>
+    </resultMap>
+
+    <resultMap id="ResultRole" type="com.chinatower.product.legalms.modules.system.entity.AccRoleImpowerVO">
+        <result column="flag" property="flag" jdbcType="VARCHAR"/>
+        <result column="service_id" property="serviceId" jdbcType="VARCHAR"/>
+        <result column="user_code" property="userCode" jdbcType="VARCHAR"/>
+        <result column="org_code" property="orgCode" jdbcType="VARCHAR"/>
+        <result column="permisson_key" property="permissionKey" jdbcType="VARCHAR"/>
+        <result column="accountId" property="accountId" jdbcType="VARCHAR"/>
+        <result column="user_name" property="userName" jdbcType="VARCHAR"/>
+        <result column="unitId" property="unitId" jdbcType="VARCHAR"/>
+        <result column="role_codes" property="roleColeIds" jdbcType="VARCHAR"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    user_id, flag, user_code, user_name, emp_no, user_rank, user_nature, sort_no, user_level, 
+    org_code, create_date, sex, birthday, native_place, identity_card, degree, finish_school, 
+    mobile, email, user_mis_code, user_pwd, user_unit_id, user_org_id_old, user_dept_id, 
+    user_dept_id_old, user_duty_id, user_duty_name, user_order, user_status, user_status_update_time, 
+    user_create_time, user_remark, user_initial
+    </sql>
+    <!--用户返回信息-->
+    <sql id="userInfo">
+     a.account_org_id org_code,a.account_unit_id user_unit_id,b.mobile mobile,
+     c.enterp_type user_nature,c.area_en area_en,c.org_parent_code org_parent_code,
+     c.org_name org_name,b.user_name user_name,tsj.is_jiyuehua is_jiyuehua,
+     tpo.org_name org_parent_name,tpo.org_level org_level
+    </sql>
+
+    <select id="selectAccRoleImpowerByAccountId" parameterType="string" resultMap="ResultRole">
+        select role_codes from t_pub_accroleimpower where permisson_key  = #{value} and flag !='3'
+    </select>
+
+    <select id="selectUserInfo" resultMap="BaseResultMap">
+        SELECT
+        <include refid="userInfo"/>
+        FROM t_pub_account_tab a LEFT JOIN t_pub_user b ON a.account_cur_user_id= b.user_id
+        LEFT JOIN t_pub_org c ON a.account_org_id = c.org_code LEFT JOIN t_sys_jiyuehua tsj on a.account_unit_id = tsj.org_id
+        LEFT JOIN t_pub_org tpo on a.account_unit_id = tpo.org_code
+        WHERE 1=1 AND a.account_status !='3' AND a.account_cur_user_id =b.user_code
+        <if test="orgCode!= null">
+            and a.account_org_id = #{orgCode}
+        </if>
+        <if test="userId!= null">
+            and a.account_cur_user_id = #{userId}
+        </if>
+        <if test="accountId!= null">
+            and a.account_id = #{accountId}
+        </if>
+    </select>
+
+    <select id="selectUserLevel" parameterType="string" resultMap="BaseResultMap">
+     select org_level user_level,org_name from t_pub_org where org_code = #{value}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from t_pub_user
+    where user_id = #{userId,jdbcType=VARCHAR}
+  </delete>
+    <insert id="insert" parameterType="com.chinatower.product.legalms.modules.system.entity.UserMsg">
+    insert into t_pub_user (user_id, flag, user_code, 
+      user_name, emp_no, user_rank,
+      user_nature, sort_no, user_level, 
+      org_code, create_date, sex, 
+      birthday, native_place, identity_card, 
+      degree, finish_school, mobile, 
+      email, user_mis_code, user_pwd, 
+      user_unit_id, user_org_id_old, user_dept_id, 
+      user_dept_id_old, user_duty_id, user_duty_name, 
+      user_order, user_status, user_status_update_time, 
+      user_create_time, user_remark, user_initial
+      )
+    values (#{userId,jdbcType=VARCHAR}, #{flag,jdbcType=VARCHAR}, #{userCode,jdbcType=VARCHAR}, 
+      #{userName,jdbcType=VARCHAR}, #{empNo,jdbcType=VARCHAR}, #{userRank,jdbcType=VARCHAR}, 
+      #{userNature,jdbcType=VARCHAR}, #{sortNo,jdbcType=VARCHAR}, #{userLevel,jdbcType=VARCHAR}, 
+      #{orgCode,jdbcType=VARCHAR}, #{createDate,jdbcType=VARCHAR}, #{sex,jdbcType=VARCHAR}, 
+      #{birthday,jdbcType=VARCHAR}, #{nativePlace,jdbcType=VARCHAR}, #{identityCard,jdbcType=VARCHAR}, 
+      #{degree,jdbcType=VARCHAR}, #{finishSchool,jdbcType=VARCHAR}, #{mobile,jdbcType=VARCHAR}, 
+      #{email,jdbcType=VARCHAR}, #{userMisCode,jdbcType=VARCHAR}, #{userPwd,jdbcType=VARCHAR}, 
+      #{userUnitId,jdbcType=VARCHAR}, #{userOrgIdOld,jdbcType=VARCHAR}, #{userDeptId,jdbcType=VARCHAR}, 
+      #{userDeptIdOld,jdbcType=VARCHAR}, #{userDutyId,jdbcType=VARCHAR}, #{userDutyName,jdbcType=VARCHAR}, 
+      #{userOrder,jdbcType=BIGINT}, #{userStatus,jdbcType=VARCHAR}, #{userStatusUpdateTime,jdbcType=TIMESTAMP}, 
+      #{userCreateTime,jdbcType=TIMESTAMP}, #{userRemark,jdbcType=VARCHAR}, #{userInitial,jdbcType=CHAR}
+      )
+  </insert>
+    <insert id="insertSelective" parameterType="com.chinatower.product.legalms.modules.system.entity.UserMsg">
+        insert into t_pub_user
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userId != null">
+                user_id,
+            </if>
+            <if test="flag != null">
+                flag,
+            </if>
+            <if test="userCode != null">
+                user_code,
+            </if>
+            <if test="userName != null">
+                user_name,
+            </if>
+            <if test="empNo != null">
+                emp_no,
+            </if>
+            <if test="userRank != null">
+                user_rank,
+            </if>
+            <if test="userNature != null">
+                user_nature,
+            </if>
+            <if test="sortNo != null">
+                sort_no,
+            </if>
+            <if test="userLevel != null">
+                user_level,
+            </if>
+            <if test="orgCode != null">
+                org_code,
+            </if>
+            <if test="createDate != null">
+                create_date,
+            </if>
+            <if test="sex != null">
+                sex,
+            </if>
+            <if test="birthday != null">
+                birthday,
+            </if>
+            <if test="nativePlace != null">
+                native_place,
+            </if>
+            <if test="identityCard != null">
+                identity_card,
+            </if>
+            <if test="degree != null">
+                degree,
+            </if>
+            <if test="finishSchool != null">
+                finish_school,
+            </if>
+            <if test="mobile != null">
+                mobile,
+            </if>
+            <if test="email != null">
+                email,
+            </if>
+            <if test="userMisCode != null">
+                user_mis_code,
+            </if>
+            <if test="userPwd != null">
+                user_pwd,
+            </if>
+            <if test="userUnitId != null">
+                user_unit_id,
+            </if>
+            <if test="userOrgIdOld != null">
+                user_org_id_old,
+            </if>
+            <if test="userDeptId != null">
+                user_dept_id,
+            </if>
+            <if test="userDeptIdOld != null">
+                user_dept_id_old,
+            </if>
+            <if test="userDutyId != null">
+                user_duty_id,
+            </if>
+            <if test="userDutyName != null">
+                user_duty_name,
+            </if>
+            <if test="userOrder != null">
+                user_order,
+            </if>
+            <if test="userStatus != null">
+                user_status,
+            </if>
+            <if test="userStatusUpdateTime != null">
+                user_status_update_time,
+            </if>
+            <if test="userCreateTime != null">
+                user_create_time,
+            </if>
+            <if test="userRemark != null">
+                user_remark,
+            </if>
+            <if test="userInitial != null">
+                user_initial,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="userId != null">
+                #{userId,jdbcType=VARCHAR},
+            </if>
+            <if test="flag != null">
+                #{flag,jdbcType=VARCHAR},
+            </if>
+            <if test="userCode != null">
+                #{userCode,jdbcType=VARCHAR},
+            </if>
+            <if test="userName != null">
+                #{userName,jdbcType=VARCHAR},
+            </if>
+            <if test="empNo != null">
+                #{empNo,jdbcType=VARCHAR},
+            </if>
+            <if test="userRank != null">
+                #{userRank,jdbcType=VARCHAR},
+            </if>
+            <if test="userNature != null">
+                #{userNature,jdbcType=VARCHAR},
+            </if>
+            <if test="sortNo != null">
+                #{sortNo,jdbcType=VARCHAR},
+            </if>
+            <if test="userLevel != null">
+                #{userLevel,jdbcType=VARCHAR},
+            </if>
+            <if test="orgCode != null">
+                #{orgCode,jdbcType=VARCHAR},
+            </if>
+            <if test="createDate != null">
+                #{createDate,jdbcType=VARCHAR},
+            </if>
+            <if test="sex != null">
+                #{sex,jdbcType=VARCHAR},
+            </if>
+            <if test="birthday != null">
+                #{birthday,jdbcType=VARCHAR},
+            </if>
+            <if test="nativePlace != null">
+                #{nativePlace,jdbcType=VARCHAR},
+            </if>
+            <if test="identityCard != null">
+                #{identityCard,jdbcType=VARCHAR},
+            </if>
+            <if test="degree != null">
+                #{degree,jdbcType=VARCHAR},
+            </if>
+            <if test="finishSchool != null">
+                #{finishSchool,jdbcType=VARCHAR},
+            </if>
+            <if test="mobile != null">
+                #{mobile,jdbcType=VARCHAR},
+            </if>
+            <if test="email != null">
+                #{email,jdbcType=VARCHAR},
+            </if>
+            <if test="userMisCode != null">
+                #{userMisCode,jdbcType=VARCHAR},
+            </if>
+            <if test="userPwd != null">
+                #{userPwd,jdbcType=VARCHAR},
+            </if>
+            <if test="userUnitId != null">
+                #{userUnitId,jdbcType=VARCHAR},
+            </if>
+            <if test="userOrgIdOld != null">
+                #{userOrgIdOld,jdbcType=VARCHAR},
+            </if>
+            <if test="userDeptId != null">
+                #{userDeptId,jdbcType=VARCHAR},
+            </if>
+            <if test="userDeptIdOld != null">
+                #{userDeptIdOld,jdbcType=VARCHAR},
+            </if>
+            <if test="userDutyId != null">
+                #{userDutyId,jdbcType=VARCHAR},
+            </if>
+            <if test="userDutyName != null">
+                #{userDutyName,jdbcType=VARCHAR},
+            </if>
+            <if test="userOrder != null">
+                #{userOrder,jdbcType=BIGINT},
+            </if>
+            <if test="userStatus != null">
+                #{userStatus,jdbcType=VARCHAR},
+            </if>
+            <if test="userStatusUpdateTime != null">
+                #{userStatusUpdateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="userCreateTime != null">
+                #{userCreateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="userRemark != null">
+                #{userRemark,jdbcType=VARCHAR},
+            </if>
+            <if test="userInitial != null">
+                #{userInitial,jdbcType=CHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective"
+            parameterType="com.chinatower.product.legalms.modules.system.entity.UserMsg">
+        update t_pub_user
+        <set>
+            <if test="flag != null">
+                flag = #{flag,jdbcType=VARCHAR},
+            </if>
+            <if test="userCode != null">
+                user_code = #{userCode,jdbcType=VARCHAR},
+            </if>
+            <if test="userName != null">
+                user_name = #{userName,jdbcType=VARCHAR},
+            </if>
+            <if test="empNo != null">
+                emp_no = #{empNo,jdbcType=VARCHAR},
+            </if>
+            <if test="userRank != null">
+                user_rank = #{userRank,jdbcType=VARCHAR},
+            </if>
+            <if test="userNature != null">
+                user_nature = #{userNature,jdbcType=VARCHAR},
+            </if>
+            <if test="sortNo != null">
+                sort_no = #{sortNo,jdbcType=VARCHAR},
+            </if>
+            <if test="userLevel != null">
+                user_level = #{userLevel,jdbcType=VARCHAR},
+            </if>
+            <if test="orgCode != null">
+                org_code = #{orgCode,jdbcType=VARCHAR},
+            </if>
+            <if test="createDate != null">
+                create_date = #{createDate,jdbcType=VARCHAR},
+            </if>
+            <if test="sex != null">
+                sex = #{sex,jdbcType=VARCHAR},
+            </if>
+            <if test="birthday != null">
+                birthday = #{birthday,jdbcType=VARCHAR},
+            </if>
+            <if test="nativePlace != null">
+                native_place = #{nativePlace,jdbcType=VARCHAR},
+            </if>
+            <if test="identityCard != null">
+                identity_card = #{identityCard,jdbcType=VARCHAR},
+            </if>
+            <if test="degree != null">
+                degree = #{degree,jdbcType=VARCHAR},
+            </if>
+            <if test="finishSchool != null">
+                finish_school = #{finishSchool,jdbcType=VARCHAR},
+            </if>
+            <if test="mobile != null">
+                mobile = #{mobile,jdbcType=VARCHAR},
+            </if>
+            <if test="email != null">
+                email = #{email,jdbcType=VARCHAR},
+            </if>
+            <if test="userMisCode != null">
+                user_mis_code = #{userMisCode,jdbcType=VARCHAR},
+            </if>
+            <if test="userPwd != null">
+                user_pwd = #{userPwd,jdbcType=VARCHAR},
+            </if>
+            <if test="userUnitId != null">
+                user_unit_id = #{userUnitId,jdbcType=VARCHAR},
+            </if>
+            <if test="userOrgIdOld != null">
+                user_org_id_old = #{userOrgIdOld,jdbcType=VARCHAR},
+            </if>
+            <if test="userDeptId != null">
+                user_dept_id = #{userDeptId,jdbcType=VARCHAR},
+            </if>
+            <if test="userDeptIdOld != null">
+                user_dept_id_old = #{userDeptIdOld,jdbcType=VARCHAR},
+            </if>
+            <if test="userDutyId != null">
+                user_duty_id = #{userDutyId,jdbcType=VARCHAR},
+            </if>
+            <if test="userDutyName != null">
+                user_duty_name = #{userDutyName,jdbcType=VARCHAR},
+            </if>
+            <if test="userOrder != null">
+                user_order = #{userOrder,jdbcType=BIGINT},
+            </if>
+            <if test="userStatus != null">
+                user_status = #{userStatus,jdbcType=VARCHAR},
+            </if>
+            <if test="userStatusUpdateTime != null">
+                user_status_update_time = #{userStatusUpdateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="userCreateTime != null">
+                user_create_time = #{userCreateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="userRemark != null">
+                user_remark = #{userRemark,jdbcType=VARCHAR},
+            </if>
+            <if test="userInitial != null">
+                user_initial = #{userInitial,jdbcType=CHAR},
+            </if>
+        </set>
+        where user_id = #{userId,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.chinatower.product.legalms.modules.system.entity.UserMsg">
+    update t_pub_user
+    set flag = #{flag,jdbcType=VARCHAR},
+      user_code = #{userCode,jdbcType=VARCHAR},
+      user_name = #{userName,jdbcType=VARCHAR},
+      emp_no = #{empNo,jdbcType=VARCHAR},
+      user_rank = #{userRank,jdbcType=VARCHAR},
+      user_nature = #{userNature,jdbcType=VARCHAR},
+      sort_no = #{sortNo,jdbcType=VARCHAR},
+      user_level = #{userLevel,jdbcType=VARCHAR},
+      org_code = #{orgCode,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=VARCHAR},
+      sex = #{sex,jdbcType=VARCHAR},
+      birthday = #{birthday,jdbcType=VARCHAR},
+      native_place = #{nativePlace,jdbcType=VARCHAR},
+      identity_card = #{identityCard,jdbcType=VARCHAR},
+      degree = #{degree,jdbcType=VARCHAR},
+      finish_school = #{finishSchool,jdbcType=VARCHAR},
+      mobile = #{mobile,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      user_mis_code = #{userMisCode,jdbcType=VARCHAR},
+      user_pwd = #{userPwd,jdbcType=VARCHAR},
+      user_unit_id = #{userUnitId,jdbcType=VARCHAR},
+      user_org_id_old = #{userOrgIdOld,jdbcType=VARCHAR},
+      user_dept_id = #{userDeptId,jdbcType=VARCHAR},
+      user_dept_id_old = #{userDeptIdOld,jdbcType=VARCHAR},
+      user_duty_id = #{userDutyId,jdbcType=VARCHAR},
+      user_duty_name = #{userDutyName,jdbcType=VARCHAR},
+      user_order = #{userOrder,jdbcType=BIGINT},
+      user_status = #{userStatus,jdbcType=VARCHAR},
+      user_status_update_time = #{userStatusUpdateTime,jdbcType=TIMESTAMP},
+      user_create_time = #{userCreateTime,jdbcType=TIMESTAMP},
+      user_remark = #{userRemark,jdbcType=VARCHAR},
+      user_initial = #{userInitial,jdbcType=CHAR}
+    where user_id = #{userId,jdbcType=VARCHAR}
+  </update>
+</mapper>

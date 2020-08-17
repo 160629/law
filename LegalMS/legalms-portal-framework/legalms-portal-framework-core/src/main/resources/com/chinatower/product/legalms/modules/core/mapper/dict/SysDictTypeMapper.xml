@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chinatower.product.legalms.mapper.dict.SysDictTypeMapper">
+    <resultMap id="BaseResultMap" type="com.chinatower.product.legalms.vo.dict.SysDictTypeVO">
+        <id column="dict_id" property="dictId" jdbcType="INTEGER" />
+        <result column="dict_name" property="dictName" jdbcType="VARCHAR" />
+        <result column="dict_type" property="dictType" jdbcType="VARCHAR" />
+        <result column="status" property="status" jdbcType="VARCHAR" />
+        <result column="create_by" property="createBy" jdbcType="VARCHAR" />
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+        <result column="update_by" property="updateBy" jdbcType="VARCHAR" />
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+        <result column="remark" property="remark" jdbcType="VARCHAR" />
+    </resultMap>
+
+    <select id="selectDictTypeAll" resultMap="BaseResultMap">
+        select dict_id,dict_name,dict_type,status,create_by,create_time,update_by,update_time,remark
+        from t_sys_dict_type
+        <where>
+            status='0'
+            <if test="dictName">
+                and dict_name like concat ('%',#{dictName},'%')
+            </if>
+            <if test="dictType">
+                and dict_type like concat ('%',#{dictType},'%')
+            </if>
+        </where>
+    </select>
+
+    <insert id="addDictType">
+        insert into t_sys_dict_type
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="dictName != null" > dict_name, </if>
+            <if test="dictType != null" > dict_type, </if>
+            <if test="status != null" > status, </if>
+            <if test="createBy != null" > create_by, </if>
+            create_time,
+            <if test="updateBy != null" > update_by, </if>
+            <if test="updateTime != null" > update_time, </if>
+            <if test="remark != null" > remark, </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="dictName != null" > #{dictName,jdbcType=VARCHAR}, </if>
+            <if test="dictType != null" > #{dictType,jdbcType=VARCHAR}, </if>
+            <if test="status != null" > #{status,jdbcType=VARCHAR}, </if>
+            <if test="createBy != null" > #{createBy,jdbcType=VARCHAR}, </if>
+            now(),
+            <if test="updateBy != null" > #{updateBy,jdbcType=VARCHAR}, </if>
+            <if test="updateTime != null" > #{updateTime,jdbcType=TIMESTAMP}, </if>
+            <if test="remark != null" > #{remark,jdbcType=VARCHAR}, </if>
+        </trim>
+    </insert>
+
+    <update id="updateDictType">
+        update t_sys_dict_type
+        <set>
+            <if test="dictName != null">dict_name = #{dictName,jdbcType=VARCHAR},</if>
+            <if test="dictType != null">dict_type = #{dictType,jdbcType=VARCHAR},</if>
+            <if test="status != null">status = #{status,jdbcType=VARCHAR},</if>
+            <if test="createBy != null">create_by = #{createBy,jdbcType=VARCHAR},</if>
+            <if test="createTime != null">create_time = #{createTime,jdbcType=TIMESTAMP},</if>
+            <if test="updateBy != null">update_by = #{updateBy,jdbcType=VARCHAR},</if>
+            update_time = now(),
+            <if test="remark != null">remark = #{remark,jdbcType=VARCHAR},</if>
+        </set>
+        where dict_id = #{dictId,jdbcType=VARCHAR}
+    </update>
+
+    <update id="deleteDictType">
+        update t_sys_dict_type
+        <set>
+            status = '1'
+        </set>
+         where dict_id = #{dictId,jdbcType=VARCHAR}
+    </update>
+
+    <select id="selectDictTypeByName" resultType="Integer">
+    select
+      count(1)
+     from  t_sys_dict_type where dict_name=#{dictName}
+    </select>
+
+    <select id="selectDictTypeByOne" resultType="Integer">
+    select
+      count(1)
+     from  t_sys_dict_type where dict_type=#{dictType} and dict_name=#{dictName}
+    </select>
+
+    <select id="selectDictTypeById" resultMap="BaseResultMap">
+         select dict_id,dict_name,dict_type,status,create_by,create_time,update_by,update_time,remark
+        from t_sys_dict_type where dict_id=#{dictId,jdbcType=INTEGER}
+    </select>
+</mapper>

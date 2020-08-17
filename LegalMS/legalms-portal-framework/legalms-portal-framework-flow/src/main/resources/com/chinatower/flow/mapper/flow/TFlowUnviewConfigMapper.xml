@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper
+	namespace="com.chinatower.product.legalms.modules.flow.mapper.flow.TFlowUnviewConfigMapper">
+	<resultMap id="BaseResultMap"
+		type="com.chinatower.product.legalms.modules.flow.entity.unview.TFlowUnviewConfig">
+		<id column="config_id" jdbcType="INTEGER" property="configId" />
+		<result column="config_name" jdbcType="VARCHAR"
+			property="configName" />
+		<result column="short_flow_name" jdbcType="VARCHAR"
+			property="shortFlowName" />
+		<result column="config_scene" jdbcType="VARCHAR"
+			property="configScene" />
+		<result column="sender" jdbcType="VARCHAR" property="sender" />
+		<result column="title" jdbcType="VARCHAR" property="title" />
+		<result column="coment" jdbcType="VARCHAR" property="coment" />
+		<result column="config_url" jdbcType="VARCHAR"
+			property="configUrl" />
+		<result column="config_url_name" jdbcType="VARCHAR"
+			property="configUrlName" />
+		<result column="config_order" jdbcType="INTEGER"
+			property="configOrder" />
+		<result column="config_sender_type" jdbcType="INTEGER"
+			property="configSendType" />
+		<result column="config_roles" jdbcType="VARCHAR"
+			property="configRoles" />
+		<result column="open_type" jdbcType="INTEGER"
+			property="openType" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		config_id,config_name, short_flow_name, config_scene,
+		sender, title,
+		coment, config_url,
+		config_url_name,config_order,config_sender_type,
+		config_roles,open_type
+	</sql>
+	<select id="selectByType" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from t_flow_unview_config
+		where short_flow_name =
+		#{shortFlowName,jdbcType=VARCHAR}
+		<if test="configOrder != null ">
+			and config_order = #{configOrder,jdbcType=INTEGER}
+		</if>
+		order by config_order
+	</select>
+	<select id="selectByPrimaryKey"
+		parameterType="java.lang.Integer" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from t_flow_unview_config
+		where config_id =
+		#{configId,jdbcType=INTEGER}
+	</select>
+	<delete id="deleteByPrimaryKey"
+		parameterType="java.lang.Integer">
+		delete from t_flow_unview_config
+		where config_id =
+		#{configId,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert"
+		parameterType="com.chinatower.product.legalms.modules.flow.entity.unview.TFlowUnviewConfig">
+		insert into t_flow_unview_config (config_id,config_name,
+		short_flow_name,
+		config_scene,
+		sender, title, coment,
+		config_url,
+		config_url_name, config_order
+		)
+		values (#{configId,jdbcType=INTEGER},
+		#{configName,jdbcType=VARCHAR},
+		#{shortFlowName,jdbcType=VARCHAR},
+		#{configScene,jdbcType=VARCHAR},
+		#{sender,jdbcType=VARCHAR},
+		#{title,jdbcType=VARCHAR},
+		#{coment,jdbcType=VARCHAR},
+		#{configUrl,jdbcType=VARCHAR},
+		#{configUrlName,jdbcType=VARCHAR},
+		#{configOrder,jdbcType=INTEGER}
+		)
+	</insert>
+	<insert id="insertSelective"
+		parameterType="com.chinatower.product.legalms.modules.flow.entity.unview.TFlowUnviewConfig">
+		insert into t_flow_unview_config
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="configId != null">
+				config_id,
+			</if>
+			<if test="configName != null">
+				config_name,
+			</if>
+			<if test="shortFlowName != null">
+				short_flow_name,
+			</if>
+			<if test="configScene != null">
+				config_scene,
+			</if>
+			<if test="sender != null">
+				sender,
+			</if>
+			<if test="title != null">
+				title,
+			</if>
+			<if test="coment != null">
+				coment,
+			</if>
+			<if test="configUrl != null">
+				config_url,
+			</if>
+			<if test="configUrlName != null">
+				config_url_name,
+			</if>
+			<if test="configOrder != null">
+				config_order,
+			</if>
+
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="configId != null">
+				#{configId,jdbcType=INTEGER},
+			</if>
+			<if test="configName != null">
+				#{configName,jdbcType=VARCHAR},
+			</if>
+			<if test="shortFlowName != null">
+				#{shortFlowName,jdbcType=VARCHAR},
+			</if>
+			<if test="configScene != null">
+				#{configScene,jdbcType=VARCHAR},
+			</if>
+			<if test="sender != null">
+				#{sender,jdbcType=VARCHAR},
+			</if>
+			<if test="title != null">
+				#{title,jdbcType=VARCHAR},
+			</if>
+			<if test="coment != null">
+				#{coment,jdbcType=VARCHAR},
+			</if>
+			<if test="configUrl != null">
+				#{configUrl,jdbcType=VARCHAR},
+			</if>
+			<if test="configUrlName != null">
+				#{configUrlName,jdbcType=VARCHAR},
+			</if>
+			<if test="configOrder != null">
+				#{configOrder,jdbcType=INTEGER},
+			</if>
+
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective"
+		parameterType="com.chinatower.product.legalms.modules.flow.entity.unview.TFlowUnviewConfig">
+		update t_flow_unview_config
+		<set>
+			<if test="configName != null">
+				config_name = #{configName,jdbcType=VARCHAR},
+			</if>
+			<if test="shortFlowName != null">
+				short_flow_name = #{shortFlowName,jdbcType=VARCHAR},
+			</if>
+
+			<if test="configScene != null">
+				config_scene = #{configScene,jdbcType=VARCHAR},
+			</if>
+			<if test="sender != null">
+				sender = #{sender,jdbcType=VARCHAR},
+			</if>
+			<if test="title != null">
+				title = #{title,jdbcType=VARCHAR},
+			</if>
+			<if test="coment != null">
+				coment = #{coment,jdbcType=VARCHAR},
+			</if>
+			<if test="configUrl != null">
+				config_url = #{configUrl,jdbcType=VARCHAR},
+			</if>
+			<if test="configUrlName != null">
+				config_url_name = #{configUrlName,jdbcType=VARCHAR},
+			</if>
+			<if test="configOrder != null">
+				config_order = #{configOrder,jdbcType=INTEGER},
+			</if>
+		</set>
+		where config_id = #{configId,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey"
+		parameterType="com.chinatower.product.legalms.modules.flow.entity.unview.TFlowUnviewConfig">
+		update t_flow_unview_config
+		set config_name =
+		#{configName,jdbcType=VARCHAR},
+		short_flow_name =
+		#{shortFlowName,jdbcType=VARCHAR},
+		config_scene =
+		#{configScene,jdbcType=VARCHAR},
+		sender = #{sender,jdbcType=VARCHAR},
+		title = #{title,jdbcType=VARCHAR},
+		coment = #{coment,jdbcType=VARCHAR},
+		config_url = #{configUrl,jdbcType=VARCHAR},
+		config_url_name =
+		#{configUrlName,jdbcType=VARCHAR},
+		config_order =
+		#{configOrder,jdbcType=INTEGER}
+		where config_id =
+		#{configId,jdbcType=INTEGER}
+	</update>
+
+	<select id="selectActivityDefId" resultType="String"
+		parameterType="String">
+		SELECT ac.`begin_id` FROM t_flow_activity_config ac
+		WHERE
+		ac.`flow_id`= #{flowName,jdbcType=VARCHAR}
+		AND ac.`begin_name`
+		LIKE '%${activityDefName}%' LIMIT 1
+	</select>
+</mapper>

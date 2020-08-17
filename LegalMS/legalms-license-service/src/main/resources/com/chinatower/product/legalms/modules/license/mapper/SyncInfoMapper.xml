@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chinatower.product.legalms.modules.license.mapper.SyncInfoMapper">
+    <!--同步用户信息-->
+    <insert id="addSyncUserInfo" parameterType="string">
+   insert into
+   t_pub_user(user_id,flag,user_code,user_name,emp_no,user_rank,user_nature,user_level,sort_no,org_code,create_date,sex,birthday,native_place,
+           identity_card,degree,finish_school,mobile,email,user_create_time,user_status_update_time,service_code)
+   select user_code,flag,user_code,user_name,emp_no,user_rank,user_nature,user_level,sort_no,org_code,create_date,sex,birthday,native_place,
+           identity_card,degree,finish_school,mobile,email,create_time,update_time,service_code
+   from t_pub_usera
+   where sync_status = #{value}
+   </insert>
+
+    <!--同步用户(更新)详细信息-->
+    <update id="updateSyncUserInfo" parameterType="com.chinatower.product.legalms.modules.license.entity.AccountVO">
+    update t_pub_user
+    set user_id = #{userCode},flag = #{flag},service_code=#{serviceCode},user_code = #{userCode},user_name = #{userName},emp_no = #{empNo},user_rank = #{userRank},
+    user_nature = #{userNature},user_level = #{userLevel},sort_no = #{sortNo},org_code = #{orgCode},create_date = #{createDate},sex = #{sex},birthday = #{birthday},native_place = #{nativePlace},
+           identity_card = #{identityCard},degree = #{degree},finish_school = #{finishSchool},mobile = #{mobile},email = #{email},user_create_time = #{createTime},user_status_update_time = #{updateTime}
+    where user_id = #{userCode}
+    </update>
+    <!--同步用户信息至账号信息-->
+    <insert id="addSyncAccountInfo" parameterType="string">
+        insert into
+        t_pub_account_tab (account_unit_id,account_id,account_name,account_cur_user_id,
+         account_cur_user_name,account_pre_user_id,account_pre_user_name,account_org_id,
+         account_org_id_old,account_dept_id,account_status,account_status_update_time,
+         account_create_time,account_phone,account_type,service_code)
+        select
+          case WHEN user_nature = '1' THEN (
+          case when service_code is not null THEN (CASE WHEN LEFT (service_code,2) ='03' THEN  LEFT(service_code,8)
+        WHEN LEFT (service_code,2) ='02' THEN  LEFT(service_code,8)
+        ELSE LEFT (service_code,6) END)
+        when service_code is null then  (CASE
+        WHEN LEFT (org_code,2) ='03' THEN  LEFT(org_code,8)
+        WHEN LEFT (org_code,2) ='02' THEN  LEFT(org_code,8)
+        ELSE LEFT (org_code,6) END)
+            END
+        )
+        else ( CASE
+        WHEN LEFT (org_code,2) ='03' THEN  LEFT(org_code,8)
+        WHEN LEFT (org_code,2) ='02' THEN  LEFT(org_code,8)
+        ELSE LEFT (org_code,6) END)
+            END  account_unit_id,
+        user_code,user_name,user_code,user_name,user_code,user_name,
+            case WHEN user_nature = '1' THEN (
+          case when service_code is not null THEN service_code
+        when service_code is null then  org_code
+            END
+        )else  org_code
+            END org_code,
+            org_code,org_code,flag,update_time,create_time,mobile,user_nature,service_code
+        from t_pub_usera
+        where sync_status = #{value}
+  </insert>
+    <!--同步用户信息(更新)至账号信息-->
+    <update id="updateSyncAccountInfo" parameterType="com.chinatower.product.legalms.modules.license.entity.AccountVO">
+        update  t_pub_account_tab
+        set account_unit_id = case WHEN account_type = '1' THEN (CASE WHEN LEFT (#{serviceCode},2) ='03' THEN  LEFT(#{serviceCode},8)
+        WHEN LEFT (#{serviceCode},2) ='02' THEN  LEFT(#{serviceCode},8)
+        ELSE LEFT (#{serviceCode},6) END)
+        else ( CASE
+        WHEN LEFT (#{orgCode},2) ='03' THEN  LEFT(#{orgCode},8)
+        WHEN LEFT (#{orgCode},2) ='02' THEN  LEFT(#{orgCode},8)
+        ELSE LEFT (#{orgCode},6) END)
+            END,
+          account_id = #{userCode},account_name = #{userName},account_cur_user_id = #{userCode},account_cur_user_name = #{userName},
+          account_pre_user_id = #{userCode},account_pre_user_name = #{userName},
+          account_org_id = case WHEN account_type = '1' THEN  #{serviceCode} else #{orgCode} END,
+          service_code=#{serviceCode},account_org_id_old =#{orgCode},
+          account_dept_id = #{orgCode},account_status = #{flag},account_status_update_time = #{updateTime},account_create_time = #{createTime},account_phone = #{mobile}
+      where account_id = #{userCode}
+    </update>
+    <!--同步账号兼职信息-->
+    <insert id="addSyncAuxiAccountInfo" parameterType="string">
+   insert into
+   t_pub_account_tab(account_unit_id,account_type,account_id,account_name,account_cur_user_id,account_cur_user_name,account_pre_user_id,
+   account_pre_user_name,account_org_id,account_org_id_old,account_dept_id,account_status,account_status_update_time,account_create_time,account_phone)
+   select
+    CASE
+    WHEN LEFT (a.part_org_code,2) ='03' THEN  LEFT(a.part_org_code,8)
+    WHEN LEFT (a.part_org_code,2) ='02' THEN  LEFT(a.part_org_code,8)
+    ELSE LEFT (a.part_org_code,6) END as account_unit_id,'1',
+    a.permission_key,b.user_name,b.user_code,b.user_name,b.user_code,b.user_name,a.part_org_code,a.part_org_code,a.part_org_code,
+                  a.flag,a.update_time,a.create_time,b.mobile
+   from t_pub_auxiaccount a left join t_pub_usera b on a.user_code = b.user_code
+   where a.sync_status = #{value}
+  </insert>
+    <!--同步账号(更新)兼职信息-->
+    <update id="updateSyncAuxiAccountInfo"
+            parameterType="com.chinatower.product.legalms.modules.license.entity.AuxiAccountVO">
+     update t_pub_account_tab
+     set account_status= #{flag},account_status_update_time= #{updateTime},account_create_time= #{createTime}
+     where account_id = #{permissionKey}
+    </update>
+
+</mapper>

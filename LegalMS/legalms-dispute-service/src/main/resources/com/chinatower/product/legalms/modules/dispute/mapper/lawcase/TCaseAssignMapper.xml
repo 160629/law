@@ -1,0 +1,1544 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper
+	namespace="com.chinatower.product.legalms.modules.dispute.mapper.lawcase.TCaseAssignMapper">
+	<resultMap id="BaseResultMap"
+		type="com.chinatower.product.legalms.modules.dispute.entity.lawcase.TCaseAssign">
+		<id column="assign_id" jdbcType="VARCHAR" property="assignId" />
+		<result column="assign_code" jdbcType="VARCHAR"
+			property="assignCode" />
+		<result column="assign_type" jdbcType="VARCHAR"
+			property="assignType" />
+		<result column="assign_title" jdbcType="VARCHAR"
+			property="assignTitle" />
+		<result column="approve_state_name" jdbcType="VARCHAR"
+			property="approveStateName" />
+		<result column="approve_city_name" jdbcType="VARCHAR"
+			property="approveCityName" />
+		<result column="approve_state" jdbcType="VARCHAR"
+			property="approveState" />
+		<result column="approve_city" jdbcType="VARCHAR"
+			property="approveCity" />
+		<result column="approve_org" jdbcType="VARCHAR"
+			property="approveOrg" />
+		<result column="case_create_time" jdbcType="TIMESTAMP"
+			property="caseCreateTime" />
+		<result column="create_time" jdbcType="TIMESTAMP"
+			property="createTime" />
+		<result column="case_code" jdbcType="VARCHAR"
+			property="caseCode" />
+		<result column="case_line" jdbcType="VARCHAR"
+			property="caseLine" />
+		<result column="case_cause" jdbcType="VARCHAR"
+			property="caseCause" />
+		<result column="case_type" jdbcType="VARCHAR"
+			property="caseType" />
+		<result column="lawsuit_size" jdbcType="VARCHAR"
+			property="lawsuitSize" />
+		<result column="lawsuit_money" jdbcType="DOUBLE"
+			property="lawsuitMoney" />
+		<result column="our_lawsuit_body" jdbcType="VARCHAR"
+			property="ourLawsuitBody" />
+		<result column="our_lawsuit_body_name" jdbcType="VARCHAR"
+			property="ourLawsuitBodyName" />
+		<result column="they_lawsuit_body" jdbcType="VARCHAR"
+			property="theyLawsuitBody" />
+		<result column="our_lawsuit_status" jdbcType="VARCHAR"
+			property="ourLawsuitStatus" />
+		<result column="other_related" jdbcType="VARCHAR"
+			property="otherRelated" />
+		<result column="third_person" jdbcType="VARCHAR"
+			property="thirdPerson" />
+		<result column="plaintiff" jdbcType="VARCHAR"
+			property="plaintiff" />
+		<result column="defendant" jdbcType="VARCHAR"
+			property="defendant" />
+		<result column="send_time" jdbcType="TIMESTAMP"
+			property="sendTime" />
+		<result column="plaintiff_request" jdbcType="VARCHAR"
+			property="plaintiffRequest" />
+		<result column="case_file" jdbcType="VARCHAR"
+			property="caseFile" />
+		<result column="assign_org" jdbcType="VARCHAR"
+			property="assignOrg" />
+		<result column="main_seed_org" jdbcType="VARCHAR"
+			property="mainSeedOrg" />
+		<result column="main_seed_org_id" jdbcType="VARCHAR"
+			property="mainSeedOrgId" />
+		<result column="assign_item" jdbcType="VARCHAR"
+			property="assignItem" />
+		<result column="assign_file" jdbcType="VARCHAR"
+			property="assignFile" />
+		<result column="sign_dept" jdbcType="VARCHAR"
+			property="signDept" />
+		<result column="login_acct" jdbcType="VARCHAR"
+			property="loginAcct" />
+		<result column="login_name" jdbcType="VARCHAR"
+			property="loginName" />
+		<result column="org_name" jdbcType="VARCHAR" property="orgName" />
+		<result column="org_id" jdbcType="VARCHAR" property="orgId" />
+		<result column="dept_name" jdbcType="VARCHAR"
+			property="deptName" />
+		<result column="dept_id" jdbcType="VARCHAR" property="deptId" />
+		<result column="mobile" jdbcType="VARCHAR" property="mobile" />
+		<result column="assign_status" jdbcType="VARCHAR"
+			property="assignStatus" />
+		<result column="module_name" jdbcType="VARCHAR"
+			property="moduleName" />
+		<result column="involved_account_id"
+			property="involvedAccountId" jdbcType="VARCHAR" />
+		<result column="involved_account_name"
+			property="involvedAccountName" jdbcType="VARCHAR" />
+		<result column="involved_dept_id" property="involvedDeptId"
+			jdbcType="VARCHAR" />
+		<result column="involved_dept_name" property="involvedDeptName"
+			jdbcType="VARCHAR" />
+		<result column="involved_org_id" property="involvedOrgId"
+			jdbcType="VARCHAR" />
+		<result column="involved_org_name" property="involvedOrgName"
+			jdbcType="VARCHAR" />
+		<result column="create_case_type" property="createCaseType"
+			jdbcType="INTEGER" />
+		<result column="case_title" property="caseTitle"
+			jdbcType="VARCHAR" />
+		<result column="case_id" property="caseId"
+			jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		assign_id,assign_code,assign_type, assign_title,
+		approve_state_name,approve_city_name,
+		approve_state,approve_city,
+		approve_org,
+		case_create_time,create_time,
+		case_code, case_line,
+		case_cause, case_type, lawsuit_size,
+		lawsuit_money,
+		our_lawsuit_body,
+		our_lawsuit_body_name,
+		they_lawsuit_body, our_lawsuit_status,
+		other_related, third_person,
+		plaintiff,
+		defendant,
+		send_time,
+		plaintiff_request, case_file,
+		assign_org,
+		main_seed_org,main_seed_org_id, assign_item,
+		assign_file,sign_dept,login_acct,login_name,org_name,org_id,dept_name,
+		dept_id,mobile,assign_status,module_name,
+		involved_account_id,involved_account_name,involved_dept_id,
+		involved_dept_name,involved_org_id,involved_org_name,create_case_type,case_title,case_id
+	</sql>
+
+	<sql id="Base_Main_Column_List">
+		fm.flow_id, fm.flow_name, fm.flow_status,fm.create_user_id,
+		fm.create_user_name,
+		fm.approve_item_name,
+		fm.module_name,fm.version_id
+	</sql>
+	<resultMap id="SubTFlowLog"
+		type="com.chinatower.product.legalms.modules.flow.vo.flow.SubTFlowLogVO">
+		<id column="flow_log_id_sub" jdbcType="VARCHAR"
+			property="flowLogId" />
+		<result column="status_sub" jdbcType="VARCHAR"
+			property="status" />
+		<result column="business_advice_sub" jdbcType="VARCHAR"
+			property="businessAdvice" />
+		<result column="opinion_sub" jdbcType="VARCHAR"
+			property="opinion" />
+		<result column="modify_time_sub" jdbcType="TIMESTAMP"
+			property="modifyTime" />
+		<result column="activity_inst_id_sub" jdbcType="BIGINT"
+			property="activityInstId" />
+		<result column="activity_def_id_sub" jdbcType="VARCHAR"
+			property="activityDefId" />
+		<result column="activity_def_name_sub" jdbcType="VARCHAR"
+			property="activityDefName" />
+		<result column="next_activity_def_id_sub" jdbcType="VARCHAR"
+			property="nextActivityDefId" />
+		<result column="next_activity_def_name_sub" jdbcType="VARCHAR"
+			property="nextActivityDefName" />
+		<result column="org_name_sub" jdbcType="VARCHAR"
+			property="orgName" />
+		<result column="org_id_sub" jdbcType="VARCHAR" property="orgId" />
+		<result column="user_name_sub" jdbcType="VARCHAR"
+			property="userName" />
+		<result column="user_id_sub" jdbcType="VARCHAR"
+			property="userId" />
+		<result column="work_type_sub" jdbcType="VARCHAR"
+			property="workType" />
+		<result column="flow_id_sub" jdbcType="BIGINT"
+			property="flowId" />
+		<result column="flow_pid_sub" jdbcType="BIGINT"
+			property="flowPid" />
+		<result column="receiver_company_id_sub" jdbcType="VARCHAR"
+			property="receiverCompanyId" />
+		<result column="receiver_company_name_sub" jdbcType="VARCHAR"
+			property="receiverCompanyName" />
+		<result column="receiver_org_id_sub" jdbcType="VARCHAR"
+			property="receiverOrgId" />
+		<result column="receiver_org_name_sub" jdbcType="VARCHAR"
+			property="receiverOrgName" />
+		<result column="receiver_id_sub" jdbcType="VARCHAR"
+			property="receiverId" />
+		<result column="receiver_name_sub" jdbcType="VARCHAR"
+			property="receiverName" />
+		<result column="approve_item_id_sub" jdbcType="VARCHAR"
+			property="approveItemId" />
+		<result column="approve_item_type_sub" jdbcType="VARCHAR"
+			property="approveItemType" />
+		<result column="toer_id_sub" jdbcType="VARCHAR"
+			property="toerId" />
+		<result column="toer_name_sub" jdbcType="VARCHAR"
+			property="toerName" />
+		<result column="option_type_sub" jdbcType="VARCHAR"
+			property="optionType" />
+		<result column="dept_name_sub" jdbcType="VARCHAR"
+			property="deptName" />
+		<result column="dept_id_sub" jdbcType="VARCHAR"
+			property="deptId" />
+	</resultMap>
+	<sql id="Sub_Column_List">
+		flo.flow_log_id flow_log_id_sub, flo.status status_sub,
+		flo.business_advice
+		business_advice_sub,
+		flo.receiver_company_id
+		receiver_company_id_sub, flo.receiver_company_name
+		receiver_company_name_sub,
+		flo.receiver_org_id receiver_org_id_sub,
+		flo.receiver_org_name receiver_org_name_sub, flo.receiver_id
+		receiver_id_sub,
+		flo.receiver_name receiver_name_sub,
+		flo.opinion
+		opinion_sub, flo.modify_time modify_time_sub, flo.activity_inst_id
+		activity_inst_id_sub, flo.activity_def_id activity_def_id_sub,
+		flo.activity_def_name activity_def_name_sub,
+		flo.next_activity_def_id
+		next_activity_def_id_sub, flo.next_activity_def_name
+		next_activity_def_name_sub,
+		flo.org_name org_name_sub, flo.org_id
+		org_id_sub, flo.user_name user_name_sub,
+		flo.user_id user_id_sub,
+		flo.work_type work_type_sub, flo.flow_id flow_id_sub, flo.flow_pid
+		flow_pid_sub,flo.toer_id toer_id_sub,flo.toer_name
+		toer_name_sub,flo.option_type option_type_sub,
+		flo.dept_name
+		dept_name_sub,flo.dept_id dept_id_sub
+	</sql>
+	<sql id="log_Column_List">
+		fl.flow_log_id, fl.status, fl.business_advice,
+		fl.receiver_company_id, fl.receiver_company_name,
+		fl.receiver_org_id,
+		fl.receiver_org_name, fl.receiver_id, fl.receiver_name,
+		fl.opinion,
+		fl.modify_time modify_time_log, fl.activity_inst_id,
+		fl.activity_def_id, fl.activity_def_name,
+		fl.next_activity_def_id,
+		fl.next_activity_def_name, fl.org_name org_name_log, fl.org_id
+		org_id_log,
+		fl.user_name,
+		fl.user_id,
+		fl.work_type, fl.flow_id,
+		fl.flow_pid,fl.approve_item_id,fl.approve_item_type,fl.flow_def_name,fl.toer_id,fl.toer_name,fl.act_pid,fl.option_type,
+		fl.dept_name dept_name_log,fl.dept_id dept_id_log
+	</sql>
+	<resultMap id="AssignVO"
+		type="com.chinatower.product.legalms.modules.dispute.vo.issue.TCaseAssignVO">
+		<id column="assign_id" jdbcType="VARCHAR" property="assignId" />
+		<result column="assign_code" jdbcType="VARCHAR"
+			property="assignCode" />
+		<result column="assign_type" jdbcType="VARCHAR"
+			property="assignType" />
+		<result column="assign_title" jdbcType="VARCHAR"
+			property="assignTitle" />
+		<result column="approve_state_name" jdbcType="VARCHAR"
+			property="approveStateName" />
+		<result column="approve_city_name" jdbcType="VARCHAR"
+			property="approveCityName" />
+		<result column="approve_state" jdbcType="VARCHAR"
+			property="approveState" />
+		<result column="approve_city" jdbcType="VARCHAR"
+			property="approveCity" />
+		<result column="approve_org" jdbcType="VARCHAR"
+			property="approveOrg" />
+		<result column="case_create_time" jdbcType="TIMESTAMP"
+			property="caseCreateTime" />
+		<result column="create_time" jdbcType="TIMESTAMP"
+			property="createTime" />
+		<result column="case_code" jdbcType="VARCHAR"
+			property="caseCode" />
+		<result column="case_line" jdbcType="VARCHAR"
+			property="caseLine" />
+		<result column="case_cause" jdbcType="VARCHAR"
+			property="caseCause" />
+		<result column="case_type" jdbcType="VARCHAR"
+			property="caseType" />
+		<result column="lawsuit_size" jdbcType="VARCHAR"
+			property="lawsuitSize" />
+		<result column="lawsuit_money" jdbcType="DOUBLE"
+			property="lawsuitMoney" />
+		<result column="our_lawsuit_body" jdbcType="VARCHAR"
+			property="ourLawsuitBody" />
+		<result column="our_lawsuit_body_name" jdbcType="VARCHAR"
+			property="ourLawsuitBodyName" />
+		<result column="they_lawsuit_body" jdbcType="VARCHAR"
+			property="theyLawsuitBody" />
+		<result column="our_lawsuit_status" jdbcType="VARCHAR"
+			property="ourLawsuitStatus" />
+		<result column="other_related" jdbcType="VARCHAR"
+			property="otherRelated" />
+		<result column="third_person" jdbcType="VARCHAR"
+			property="thirdPerson" />
+		<result column="plaintiff" jdbcType="VARCHAR"
+			property="plaintiff" />
+		<result column="defendant" jdbcType="VARCHAR"
+			property="defendant" />
+		<result column="send_time" jdbcType="TIMESTAMP"
+			property="sendTime" />
+		<result column="plaintiff_request" jdbcType="VARCHAR"
+			property="plaintiffRequest" />
+		<result column="case_file" jdbcType="VARCHAR"
+			property="caseFile" />
+		<result column="assign_org" jdbcType="VARCHAR"
+			property="assignOrg" />
+		<result column="main_seed_org" jdbcType="VARCHAR"
+			property="mainSeedOrg" />
+		<result column="main_seed_org_id" jdbcType="VARCHAR"
+			property="mainSeedOrgId" />
+		<result column="assign_item" jdbcType="VARCHAR"
+			property="assignItem" />
+		<result column="assign_file" jdbcType="VARCHAR"
+			property="assignFile" />
+		<result column="sign_dept" jdbcType="VARCHAR"
+			property="signDept" />
+		<result column="login_acct" jdbcType="VARCHAR"
+			property="loginAcct" />
+		<result column="login_name" jdbcType="VARCHAR"
+			property="loginName" />
+		<result column="org_name" jdbcType="VARCHAR" property="orgName" />
+		<result column="org_id" jdbcType="VARCHAR" property="orgId" />
+		<result column="dept_name" jdbcType="VARCHAR"
+			property="deptName" />
+		<result column="dept_id" jdbcType="VARCHAR" property="deptId" />
+		<result column="mobile" jdbcType="VARCHAR" property="mobile" />
+		<result column="assign_status" jdbcType="VARCHAR"
+			property="assignStatus" />
+		<result column="module_name" jdbcType="VARCHAR"
+			property="moduleName" />
+		<result column="involved_account_id"
+			property="involvedAccountId" jdbcType="VARCHAR" />
+		<result column="involved_account_name"
+			property="involvedAccountName" jdbcType="VARCHAR" />
+		<result column="involved_dept_id" property="involvedDeptId"
+			jdbcType="VARCHAR" />
+		<result column="involved_dept_name" property="involvedDeptName"
+			jdbcType="VARCHAR" />
+		<result column="involved_org_id" property="involvedOrgId"
+			jdbcType="VARCHAR" />
+		<result column="involved_org_name" property="involvedOrgName"
+			jdbcType="VARCHAR" />
+		<result column="create_case_type" property="createCaseType"
+			jdbcType="INTEGER" />
+		<result column="case_title" property="caseTitle"
+			jdbcType="VARCHAR" />
+		<result column="case_id" property="caseId"
+			jdbcType="VARCHAR" />
+		<collection property="mian"
+			ofType="com.chinatower.product.legalms.modules.flow.vo.flow.TFlowMainVO">
+			<id column="flow_id" jdbcType="BIGINT" property="flowId" />
+			<result column="flow_name" jdbcType="VARCHAR"
+				property="flowName" />
+			<result column="flow_status" jdbcType="VARCHAR"
+				property="flowStatus" />
+			<result column="create_time" jdbcType="TIMESTAMP"
+				property="createTime" />
+			<result column="create_user_id" jdbcType="VARCHAR"
+				property="createUserId" />
+			<result column="create_user_name" jdbcType="VARCHAR"
+				property="createUserName" />
+			<result column="approve_item_id" jdbcType="VARCHAR"
+				property="approveItemId" />
+			<result column="approve_item_name" jdbcType="VARCHAR"
+				property="approveItemName" />
+			<result column="approve_item_type" jdbcType="VARCHAR"
+				property="approveItemType" />
+			<result column="module_name" jdbcType="VARCHAR"
+				property="moduleName" />
+			<result column="version_id" jdbcType="VARCHAR"
+				property="versionId" />
+			<collection property="logs"
+				ofType="com.chinatower.product.legalms.modules.flow.vo.flow.TFlowLogVO">
+				<id column="flow_log_id" jdbcType="VARCHAR" property="flowLogId" />
+				<result column="status" jdbcType="VARCHAR" property="status" />
+				<result column="business_advice" jdbcType="VARCHAR"
+					property="businessAdvice" />
+				<result column="opinion" jdbcType="VARCHAR"
+					property="opinion" />
+				<result column="modify_time_log" jdbcType="TIMESTAMP"
+					property="modifyTime" />
+				<result column="activity_inst_id" jdbcType="BIGINT"
+					property="activityInstId" />
+				<result column="activity_def_id" jdbcType="VARCHAR"
+					property="activityDefId" />
+				<result column="activity_def_name" jdbcType="VARCHAR"
+					property="activityDefName" />
+				<result column="next_activity_def_id" jdbcType="VARCHAR"
+					property="nextActivityDefId" />
+				<result column="next_activity_def_name" jdbcType="VARCHAR"
+					property="nextActivityDefName" />
+				<result column="org_name_log" jdbcType="VARCHAR"
+					property="orgName" />
+				<result column="org_id_log" jdbcType="VARCHAR"
+					property="orgId" />
+				<result column="user_name" jdbcType="VARCHAR"
+					property="userName" />
+				<result column="user_id" jdbcType="VARCHAR" property="userId" />
+				<result column="work_type" jdbcType="VARCHAR"
+					property="workType" />
+				<result column="flow_id" jdbcType="BIGINT" property="flowId" />
+				<result column="flow_pid" jdbcType="BIGINT"
+					property="flowPid" />
+				<result column="receiver_company_id" jdbcType="VARCHAR"
+					property="receiverCompanyId" />
+				<result column="receiver_company_name" jdbcType="VARCHAR"
+					property="receiverCompanyName" />
+				<result column="receiver_org_id" jdbcType="VARCHAR"
+					property="receiverOrgId" />
+				<result column="receiver_org_name" jdbcType="VARCHAR"
+					property="receiverOrgName" />
+				<result column="receiver_id" jdbcType="VARCHAR"
+					property="receiverId" />
+				<result column="receiver_name" jdbcType="VARCHAR"
+					property="receiverName" />
+				<result column="approve_item_id" jdbcType="VARCHAR"
+					property="approveItemId" />
+				<result column="approve_item_type" jdbcType="VARCHAR"
+					property="approveItemType" />
+				<result column="option_type" jdbcType="VARCHAR"
+					property="optionType" />
+				<result column="dept_name_log" jdbcType="VARCHAR"
+					property="deptName" />
+				<result column="dept_id_log" jdbcType="VARCHAR"
+					property="deptId" />
+				<collection property="subLogs"
+					ofType="com.chinatower.product.legalms.modules.flow.vo.flow.SubTFlowLogVO"
+					resultMap="SubTFlowLog">
+				</collection>
+			</collection>
+		</collection>
+	</resultMap>
+	<select id="selectOne" resultMap="AssignVO"
+		parameterType="String">
+		SELECT ig.*,		
+		<include refid="Base_Main_Column_List" />
+		,
+		<include refid="log_Column_List" />
+		,
+		<include refid="Sub_Column_List" />
+		FROM
+		t_case_assign ig LEFT
+		JOIN t_flow_main fm
+		ON
+		ig.`assign_id`=fm.`approve_item_id` AND
+		fm.`approve_item_type`='t_case_assign'
+		LEFT JOIN t_flow_log fl ON
+		fm.`approve_item_id`=fl.`approve_item_id`
+		AND fm.`flow_id`=fl.`flow_id`
+		LEFT JOIN t_flow_log flo ON
+		fl.`flow_id`=flo.`flow_pid`
+		AND
+		fl.`activity_inst_id`=flo.`act_pid`
+		WHERE
+		ig.`assign_id`=
+		#{assignId}
+		ORDER BY fl.`modify_time`
+	</select>
+	<select id="selectAssignAndFlow" resultMap="AssignVO"
+		parameterType="String">
+		SELECT ig.*,fm.*
+		FROM
+		t_case_assign ig LEFT
+		JOIN
+		t_flow_main fm
+		ON
+		ig.`assign_id`=fm.`approve_item_id` AND
+		fm.`approve_item_type`='t_case_assign'
+		WHERE
+		ig.`assign_id`=
+		#{assignId}
+	</select>
+	<select id="selectByPrimaryKey" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from t_case_assign
+		where assign_id = #{assignId,jdbcType=VARCHAR}
+	</select>
+	<select id="selectAll" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from t_case_assign
+		where assign_status !='0'
+		<choose>
+			<when test="param.startDate != null and param.endDate != null">
+				and create_time BETWEEN
+				#{param.startDate,jdbcType=TIMESTAMP}
+				and
+				#{param.endDate,jdbcType=TIMESTAMP}
+			</when>
+			<when test="param.startDate != null">
+				and create_time <![CDATA[>]]>
+				#{param.startDate,jdbcType=TIMESTAMP}
+			</when>
+			<when test="param.endDate != null">
+				and create_time <![CDATA[<]]>
+				#{param.endDate,jdbcType=TIMESTAMP}
+			</when>
+		</choose>
+
+		<if test="param.title != null and param.title != ''">
+			and assign_title like '%${param.title}%'
+		</if>
+		<if test="param.code != null and param.code != ''">
+			and assign_code like'%${param.code}%'
+		</if>
+		<if test="param.caseType != null and param.caseType != ''">
+			and case_type = #{param.caseType,jdbcType=VARCHAR}
+		</if>
+		<if test="param.loginAcct != null and param.loginAcct != ''">
+			and login_acct = #{param.loginAcct}
+		</if>
+		<if test="param.mainSeedOrg != null and param.mainSeedOrg != ''">
+			and main_seed_org like
+			'%${param.mainSeedOrg}%'
+		</if>
+		<if test="unitId != null and unitId != ''">
+			and #{unitId} = {
+			SELECT account_unit_id
+			FROM
+			t_pub_account_tab
+			WHERE account_id = login_acct
+			}
+			and
+			assign_status =
+			'30'
+		</if>
+		<if test="param.correlate == 1">
+			AND assign_id NOT IN
+			( SELECT la.`assign_id` FROM
+			t_issue_lawsuit la
+			WHERE la.`lawsuit_status`!='10')
+		</if>
+		order by assign_status,create_time desc
+	</select>
+	<select id="selectWholeData" resultMap="BaseResultMap">
+		select
+		tca.assign_id,
+		tca.assign_code,
+		tca.assign_type,
+		tca.assign_title,
+		tca.approve_state_name,
+		tca.approve_city_name,
+		tca.approve_state,
+		tca.approve_city,
+		tca.approve_org,
+		tca.case_create_time,
+		tca.create_time,
+		tca.case_code,
+		tca.case_line,
+		tca.case_cause,
+		tca.case_type,
+		tca.lawsuit_size,
+		tca.lawsuit_money,
+		tca.our_lawsuit_body,
+		tca.our_lawsuit_body_name,
+		tca.they_lawsuit_body,
+		tca.our_lawsuit_status,
+		tca.other_related,
+		tca.third_person,
+		tca.plaintiff,
+		tca.defendant,
+		tca.send_time,
+		tca.plaintiff_request,
+		tca.case_file,
+		tca.assign_org,
+		tca.main_seed_org,
+		tca.main_seed_org_id,
+		tca.assign_item,
+		tca.assign_file,
+		tca.sign_dept,
+		tca.login_acct,
+		tca.login_name,
+		tca.org_name,
+		tca.org_id,
+		tca.dept_name,
+		tca.dept_id,
+		tca.mobile,
+		tca.assign_status,
+		tca.module_name
+		from t_pub_org tpo right
+		join t_case_assign tca on tpo.org_code = tca.main_seed_org_id
+		<where>
+			tca.assign_status in ('20', '30')
+			<if test="param.startDate != null">
+				and tca.create_time >
+				#{param.startDate,jdbcType=TIMESTAMP}
+			</if>
+			<if test="param.endDate != null">
+				and tca.create_time <![CDATA[<]]>
+				#{param.endDate,jdbcType=TIMESTAMP}
+			</if>
+			<if test="param.title != null and param.title != ''">
+				and tca.assign_title like '%${param.title}%'
+			</if>
+			<if test="param.code != null and param.code != ''">
+				and tca.assign_code like'%${param.code}%'
+			</if>
+			<if test="param.assignOrg != null and param.assignOrg != ''">
+				and tca.assign_org like'%${param.assignOrg}%'
+			</if>
+			<if test="param.caseType != null and param.caseType != ''">
+				and tca.case_type = #{param.caseType,jdbcType=VARCHAR}
+			</if>
+			<if test="param.mainSeedOrg != null and param.mainSeedOrg != ''">
+				and tca.main_seed_org like
+				'%${param.mainSeedOrg}%'
+			</if>
+			<if test="param.orgPath != null and param.orgPath != ''">
+				and tpo.org_path like #{param.orgPath}
+			</if>
+			<if test="param.assignStatus != null and param.assignStatus != ''">
+				and tca.assign_status = #{param.assignStatus}
+			</if>
+		</where>
+		order by tca.assign_status,tca.create_time desc
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from
+		t_case_assign
+		where assign_id = #{assignId,jdbcType=VARCHAR}
+	</delete>
+	<insert id="insert"
+		parameterType="com.chinatower.product.legalms.modules.dispute.entity.lawcase.TCaseAssign">
+		insert into t_case_assign
+		(assign_id,assign_code,assign_type,
+		assign_title,
+		approve_state_name,approve_city_name,
+		approve_state, approve_city,
+		approve_org,
+		case_create_time,create_time,
+		case_code,
+		case_line,
+		case_cause,
+		case_type,
+		lawsuit_size, lawsuit_money,
+		our_lawsuit_body,our_lawsuit_body_name, they_lawsuit_body,
+		our_lawsuit_status,
+		other_related,
+		third_person, plaintiff,
+		defendant,
+		send_time, plaintiff_request,
+		case_file, assign_org,
+		main_seed_org,main_seed_org_id
+		assign_item,
+		assign_file,sign_dept,login_acct,assign_status,module_name,
+		involved_account_id,involved_account_name,involved_dept_id,
+		involved_dept_name,involved_org_id,involved_org_name)
+		values
+		(#{assignId,jdbcType=VARCHAR},
+		#{assignCode,jdbcType=VARCHAR},#{assignType,jdbcType=VARCHAR},
+		#{assignTitle,jdbcType=VARCHAR},
+		#{approveStateName,jdbcType=VARCHAR},#{approveCityName,jdbcType=VARCHAR},
+		#{approveState,jdbcType=VARCHAR},#{approveCity,jdbcType=VARCHAR},
+		#{approveOrg,jdbcType=VARCHAR},
+		#{caseCreateTime,jdbcType=TIMESTAMP},
+		#{createTime,jdbcType=TIMESTAMP},
+		#{caseCode,jdbcType=VARCHAR},
+		#{caseLine,jdbcType=VARCHAR}, #{caseCause,jdbcType=VARCHAR},
+		#{caseType,jdbcType=VARCHAR}, #{lawsuitSize,jdbcType=VARCHAR},
+		#{lawsuitMoney,jdbcType=DOUBLE},
+		#{ourLawsuitBody,jdbcType=VARCHAR},
+		#{ourLawsuitBodyName,jdbcType=VARCHAR},
+		#{theyLawsuitBody,jdbcType=VARCHAR},
+		#{ourLawsuitStatus,jdbcType=VARCHAR},
+		#{otherRelated,jdbcType=VARCHAR}, #{thirdPerson,jdbcType=VARCHAR},
+		#{plaintiff,jdbcType=VARCHAR},
+		#{defendant,jdbcType=VARCHAR},
+		#{sendTime,jdbcType=TIMESTAMP},
+		#{plaintiffRequest,jdbcType=VARCHAR},
+		#{caseFile,jdbcType=VARCHAR},
+		#{assignOrg,jdbcType=VARCHAR},
+		#{mainSeedOrg,jdbcType=VARCHAR},
+		#{mainSeedOrgId,jdbcType=VARCHAR},
+		#{assignItem,jdbcType=VARCHAR}, #{assignFile,jdbcType=VARCHAR},
+		#{signDept,jdbcType=VARCHAR},
+		#{loginAcct,jdbcType=VARCHAR},
+		#{assignStatus,jdbcType=VARCHAR},
+		#{moduleName,jdbcType=VARCHAR},
+		#{involvedAccountId,jdbcType=VARCHAR},
+		#{involvedAccountName,jdbcType=VARCHAR}),
+		#{involvedDeptId,jdbcType=VARCHAR},
+		#{involvedDeptName,jdbcType=VARCHAR}),
+		#{involvedOrgId,jdbcType=VARCHAR},
+		#{involvedOrgName,jdbcType=VARCHAR})
+	</insert>
+	<insert id="insertSelective">
+		insert into t_case_assign
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			assign_id,
+			assign_code,
+			<if test="record.assignType != null">
+				assign_type,
+			</if>
+			<if test="record.assignTitle != null">
+				assign_title,
+			</if>
+			<if test="record.approveStateName != null">
+				approve_state_name,
+			</if>
+			<if test="record.approveCityName != null">
+				approve_city_name,
+			</if>
+			<if test="record.approveState != null">
+				approve_state,
+			</if>
+			<if test="record.approveCity != null">
+				approve_city,
+			</if>
+			<if test="record.approveOrg != null">
+				approve_org,
+			</if>
+			<if test="record.caseCreateTime != null">
+				case_create_time,
+			</if>
+			<if test="record.createTime != null">
+				create_time,
+			</if>
+			<if test="record.caseCode != null">
+				case_code,
+			</if>
+			<if test="record.caseLine != null">
+				case_line,
+			</if>
+			<if test="record.caseCause != null">
+				case_cause,
+			</if>
+			<if test="record.caseType != null">
+				case_type,
+			</if>
+			<if test="record.lawsuitSize != null">
+				lawsuit_size,
+			</if>
+			<if test="record.lawsuitMoney != null">
+				lawsuit_money,
+			</if>
+			<if test="record.ourLawsuitBody != null">
+				our_lawsuit_body,
+			</if>
+			<if test="record.ourLawsuitBodyName != null">
+				our_lawsuit_body_name,
+			</if>
+			<if test="record.theyLawsuitBody != null">
+				they_lawsuit_body,
+			</if>
+			<if test="record.ourLawsuitStatus != null">
+				our_lawsuit_status,
+			</if>
+			<if test="record.otherRelated != null">
+				other_related,
+			</if>
+			<if test="record.thirdPerson != null">
+				third_person,
+			</if>
+			<if test="record.plaintiff != null">
+				plaintiff,
+			</if>
+			<if test="record.defendant != null">
+				defendant,
+			</if>
+			<if test="record.sendTime != null">
+				send_time,
+			</if>
+			<if test="record.plaintiffRequest != null">
+				plaintiff_request,
+			</if>
+			<if test="record.caseFile != null">
+				case_file,
+			</if>
+			<if test="record.assignOrg != null">
+				assign_org,
+			</if>
+			<if test="record.mainSeedOrg != null">
+				main_seed_org,
+			</if>
+			<if test="record.mainSeedOrgId != null">
+				main_seed_org_id,
+			</if>
+			<if test="record.assignItem != null">
+				assign_item,
+			</if>
+			<if test="record.assignFile != null">
+				assign_file,
+			</if>
+			<if test="record.signDept != null">
+				sign_dept,
+			</if>
+			<if test="record.loginAcct != null">
+				login_acct,
+			</if>
+			<if test="record.loginName != null">
+				login_name,
+			</if>
+			<if test="record.orgName != null">
+				org_name,
+			</if>
+			<if test="record.orgId != null">
+				org_id,
+			</if>
+			<if test="record.deptName != null">
+				dept_name,
+			</if>
+			<if test="record.deptId != null">
+				dept_id,
+			</if>
+			<if test="record.mobile != null">
+				mobile,
+			</if>
+			<if test="record.assignStatus != null">
+				assign_status,
+			</if>
+			<if test="record.moduleName != null">
+				module_name,
+			</if>
+			<if test="record.involvedAccountId != null">
+				involved_account_id,
+			</if>
+			<if test="record.involvedAccountName != null">
+				involved_account_name,
+			</if>
+			<if test="record.involvedDeptId != null">
+				involved_dept_id,
+			</if>
+			<if test="record.involvedDeptName != null">
+				involved_dept_name,
+			</if>
+			<if test="record.involvedOrgId != null">
+				involved_org_id,
+			</if>
+			<if test="record.involvedOrgName != null">
+				involved_org_name,
+			</if>
+			<if test="record.caseId != null">
+				case_id,
+			</if>
+			<if test="record.createCaseType != null">
+				create_case_type,
+			</if>
+			<if test="record.caseTitle != null">
+				case_title,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			#{record.assignId,jdbcType=VARCHAR},
+			#{record.assignCode,jdbcType=VARCHAR},
+			<if test="record.assignType != null">
+				#{record.assignType,jdbcType=VARCHAR},
+			</if>
+			<if test="record.assignTitle != null">
+				#{record.assignTitle,jdbcType=VARCHAR},
+			</if>
+
+			<if test="record.approveStateName != null">
+				#{record.approveStateName,jdbcType=VARCHAR},
+			</if>
+			<if test="record.approveCityName != null">
+				#{record.approveCityName,jdbcType=VARCHAR},
+			</if>
+			<if test="record.approveState != null">
+				#{record.approveState,jdbcType=VARCHAR},
+			</if>
+			<if test="record.approveCity != null">
+				#{record.approveCity,jdbcType=VARCHAR},
+			</if>
+			<if test="record.approveOrg != null">
+				#{record.approveOrg,jdbcType=VARCHAR},
+			</if>
+			<if test="record.caseCreateTime != null">
+				#{record.caseCreateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="record.createTime != null">
+				#{record.createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="record.caseCode != null">
+				#{record.caseCode,jdbcType=VARCHAR},
+			</if>
+			<if test="record.caseLine != null">
+				#{record.caseLine,jdbcType=VARCHAR},
+			</if>
+			<if test="record.caseCause != null">
+				#{record.caseCause,jdbcType=VARCHAR},
+			</if>
+			<if test="record.caseType != null">
+				#{record.caseType,jdbcType=VARCHAR},
+			</if>
+			<if test="record.lawsuitSize != null">
+				#{record.lawsuitSize,jdbcType=VARCHAR},
+			</if>
+			<if test="record.lawsuitMoney != null">
+				#{record.lawsuitMoney,jdbcType=DOUBLE},
+			</if>
+			<if test="record.ourLawsuitBody != null">
+				#{record.ourLawsuitBody,jdbcType=VARCHAR},
+			</if>
+			<if test="record.ourLawsuitBodyName != null">
+				#{record.ourLawsuitBodyName,jdbcType=VARCHAR},
+			</if>
+			<if test="record.theyLawsuitBody != null">
+				#{record.theyLawsuitBody,jdbcType=VARCHAR},
+			</if>
+			<if test="record.ourLawsuitStatus != null">
+				#{record.ourLawsuitStatus,jdbcType=VARCHAR},
+			</if>
+			<if test="record.otherRelated != null">
+				#{record.otherRelated,jdbcType=VARCHAR},
+			</if>
+			<if test="record.thirdPerson != null">
+				#{record.thirdPerson,jdbcType=VARCHAR},
+			</if>
+			<if test="record.plaintiff != null">
+				#{record.plaintiff,jdbcType=VARCHAR},
+			</if>
+			<if test="record.defendant != null">
+				#{record.defendant,jdbcType=VARCHAR},
+			</if>
+			<if test="record.sendTime != null">
+				#{record.sendTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="record.plaintiffRequest != null">
+				#{record.plaintiffRequest,jdbcType=VARCHAR},
+			</if>
+			<if test="record.caseFile != null">
+				#{record.caseFile,jdbcType=VARCHAR},
+			</if>
+			<if test="record.assignOrg != null">
+				#{record.assignOrg,jdbcType=VARCHAR},
+			</if>
+			<if test="record.mainSeedOrg != null">
+				#{record.mainSeedOrg,jdbcType=VARCHAR},
+			</if>
+			<if test="record.mainSeedOrgId != null">
+				#{record.mainSeedOrgId,jdbcType=VARCHAR},
+			</if>
+			<if test="record.assignItem != null">
+				#{record.assignItem,jdbcType=VARCHAR},
+			</if>
+			<if test="record.assignFile != null">
+				#{record.assignFile,jdbcType=VARCHAR},
+			</if>
+			<if test="record.signDept != null">
+				#{record.signDept,jdbcType=VARCHAR},
+			</if>
+			<if test="record.loginAcct != null">
+				#{record.loginAcct,jdbcType=VARCHAR},
+			</if>
+			<if test="record.loginName != null">
+				#{record.loginName,jdbcType=VARCHAR},
+			</if>
+			<if test="record.orgName != null">
+				#{record.orgName,jdbcType=VARCHAR},
+			</if>
+			<if test="record.orgId != null">
+				#{record.orgId,jdbcType=VARCHAR},
+			</if>
+			<if test="record.deptName != null">
+				#{record.deptName,jdbcType=VARCHAR},
+			</if>
+			<if test="record.deptId != null">
+				#{record.deptId,jdbcType=VARCHAR},
+			</if>
+			<if test="record.mobile != null">
+				#{record.mobile,jdbcType=VARCHAR},
+			</if>
+			<if test="record.assignStatus != null">
+				#{record.assignStatus,jdbcType=VARCHAR},
+			</if>
+			<if test="record.moduleName != null">
+				#{record.moduleName,jdbcType=VARCHAR},
+			</if>
+			<if test="record.involvedAccountId != null">
+				#{record.involvedAccountId,jdbcType=VARCHAR},
+			</if>
+			<if test="record.involvedAccountName != null">
+				#{record.involvedAccountName,jdbcType=VARCHAR},
+			</if>
+			<if test="record.involvedDeptId != null">
+				#{record.involvedDeptId,jdbcType=VARCHAR},
+			</if>
+			<if test="record.involvedDeptName != null">
+				#{record.involvedDeptName,jdbcType=VARCHAR},
+			</if>
+			<if test="record.involvedOrgId != null">
+				#{record.involvedOrgId,jdbcType=VARCHAR},
+			</if>
+			<if test="record.involvedOrgName != null">
+				#{record.involvedOrgName,jdbcType=VARCHAR},
+			</if>
+			<if test="record.caseId != null">
+				#{record.caseId,jdbcType=VARCHAR},
+			</if>
+			<if test="record.createCaseType != null">
+				#{record.createCaseType,jdbcType=INTEGER},
+			</if>
+			<if test="record.caseTitle != null">
+				#{record.caseTitle,jdbcType=VARCHAR}
+			</if>
+		</trim>
+	</insert>
+	<insert id="insertSelectiveTemp">
+		insert into t_case_assign
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			assign_id,
+			assign_code,
+			<if test="record.assignType != null">
+				assign_type,
+			</if>
+			<if test="record.assignTitle != null">
+				assign_title,
+			</if>
+			<if test="record.approveStateName != null">
+				approve_state_name,
+			</if>
+			<if test="record.approveCityName != null">
+				approve_city_name,
+			</if>
+			<if test="record.approveState != null">
+				approve_state,
+			</if>
+			<if test="record.approveCity != null">
+				approve_city,
+			</if>
+			<if test="record.approveOrg != null">
+				approve_org,
+			</if>
+			<if test="record.caseCreateTime != null">
+				case_create_time,
+			</if>
+			<if test="record.createTime != null">
+				create_time,
+			</if>
+			<if test="record.caseCode != null">
+				case_code,
+			</if>
+			<if test="record.caseLine != null">
+				case_line,
+			</if>
+			<if test="record.caseCause != null">
+				case_cause,
+			</if>
+			<if test="record.caseType != null">
+				case_type,
+			</if>
+			<if test="record.lawsuitSize != null">
+				lawsuit_size,
+			</if>
+			<if test="record.lawsuitMoney != null">
+				lawsuit_money,
+			</if>
+			<if test="record.ourLawsuitBody != null">
+				our_lawsuit_body,
+			</if>
+			<if test="record.ourLawsuitBodyName != null">
+				our_lawsuit_body_name,
+			</if>
+			<if test="record.theyLawsuitBody != null">
+				they_lawsuit_body,
+			</if>
+			<if test="record.ourLawsuitStatus != null">
+				our_lawsuit_status,
+			</if>
+			<if test="record.otherRelated != null">
+				other_related,
+			</if>
+			<if test="record.thirdPerson != null">
+				third_person,
+			</if>
+			<if test="record.plaintiff != null">
+				plaintiff,
+			</if>
+			<if test="record.defendant != null">
+				defendant,
+			</if>
+			<if test="record.sendTime != null">
+				send_time,
+			</if>
+			<if test="record.plaintiffRequest != null">
+				plaintiff_request,
+			</if>
+			<if test="record.caseFile != null">
+				case_file,
+			</if>
+			<if test="record.assignOrg != null">
+				assign_org,
+			</if>
+			<if test="record.mainSeedOrg != null">
+				main_seed_org,
+			</if>
+			<if test="record.mainSeedOrgId != null">
+				main_seed_org_id,
+			</if>
+			<if test="record.assignItem != null">
+				assign_item,
+			</if>
+			<if test="record.assignFile != null">
+				assign_file,
+			</if>
+			<if test="record.signDept != null">
+				sign_dept,
+			</if>
+			<if test="record.loginAcct != null">
+				login_acct,
+			</if>
+			<if test="record.loginName != null">
+				login_name,
+			</if>
+			<if test="record.orgName != null">
+				org_name,
+			</if>
+			<if test="record.orgId != null">
+				org_id,
+			</if>
+			<if test="record.deptName != null">
+				dept_name,
+			</if>
+			<if test="record.deptId != null">
+				dept_id,
+			</if>
+			<if test="record.mobile != null">
+				mobile,
+			</if>
+			<if test="record.assignStatus != null">
+				assign_status,
+			</if>
+			<if test="record.moduleName != null">
+				module_name
+			</if>
+			<if test="record.involvedAccountId != null">
+				involved_account_id,
+			</if>
+			<if test="record.involvedAccountName != null">
+				involved_account_name,
+			</if>
+			<if test="record.involvedDeptId != null">
+				involved_dept_id,
+			</if>
+			<if test="record.involvedDeptName != null">
+				involved_dept_name,
+			</if>
+			<if test="record.involvedOrgId != null">
+				involved_org_id,
+			</if>
+			<if test="record.involvedOrgName != null">
+				involved_org_name,
+			</if>
+			<if test="record.caseId != null">
+				case_id,
+			</if>
+			<if test="record.createCaseType != null">
+				create_case_type,
+			</if>
+			<if test="record.caseTitle != null">
+				case_title,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			#{record.assignId,jdbcType=VARCHAR},
+			#{record.assignCode,jdbcType=VARCHAR},
+			<if test="record.assignType != null">
+				#{record.assignType,jdbcType=VARCHAR},
+			</if>
+			<if test="record.assignTitle != null">
+				#{record.assignTitle,jdbcType=VARCHAR},
+			</if>
+			<if test="record.approveStateName != null">
+				#{record.approveStateName,jdbcType=VARCHAR},
+			</if>
+			<if test="record.approveCityName != null">
+				#{record.approveCityName,jdbcType=VARCHAR},
+			</if>
+			<if test="record.approveState != null">
+				#{record.approveState,jdbcType=VARCHAR},
+			</if>
+			<if test="record.approveCity != null">
+				#{record.approveCity,jdbcType=VARCHAR},
+			</if>
+
+			<if test="record.approveOrg != null">
+				#{record.approveOrg,jdbcType=VARCHAR},
+			</if>
+			<if test="record.caseCreateTime != null">
+				#{record.caseCreateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="record.createTime != null">
+				#{record.createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="record.caseCode != null">
+				#{record.caseCode,jdbcType=VARCHAR},
+			</if>
+			<if test="record.caseLine != null">
+				#{record.caseLine,jdbcType=VARCHAR},
+			</if>
+			<if test="record.caseCause != null">
+				#{record.caseCause,jdbcType=VARCHAR},
+			</if>
+			<if test="record.caseType != null">
+				#{record.caseType,jdbcType=VARCHAR},
+			</if>
+			<if test="record.lawsuitSize != null">
+				#{record.lawsuitSize,jdbcType=VARCHAR},
+			</if>
+			<if test="record.lawsuitMoney != null">
+				#{record.lawsuitMoney,jdbcType=DOUBLE},
+			</if>
+			<if test="record.ourLawsuitBody != null">
+				#{record.ourLawsuitBody,jdbcType=VARCHAR},
+			</if>
+			<if test="record.ourLawsuitBodyName != null">
+				#{record.ourLawsuitBodyName,jdbcType=VARCHAR},
+			</if>
+			<if test="record.theyLawsuitBody != null">
+				#{record.theyLawsuitBody,jdbcType=VARCHAR},
+			</if>
+			<if test="record.ourLawsuitStatus != null">
+				#{record.ourLawsuitStatus,jdbcType=VARCHAR},
+			</if>
+			<if test="record.otherRelated != null">
+				#{record.otherRelated,jdbcType=VARCHAR},
+			</if>
+			<if test="record.thirdPerson != null">
+				#{record.thirdPerson,jdbcType=VARCHAR},
+			</if>
+			<if test="record.plaintiff != null">
+				#{record.plaintiff,jdbcType=VARCHAR},
+			</if>
+			<if test="record.defendant != null">
+				#{record.defendant,jdbcType=VARCHAR},
+			</if>
+			<if test="record.sendTime != null">
+				#{record.sendTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="record.plaintiffRequest != null">
+				#{record.plaintiffRequest,jdbcType=VARCHAR},
+			</if>
+			<if test="record.caseFile != null">
+				#{record.caseFile,jdbcType=VARCHAR},
+			</if>
+			<if test="record.assignOrg != null">
+				#{record.assignOrg,jdbcType=VARCHAR},
+			</if>
+			<if test="record.mainSeedOrg != null">
+				#{record.mainSeedOrg,jdbcType=VARCHAR},
+			</if>
+			<if test="record.mainSeedOrgId != null">
+				#{record.mainSeedOrgId,jdbcType=VARCHAR},
+			</if>
+			<if test="record.assignItem != null">
+				#{record.assignItem,jdbcType=VARCHAR},
+			</if>
+			<if test="record.assignFile != null">
+				#{record.assignFile,jdbcType=VARCHAR},
+			</if>
+			<if test="record.signDept != null">
+				#{record.signDept,jdbcType=VARCHAR},
+			</if>
+			<if test="record.loginAcct != null">
+				#{record.loginAcct,jdbcType=VARCHAR},
+			</if>
+			<if test="record.loginName != null">
+				#{record.loginName,jdbcType=VARCHAR},
+			</if>
+			<if test="record.orgName != null">
+				#{record.orgName,jdbcType=VARCHAR},
+			</if>
+			<if test="record.orgId != null">
+				#{record.orgId,jdbcType=VARCHAR},
+			</if>
+			<if test="record.deptName != null">
+				#{record.deptName,jdbcType=VARCHAR},
+			</if>
+			<if test="record.deptId != null">
+				#{record.deptId,jdbcType=VARCHAR},
+			</if>
+			<if test="record.mobile != null">
+				#{record.mobile,jdbcType=VARCHAR},
+			</if>
+			<if test="record.assignStatus != null">
+				#{record.assignStatus,jdbcType=VARCHAR},
+			</if>
+			<if test="record.moduleName != null">
+				#{record.moduleName,jdbcType=VARCHAR},
+			</if>
+			<if test="record.involvedAccountId != null">
+				#{record.involvedAccountId,jdbcType=VARCHAR},
+			</if>
+			<if test="record.involvedAccountName != null">
+				#{record.involvedAccountName,jdbcType=VARCHAR},
+			</if>
+			<if test="record.involvedDeptId != null">
+				#{record.involvedDeptId,jdbcType=VARCHAR},
+			</if>
+			<if test="record.involvedDeptName != null">
+				#{record.involvedDeptName,jdbcType=VARCHAR},
+			</if>
+			<if test="record.involvedOrgId != null">
+				#{record.involvedOrgId,jdbcType=VARCHAR},
+			</if>
+			<if test="record.involvedOrgName != null">
+				#{record.involvedOrgName,jdbcType=VARCHAR},
+			</if>
+			<if test="record.caseId != null">
+				#{record.caseId,jdbcType=VARCHAR},
+			</if>
+			<if test="record.createCaseType != null">
+				#{record.createCaseType,jdbcType=INTEGER},
+			</if>
+			<if test="record.caseTitle != null">
+				#{record.caseTitle,jdbcType=VARCHAR}
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective"
+		parameterType="com.chinatower.product.legalms.modules.dispute.entity.lawcase.TCaseAssign">
+		update t_case_assign
+		<set>
+			<if test="assignType != null">
+				assign_type = #{assignType,jdbcType=VARCHAR},
+			</if>
+			<if test="assignTitle != null">
+				assign_title = #{assignTitle,jdbcType=VARCHAR},
+			</if>
+			<if test="approveStateName != null">
+				approve_state_name =
+				#{approveStateName,jdbcType=VARCHAR},
+			</if>
+			<if test="approveCityName != null">
+				approve_city_name = #{approveCityName,jdbcType=VARCHAR},
+			</if>
+			<if test="approveState != null">
+				approve_state = #{approveState,jdbcType=VARCHAR},
+			</if>
+			<if test="approveCity != null">
+				approve_city = #{approveCity,jdbcType=VARCHAR},
+			</if>
+			<if test="approveOrg != null">
+				approve_org = #{approveOrg,jdbcType=VARCHAR},
+			</if>
+			<if test="caseCreateTime != null">
+				case_create_time = #{caseCreateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="caseCode != null">
+				case_code = #{caseCode,jdbcType=VARCHAR},
+			</if>
+			<if test="caseCreateTime != null">
+				case_line = #{caseLine,jdbcType=VARCHAR},
+			</if>
+			<if test="caseCause != null">
+				case_cause = #{caseCause,jdbcType=VARCHAR},
+			</if>
+			<if test="caseType != null">
+				case_type = #{caseType,jdbcType=VARCHAR},
+			</if>
+			<if test="lawsuitSize != null">
+				lawsuit_size = #{lawsuitSize,jdbcType=VARCHAR},
+			</if>
+			<if test="lawsuitMoney != null">
+				lawsuit_money = #{lawsuitMoney,jdbcType=DOUBLE},
+			</if>
+			<if test="ourLawsuitBody != null">
+				our_lawsuit_body = #{ourLawsuitBody,jdbcType=VARCHAR},
+			</if>
+			<if test="ourLawsuitBodyName != null">
+				our_lawsuit_body_name =
+				#{ourLawsuitBodyName,jdbcType=VARCHAR},
+			</if>
+			<if test="theyLawsuitBody != null">
+				they_lawsuit_body = #{theyLawsuitBody,jdbcType=VARCHAR},
+			</if>
+			<if test="ourLawsuitStatus != null">
+				our_lawsuit_status =
+				#{ourLawsuitStatus,jdbcType=VARCHAR},
+			</if>
+			<if test="otherRelated != null">
+				other_related = #{otherRelated,jdbcType=VARCHAR},
+			</if>
+			<if test="thirdPerson != null">
+				third_person = #{thirdPerson,jdbcType=VARCHAR},
+			</if>
+			<if test="plaintiff != null">
+				plaintiff = #{plaintiff,jdbcType=VARCHAR},
+			</if>
+			<if test="defendant != null">
+				defendant = #{defendant,jdbcType=VARCHAR},
+			</if>
+			<if test="sendTime != null">
+				send_time = #{sendTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="plaintiffRequest != null">
+				plaintiff_request = #{plaintiffRequest,jdbcType=VARCHAR},
+			</if>
+			<if test="caseFile != null">
+				case_file = #{caseFile,jdbcType=VARCHAR},
+			</if>
+			<if test="assignOrg != null">
+				assign_org = #{assignOrg,jdbcType=VARCHAR},
+			</if>
+			<if test="mainSeedOrg != null">
+				main_seed_org = #{mainSeedOrg,jdbcType=VARCHAR},
+			</if>
+			<if test="mainSeedOrgId != null">
+				main_seed_org_id = #{mainSeedOrgId,jdbcType=VARCHAR},
+			</if>
+			<if test="assignItem != null">
+				assign_item = #{assignItem,jdbcType=VARCHAR},
+			</if>
+			<if test="assignFile != null">
+				assign_file = #{assignFile,jdbcType=VARCHAR},
+			</if>
+			<if test="signDept != null">
+				sign_dept = #{signDept,jdbcType=VARCHAR},
+			</if>
+			<if test="assignStatus != null">
+				assign_status = #{assignStatus,jdbcType=VARCHAR},
+			</if>
+			<if test="moduleName != null">
+				module_name = #{moduleName,jdbcType=VARCHAR},
+			</if>
+			<if test="assignId != null">
+				assign_id = #{assignId,jdbcType=VARCHAR},
+			</if>
+			<if test="involvedAccountId != null">
+				involved_account_id = #{involvedAccountId,jdbcType=VARCHAR},
+			</if>
+			<if test="involvedAccountName != null">
+				involved_account_name = #{involvedAccountName,jdbcType=VARCHAR},
+			</if>
+			<if test="involvedDeptId != null">
+				involved_dept_id = #{involvedDeptId,jdbcType=VARCHAR},
+			</if>
+			<if test="involvedDeptName != null">
+				involved_dept_name = #{involvedDeptName,jdbcType=VARCHAR},
+			</if>
+			<if test="involvedOrgId != null">
+				involved_org_id = #{involvedOrgId,jdbcType=VARCHAR},
+			</if>
+			<if test="involvedOrgName != null">
+				involved_org_name = #{involvedOrgName,jdbcType=VARCHAR},
+			</if>
+			<if test="createCaseType != null">
+				create_case_type = #{createCaseType,jdbcType=INTEGER},
+			</if>
+			<if test="caseTitle != null">
+				case_title = #{caseTitle,jdbcType=VARCHAR},
+			</if>
+			<if test="caseId != null">
+				case_id = #{caseId,jdbcType=VARCHAR}
+			</if>
+		</set>
+		where assign_id = #{assignId,jdbcType=VARCHAR}
+	</update>
+	<update id="updateByPrimaryKey"
+		parameterType="com.chinatower.product.legalms.modules.dispute.entity.lawcase.TCaseAssign">
+		update t_case_assign
+		set
+		assign_type =
+		#{assignType,jdbcType=VARCHAR},
+		assign_title =
+		#{assignTitle,jdbcType=VARCHAR},
+		approve_state_name =
+		#{approveStateName,jdbcType=VARCHAR},
+		approve_city_name =
+		#{approveCityName,jdbcType=VARCHAR},
+		approve_state =
+		#{approveState,jdbcType=VARCHAR},
+		approve_city =
+		#{approveCity,jdbcType=VARCHAR},
+		approve_org =
+		#{approveOrg,jdbcType=VARCHAR},
+		case_create_time =
+		#{caseCreateTime,jdbcType=TIMESTAMP},
+		case_code =
+		#{caseCode,jdbcType=VARCHAR},
+		case_line = #{caseLine,jdbcType=VARCHAR},
+		case_cause = #{caseCause,jdbcType=VARCHAR},
+		case_type =
+		#{caseType,jdbcType=VARCHAR},
+		lawsuit_size =
+		#{lawsuitSize,jdbcType=VARCHAR},
+		lawsuit_money =
+		#{lawsuitMoney,jdbcType=DOUBLE},
+		our_lawsuit_body =
+		#{ourLawsuitBody,jdbcType=VARCHAR},
+		our_lawsuit_body_name =
+		#{ourLawsuitBodyName,jdbcType=VARCHAR},
+		they_lawsuit_body =
+		#{theyLawsuitBody,jdbcType=VARCHAR},
+		our_lawsuit_status =
+		#{ourLawsuitStatus,jdbcType=VARCHAR},
+		other_related =
+		#{otherRelated,jdbcType=VARCHAR},
+		third_person =
+		#{thirdPerson,jdbcType=VARCHAR},
+		plaintiff =
+		#{plaintiff,jdbcType=VARCHAR},
+		defendant =
+		#{defendant,jdbcType=VARCHAR},
+		send_time =
+		#{sendTime,jdbcType=TIMESTAMP},
+		plaintiff_request =
+		#{plaintiffRequest,jdbcType=VARCHAR},
+		case_file =
+		#{caseFile,jdbcType=VARCHAR},
+		assign_org =
+		#{assignOrg,jdbcType=VARCHAR},
+		main_seed_org =
+		#{mainSeedOrg,jdbcType=VARCHAR},
+		main_seed_org_id =
+		#{mainSeedOrgId,jdbcType=VARCHAR},
+		assign_item =
+		#{assignItem,jdbcType=VARCHAR},
+		assign_file =
+		#{assignFile,jdbcType=VARCHAR},
+		sign_dept =
+		#{signDept,jdbcType=VARCHAR},
+		assign_status =
+		#{assignStatus,jdbcType=VARCHAR},
+		module_name =
+		#{moduleName,jdbcType=VARCHAR},
+		involved_account_id =
+		#{involvedAccountId,jdbcType=VARCHAR},
+		involved_account_name =
+		#{involvedAccountName,jdbcType=VARCHAR},
+		involved_dept_id =
+		#{involvedDeptId,jdbcType=VARCHAR},
+		involved_dept_name =
+		#{involvedDeptName,jdbcType=VARCHAR},
+		involved_org_id =
+		#{involvedOrgId,jdbcType=VARCHAR},
+		involved_org_name =
+		#{involvedOrgName,jdbcType=VARCHAR},
+		create_case_type =
+		#{createCaseType,jdbcType=INTEGER},
+		case_id =
+		#{caseId,jdbcType=VARCHAR},
+		case_title =
+		#{caseTitle,jdbcType=VARCHAR}
+		where assign_id =
+		#{assignId,jdbcType=VARCHAR}
+	</update>
+	<update id="deleteTCaseAssign">
+		update t_case_assign set assign_status='0'
+		where assign_id in
+		<foreach item="item" index="index" collection="list" open="("
+			separator="," close=")">#{item}
+		</foreach>
+		and assign_status='10'
+	</update>
+</mapper>

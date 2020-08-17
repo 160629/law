@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chinatower.product.legalms.modules.flow.mapper.common.FileShareMapper">
+    <resultMap id="FileMap" type="com.chinatower.product.legalms.modules.flow.entity.common.FileShareVO">
+        <id column="file_share_id" jdbcType="VARCHAR" property="fileShareId"/>
+        <result column="file_type" jdbcType="INTEGER" property="fileType"/>
+        <result column="file_share_business_key" jdbcType="VARCHAR" property="fileShareBusinessKey"/>
+        <result column="file_share_type" jdbcType="VARCHAR" property="fileShareType"/>
+        <result column="file_share_status_upd_user_id" jdbcType="VARCHAR" property="fileShareStatusUpdUserId"/>
+        <result column="file_order" jdbcType="DOUBLE" property="fileOrder"/>
+        <result column="file_share_status" jdbcType="VARCHAR" property="fileShareStatus"/>
+        <result column="file_share_status_upd_time" jdbcType="TIMESTAMP" property="fileShareStatusUpdTime"/>
+        <result column="file_remark" jdbcType="VARCHAR" property="fileRemark"/>
+        <result column="file_id" jdbcType="VARCHAR" property="fileId"/>
+        <result column="file_name" jdbcType="VARCHAR" property="fileName"/>
+        <result column="file_extension" jdbcType="VARCHAR" property="fileExtension"/>
+        <result column="file_http_url" jdbcType="VARCHAR" property="fileHttpUrl"/>
+        <result column="file_upload_app_id" jdbcType="VARCHAR" property="fileUploadAppId"/>
+        <result column="file_upload_user_id" jdbcType="VARCHAR" property="fileUploadUserId"/>
+        <result column="file_upload_time" jdbcType="TIMESTAMP" property="fileUploadTime"/>
+        <result column="file_status_update_time" jdbcType="TIMESTAMP" property="fileStatusUpdateTime"/>
+        <result column="file_status" jdbcType="VARCHAR" property="fileStatus"/>
+        <result column="file_length" jdbcType="VARCHAR" property="fileLength"/>
+        <result column="visibility_level" jdbcType="VARCHAR" property="visibilityLevel"/>
+    </resultMap>
+    <select id="selectFileList" parameterType="String" resultMap="FileMap">
+		select
+			t1.file_share_id,
+			t1.file_type,
+			t1.file_share_business_key,
+			t1.file_share_type,
+			t1.file_share_status_upd_user_id,
+			t1.file_order,
+			t1.file_share_status,
+			t1.file_share_status_upd_time,
+			t1.file_remark,
+			t1.file_id,
+			t2.file_name,
+            t2.file_extension,
+            t2.file_http_url,
+            t2.file_upload_app_id,
+            t2.file_upload_user_id,
+            t2.file_upload_time,
+            t2.file_status_update_time,
+            t2.file_status,
+            t2.file_length,
+            t2.visibility_level
+		from t_file_share t1, t_file_main t2
+		where t1.file_share_business_key = #{businessId}
+		and t1.file_id = t2.file_id
+		order by file_order
+	</select>
+    <insert id="insertFileList" parameterType="com.chinatower.product.legalms.modules.flow.entity.common.FileShareVO">
+        INSERT INTO t_file_share
+        (file_share_id,
+        file_type,
+        file_share_business_key,
+        file_share_type,
+        file_share_status_upd_user_id,
+        file_order,
+        file_share_status,
+        file_share_status_upd_time,
+        file_remark,
+        file_id)
+        VALUES
+        <foreach collection="fileList" item="item" index="index" separator=",">
+            (#{item.fileShareId, jdbcType = VARCHAR},
+            #{item.fileType, jdbcType = INTEGER},
+            #{item.fileShareBusinessKey, jdbcType = VARCHAR},
+            #{item.fileShareType, jdbcType = VARCHAR},
+            #{item.fileShareStatusUpdUserId, jdbcType = VARCHAR},
+            #{item.fileOrder, jdbcType = DOUBLE},
+            #{item.fileShareStatus, jdbcType = VARCHAR},
+            NOW(),
+            #{item.fileRemark, jdbcType = VARCHAR},
+            #{item.fileId, jdbcType = VARCHAR})
+        </foreach>
+    </insert>
+    <update id="updateFileList" parameterType="com.chinatower.product.legalms.modules.flow.entity.common.FileShareVO">
+        <foreach collection="fileList" item="item" index="index" separator=",">
+            update t_file_share
+            set
+            file_type = #{item.fileType, jdbcType = INTEGER},
+            file_share_type = #{item.fileShareType, jdbcType = VARCHAR},
+            file_share_status_upd_user_id = #{item.fileShareStatusUpdUserId, jdbcType = VARCHAR},
+            file_order = #{item.fileOrder, jdbcType = DOUBLE},
+            file_share_status = #{item.fileShareStatus, jdbcType = VARCHAR},
+            file_share_status_upd_time = NOW(),
+            file_remark = #{item.fileRemark, jdbcType = VARCHAR},
+            file_id = #{item.fileId, jdbcType = VARCHAR}
+            where file_share_business_key = #{item.fileShareBusinessKey, jdbcType = VARCHAR}
+            and file_share_id = #{item.fileShareId, jdbcType = VARCHAR};
+        </foreach>
+    </update>
+    <delete id="deleteByBusinessId" parameterType="String">
+		delete from t_file_share
+		where file_share_business_key = #{businessId}
+	</delete>
+</mapper>

@@ -1,0 +1,1273 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper
+	namespace="com.chinatower.product.legalms.modules.dispute.mapper.issue.TIssueGuideMapper">
+	<resultMap id="BaseResultMap"
+		type="com.chinatower.product.legalms.modules.dispute.entity.issue.TIssueGuide">
+		<id column="guide_id" jdbcType="VARCHAR" property="guideId" />
+		<result column="guide_code" jdbcType="VARCHAR"
+			property="guideCode" />
+		<result column="guide_title" jdbcType="VARCHAR"
+			property="guideTitle" />
+		<result column="guide_result" jdbcType="VARCHAR"
+			property="guideResult" />
+		<result column="guide_size" jdbcType="VARCHAR"
+			property="guideSize" />
+		<result column="guide_solve" jdbcType="VARCHAR"
+			property="guideSolve" />
+		<result column="create_time" jdbcType="TIMESTAMP"
+			property="createTime" />
+		<result column="login_acct" jdbcType="VARCHAR"
+			property="loginAcct" />
+		<result column="login_name" jdbcType="VARCHAR"
+			property="loginName" />
+		<result column="org_name" jdbcType="VARCHAR" property="orgName" />
+		<result column="org_id" jdbcType="VARCHAR" property="orgId" />
+		<result column="dept_name" jdbcType="VARCHAR"
+			property="deptName" />
+		<result column="dept_id" jdbcType="VARCHAR" property="deptId" />
+		<result column="mobile" jdbcType="VARCHAR" property="mobile" />
+		<result column="modify_time" jdbcType="TIMESTAMP"
+			property="modifyTime" />
+		<result column="our_lawsuit_body" jdbcType="VARCHAR"
+			property="ourLawsuitBody" />
+		<result column="our_lawsuit_body_name" jdbcType="VARCHAR"
+			property="ourLawsuitBodyName" />
+		<result column="other_depute_body" jdbcType="VARCHAR"
+			property="otherDeputeBody" />
+		<result column="case_reason" jdbcType="VARCHAR"
+			property="caseReason" />
+		<result column="case_depute_money" jdbcType="DECIMAL"
+			property="caseDeputeMoney" />
+		<result column="case_happen_time" jdbcType="TIMESTAMP"
+			property="caseHappenTime" />
+		<result column="sign_dept" jdbcType="VARCHAR"
+			property="signDept" />
+		<result column="guide_file" jdbcType="VARCHAR"
+			property="guideFile" />
+		<result column="impl_money" jdbcType="DECIMAL"
+			property="implMoney" />
+		<result column="guide_method" jdbcType="VARCHAR"
+			property="guideMethod" />
+		<result column="guide_status" jdbcType="VARCHAR"
+			property="guideStatus" />
+		<result column="module_name" jdbcType="VARCHAR"
+			property="moduleName" />
+		<result column="business_advice" jdbcType="VARCHAR"
+			property="businessAdvice" />
+	</resultMap>
+	<resultMap extends="BaseResultMap" id="ResultMapWithBLOBs"
+		type="com.chinatower.product.legalms.modules.dispute.entity.issue.TIssueGuide">
+		<result column="case_depute_truth" jdbcType="LONGVARCHAR"
+			property="caseDeputeTruth" />
+		<result column="case_depute_advice" jdbcType="LONGVARCHAR"
+			property="caseDeputeAdvice" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		guide_id, guide_code,
+		guide_title,guide_result,guide_size,guide_solve,
+		create_time,
+		login_acct,login_name,org_name,org_id,dept_name,dept_id,mobile,
+		modify_time,
+		our_lawsuit_body,our_lawsuit_body_name,
+		other_depute_body,
+		case_reason,
+		case_depute_money, case_happen_time,
+		sign_dept,
+		guide_file,
+		impl_money,
+		guide_method, guide_status,module_name,business_advice
+	</sql>
+
+	<resultMap id="SubTFlowLog"
+		type="com.chinatower.product.legalms.modules.flow.vo.flow.SubTFlowLogVO">
+		<id column="flow_log_id_sub" jdbcType="VARCHAR"
+			property="flowLogId" />
+		<result column="status_sub" jdbcType="VARCHAR"
+			property="status" />
+		<result column="business_advice_sub" jdbcType="VARCHAR"
+			property="businessAdvice" />
+		<result column="opinion_sub" jdbcType="VARCHAR"
+			property="opinion" />
+		<result column="modify_time_sub" jdbcType="TIMESTAMP"
+			property="modifyTime" />
+		<result column="activity_inst_id_sub" jdbcType="BIGINT"
+			property="activityInstId" />
+		<result column="activity_def_id_sub" jdbcType="VARCHAR"
+			property="activityDefId" />
+		<result column="activity_def_name_sub" jdbcType="VARCHAR"
+			property="activityDefName" />
+		<result column="next_activity_def_id_sub" jdbcType="VARCHAR"
+			property="nextActivityDefId" />
+		<result column="next_activity_def_name_sub" jdbcType="VARCHAR"
+			property="nextActivityDefName" />
+		<result column="org_name_sub" jdbcType="VARCHAR"
+			property="orgName" />
+		<result column="org_id_sub" jdbcType="VARCHAR" property="orgId" />
+		<result column="user_name_sub" jdbcType="VARCHAR"
+			property="userName" />
+		<result column="user_id_sub" jdbcType="VARCHAR"
+			property="userId" />
+		<result column="work_type_sub" jdbcType="VARCHAR"
+			property="workType" />
+		<result column="flow_id_sub" jdbcType="BIGINT"
+			property="flowId" />
+		<result column="flow_pid_sub" jdbcType="BIGINT"
+			property="flowPid" />
+		<result column="receiver_company_id_sub" jdbcType="VARCHAR"
+			property="receiverCompanyId" />
+		<result column="receiver_company_name_sub" jdbcType="VARCHAR"
+			property="receiverCompanyName" />
+		<result column="receiver_org_id_sub" jdbcType="VARCHAR"
+			property="receiverOrgId" />
+		<result column="receiver_org_name_sub" jdbcType="VARCHAR"
+			property="receiverOrgName" />
+		<result column="receiver_id_sub" jdbcType="VARCHAR"
+			property="receiverId" />
+		<result column="receiver_name_sub" jdbcType="VARCHAR"
+			property="receiverName" />
+		<result column="approve_item_id_sub" jdbcType="VARCHAR"
+			property="approveItemId" />
+		<result column="approve_item_type_sub" jdbcType="VARCHAR"
+			property="approveItemType" />
+		<result column="toer_id_sub" jdbcType="VARCHAR"
+			property="toerId" />
+		<result column="toer_name_sub" jdbcType="VARCHAR"
+			property="toerName" />
+		<result column="option_type_sub" jdbcType="VARCHAR"
+			property="optionType" />
+		<result column="dept_name_sub" jdbcType="VARCHAR"
+			property="deptName" />
+		<result column="dept_id_sub" jdbcType="VARCHAR"
+			property="deptId" />
+	</resultMap>
+	<sql id="Sub_Column_List">
+		flo.flow_log_id flow_log_id_sub, flo.status status_sub,
+		flo.business_advice
+		business_advice_sub,
+		flo.receiver_company_id
+		receiver_company_id_sub, flo.receiver_company_name
+		receiver_company_name_sub,
+		flo.receiver_org_id receiver_org_id_sub,
+		flo.receiver_org_name receiver_org_name_sub, flo.receiver_id
+		receiver_id_sub,
+		flo.receiver_name receiver_name_sub,
+		flo.opinion
+		opinion_sub, flo.modify_time modify_time_sub, flo.activity_inst_id
+		activity_inst_id_sub, flo.activity_def_id activity_def_id_sub,
+		flo.activity_def_name activity_def_name_sub,
+		flo.next_activity_def_id
+		next_activity_def_id_sub, flo.next_activity_def_name
+		next_activity_def_name_sub,
+		flo.org_name org_name_sub, flo.org_id
+		org_id_sub, flo.user_name user_name_sub,
+		flo.user_id user_id_sub,
+		flo.work_type work_type_sub, flo.flow_id flow_id_sub, flo.flow_pid
+		flow_pid_sub,flo.toer_id toer_id_sub,flo.toer_name
+		toer_name_sub,flo.option_type option_type_sub,
+		flo.dept_name
+		dept_name_sub,flo.dept_id dept_id_sub
+	</sql>
+	<sql id="log_Column_List">
+		fl.flow_log_id, fl.status, fl.business_advice,
+		fl.receiver_company_id, fl.receiver_company_name,
+		fl.receiver_org_id,
+		fl.receiver_org_name, fl.receiver_id, fl.receiver_name,
+		fl.opinion,
+		fl.modify_time modify_time_log, fl.activity_inst_id,
+		fl.activity_def_id, fl.activity_def_name,
+		fl.next_activity_def_id,
+		fl.next_activity_def_name, fl.org_name org_name_log, fl.org_id
+		org_id_log,
+		fl.user_name,
+		fl.user_id,
+		fl.work_type, fl.flow_id,
+		fl.flow_pid,fl.approve_item_id,fl.approve_item_type,fl.flow_def_name,fl.toer_id,fl.toer_name,fl.act_pid,fl.option_type,
+		fl.dept_name dept_name_log,fl.dept_id dept_id_log
+	</sql>
+	<resultMap id="GuideVO"
+		type="com.chinatower.product.legalms.modules.dispute.vo.issue.TIssueGuideVO">
+		<id column="guide_id" jdbcType="VARCHAR" property="guideId" />
+		<result column="guide_code" jdbcType="VARCHAR"
+			property="guideCode" />
+		<result column="guide_title" jdbcType="VARCHAR"
+			property="guideTitle" />
+		<result column="guide_result" jdbcType="VARCHAR"
+			property="guideResult" />
+		<result column="guide_size" jdbcType="VARCHAR"
+			property="guideSize" />
+		<result column="guide_solve" jdbcType="VARCHAR"
+			property="guideSolve" />
+		<result column="create_time" jdbcType="TIMESTAMP"
+			property="createTime" />
+		<result column="login_acct" jdbcType="VARCHAR"
+			property="loginAcct" />
+		<result column="login_name" jdbcType="VARCHAR"
+			property="loginName" />
+		<result column="org_name" jdbcType="VARCHAR" property="orgName" />
+		<result column="org_id" jdbcType="VARCHAR" property="orgId" />
+		<result column="dept_name" jdbcType="VARCHAR"
+			property="deptName" />
+		<result column="dept_id" jdbcType="VARCHAR" property="deptId" />
+		<result column="mobile" jdbcType="VARCHAR" property="mobile" />
+		<result column="modify_time" jdbcType="TIMESTAMP"
+			property="modifyTime" />
+		<result column="our_lawsuit_body" jdbcType="VARCHAR"
+			property="ourLawsuitBody" />
+		<result column="our_lawsuit_body_name" jdbcType="VARCHAR"
+			property="ourLawsuitBodyName" />
+		<result column="other_depute_body" jdbcType="VARCHAR"
+			property="otherDeputeBody" />
+		<result column="case_reason" jdbcType="VARCHAR"
+			property="caseReason" />
+		<result column="case_depute_money" jdbcType="DECIMAL"
+			property="caseDeputeMoney" />
+		<result column="case_happen_time" jdbcType="TIMESTAMP"
+			property="caseHappenTime" />
+		<result column="sign_dept" jdbcType="VARCHAR"
+			property="signDept" />
+		<result column="guide_file" jdbcType="VARCHAR"
+			property="guideFile" />
+		<result column="impl_money" jdbcType="DECIMAL"
+			property="implMoney" />
+		<result column="guide_method" jdbcType="VARCHAR"
+			property="guideMethod" />
+		<result column="guide_status" jdbcType="VARCHAR"
+			property="guideStatus" />
+		<result column="case_depute_truth" jdbcType="LONGVARCHAR"
+			property="caseDeputeTruth" />
+		<result column="case_depute_advice" jdbcType="LONGVARCHAR"
+			property="caseDeputeAdvice" />
+		<result column="module_name" jdbcType="VARCHAR"
+			property="moduleName" />
+		<result column="business_advice" jdbcType="VARCHAR"
+			property="businessAdvice" />
+		<collection property="mian"
+			ofType="com.chinatower.product.legalms.modules.flow.vo.flow.TFlowMainVO">
+			<id column="flow_id" jdbcType="BIGINT" property="flowId" />
+			<result column="flow_name" jdbcType="VARCHAR"
+				property="flowName" />
+			<result column="flow_status" jdbcType="VARCHAR"
+				property="flowStatus" />
+			<result column="create_time" jdbcType="TIMESTAMP"
+				property="createTime" />
+			<result column="create_user_id" jdbcType="VARCHAR"
+				property="createUserId" />
+			<result column="create_user_name" jdbcType="VARCHAR"
+				property="createUserName" />
+			<result column="approve_item_id" jdbcType="VARCHAR"
+				property="approveItemId" />
+			<result column="approve_item_name" jdbcType="VARCHAR"
+				property="approveItemName" />
+			<result column="approve_item_type" jdbcType="VARCHAR"
+				property="approveItemType" />
+			<result column="module_name" jdbcType="VARCHAR"
+				property="moduleName" />
+			<result column="version_id" jdbcType="VARCHAR"
+				property="versionId" />
+			<collection property="logs"
+				ofType="com.chinatower.product.legalms.modules.flow.vo.flow.TFlowLogVO">
+				<id column="flow_log_id" jdbcType="VARCHAR" property="flowLogId" />
+				<result column="status" jdbcType="VARCHAR" property="status" />
+				<result column="business_advice" jdbcType="VARCHAR"
+					property="businessAdvice" />
+				<result column="opinion" jdbcType="VARCHAR"
+					property="opinion" />
+				<result column="modify_time_log" jdbcType="TIMESTAMP"
+					property="modifyTime" />
+				<result column="activity_inst_id" jdbcType="BIGINT"
+					property="activityInstId" />
+				<result column="activity_def_id" jdbcType="VARCHAR"
+					property="activityDefId" />
+				<result column="activity_def_name" jdbcType="VARCHAR"
+					property="activityDefName" />
+				<result column="next_activity_def_id" jdbcType="VARCHAR"
+					property="nextActivityDefId" />
+				<result column="next_activity_def_name" jdbcType="VARCHAR"
+					property="nextActivityDefName" />
+				<result column="org_name_log" jdbcType="VARCHAR"
+					property="orgName" />
+				<result column="org_id_log" jdbcType="VARCHAR"
+					property="orgId" />
+				<result column="user_name" jdbcType="VARCHAR"
+					property="userName" />
+				<result column="user_id" jdbcType="VARCHAR" property="userId" />
+				<result column="work_type" jdbcType="VARCHAR"
+					property="workType" />
+				<result column="flow_id" jdbcType="BIGINT" property="flowId" />
+				<result column="flow_pid" jdbcType="BIGINT"
+					property="flowPid" />
+				<result column="receiver_company_id" jdbcType="VARCHAR"
+					property="receiverCompanyId" />
+				<result column="receiver_company_name" jdbcType="VARCHAR"
+					property="receiverCompanyName" />
+				<result column="receiver_org_id" jdbcType="VARCHAR"
+					property="receiverOrgId" />
+				<result column="receiver_org_name" jdbcType="VARCHAR"
+					property="receiverOrgName" />
+				<result column="receiver_id" jdbcType="VARCHAR"
+					property="receiverId" />
+				<result column="receiver_name" jdbcType="VARCHAR"
+					property="receiverName" />
+				<result column="approve_item_id" jdbcType="VARCHAR"
+					property="approveItemId" />
+				<result column="approve_item_type" jdbcType="VARCHAR"
+					property="approveItemType" />
+				<result column="toer_id" jdbcType="VARCHAR" property="toerId" />
+				<result column="toer_name" jdbcType="VARCHAR"
+					property="toerName" />
+				<result column="option_type" jdbcType="VARCHAR"
+					property="optionType" />
+				<result column="dept_name_log" jdbcType="VARCHAR"
+					property="deptName" />
+				<result column="dept_id_log" jdbcType="VARCHAR"
+					property="deptId" />
+				<collection property="subLogs"
+					ofType="com.chinatower.product.legalms.modules.flow.vo.flow.SubTFlowLogVO"
+					resultMap="SubTFlowLog">
+				</collection>
+			</collection>
+		</collection>
+	</resultMap>
+
+
+	<select id="selectOne" resultMap="GuideVO"
+		parameterType="String">
+		SELECT ig.*,fm.*,
+		<include refid="log_Column_List" />
+		,
+		<include refid="Sub_Column_List" />
+		FROM
+		t_issue_guide ig LEFT
+		JOIN t_flow_main fm
+		ON
+		ig.`guide_id`=fm.`approve_item_id` AND
+		fm.`approve_item_type`='t_issue_guide'
+		LEFT JOIN t_flow_log fl ON
+		fm.`approve_item_id`=fl.`approve_item_id`
+		AND fm.`flow_id`=fl.`flow_id`
+		LEFT JOIN t_flow_log flo ON
+		fl.`flow_id`=flo.`flow_pid`
+
+		AND
+		fl.`activity_inst_id`=flo.`act_pid`
+
+		WHERE
+		ig.`guide_id`=
+		#{guideId}
+
+		ORDER
+		BY fl.`modify_time`,flo.flow_id
+	</select>
+
+
+	<sql id="Blob_Column_List">
+		case_depute_truth, case_depute_advice
+	</sql>
+	<select id="selectByPrimaryKey" parameterType="java.lang.String"
+		resultMap="ResultMapWithBLOBs">
+		select
+		<include refid="Base_Column_List" />
+		,
+		<include refid="Blob_Column_List" />
+		from t_issue_guide
+		where guide_id = #{guideId,jdbcType=VARCHAR}
+	</select>
+	<select id="selectAllByCase" resultMap="GuideVO">
+		select
+		ig.*,fm.module_name,fm.approve_item_name,fm.approve_item_type
+		from t_issue_guide ig
+		left join t_flow_main fm on ig.`guide_id` =
+		fm.approve_item_id
+		and fm.approve_item_type='t_issue_guide'
+		where
+		ig.guide_status !='0'
+		AND
+		ig.`guide_status`!='10'
+
+		<choose>
+			<when test="param.result != null and param.result != ''">
+				and ig.guide_id =
+				#{param.result,jdbcType=VARCHAR}
+			</when>
+
+			<otherwise>
+				AND ig.`guide_id`
+				NOT IN (SELECT cm.`business_id` FROM
+				t_case_relationship cm WHERE cm.`business_type` = 't_issue_lawsuit'
+				AND
+				cm.`case_id`= #{param.caseId,jdbcType=VARCHAR})
+				<if test="param.startDate != null and param.endDate != null">
+					and ig.case_happen_time BETWEEN
+					#{param.startDate,jdbcType=TIMESTAMP}
+					and
+					#{param.endDate,jdbcType=TIMESTAMP}
+				</if>
+				<if test="param.title != null and param.title != ''">
+					and ig.guide_title like '%${param.title}%'
+				</if>
+				<if test="param.code != null and param.code != ''">
+					and ig.guide_code like'%${param.code}%'
+				</if>
+				<if
+					test="param.ourLawsuitBodyName != null and param.ourLawsuitBodyName != ''">
+					and ig.our_lawsuit_body_name
+					like'%${param.ourLawsuitBodyName}%'
+				</if>
+				<if
+					test="param.otherDeputeBody != null and param.otherDeputeBody != ''">
+					and ig.other_depute_body like '%${param.otherDeputeBody}%'
+				</if>
+				<if test="unitId != null and unitId != ''">
+					and #{unitId} = ig.`org_id`
+				</if>
+			</otherwise>
+		</choose>
+		order by ig.guide_status,ig.create_time
+	</select>
+	<select id="selectAll"
+		parameterType="com.chinatower.product.legalms.modules.dispute.vo.issue.ListParam"
+		resultMap="ResultMapWithBLOBs">
+		select
+		<include refid="Base_Column_List" />
+		,
+		<include refid="Blob_Column_List" />
+		from t_issue_guide
+		where guide_status !='0'
+		<if test="startDate != null ">
+			and case_happen_time >=
+			#{startDate,jdbcType=TIMESTAMP}
+		</if>
+		<if test="endDate != null">
+			and case_happen_time <![CDATA[<=]]>
+			#{endDate,jdbcType=TIMESTAMP}
+		</if>
+		<if test="startDate != null and endDate != null">
+			and case_happen_time BETWEEN
+			#{startDate,jdbcType=TIMESTAMP}
+			and
+			#{endDate,jdbcType=TIMESTAMP}
+		</if>
+		<if test="title != null and title != ''">
+			and guide_title like '%${title}%'
+		</if>
+		<if test="code != null and code != ''">
+			and guide_code like'%${code}%'
+		</if>
+		<if test="ourLawsuitBodyName != null and ourLawsuitBodyName != ''">
+			and (our_lawsuit_body_name ='${ourLawsuitBodyName}'
+			or
+			our_lawsuit_body_name like'${ourLawsuitBodyName},%'
+			or
+			our_lawsuit_body_name like'%,${ourLawsuitBodyName},%'
+			or
+			our_lawsuit_body_name like'%,${ourLawsuitBodyName}')
+		</if>
+		<if test="otherDeputeBody != null and otherDeputeBody != ''">
+			and other_depute_body like '%${otherDeputeBody}%'
+		</if>
+		<if test="result != null and result != ''">
+			and guide_result = #{result,jdbcType=VARCHAR}
+		</if>
+		<if test="status != null and status != ''">
+			and guide_status = #{status,jdbcType=VARCHAR}
+		</if>
+		<if test="loginAcct != null and loginAcct != ''">
+			and login_acct = #{loginAcct}
+		</if>
+
+		<if test="correlate == 1">
+			AND (guide_status = '30' or guide_status = '20')
+			<!-- AND guide_id NOT IN ( SELECT la.`guide_id` FROM t_issue_lawsuit la 
+				WHERE la.`lawsuit_status`!='10') -->
+		</if>
+		order by guide_status,create_time desc
+	</select>
+	<select id="selectByType" parameterType="String"
+		resultType="java.util.HashMap">
+		select *
+		from ${tableName} where
+		${fieldName}=#{fieldValue}
+	</select>
+	<select id="selectCase" resultType="java.util.HashMap">
+		select *
+		from t_case_main
+		where
+		case_id = #{caseId}
+
+	</select>
+	<select id="selectFile" resultType="java.util.HashMap">
+		SELECT tf.`file_id`
+		,tf.`file_http_url`,
+		CONCAT(tf.`file_name`,'.',tf.`file_extension`)
+		fileName,tf.`file_name`,tf.`file_extension`,
+		tf.`file_length`,ts.file_share_business_key,ts.file_share_type,ts.file_share_id
+		FROM t_file_main tf ,t_file_share ts
+		WHERE tf.`file_id`=ts.`file_id`
+		and
+		ts.`file_share_business_key`= #{businessId} and tf.file_status=0
+		ORDER BY tf.file_status_update_time desc
+	</select>
+	<!-- <select id="selectCurrActivity" resultMap="TFlowLog" parameterType="Long"> 
+		SELECT lo.next_activity_def_id,lo.`next_activity_def_name`,lo.`flow_id` FROM 
+		t_flow_log lo WHERE (lo.`flow_id`=#{flowId} OR lo.`flow_pid`=#{flowId}) AND 
+		lo.`next_activity_def_id` NOT IN (SELECT * FROM (SELECT fo.activity_def_id 
+		FROM t_flow_log fo WHERE fo.`modify_time`>lo.`modify_time` and ( fo.`flow_id`=#{flowId} 
+		OR fo.`flow_pid`=#{flowId}) ORDER BY fo.`modify_time` DESC LIMIT 1) temp) 
+		ORDER BY lo.`modify_time` DESC LIMIT 1 </select> -->
+
+	<select id="selectCode" resultType="String"
+		parameterType="String">
+		select
+		nextval(#{unitName,jdbcType=VARCHAR},#{moduleCode,jdbcType=VARCHAR},#{orgCode,jdbcType=VARCHAR},0)
+		LIMIT 1
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from
+		t_issue_guide
+		where guide_id = #{guideId,jdbcType=VARCHAR}
+	</delete>
+	<insert id="insert"
+		parameterType="com.chinatower.product.legalms.modules.dispute.entity.issue.TIssueGuide">
+		insert into t_issue_guide (guide_id, guide_code,
+		guide_title,guide_result,guide_size,guide_solve,
+		create_time,
+		login_acct,
+		modify_time,
+		our_lawsuit_body,our_lawsuit_body_name,
+		other_depute_body,
+		case_reason,
+		case_depute_money,
+		case_happen_time,
+		sign_dept,
+		guide_file,
+		impl_money,
+		guide_method,
+		guide_status,
+		case_depute_truth,
+		case_depute_advice,
+		module_name,business_advice
+		)
+		values
+		(#{guideId,jdbcType=VARCHAR},
+		#{guideCode,jdbcType=VARCHAR},
+		#{guideTitle,jdbcType=VARCHAR},
+		#{guideResult,jdbcType=VARCHAR},
+		#{guideSize,jdbcType=VARCHAR},
+		#{guideSolve,jdbcType=VARCHAR},
+		#{createTime,jdbcType=TIMESTAMP},
+		#{loginAcct,jdbcType=VARCHAR},
+		#{modifyTime,jdbcType=TIMESTAMP},
+		#{ourLawsuitBody,jdbcType=VARCHAR},
+		#{ourLawsuitBodyName,jdbcType=VARCHAR},
+		#{otherDeputeBody,jdbcType=VARCHAR}, #{caseReason,jdbcType=VARCHAR},
+		#{caseDeputeMoney,jdbcType=DECIMAL},
+		#{caseHappenTime,jdbcType=TIMESTAMP}, #{signDept,jdbcType=VARCHAR},
+		#{guideFile,jdbcType=VARCHAR}, #{implMoney,jdbcType=DECIMAL},
+		#{guideMethod,jdbcType=VARCHAR},
+		#{guideStatus,jdbcType=VARCHAR},
+		#{caseDeputeTruth,jdbcType=LONGVARCHAR},
+		#{caseDeputeAdvice,jdbcType=LONGVARCHAR},
+		#{moduleName,jdbcType=VARCHAR},
+		#{businessAdvice,jdbcType=VARCHAR}
+		)
+	</insert>
+	<insert id="insertSelective">
+		insert into t_issue_guide
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			guide_id,
+			guide_code,
+			<if test="record.guideTitle != null">
+				guide_title,
+			</if>
+			<if test="record.guideResult != null">
+				guide_result,
+			</if>
+			<if test="record.guideSize != null">
+				guide_size,
+			</if>
+			<if test="record.guideSolve != null">
+				guide_solve,
+			</if>
+			<if test="record.createTime != null">
+				create_time,
+			</if>
+			<if test="record.loginAcct != null">
+				login_acct,
+			</if>
+			<if test="record.loginName != null">
+				login_name,
+			</if>
+			<if test="record.orgName != null">
+				org_name,
+			</if>
+			<if test="record.orgId != null">
+				org_id,
+			</if>
+			<if test="record.deptName != null">
+				dept_name,
+			</if>
+			<if test="record.deptId != null">
+				dept_id,
+			</if>
+			<if test="record.mobile != null">
+				mobile,
+			</if>
+			<if test="record.modifyTime != null">
+				modify_time,
+			</if>
+			<if test="record.ourLawsuitBody != null">
+				our_lawsuit_body,
+			</if>
+			<if test="record.ourLawsuitBodyName != null">
+				our_lawsuit_body_name,
+			</if>
+			<if test="record.otherDeputeBody != null">
+				other_depute_body,
+			</if>
+			<if test="record.caseReason != null">
+				case_reason,
+			</if>
+			<if test="record.caseDeputeMoney != null">
+				case_depute_money,
+			</if>
+			<if test="record.caseHappenTime != null">
+				case_happen_time,
+			</if>
+			<if test="record.signDept != null">
+				sign_dept,
+			</if>
+			<if test="record.guideFile != null">
+				guide_file,
+			</if>
+			<if test="record.implMoney != null">
+				impl_money,
+			</if>
+			<if test="record.guideMethod != null">
+				guide_method,
+			</if>
+			<if test="record.guideStatus != null">
+				guide_status,
+			</if>
+			<if test="record.caseDeputeTruth != null">
+				case_depute_truth,
+			</if>
+			<if test="record.caseDeputeAdvice != null">
+				case_depute_advice,
+			</if>
+			<if test="record.moduleName != null">
+				module_name,
+			</if>
+			<if test="record.businessAdvice != null">
+				business_advice
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			#{record.guideId,jdbcType=VARCHAR},
+			#{record.guideCode,jdbcType=VARCHAR},
+			<if test="record.guideTitle != null">
+				#{record.guideTitle,jdbcType=VARCHAR},
+			</if>
+			<if test="record.guideResult != null">
+				#{record.guideResult,jdbcType=VARCHAR},
+			</if>
+			<if test="record.guideSize != null">
+				#{record.guideSize,jdbcType=VARCHAR},
+			</if>
+			<if test="record.guideSolve != null">
+				#{record.guideSolve,jdbcType=VARCHAR},
+			</if>
+			<if test="record.createTime != null">
+				#{record.createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="record.loginAcct != null">
+				#{record.loginAcct,jdbcType=VARCHAR},
+			</if>
+			<if test="record.loginName != null">
+				#{record.loginName,jdbcType=VARCHAR},
+			</if>
+			<if test="record.orgName != null">
+				#{record.orgName,jdbcType=VARCHAR},
+			</if>
+			<if test="record.orgId != null">
+				#{record.orgId,jdbcType=VARCHAR},
+			</if>
+			<if test="record.deptName != null">
+				#{record.deptName,jdbcType=VARCHAR},
+			</if>
+			<if test="record.deptId != null">
+				#{record.deptId,jdbcType=VARCHAR},
+			</if>
+			<if test="record.mobile != null">
+				#{record.mobile,jdbcType=VARCHAR},
+			</if>
+			<if test="record.modifyTime != null">
+				#{record.modifyTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="record.ourLawsuitBody != null">
+				#{record.ourLawsuitBody,jdbcType=VARCHAR},
+			</if>
+			<if test="record.ourLawsuitBodyName != null">
+				#{record.ourLawsuitBodyName,jdbcType=VARCHAR},
+			</if>
+			<if test="record.otherDeputeBody != null">
+				#{record.otherDeputeBody,jdbcType=VARCHAR},
+			</if>
+			<if test="record.caseReason != null">
+				#{record.caseReason,jdbcType=VARCHAR},
+			</if>
+			<if test="record.caseDeputeMoney != null">
+				#{record.caseDeputeMoney,jdbcType=DECIMAL},
+			</if>
+			<if test="record.caseHappenTime != null">
+				#{record.caseHappenTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="record.signDept != null">
+				#{record.signDept,jdbcType=VARCHAR},
+			</if>
+			<if test="record.guideFile != null">
+				#{record.guideFile,jdbcType=VARCHAR},
+			</if>
+			<if test="record.implMoney != null">
+				#{record.implMoney,jdbcType=DECIMAL},
+			</if>
+			<if test="record.guideMethod != null">
+				#{record.guideMethod,jdbcType=VARCHAR},
+			</if>
+			<if test="record.guideStatus != null">
+				#{record.guideStatus,jdbcType=VARCHAR},
+			</if>
+			<if test="record.caseDeputeTruth != null">
+				#{record.caseDeputeTruth,jdbcType=LONGVARCHAR},
+			</if>
+			<if test="record.caseDeputeAdvice != null">
+				#{record.caseDeputeAdvice,jdbcType=LONGVARCHAR},
+			</if>
+			<if test="record.moduleName != null">
+				#{record.moduleName,jdbcType=VARCHAR}
+			</if>
+			<if test="record.businessAdvice != null">
+				#{record.businessAdvice,jdbcType=VARCHAR}
+			</if>
+		</trim>
+	</insert>
+	<insert id="insertSelectiveTemp">
+		insert into t_issue_guide
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			guide_id,
+			guide_code,
+			<if test="record.guideTitle != null">
+				guide_title,
+			</if>
+			<if test="record.guideResult != null">
+				guide_result,
+			</if>
+			<if test="record.guideSize != null">
+				guide_size,
+			</if>
+			<if test="record.guideSolve != null">
+				guide_solve,
+			</if>
+			<if test="record.createTime != null">
+				create_time,
+			</if>
+			<if test="record.loginAcct != null">
+				login_acct,
+			</if>
+			<if test="record.loginName != null">
+				login_name,
+			</if>
+			<if test="record.orgName != null">
+				org_name,
+			</if>
+			<if test="record.orgId != null">
+				org_id,
+			</if>
+			<if test="record.deptName != null">
+				dept_name,
+			</if>
+			<if test="record.deptId != null">
+				dept_id,
+			</if>
+			<if test="record.mobile != null">
+				mobile,
+			</if>
+			<if test="record.modifyTime != null">
+				modify_time,
+			</if>
+			<if test="record.ourLawsuitBody != null">
+				our_lawsuit_body,
+			</if>
+			<if test="record.ourLawsuitBodyName != null">
+				our_lawsuit_body_name,
+			</if>
+			<if test="record.otherDeputeBody != null">
+				other_depute_body,
+			</if>
+			<if test="record.caseReason != null">
+				case_reason,
+			</if>
+			<if test="record.caseDeputeMoney != null">
+				case_depute_money,
+			</if>
+			<if test="record.caseHappenTime != null">
+				case_happen_time,
+			</if>
+			<if test="record.signDept != null">
+				sign_dept,
+			</if>
+			<if test="record.guideFile != null">
+				guide_file,
+			</if>
+			<if test="record.implMoney != null">
+				impl_money,
+			</if>
+			<if test="record.guideMethod != null">
+				guide_method,
+			</if>
+			<if test="record.guideStatus != null">
+				guide_status,
+			</if>
+			<if test="record.caseDeputeTruth != null">
+				case_depute_truth,
+			</if>
+			<if test="record.caseDeputeAdvice != null">
+				case_depute_advice,
+			</if>
+			<if test="record.moduleName != null">
+				module_name,
+			</if>
+			<if test="record.businessAdvice != null">
+				business_advice
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			#{record.guideId,jdbcType=VARCHAR},
+			#{record.guideCode,jdbcType=VARCHAR},
+			<if test="record.guideTitle != null">
+				#{record.guideTitle,jdbcType=VARCHAR},
+			</if>
+			<if test="record.guideResult != null">
+				#{record.guideResult,jdbcType=VARCHAR},
+			</if>
+			<if test="record.guideSize != null">
+				#{record.guideSize,jdbcType=VARCHAR},
+			</if>
+			<if test="record.guideSolve != null">
+				#{record.guideSolve,jdbcType=VARCHAR},
+			</if>
+			<if test="record.createTime != null">
+				#{record.createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="record.loginAcct != null">
+				#{record.loginAcct,jdbcType=VARCHAR},
+			</if>
+			<if test="record.loginName != null">
+				#{record.loginName,jdbcType=VARCHAR},
+			</if>
+			<if test="record.orgName != null">
+				#{record.orgName,jdbcType=VARCHAR},
+			</if>
+			<if test="record.orgId != null">
+				#{record.orgId,jdbcType=VARCHAR},
+			</if>
+			<if test="record.deptName != null">
+				#{record.deptName,jdbcType=VARCHAR},
+			</if>
+			<if test="record.deptId != null">
+				#{record.deptId,jdbcType=VARCHAR},
+			</if>
+			<if test="record.mobile != null">
+				#{record.mobile,jdbcType=VARCHAR},
+			</if>
+			<if test="record.modifyTime != null">
+				#{record.modifyTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="record.ourLawsuitBody != null">
+				#{record.ourLawsuitBody,jdbcType=VARCHAR},
+			</if>
+			<if test="record.ourLawsuitBodyName != null">
+				#{record.ourLawsuitBodyName,jdbcType=VARCHAR},
+			</if>
+			<if test="record.otherDeputeBody != null">
+				#{record.otherDeputeBody,jdbcType=VARCHAR},
+			</if>
+			<if test="record.caseReason != null">
+				#{record.caseReason,jdbcType=VARCHAR},
+			</if>
+			<if test="record.caseDeputeMoney != null">
+				#{record.caseDeputeMoney,jdbcType=DECIMAL},
+			</if>
+			<if test="record.caseHappenTime != null">
+				#{record.caseHappenTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="record.signDept != null">
+				#{record.signDept,jdbcType=VARCHAR},
+			</if>
+			<if test="record.guideFile != null">
+				#{record.guideFile,jdbcType=VARCHAR},
+			</if>
+			<if test="record.implMoney != null">
+				#{record.implMoney,jdbcType=DECIMAL},
+			</if>
+			<if test="record.guideMethod != null">
+				#{record.guideMethod,jdbcType=VARCHAR},
+			</if>
+			<if test="record.guideStatus != null">
+				#{record.guideStatus,jdbcType=VARCHAR},
+			</if>
+			<if test="record.caseDeputeTruth != null">
+				#{record.caseDeputeTruth,jdbcType=LONGVARCHAR},
+			</if>
+			<if test="record.caseDeputeAdvice != null">
+				#{record.caseDeputeAdvice,jdbcType=LONGVARCHAR},
+			</if>
+			<if test="record.moduleName != null">
+				#{record.moduleName,jdbcType=VARCHAR}
+			</if>
+			<if test="record.businessAdvice != null">
+				#{record.businessAdvice,jdbcType=VARCHAR}
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective"
+		parameterType="com.chinatower.product.legalms.modules.dispute.entity.issue.TIssueGuide">
+		update t_issue_guide
+		<set>
+			<if test="guideTitle != null">
+				guide_title = #{guideTitle,jdbcType=VARCHAR},
+			</if>
+			<if test="guideResult != null">
+				guide_result = #{guideResult,jdbcType=VARCHAR},
+			</if>
+			<if test="guideSize != null">
+				guide_size = #{guideSize,jdbcType=VARCHAR},
+			</if>
+			<if test="guideSolve != null">
+				guide_solve = #{guideSolve,jdbcType=VARCHAR},
+			</if>
+			<if test="modifyTime != null">
+				modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="ourLawsuitBody != null">
+				our_lawsuit_body = #{ourLawsuitBody,jdbcType=VARCHAR},
+			</if>
+			<if test="ourLawsuitBodyName != null">
+				our_lawsuit_body_name =
+				#{ourLawsuitBodyName,jdbcType=VARCHAR},
+			</if>
+			<if test="otherDeputeBody != null">
+				other_depute_body = #{otherDeputeBody,jdbcType=VARCHAR},
+			</if>
+			<if test="caseReason != null">
+				case_reason = #{caseReason,jdbcType=VARCHAR},
+			</if>
+			<if test="caseDeputeMoney != null">
+				case_depute_money = #{caseDeputeMoney,jdbcType=DECIMAL},
+			</if>
+			<if test="caseHappenTime != null">
+				case_happen_time = #{caseHappenTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="signDept != null">
+				sign_dept = #{signDept,jdbcType=VARCHAR},
+			</if>
+			<if test="guideFile != null">
+				guide_file = #{guideFile,jdbcType=VARCHAR},
+			</if>
+			<if test="implMoney != null">
+				impl_money = #{implMoney,jdbcType=DECIMAL},
+			</if>
+			<if test="guideMethod != null">
+				guide_method = #{guideMethod,jdbcType=VARCHAR},
+			</if>
+			<if test="guideStatus != null">
+				guide_status = #{guideStatus,jdbcType=VARCHAR},
+			</if>
+			<if test="caseDeputeTruth != null">
+				case_depute_truth =
+				#{caseDeputeTruth,jdbcType=LONGVARCHAR},
+			</if>
+			<if test="caseDeputeAdvice != null">
+				case_depute_advice =
+				#{caseDeputeAdvice,jdbcType=LONGVARCHAR},
+			</if>
+			<if test="moduleName != null">
+				module_name =
+				#{moduleName,jdbcType=VARCHAR},
+			</if>
+			<if test="businessAdvice != null">
+				business_advice =
+				#{businessAdvice,jdbcType=VARCHAR},
+			</if>
+			<if test="guideId != null">
+				guide_id =
+				#{guideId,jdbcType=VARCHAR}
+			</if>
+		</set>
+		where guide_id = #{guideId,jdbcType=VARCHAR}
+
+	</update>
+	<update id="updateByPrimaryKeyWithBLOBs"
+		parameterType="com.chinatower.product.legalms.modules.dispute.entity.issue.TIssueGuide">
+		update t_issue_guide
+		set guide_code =
+		#{guideCode,jdbcType=VARCHAR},
+		guide_title =
+		#{guideTitle,jdbcType=VARCHAR},
+		guide_result =
+		#{guideResult,jdbcType=VARCHAR},
+		guide_size =
+		#{guideSize,jdbcType=VARCHAR},
+		guide_solve =
+		#{guideSolve,jdbcType=VARCHAR},
+		login_acct =
+		#{loginAcct,jdbcType=VARCHAR},
+		modify_time =
+		#{modifyTime,jdbcType=TIMESTAMP},
+		our_lawsuit_body =
+		#{ourLawsuitBody,jdbcType=VARCHAR},
+		our_lawsuit_body_name =
+		#{ourLawsuitBodyName,jdbcType=VARCHAR},
+		other_depute_body =
+		#{otherDeputeBody,jdbcType=VARCHAR},
+		case_reason =
+		#{caseReason,jdbcType=VARCHAR},
+		case_depute_money =
+		#{caseDeputeMoney,jdbcType=DECIMAL},
+		case_happen_time =
+		#{caseHappenTime,jdbcType=TIMESTAMP},
+		sign_dept =
+		#{signDept,jdbcType=VARCHAR},
+		guide_file =
+		#{guideFile,jdbcType=VARCHAR},
+		impl_money =
+		#{implMoney,jdbcType=DECIMAL},
+		guide_method =
+		#{guideMethod,jdbcType=VARCHAR},
+		guide_status =
+		#{guideStatus,jdbcType=VARCHAR},
+		case_depute_truth =
+		#{caseDeputeTruth,jdbcType=LONGVARCHAR},
+		case_depute_advice =
+		#{caseDeputeAdvice,jdbcType=LONGVARCHAR},
+		module_name =
+		#{moduleName,jdbcType=VARCHAR},
+		business_advice =
+		#{businessAdvice,jdbcType=VARCHAR}
+		where guide_id =
+		#{guideId,jdbcType=VARCHAR}
+	</update>
+	<update id="updateByPrimaryKey"
+		parameterType="com.chinatower.product.legalms.modules.dispute.entity.issue.TIssueGuide">
+		update t_issue_guide
+		set
+		guide_title =
+		#{guideTitle,jdbcType=VARCHAR},
+		guide_result =
+		#{guideResult,jdbcType=VARCHAR},
+		guide_size =
+		#{guideSize,jdbcType=VARCHAR},
+		guide_solve =
+		#{guideSolve,jdbcType=VARCHAR},
+		modify_time =
+		#{modifyTime,jdbcType=TIMESTAMP},
+		our_lawsuit_body =
+		#{ourLawsuitBody,jdbcType=VARCHAR},
+		our_lawsuit_body_name =
+		#{ourLawsuitBodyName,jdbcType=VARCHAR},
+		other_depute_body =
+		#{otherDeputeBody,jdbcType=VARCHAR},
+		case_reason =
+		#{caseReason,jdbcType=VARCHAR},
+		case_depute_money =
+		#{caseDeputeMoney,jdbcType=DECIMAL},
+		case_happen_time =
+		#{caseHappenTime,jdbcType=TIMESTAMP},
+		sign_dept =
+		#{signDept,jdbcType=VARCHAR},
+		guide_file =
+		#{guideFile,jdbcType=VARCHAR},
+		impl_money =
+		#{implMoney,jdbcType=DECIMAL},
+		guide_method =
+		#{guideMethod,jdbcType=VARCHAR},
+		case_depute_truth =
+		#{caseDeputeTruth,jdbcType=VARCHAR},
+		guide_status =
+		#{guideStatus,jdbcType=VARCHAR}
+		where guide_id =
+		#{guideId,jdbcType=VARCHAR}
+	</update>
+	<update id="deleteTIssueGuide">
+		update t_issue_guide set guide_status='0'
+		where guide_id in
+		<foreach item="item" index="index" collection="list" open="("
+			separator="," close=")">#{item}
+		</foreach>
+		and guide_status='10'
+	</update>
+
+	<insert id="inserttest">
+		INSERT INTO t_flow_main (flow_id) VALUES
+		<foreach item="item" index="index" collection="list"
+			separator=",">(#{item})
+		</foreach>
+	</insert>
+	<select id="dictMaps" resultType="HashMap">
+		SELECT
+		dd.`dict_value`,dd.`dict_cabel` FROM t_sys_dict_data dd WHERE
+		dd.`dict_type`= #{dictType}
+	</select>
+
+	<select id="getExcelDate" resultType="HashMap">
+		SELECT tt.`guide_title`
+		title,tt.`guide_code`
+		`code`,tt.`our_lawsuit_body_name` ourLawsuitBody,
+		tt.`other_depute_body` `deputeBody`,CAST( tt.`impl_money` AS CHAR(50))
+		implMoney,DATE_FORMAT(tt.`case_happen_time`,"%Y-%m-%d %T") happenTime,
+		tt.`guide_result` guideResult,tt.`guide_status` `status`
+		FROM
+		t_issue_guide tt;
+	</select>
+
+	<select id="getLawSum"
+		resultType="com.chinatower.product.legalms.modules.dispute.vo.push.LawSum">
+		SELECT
+		j.yearSumCase,l.orgId,jb.yearNumberIndictedCase,z.sumMajorCase,
+		l.sumCase,l.caseSumMoney,b.indictedCaseMoney
+		FROM 
+		(SELECT COUNT(m.`case_id`) sumCase
+		,SUM(m.case_depute_money) caseSumMoney
+		,m.`creator_unit_id` orgId
+		FROM
+		t_case_main m WHERE m.`delete_status`=0 AND ( m.`case_status`='2' OR
+		m.`case_status`='3') GROUP BY
+		m.`creator_unit_id`) l
+		LEFT JOIN
+		(SELECT
+		SUM(m.case_depute_money) indictedCaseMoney
+		,m.`creator_unit_id` orgId FROM t_case_main m
+		WHERE m.`delete_status`=0
+		AND ( m.`case_status`='2' OR m.`case_status`='3') AND (
+		m.`our_lawsuit_identity` ='2' OR m.`our_lawsuit_identity` ='5') GROUP
+		BY m.`creator_unit_id`) b
+		ON l.orgId=b.orgId
+		LEFT JOIN
+		(SELECT COUNT(m.`case_id`) sumMajorCase
+		,m.`creator_unit_id` orgId FROM
+		t_case_main m WHERE m.`delete_status`=0
+		AND ( m.`case_status`='2' OR m.`case_status`='3') AND
+		m.`large_lawsuit_mark`='weighty' GROUP BY
+		m.`creator_unit_id`) z
+		ON
+		l.orgId=z.orgId
+		LEFT JOIN
+		(
+		SELECT COUNT(m.`case_id`)
+		yearNumberIndictedCase
+		,m.`creator_unit_id`
+		orgId FROM t_case_main m
+		WHERE m.`delete_status`=0 AND( m.`case_status`='2'  OR (
+		m.`case_status`='3' AND DATE_FORMAT(CURDATE(),'%Y')
+		BETWEEN
+		DATE_FORMAT(m.create_time,'%Y')
+		AND DATE_FORMAT(m.`case_finish_time`,'%Y') ) )
+		AND (
+		m.`our_lawsuit_identity`
+		='2' OR m.`our_lawsuit_identity` ='5') GROUP
+		BY m.`creator_unit_id`)
+		jb
+		ON l.orgId=jb.orgId
+		LEFT JOIN
+		(
+		SELECT
+		COUNT(m.`case_id`) yearSumCase,m.`creator_unit_id` orgId
+		FROM
+		t_case_main m
+		WHERE m.`delete_status`=0 AND ( m.`case_status`='2'  OR (
+		m.`case_status`='3' AND DATE_FORMAT(CURDATE(),'%Y')
+		BETWEEN
+		DATE_FORMAT(m.create_time,'%Y')
+		AND DATE_FORMAT(m.`case_finish_time`,'%Y') ) )
+		GROUP BY m.`creator_unit_id` ) j
+		ON l.orgId=j.orgId
+		WHERE l.orgId IS NOT NULL
+	</select>
+
+	<select id="getSubjectMatter" resultType="HashMap">
+		SELECT
+		cr.total
+		matterCount,dd.`dict_cabel` matterName,dd.`dict_value` matterFlag FROM
+		t_sys_dict_data dd LEFT
+		JOIN (SELECT m.`case_reason`
+		,COUNT(m.`case_id`) AS total
+		FROM
+		t_case_main m WHERE
+		m.`delete_status`=0 AND ( m.`case_status`='2' OR m.`case_status`='3')
+		AND m.`case_reason` != ''
+		GROUP BY m.`case_reason`) cr
+		ON
+		cr.case_reason=dd.`dict_value`
+		WHERE
+		dd.`dict_type`='sys_case_reason'
+		AND dd.`dict_cabel` IS NOT NULL;
+
+	</select>
+	<select id="selectWholeData" resultMap="BaseResultMap">
+		select
+		tig.*
+		from t_issue_guide tig left join t_pub_org tpo on
+		tpo.org_code = tig.dept_id
+		<where>
+			and tig.guide_status in ('20', '30')
+			<if test="param.startDate != null and param.endDate != null">
+				and tig.case_happen_time BETWEEN
+				#{param.startDate,jdbcType=TIMESTAMP}
+				and
+				#{param.endDate,jdbcType=TIMESTAMP}
+			</if>
+			<if test="param.title != null and param.title != ''">
+				and tig.guide_title like '%${param.title}%'
+			</if>
+			<if test="param.code != null and param.code != ''">
+				and tig.guide_code like'%${param.code}%'
+			</if>
+			<if
+				test="param.ourLawsuitBodyName != null and param.ourLawsuitBodyName != ''">
+				and (tig.our_lawsuit_body_name ='${param.ourLawsuitBodyName}'
+				or tig.our_lawsuit_body_name like'${param.ourLawsuitBodyName},%'
+				or
+				tig.our_lawsuit_body_name like'%,${param.ourLawsuitBodyName},%'
+				or
+				tig.our_lawsuit_body_name like'%,${param.ourLawsuitBodyName}')
+			</if>
+			<if
+				test="param.otherDeputeBody != null and param.otherDeputeBody != ''">
+				and tig.other_depute_body like '%${param.otherDeputeBody}%'
+			</if>
+			<if test="param.orgPath != null and param.orgPath != ''">
+				and tpo.org_path like #{param.orgPath}
+			</if>
+			<if test="param.userId != null and param.userId != ''">
+				and tig.login_acct = #{param.userId}
+			</if>
+			<if test="param.deptId != null and param.deptId != ''">
+				and tig.dept_id = #{param.deptId}
+			</if>
+			<if test="param.orgDepLeaders != null">
+				and tig.dept_id in
+				<foreach collection="param.orgDepLeaders" open="(" close=")"
+					item="value" index='index' separator=",">
+					#{value.orgCode}
+				</foreach>
+			</if>
+			<if test="param.guideStatus != null and param.guideStatus != ''">
+				and tig.guide_status =
+				#{param.guideStatus,jdbcType=VARCHAR}
+			</if>
+		</where>
+		order by tig.guide_status,tig.create_time desc
+
+	</select>
+
+</mapper>

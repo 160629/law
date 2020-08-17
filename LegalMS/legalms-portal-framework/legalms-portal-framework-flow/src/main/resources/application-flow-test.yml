@@ -1,0 +1,30 @@
+sms-properties:
+   name: tt-bjryfw  
+   pwd: fdbf05057a332627db478780b4617189
+   url: http://112.35.24.176:50011/sms/sendsms
+   sign: 【中国铁塔】
+   webServiceUrl: http://192.168.49.21:8080//
+   
+kafka:
+  bootstrap-server: kafka1:19092,kafka2:29092,kafka3:39092
+  catch:
+    url: http://192.168.54.17:8081/codis/
+  error:
+    url: http://192.168.54.9:8765/email/sendEmail
+  errorEmail:
+    addName: SDK for kafka
+    reToEmail: fuping@strongdata.com.cn
+    subject: failed to send Email
+  producer:
+    batch-size: 16785
+    buffer-memory: 33554432
+    linger: 50
+    retries: 3
+  topic:
+    groupName: localLawGroup
+    topicName: lawTopic
+  consumer:
+    auto-commit-interval: 100
+    enable-auto-commit: true
+    max-poll-records: 8
+    session-timeout: 20000   

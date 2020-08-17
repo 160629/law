@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+
+<!-- 不使用namespace的话sql搜索定位会比较方便 -->
+<mapper namespace="com.chinatower.product.legalms.modules.flow.mapper.common.IdeasMapper">
+
+	<resultMap id="RM_IdeaCommon" type="com.chinatower.product.legalms.modules.flow.entity.common.IdeasVO">
+        <id property="ideaId" column="idea_id" jdbcType="VARCHAR"/>
+        <result property="ideaType" column="idea_type" jdbcType="VARCHAR"/>
+        <result property="ideaUserId" column="idea_userid" jdbcType="VARCHAR"/>
+        <result property="ideaContent" column="idea_content" jdbcType="VARCHAR"/>
+		<result property="ideaOrder" column="idea_order" jdbcType="VARCHAR"/>
+		<result property="ideaCreateDate" column="idea_createdate" jdbcType="TIMESTAMP"/>
+	</resultMap>
+	
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="columns_a">
+	    <![CDATA[
+		a.idea_id,a.idea_type,a.idea_userid,a.idea_content,a.idea_order,a.idea_createdate
+	    ]]>
+	</sql>
+	<sql id="columns_b">
+	    <![CDATA[
+		b.idea_id,b.idea_type,b.idea_userid,b.idea_content,b.idea_order,b.idea_createdate
+	    ]]>
+	</sql>
+
+	<!-- useGeneratedKeys="true" keyProperty="xxx" for sqlserver and mysql -->
+	<insert id="insert" parameterType="com.chinatower.product.legalms.modules.flow.entity.common.IdeasVO">
+    <![CDATA[
+        INSERT INTO t_sys_idea_common (
+        	idea_id,
+        	idea_type ,
+        	idea_userid ,
+        	idea_content ,
+        	idea_order ,
+        	idea_createdate
+        ) VALUES (
+        	#{ideaId,jdbcType=VARCHAR},
+        	#{ideaType,jdbcType=VARCHAR} ,
+        	#{ideaUserId,jdbcType=VARCHAR} ,
+        	#{ideaContent,jdbcType=VARCHAR} ,
+        	#{ideaOrder,jdbcType=VARCHAR} ,
+        	sysdate()
+        )
+    ]]>
+		<!--	
+			oracle: order="BEFORE" SELECT sequenceName.nextval AS ID FROM DUAL 
+			DB2: order="BEFORE"" values nextval for sequenceName
+		<selectKey resultType="java.lang.Long" order="BEFORE" keyProperty="userId">
+			SELECT sequenceName.nextval AS ID FROM DUAL 
+        </selectKey>
+		-->
+	</insert>
+    
+	<update id="update" >
+    <![CDATA[
+        UPDATE t_sys_idea_common SET
+	        idea_type = #{ideaType,jdbcType=VARCHAR} ,
+	        idea_userid = #{ideaUserId,jdbcType=VARCHAR} ,
+	        idea_content = #{ideaContent,jdbcType=VARCHAR},
+	        idea_order = #{ideaOrder,jdbcType=VARCHAR} ,
+        WHERE 
+	        idea_id = #{ideaId}
+    ]]>
+	</update>
+	<!--
+    <update id="updateOrder" >
+         UPDATE t_sys_idea_common set idea_order = #{ideaOrder} where idea_id = #{ideaId};
+    </update>
+    -->
+	<!--
+    <sql id="updateOrderSet">
+        <foreach collection="list" item="item">
+            <trim prefix="SET" suffixOverrides=",">
+             UPDATE t_sys_idea_common
+                <if test="@Ognl@isNotEmpty(list.ideaType)">
+                    idea_type = #{item.ideaType},
+                </if>
+               <if test="@Ognl@isNotEmpty(list.ideaStatus)">
+                   idea_status = #{item.ideaStatus},
+                </if>
+               <if test="@Ognl@isNotEmpty(list.ideaUserId)">
+                   idea_userid = #{item.ideaUserId},
+                </if>
+               <if test="@Ognl@isNotEmpty(list.ideaAppId)">
+                   idea_app_id = #{item.ideaAppId},
+                </if>
+               <if test="@Ognl@isNotEmpty(list.ideaContent)">
+                   idea_content = #{item.ideaContent},
+                </if>
+               <if test="@Ognl@isNotEmpty(list.ideaOrder)">
+                   idea_order = #{item.ideaOrder},
+                </if>
+               <if test="@Ognl@isNotEmpty(list.ideaRemark)">
+                   idea_remark = #{item.ideaRemark},
+                </if>
+
+            </trim>
+            WHERE
+            idea_id = #{list.ideaId}
+        </foreach>
+    </sql>
+-->
+    <delete id="delete">
+    <![CDATA[
+        DELETE FROM t_sys_idea_common WHERE
+            idea_id = #{ideaId} and idea_type = '2'
+    ]]>
+    </delete>
+    <!--
+    <select id="getById" resultMap="RM_IdeaCommon">
+        SELECT <include refid="columns" />
+        <![CDATA[
+            FROM t_sys_idea_common
+            WHERE
+                idea_id = #{ideaId}
+        ]]>
+    </select>-->
+	<!--
+	<sql id="findPageWhere">
+		&lt;!&ndash; ognl访问静态方法的表达式 为@class@method(args),以下为调用rapid中的Ognl.isNotEmpty()方法,还有其它方法如isNotBlank()可以使用，具体请查看Ognl类 &ndash;&gt;
+		<where>	      				
+	       <if test="@Ognl@isNotEmpty(ideaId)">
+				AND idea_id = #{ideaId}
+			</if>
+	       <if test="@Ognl@isNotEmpty(ideaType)">
+				AND idea_id = #{ideaType}
+			</if>
+	       <if test="@Ognl@isNotEmpty(ideaStatus)">
+				AND idea_id = #{ideaStatus}
+			</if>
+	       <if test="@Ognl@isNotEmpty(ideaUserId)">
+				AND idea_userid = #{ideaUserId}
+			</if>
+	       <if test="@Ognl@isNotEmpty(ideaAppId)">
+				AND idea_app_id = #{ideaAppId}
+			</if>
+	       <if test="@Ognl@isNotEmpty(ideaContent)">
+				AND idea_content = #{ideaContent}
+			</if>
+	       <if test="@Ognl@isNotEmpty(ideaOrder)">
+				AND idea_order = #{ideaOrder}
+			</if>
+	      &lt;!&ndash;  <if test="@Ognl@isNotEmpty(ideaCreatedateBegin)">
+				AND IDEA_CREATEDATE >= #{ideaCreatedateBegin}
+		   </if>
+		   <if test="@Ognl@isNotEmpty(ideaCreatedateEnd)">
+				AND IDEA_CREATEDATE &lt;= #{ideaCreatedateEnd}
+		   </if> &ndash;&gt;
+	       <if test="@Ognl@isNotEmpty(ideaRemark)">
+				AND idea_remark = #{ideaRemark}
+			</if>
+
+		</where>
+	</sql>
+		-->
+    <!--<select id="findPageCount" resultType="long">
+        SELECT count(*) FROM t_sys_idea_common
+		<include refid="findPageWhere"/>
+    </select>-->
+    
+    <!--
+    	分页查询已经使用Dialect进行分页,也可以不使用Dialect直接编写分页
+    	因为分页查询将传 offset,pageSize,lastRows 三个参数,不同的数据库可以根于此三个参数属性应用不同的分页实现
+    -->
+    <select id="findPage" resultMap="RM_IdeaCommon">
+		SELECT <include refid="columns_a" /> FROM t_sys_idea_common a where a.idea_type = '1'
+		union
+		SELECT <include refid="columns_b" /> FROM t_sys_idea_common b where b.idea_userid = #{loginAcct,jdbcType=VARCHAR}
+    </select>
+
+	
+</mapper>
+

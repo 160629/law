@@ -1,0 +1,115 @@
+server:
+  port: 8087
+# 日志级别
+logging:
+  config: classpath:logback.xml
+spring:
+  ##  zipkin:
+  ##    base-url: http://localhost:9411/
+  ##    enabled: true
+  ##  sleuth:
+  ##    web:
+  ##      client:
+  ##        enabled: true
+  ##    sampler:
+  ##      probability: 1.0  #zipkin采集率  0.1表示 10%采集率
+    application:
+      name: legalms-consult-service
+
+#配置数据源
+    datasource:
+      type: com.alibaba.druid.pool.DruidDataSource
+      driverClassName: com.mysql.cj.jdbc.Driver
+      druid:
+        first:
+          url: jdbc:mysql://10.43.25.5:2206/lms?characterEncoding=UTF-8&useSSL=false&serverTimezone=GMT%2B8&allowMultiQueries=true #jdbc:mysql://120.52.99.112:13306/k8s?characterEncoding=UTF-8&useSSL=false
+          username: admin
+          password: ADpa$$0o0_
+        second:
+          url: jdbc:mysql://10.43.25.5:2206/lms?characterEncoding=UTF-8&useSSL=false&serverTimezone=GMT%2B8&allowMultiQueries=true #jdbc:mysql://120.52.99.112:13306/k8s?characterEncoding=UTF-8&useSSL=false
+          username: admin
+          password: ADpa$$0o0_
+        third:
+          url: jdbc:mysql://10.43.25.5:2206/lms?characterEncoding=UTF-8&useSSL=false&serverTimezone=GMT%2B8&allowMultiQueries=true #jdbc:mysql://120.52.99.112:13306/k8s?characterEncoding=UTF-8&useSSL=false
+          username: admin
+          password: ADpa$$0o0_
+
+    redis:
+      host: 120.52.96.35
+      port: 18981
+      url: http://120.52.96.35:18981/codis
+    rabbitmq:
+      host: 123.126.34.176
+      port: 20163
+      username: admin
+      password: admin
+
+#配置mybatis com.chinatower.product.legalms.modules.flowpath.mapper.xml扫描路径
+mybatis:
+  #com.chinatower.product.legalms.modules.flowpath.mapper-locations: classpath*:com/chinatower/**/com.chinatower.product.legalms.modules.flowpath.mapper/**/*.xml
+  #'classpath*:com/strongdata/**/com.chinatower.product.legalms.modules.flowpath.mapper/**/*.xml'
+  mapper-locations: classpath*:com/chinatower/**/mapper/**/*.xml
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+##mybatis-pagehelper分页插件
+pagehelper:
+  helper-dialect: mysql
+  reasonable: true
+  support-methods-arguments: true
+  params: pageNum=pageNum;pageSize=pageSize
+swagger:
+  enable: true #是否开启swagger功能
+  package:
+    scan: com.chinatower.product #扫描包路径
+  title: springboot利用swagger构建api文档 #title
+  description: 简单优雅的restfun风格 #描述
+  version: 1.0 #版本
+  contact: #联系人
+    name: wq #联系人名称
+    tel: 13888888888 #联系人电话
+    email: test@qq.com #联系人qq
+ribbon:
+  ConnectTimeout: 3000
+  ReadTimeout: 60000
+hystrix:
+  command:
+      default:
+          execution:
+              isolation:
+                  thread:
+                      timeoutInMilliseconds: 60000
+eureka:
+  instance:
+    prefer-ip-address: true
+    instance-id: ${spring.application.name}:${spring.cloud.client.ip-address}:${server.port}
+    hostname: ${spring.cloud.client.ip-address}
+    statusPageUrlPath: /swagger-ui.html #/routes #${management.contextPath:}/info
+    healthCheckUrlPath: ${management.contextPath:}/health
+  client:
+    serviceUrl:
+      defaultZone: http://10.34.53.4:8767/eureka
+      #defaultZone:http://${eureka.instance.hostname}:${server.port}/eureka/
+feign:
+  hystrix:
+    enabled: true
+  client:
+    config:
+      default:           #服务名，填写default为所有服务
+        connectTimeout: 5000
+        readTimeout: 10000
+job:
+  lawSumService: 0 0 * * * *
+  subjectMatterService: 0 0 * * * *
+  
+push-service:
+  lawSumService:  http://123.126.34.230:20078/v1/chntlbp/lawSum
+  subjectMatterService:  http://123.126.34.230:20078/v1/chntlbp/subjectMatter
+  addAutoCaseMain:  http://123.126.34.157:1183/case/addAutoCaseMain
+  formurl: http://114.116.254.193:2580
+  formName: newtest
+  unviewUrl: /legalms/legalms-portal/src/html/myworkbench/unview/unviewView.html?formId=
+  workItemUrl: /legalms/legalms-portal/form.html?activityInstId=
+
+gateway:
+  url: http://10.34.53.5:8097  #测试环境网关内网地址
+flowurl: 123.126.34.157:45820

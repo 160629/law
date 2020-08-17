@@ -1,0 +1,107 @@
+server:
+  port: 8080
+
+# 日志级别 20190902
+logging:
+  config: classpath:logback.xml
+spring:
+##  zipkin:
+##    base-url: http://localhost:9411/
+##    enabled: true
+##  sleuth:
+##    web:
+##      client:
+##        enabled: true
+##    sampler:
+##      probability: 1.0  #zipkin采集率  0.1表示 10%采集率
+  application:
+    name: legalms-system-service
+  #配置数据源
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driverClassName: com.mysql.cj.jdbc.Driver
+    druid:
+      first:
+        url: jdbc:mysql://123.126.34.157:2206/lms?characterEncoding=UTF-8&useSSL=false&serverTimezone=GMT%2B8&allowMultiQueries=true #jdbc:mysql://120.52.99.112:13306/k8s?characterEncoding=UTF-8&useSSL=false
+        username: admin
+        password: ADpa$$0o0_
+      second:
+        url: jdbc:mysql://123.126.34.157:2206/lms?characterEncoding=UTF-8&useSSL=false&serverTimezone=GMT%2B8&allowMultiQueries=true #jdbc:mysql://120.52.99.112:13306/k8s?characterEncoding=UTF-8&useSSL=false
+        username: admin
+        password: ADpa$$0o0_
+      third:
+        url: jdbc:mysql://123.126.34.157:2206/lms?characterEncoding=UTF-8&useSSL=false&serverTimezone=GMT%2B8&allowMultiQueries=true #jdbc:mysql://120.52.99.112:13306/k8s?characterEncoding=UTF-8&useSSL=false
+        username: admin
+        password: ADpa$$0o0_
+    # 使用druid数据源
+  redis:
+    host: 123.126.34.157
+    port: 1179
+    url: http://192.168.54.17:8081/codis
+  rabbitmq:
+    host: 192.168.166.14
+    port: 5672
+    username: admin
+    password: admin
+#配置mybatis mapper.xml扫描路径
+mybatis:
+  mapper-locations: classpath*:com/chinatower/**/mapper/**/*.xml
+  #'classpath*:com/strongdata/**/mapper/**/*.xml'
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+#mybatis-pagehelper分页插件
+pagehelper:
+  helper-dialect: mysql
+  reasonable: true
+  support-methods-arguments: true
+  params: pageNum=pageNum;pageSize=pageSize
+swagger:
+  enable: true #是否开启swagger功能
+  package:
+    scan: com.chinatower.product #扫描包路径
+  title: springboot利用swagger构建api文档 #title
+  description: 简单优雅的restful风格 #描述
+  version: 1.0 #版本
+  contact: #联系人
+    name: wq #联系人名称
+    tel: 13888888888 #联系人电话
+    email: test@qq.com #联系人qq
+ribbon:
+  ConnectTimeout: 3000
+  ReadTimeout: 60000
+hystrix:
+  command:
+      default:
+          execution:
+              isolation:
+                  thread:
+                      timeoutInMilliseconds: 60000
+eureka:
+  instance:
+    prefer-ip-address: true
+    instance-id: ${spring.application.name}:${spring.cloud.client.ip-address}:${server.port}
+    hostname: ${spring.cloud.client.ip-address}
+    statusPageUrlPath: /swagger-ui.html #/routes #${management.contextPath:}/info
+    healthCheckUrlPath: ${management.contextPath:}/health
+  client:
+    serviceUrl:
+      defaultZone: http://192.168.166.11:8764/eureka
+      #defaultZone:http://${eureka.instance.hostname}:${server.port}/eureka/
+feign:
+  hystrix:
+    enabled: true
+  client:
+    config:
+      default:           #服务名，填写default为所有服务
+        connectTimeout: 5000
+        readTimeout: 5000
+#oauth:
+# url: http://192.168.166.15:8098/WS4A
+#queryinfo:
+# url: http://192.168.166.15:8098/QUERY4A
+redis:
+ url: http://192.168.54.17:8081/codis
+gateway:
+ url: http://192.168.166.15:8098  #测试环境网关内网地址
+nginx:
+  formurl: http://123.126.34.157:1189

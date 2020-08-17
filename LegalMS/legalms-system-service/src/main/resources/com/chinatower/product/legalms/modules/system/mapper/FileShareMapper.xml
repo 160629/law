@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chinatower.product.legalms.modules.system.mapper.FileShareVOMapper">
+    <resultMap id="BaseResultMap" type="com.chinatower.product.legalms.modules.system.entity.FileShareVO">
+        <id column="file_share_id" property="fileShareId" jdbcType="VARCHAR" />
+        <result column="file_type" property="fileType" jdbcType="BIGINT" />
+        <result column="file_share_business_key" property="fileShareBusinessKey" jdbcType="VARCHAR" />
+        <result column="file_share_type" property="fileShareType" jdbcType="VARCHAR" />
+        <result column="file_share_status_upd_user_id" property="fileShareStatusUpdUserId" jdbcType="VARCHAR" />
+        <result column="file_order" property="fileOrder" jdbcType="BIGINT" />
+        <result column="file_share_status" property="fileShareStatus" jdbcType="VARCHAR" />
+        <result column="file_share_status_upd_time" property="fileShareStatusUpdTime" jdbcType="TIMESTAMP" />
+        <result column="file_remark" property="fileRemark" jdbcType="VARCHAR" />
+        <result column="file_id" property="fileId" jdbcType="VARCHAR" />
+    </resultMap>
+
+    <insert id="insertFileShare" parameterType="com.chinatower.product.legalms.modules.system.entity.FileShareVO">
+    insert into t_file_share (
+           file_share_id,file_type,file_share_business_key,file_share_type,file_share_status_upd_user_id,file_order,
+                file_share_status,file_share_status_upd_time,file_remark,file_id)
+       values (
+            #{fileShareId},#{fileType},#{fileShareBusinessKey},#{fileShareType},#{fileShareStatusUpdUserId},#{fileOrder},
+                #{fileShareStatus},#{fileShareStatusUpdTime},#{fileRemark},#{fileId})
+  </insert>
+
+</mapper>

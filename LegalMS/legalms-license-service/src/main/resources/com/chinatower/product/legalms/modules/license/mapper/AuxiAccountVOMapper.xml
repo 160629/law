@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.chinatower.product.legalms.modules.license.mapper.AuxiAccountVOMapper">
+    <resultMap id="BaseResultMap" type="com.chinatower.product.legalms.modules.license.entity.AuxiAccountVO">
+        <result column="flag" property="flag" jdbcType="VARCHAR"/>
+        <result column="user_code" property="userCode" jdbcType="VARCHAR"/>
+        <result column="part_org_code" property="partOrgCode" jdbcType="VARCHAR"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+        <result column="sync_status" property="syncStatus" jdbcType="VARCHAR"/>
+        <result column="permission_key" property="permissionKey" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+     flag, user_code, part_org_code, create_time, update_time, sync_status,permission_key
+    </sql>
+    <insert id="addAuxiAccount">
+        insert into t_pub_auxiaccount (flag,user_code,part_org_code,create_time,permission_key) values
+        <foreach collection="idlist" item="partOrg" index='index' separator=",">
+            ( #{auxiAccountVO.flag},#{auxiAccountVO.userCode},#{partOrg},#{auxiAccountVO.createTime},#{auxiAccountVO.permissionKey})
+        </foreach>
+    </insert>
+    <update id="updateAuxiAccountByCode">
+        update t_pub_auxiaccount
+        set flag = #{auxiAccountVO.flag},
+        update_time = #{auxiAccountVO.updateTime},
+        sync_status = #{auxiAccountVO.syncStatus},
+        permission_key = #{auxiAccountVO.permissionKey}
+        where user_code = #{auxiAccountVO.userCode} and part_org_code in
+        (<foreach collection="idlist" item="value" index='index' separator=",">
+        #{value}
+    </foreach>)
+    </update>
+
+    <update id="deleteAuxiAccount">
+        update t_pub_auxiaccount
+        set flag = #{auxiAccountVO.flag},
+            update_time = #{auxiAccountVO.updateTime},
+            sync_status = #{auxiAccountVO.syncStatus},
+        permission_key = #{auxiAccountVO.permissionKey}
+        where user_code = #{auxiAccountVO.userCode} and flag ='1'
+        <if test="idlist !=null">
+            and part_org_code in
+            (<foreach collection="idlist" item="value" index='index' separator=",">
+            #{value}
+        </foreach>)
+        </if>
+    </update>
+    <select id="selectAuxiAccountByCode" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+         from t_pub_auxiaccount where user_code = #{userCode} and flag = '1' and part_org_code in
+        (<foreach collection="idlist" item="value" index='index' separator=",">
+        #{value}
+    </foreach>)
+    </select>
+
+    <select id="selectBySyncStatus" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+         from t_pub_auxiaccount where sync_status = #{syncStatus}
+    </select>
+
+    <select id="selectByUnSyncStatus" parameterType="com.chinatower.product.legalms.modules.license.entity.AuxiAccountVO" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from t_pub_auxiaccount where sync_status != #{syncStatus}
+    </select>
+
+    <update id="updateAuxiAccountBySyncStatus" >
+        update t_pub_auxiaccount set sync_status = #{status} where 1=1
+        <if test="userCodeList !=null">
+            and user_code in
+            (<foreach collection="userCodeList" item="value" index='index' separator=",">
+            #{value}
+        </foreach>)
+        </if>
+    </update>
+</mapper>

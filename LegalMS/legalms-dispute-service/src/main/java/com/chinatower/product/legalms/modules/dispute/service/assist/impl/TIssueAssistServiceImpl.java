@@ -1136,10 +1136,10 @@ public class TIssueAssistServiceImpl implements TIssueAssistService {
         // 过滤当前代办在本单位的执行单
         final int[] i = {0};
         List<TIssueAssist> collect = tIssueAssistList.stream().filter(x ->
-        {
-            i[0] += 1;
-            return isCurUnitTask(flowUtil, x, info);
-        }
+                {
+                    i[0] += 1;
+                    return isCurUnitTask(flowUtil, x, info);
+                }
         ).collect(Collectors.toList());
         return list2PageInfo(collect, param.getPageNum(), param.getPageSize());
     }
@@ -1163,7 +1163,7 @@ public class TIssueAssistServiceImpl implements TIssueAssistService {
         pageInfo.setHasNextPage(hasNextPage);
         boolean hasPreviousPage = pageNum != 1;
         pageInfo.setHasPreviousPage(hasPreviousPage);
-                                                                                                                                                                                      pageInfo.setIsFirstPage(!hasPreviousPage);
+        pageInfo.setIsFirstPage(!hasPreviousPage);
         boolean isLastPage = (arrayList.size() > pageSize * (pageNum - 1) && arrayList.size() <= pageSize * pageNum);
         pageInfo.setIsLastPage(isLastPage);
         int pages = arrayList.size() % pageSize == 0 ? arrayList.size() / pageSize : (arrayList.size() / pageSize) + 1;
@@ -1176,8 +1176,8 @@ public class TIssueAssistServiceImpl implements TIssueAssistService {
         int nextPage = pageNum < pages ? pageNum + 1 : 0;
         pageInfo.setNextPage(nextPage);
         pageInfo.setPageNum(pageNum);
-         pageInfo.setPageSize(pageSize);
-                                                                                                                                                                                                                                           pageInfo.setPages(pages);
+        pageInfo.setPageSize(pageSize);
+        pageInfo.setPages(pages);
         pageInfo.setPrePage(pageNum - 1);
         pageInfo.setSize(pageInfo.getList().size());
         int starRow = arrayList.size() < pageSize * pageNum ? 1 + pageSize * (pageNum - 1) : 0;
@@ -1209,17 +1209,19 @@ public class TIssueAssistServiceImpl implements TIssueAssistService {
                     default:
                         return false;
                 }
-                List<WFActivityInst> collect = activityInsts.stream().filter(z -> z.getCurrentState() == 2).collect(Collectors.toList());
-                if (collect != null && !collect.isEmpty()) {
-                    WFActivityInst wfActivityInst1 = collect.get(0);
-                    // 活动实例
-                    WFWorkItem wfWorkItem = flowUtil.queryWorkItemByActInstId(wfActivityInst1.getActivityInstID());
-                    AccountLogic accountLogic = userInfoService.selectUserInfo(wfWorkItem.getParticipant());
-                    return accountLogic.getAccountUnitId().equals(info.getOrgId());
+                if (activityInsts != null && !activityInsts.isEmpty()) {
+                    List<WFActivityInst> collect = activityInsts.stream().filter(z -> z.getCurrentState() == 2).collect(Collectors.toList());
+                    if (collect != null && !collect.isEmpty()) {
+                        WFActivityInst wfActivityInst1 = collect.get(0);
+                        // 活动实例
+                        WFWorkItem wfWorkItem = flowUtil.queryWorkItemByActInstId(wfActivityInst1.getActivityInstID());
+                        AccountLogic accountLogic = userInfoService.selectUserInfo(wfWorkItem.getParticipant());
+                        return accountLogic.getAccountUnitId().equals(info.getOrgId());
+                    }
                 }
             } else if ("subflow".equals(wfActivityInst.getActivityType())) {
                 // 会签环节
-                System.out.println("processInstId："  + wfProcessInst.getProcessInstID() + "---" + "activityInstId：" + wfActivityInst.getActivityInstID());
+                System.out.println("processInstId：" + wfProcessInst.getProcessInstID() + "---" + "activityInstId：" + wfActivityInst.getActivityInstID());
                 long[] longs = flowUtil.getClient().getProcessInstManager().querySubProcessInstIDsByActivityInstID(wfActivityInst.getActivityInstID());
                 for (Long flowId : longs) {
                     WFProcessInst wfProcessInst1 = flowUtil.queryProcessInstDetail(flowId);
@@ -1227,7 +1229,7 @@ public class TIssueAssistServiceImpl implements TIssueAssistService {
                     if (wfProcessInst1.getCurrentState() == 2) {
                         // 当前子流程代办环节
                         List<WFActivityInst> activityInsts = null;
-                                switch (wfProcessInst1.getProcessDefName()) {
+                        switch (wfProcessInst1.getProcessDefName()) {
                             case "com.tower.issue.assist.statemeet":
                                 // 总部送省分流程
                                 activityInsts = flowUtil.queryActivityInstsByActivityID(flowId, "sffwrycl", null);
